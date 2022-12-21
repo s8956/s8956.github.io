@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>find | Library Online</title><link>https://lib.onl/ru/tags/find/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/tags/find/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>find | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 19 Aug 2021 15:03:46 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/find/index.xml" rel="self" type="application/rss+xml"/><item><title>Скрипт автоматического удаления устаревших файлов</title><link>https://lib.onl/ru/posts/2021/08/ca744dce-e607-52e6-9952-8ae04e052a5b/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/08/ca744dce-e607-52e6-9952-8ae04e052a5b/</guid><description>В одной компании стояла задача сделать файловый архив-помойку для хранения и пересылки документации в сторонние организации. я накидал на PHP самописный интерфейс для загрузки файлов, а на bash&amp;rsquo;е сделал скрипт автоматического удаления устаревших файлов. Небольшая заметка об этом скрипте.</description><content:encoded><![CDATA[<p>В одной компании стояла задача сделать файловый архив-помойку для хранения и пересылки документации в сторонние организации. я накидал на PHP самописный интерфейс для загрузки файлов, а на bash&rsquo;е сделал скрипт автоматического удаления устаревших файлов. Небольшая заметка об этом скрипте.</p>
+<p>Скрипт для удаления устаревших файлов очень прост, написан на bash&rsquo;е и основывается на утилите <code>find</code>. Утилита <code>find</code> имеет опцию <code>-mtime</code>, при помощи которого можно сделать выборку файлов по времени изменения:</p>
+<pre><code class="language-sh">find &quot;/home/user&quot; -type f -mtime +3
+</code></pre>
+<p>Здесь мы говорим утилите <code>find</code>, что необходимо найти и показать файлы, у которых с даты последнего изменения прошло более 3 дней. Если необходимо вывести файлы, дата изменения которых будет менее <code>3</code> дней, то ставим отрицательное значение <code>-3</code>.</p>
+<p>Далее, конструируем конвейер, и при помощи <code>xargs</code> указываем команду удаления <code>rm -f</code>:</p>
+<pre><code class="language-sh">find &quot;/home/user&quot; -type f -mtime +3 -print0 | xargs -0 rm -f
+</code></pre>
+<p>Сам скрипт провожу ниже.</p>
+<h2 id="скрипт">Скрипт</h2>
+<pre><code class="language-sh">#!/usr/bin/bash
+# name: delete-files.sh
+
+days=&quot;${1}&quot;
+dir=&quot;${2}&quot;
+
+find &quot;${dir}&quot; -type f -mtime +${days} -print0 | xargs -0 rm -f
+
+exit 0
+</code></pre>
+<p>В скрипте я вынес некоторые значения в переменные для удобной перенастройки. Вызывается скрипт следующем образом:</p>
+<pre><code class="language-txt">user@localhost ~ % delete-files.sh &quot;3&quot; &quot;/path/to/storage&quot;
+</code></pre>
+<p>Где:</p>
+<ul>
+<li><code>3</code> - количество дней, прошедших с момента последнего изменения файла.</li>
+<li><code>/path/to/storage</code> - путь к файловому хранилищу, в котором необходимо удалять устаревшие файлы.</li>
+</ul>
+<h2 id="автоматический-запуск-по-расписанию">Автоматический запуск по расписанию</h2>
+<p>Осталось добавить выполнение скрипта по cron&rsquo;у. Я указал время <code>23:59</code>, когда нагрузка на файловое хранилище минимальна:</p>
+<pre><code class="language-bash"># Check &amp; remove old files in 23:59 every day.
+59 23 * * * [username] /usr/bin/bash /path/to/delete-files.sh &quot;3&quot; &quot;/path/to/storage&quot; &gt; /dev/null 2&gt;&amp;1
+</code></pre>]]></content:encoded><pubDate>Thu, 19 Aug 2021 15:03:46 +0000</pubDate><category>Разработка</category></item><item><title>Рекурсивное изменение прав доступа на файлы и директории</title><link>https://lib.onl/ru/posts/2021/05/4a3b0a31-0d3d-5a9b-8c07-7e3b4f80669e/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/4a3b0a31-0d3d-5a9b-8c07-7e3b4f80669e/</guid><description>Права доступа к файлам и директориям является неотъемлемой частью любой операционной системы. И в этой статье описаны возможности по рекурсивной настройке этих прав доступа.</description><content:encoded><![CDATA[<p>Права доступа к файлам и директориям является неотъемлемой частью любой операционной системы. И в этой статье описаны возможности по рекурсивной настройке этих прав доступа.</p>
+<p>Изменение прав доступа осуществляется при помощи команды <code>chmod</code>, рекурсивное при добавлении опции <code>-R</code>:</p>
+<pre><code class="language-text">chmod -R MODE DIR
+</code></pre>
+<ul>
+<li><code>-R</code> - рекурсивный обход директорий и файлов.</li>
+<li><code>MODE</code> - набор прав доступа для их установки.</li>
+<li><code>DIR</code> - файл или директория, у которых необходимо установить определённые права доступа.</li>
+</ul>
+<p>В итоге, команда должна выглядеть так:</p>
+<pre><code class="language-text">user@localhost ~ % chmod -R 755 /var/www/html
+</code></pre>
+<p>Но, стоит учитывать, что таким образом директории и файлы примут одинаковые права доступа. Чтобы избежать этого, можно воспользоваться командой <code>find</code>, которая отфильтрует директории и файлы друг от друга:</p>
+<pre><code class="language-text">user@localhost ~ % find /var/www/html -type d -exec chmod 755 {} \;
+user@localhost ~ % find /var/www/html -type f -exec chmod 644 {} \;
+</code></pre>
+<p>Команда <code>find</code> ищет директории (<code>-type d</code>) и файлы (<code>-type f</code>) и скармливает их команде <code>chmod</code>, а та, в свою очередь, уже расставляет права доступа. При использовании <code>-exec</code>, <code>chmod</code> выполняется для каждого найденного элемента поочерёдно. Можно оптимизировать и записать с использованием <code>xargs</code>:</p>
+<pre><code class="language-text">user@localhost ~ % find /var/www/html -type d -print0 | xargs -0 chmod 755
+user@localhost ~ % find /var/www/html -type f -print0 | xargs -0 chmod 644
+</code></pre>
+<p>При <code>xargs</code>, <code>chmod</code> выполняется сразу для нескольких записей одновременно, как сообщает <strong>Daniel Miessler</strong>:</p>
+
+
+
+<div class="shortcode shortcode-quote">
+  <figure>
+    <blockquote class="blockquote">
+        <p>This is where -exec breaks down and xargs shows its superiority. When you use -exec to do the work you run a separate instance of the called program for each element of input. So if find comes up with 10,000 results, you run exec 10,000 times. With xargs, you build up the input into bundles and run them through the command as few times as possible, which is often just once. When dealing with hundreds or thousands of elements this is a big win for xargs.</p>
+
+    </blockquote>
+      
+        <figcaption class="blockquote-footer">
+          <cite>
+              
+                <a href="https://danielmiessler.com/blog/linux-xargs-vs-exec/" target="_blank" rel="noopener nofollow">Daniel Miessler</a>
+              
+          </cite>
+        </figcaption>
+      
+  </figure>
+</div>
+
+<p>Если необходимо запустить рекурсивное изменение прав доступа начиная с текущей директории, то <code>/var/www/html</code> необходимо поменять на точку:</p>
+<pre><code class="language-text">user@localhost ~ % find . -type d -print0 | xargs -0 chmod 755
+user@localhost ~ % find . -type f -print0 | xargs -0 chmod 644
+</code></pre>]]></content:encoded><pubDate>Sun, 09 May 2021 17:15:26 +0000</pubDate><category>Terminal</category><category>Linux</category></item></channel></rss>

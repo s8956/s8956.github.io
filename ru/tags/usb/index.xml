@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>usb | Library Online</title><link>https://lib.onl/ru/tags/usb/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/tags/usb/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>usb | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Tue, 02 Jun 2020 06:20:24 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/usb/index.xml" rel="self" type="application/rss+xml"/><item><title>Запись ISO на USB Flash Drive</title><link>https://lib.onl/ru/posts/2020/06/5d90ef6f-f05f-5462-b8a2-28dac0bb2f48/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2020/06/5d90ef6f-f05f-5462-b8a2-28dac0bb2f48/</guid><description>Команды для &amp;ldquo;правильной&amp;rdquo; записи ISO на USB Flash Drive.</description><content:encoded><![CDATA[<p>Команды для &ldquo;правильной&rdquo; записи ISO на USB Flash Drive.</p>
+<ol>
+<li>Определить USB-накопитель при помощи команды <code>fdisk -l</code>.</li>
+<li>Отмонтировать ВСЕ разделы с USB-накопителя командой <code>umount /dev/sdX*</code>, где <code>X</code> - буква накопителя (например, <code>umount /dev/sdc*</code>).</li>
+<li>Загрузить ISO на USB-накопитель:</li>
+</ol>
+<pre><code class="language-bash"># Отмонтировать и очистить USB-накопитель.
+umount /dev/sdX* &amp;&amp; sgdisk -Z /dev/sdX
+
+# Записать образ на USB-накопитель.
+dd if=image.iso of=/dev/sdX bs=4M oflag=direct status=progress; sync
+
+# Извлечь USB-накопитель.
+eject /dev/sdX
+</code></pre>]]></content:encoded><pubDate>Tue, 02 Jun 2020 06:20:24 +0000</pubDate><category>Linux</category></item></channel></rss>

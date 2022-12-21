@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>gnome | Library Online</title><link>https://lib.onl/ru/tags/gnome/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/tags/gnome/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>gnome | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 30 Sep 2021 08:10:19 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/gnome/index.xml" rel="self" type="application/rss+xml"/><item><title>Чёрный экран с курсором при старте GDM</title><link>https://lib.onl/ru/posts/2021/09/581804b8-0613-52a8-a5c4-fdae90e7bc8a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/581804b8-0613-52a8-a5c4-fdae90e7bc8a/</guid><description>На днях установил Debian 11 на несколько ПК. Всё было отлично, кроме как на одном из ПК почему то GDM не стал загружаться. Чёрный экран с мигающем текстовым курсором&amp;hellip;</description><content:encoded><![CDATA[<p>На днях установил <strong>Debian 11</strong> на несколько ПК. Всё было отлично, кроме как на одном из ПК почему то <strong>GDM</strong> не стал загружаться. Чёрный экран с мигающем текстовым курсором&hellip;</p>
+<p>На других ПК всё было нормально. Отличие проблемного ПК от остальных заключалось в том, что на проблемном ПК система была установлена на <strong>SSD</strong>. Может быть дело в этом. В интернете я нашёл похожую проблему. По сути, проблема заключается в том, что сам GDM запускается чуть раньше, чем начинается инициализация графической подсистемы. И на кой чёрт его несёт вперёд&hellip;</p>
+<p>В общем, предлагают несколько решений.</p>
+<h2 id="настройка-сервиса-gdm">Настройка сервиса GDM</h2>
+<p>Данный вариант решения проблемы предлагает отредактировать стартовые параметры сервиса GDM, чтобы тот запускался с небольшой задержкой и не лез вперёд остальной графической подсистемы.</p>
+<p>В терминале нужно ввести от root&rsquo;а команду <code>systemctl edit gdm.service</code>, откроется редактор сервиса GDM. В нем необходимо добавить строку <code>ExecStartPre=/bin/sleep 2</code>, которая создаёт задержку перед запуском самого GDM. Примерно вот так:</p>
+<pre><code class="language-ini">### Anything between here and the comment below will become the new contents of the file
+
+[Service]
+ExecStartPre=/bin/sleep 2
+
+### Lines below this comment will be discarded
+</code></pre>
+<p>Таким образом GDM начинает запускаться после того, как инициализируется графическая подсистема.</p>
+<p>Сделал специальный пакет для исправления проблемы:</p>
+
+
+
+
+<div class="shortcode shortcode-github-repo mb-3">
+  <div class="row row-cols-1 row-cols-lg-2 g-3">
+      
+          
+          
+
+          <div class="col">
+            <div class="card">
+              <div class="row g-0">
+                <div class="col-md-4 p-1">
+                  <a class="d-inline-block" href="https://github.com/zbox/debian-fix-gdm" target="_blank" rel="noopener nofollow">
+                    <img src="https://avatars.githubusercontent.com/u/113213570?v=4" class="card-img" alt="debian-fix-gdm"/>
+                  </a>
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body h-100">
+                    <div class="d-flex flex-column h-100">
+                      <div class="flex-shrink-0">
+                        <h5 class="card-title">
+                          <a href="https://github.com/zbox/debian-fix-gdm" target="_blank" rel="noopener nofollow">debian-fix-gdm</a>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">ZBox Development Platform</h6>
+                        <p class="card-text"></p>
+                      </div>
+                      <div class="mt-auto">
+                        <ul class="list-inline m-0 mt-3">
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="https://github.com/zbox/debian-fix-gdm/watchers" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-eye fa-fw me-1"></i>
+                                1
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="https://github.com/zbox/debian-fix-gdm/stargazers" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-star fa-fw me-1"></i>
+                                0
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="https://github.com/zbox/debian-fix-gdm/network/members" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-code-branch fa-fw me-1"></i>
+                                0
+                            </a>
+                          </li>
+                            
+                                
+                                <li class="list-inline-item">
+                                  <a class="btn btn-light btn-sm text-muted" href="http://choosealicense.com/licenses/mit/" target="_blank" rel="noopener nofollow" role="button">
+                                    <i class="fas fa-copyright fa-fw me-1"></i>
+                                      MIT
+                                  </a>
+                                </li>
+                            
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      
+  </div>
+</div>
+
+<p>Ещё одно исправление 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://gitlab.gnome.org/GNOME/gdm/-/issues/662#note_993169" target="_blank" rel="noopener noreferrer nofollow">предложили</a>
+ в баг-трекере GNOME/GDM. Вместо торможения загрузки GDM, необходимо добавить следующие строки:</p>
+<pre><code class="language-ini">[Unit]
+Wants=systemd-udev-trigger.service systemd-udev-settle.service
+After=systemd-udev-trigger.service systemd-udev-settle.service
+</code></pre>
+<p>Но это не совсем корректное исправление (хотя исправление, изложенное выше, тоже трудно назвать правильным), так как после применения этих строк, появляется ошибка:</p>
+<pre><code class="language-txt">Dec 27 22:23:48 oleksandr-xps15 udevadm[260]: systemd-udev-settle.service is deprecated. Please fix gdm.service not to pull it in.
+</code></pre>
+<h2 id="указание-порядка-инициализации-графической-подсистемы">Указание порядка инициализации графической подсистемы</h2>
+<p>Этот вариант решения проблемы подходит для <strong>Arch Linux</strong>. Необходимо в файле <code>/etc/mkinitcpio.conf</code> добавить в массив <code>MODULES</code> свою графическую подсистему, чтобы та запускалась раньше, чем GDM. Например:</p>
+<pre><code>MODULES=(amdgpu)
+</code></pre>
+<p>Можно указать другие графические подсистемы, всё зависит от видеокарты, установленной в ПК:</p>
+<ul>
+<li><code>amdgpu</code> - для современных видеокарт AMD.</li>
+<li><code>radeon</code> - для устаревших видеокарт AMD.</li>
+<li><code>nouveau</code> - для Nvidia Nouveau.</li>
+<li><code>i915</code> - для Intel.</li>
+<li><code>mgag200</code> - для видеокарт Matrox.</li>
+</ul>
+<p>Если в системе используется Intel в качестве графики и в модулях прописан <code>i915</code>, то могут появится ошибки ACPI. Для исправления этих ошибок необходимо добавить <code>intel_agp</code> перед <code>i915</code>. Чтобы проверить корректность загрузки модуля, можно ввести команду <code>lsmod | grep intel_agp</code>.</p>]]></content:encoded><pubDate>Thu, 30 Sep 2021 08:10:19 +0000</pubDate><category>Linux</category></item></channel></rss>

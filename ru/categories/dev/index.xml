@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>Разработка | Library Online</title><link>https://lib.onl/ru/categories/dev/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/categories/dev/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>Разработка | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 19 Aug 2021 15:03:46 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/categories/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>Скрипт автоматического удаления устаревших файлов</title><link>https://lib.onl/ru/posts/2021/08/ca744dce-e607-52e6-9952-8ae04e052a5b/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/08/ca744dce-e607-52e6-9952-8ae04e052a5b/</guid><description>В одной компании стояла задача сделать файловый архив-помойку для хранения и пересылки документации в сторонние организации. я накидал на PHP самописный интерфейс для загрузки файлов, а на bash&amp;rsquo;е сделал скрипт автоматического удаления устаревших файлов. Небольшая заметка об этом скрипте.</description><content:encoded><![CDATA[<p>В одной компании стояла задача сделать файловый архив-помойку для хранения и пересылки документации в сторонние организации. я накидал на PHP самописный интерфейс для загрузки файлов, а на bash&rsquo;е сделал скрипт автоматического удаления устаревших файлов. Небольшая заметка об этом скрипте.</p>
+<p>Скрипт для удаления устаревших файлов очень прост, написан на bash&rsquo;е и основывается на утилите <code>find</code>. Утилита <code>find</code> имеет опцию <code>-mtime</code>, при помощи которого можно сделать выборку файлов по времени изменения:</p>
+<pre><code class="language-sh">find &quot;/home/user&quot; -type f -mtime +3
+</code></pre>
+<p>Здесь мы говорим утилите <code>find</code>, что необходимо найти и показать файлы, у которых с даты последнего изменения прошло более 3 дней. Если необходимо вывести файлы, дата изменения которых будет менее <code>3</code> дней, то ставим отрицательное значение <code>-3</code>.</p>
+<p>Далее, конструируем конвейер, и при помощи <code>xargs</code> указываем команду удаления <code>rm -f</code>:</p>
+<pre><code class="language-sh">find &quot;/home/user&quot; -type f -mtime +3 -print0 | xargs -0 rm -f
+</code></pre>
+<p>Сам скрипт провожу ниже.</p>
+<h2 id="скрипт">Скрипт</h2>
+<pre><code class="language-sh">#!/usr/bin/bash
+# name: delete-files.sh
+
+days=&quot;${1}&quot;
+dir=&quot;${2}&quot;
+
+find &quot;${dir}&quot; -type f -mtime +${days} -print0 | xargs -0 rm -f
+
+exit 0
+</code></pre>
+<p>В скрипте я вынес некоторые значения в переменные для удобной перенастройки. Вызывается скрипт следующем образом:</p>
+<pre><code class="language-txt">user@localhost ~ % delete-files.sh &quot;3&quot; &quot;/path/to/storage&quot;
+</code></pre>
+<p>Где:</p>
+<ul>
+<li><code>3</code> - количество дней, прошедших с момента последнего изменения файла.</li>
+<li><code>/path/to/storage</code> - путь к файловому хранилищу, в котором необходимо удалять устаревшие файлы.</li>
+</ul>
+<h2 id="автоматический-запуск-по-расписанию">Автоматический запуск по расписанию</h2>
+<p>Осталось добавить выполнение скрипта по cron&rsquo;у. Я указал время <code>23:59</code>, когда нагрузка на файловое хранилище минимальна:</p>
+<pre><code class="language-bash"># Check &amp; remove old files in 23:59 every day.
+59 23 * * * [username] /usr/bin/bash /path/to/delete-files.sh &quot;3&quot; &quot;/path/to/storage&quot; &gt; /dev/null 2&gt;&amp;1
+</code></pre>]]></content:encoded><pubDate>Thu, 19 Aug 2021 15:03:46 +0000</pubDate><category>Разработка</category></item><item><title>XenForo: Первичные настройки движка и параметры системы</title><link>https://lib.onl/ru/posts/2021/08/8ddf3622-5dd8-5101-9c40-2f3e08f4a579/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/08/8ddf3622-5dd8-5101-9c40-2f3e08f4a579/</guid><description>У меня в проекте находятся несколько форумов на движке XenForo. Здесь я собрал для себя первичные параметры и настройки движка XenForo.</description><content:encoded><![CDATA[<p>У меня в проекте находятся несколько форумов на движке XenForo. Здесь я собрал для себя первичные параметры и настройки движка XenForo.</p>
+<h2 id="configphp">config.php</h2>
+<p>Примеры параметров в файле config.php для первоначальной установки и запуска системы.</p>
+<pre><code class="language-php">&lt;?php
+
+# Database.
+$config['db']['host']                             = '127.0.0.1';
+$config['db']['port']                             = 3306;
+$config['db']['username']                         = '';
+$config['db']['password']                         = '';
+$config['db']['dbname']                           = '';
+$config['db']['socket']                           = null;
+
+# Unicode support.
+$config['fullUnicode']                            = true;
+
+# Site-wide feature.
+$config['enableTfa']                              = false;
+$config['enableApi']                              = false;
+$config['enableOneClickUpgrade']                  = false;
+
+# Cookie.
+$config['cookie']['prefix']                       = 'xf_';
+
+# Data and script locations.
+$config['externalDataPath']                       = 'storage/data';
+$config['externalDataUrl']                        = 'storage/data';
+$config['internalDataPath']                       = 'storage/data.int';
+$config['codeCachePath']                          = '%s/cache/code';
+$config['tempDataPath']                           = '%s/temp';
+$config['javaScriptUrl']                          = 'js';
+
+# Auth.
+$config['auth'] = [
+  'algo' =&gt; PASSWORD_ARGON2ID
+];
+
+# Cache.
+/*
+$config['cache']['enabled']                       = true;
+$config['cache']['provider']                      = 'Redis';
+$config['cache']['config']                        = [
+  'host' =&gt; '127.0.0.1',
+  'password' =&gt; '',
+  'database' =&gt; 1
+];
+*/
+
+# Guest page caching.
+/*
+$config['pageCache']['enabled']                   = true;
+$config['cache']['context']['page']['provider']   = 'Filesystem';
+$config['cache']['context']['page']['config']     = [
+  'directory' =&gt; ''
+];
+*/
+</code></pre>
+<h2 id="регистрация-пользователей">Регистрация пользователей</h2>
+<p>Параметры для регистрации пользователей.</p>
+<p><strong>Регулярное выражение:</strong></p>
+<pre><code>#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#
+</code></pre>
+<h2 id="теги">Теги</h2>
+<p>Параметры для ввода тегов.</p>
+<p><strong>Регулярное выражение:</strong></p>
+<pre><code>#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#
+</code></pre>
+<h2 id="группы-пользователей">Группы пользователей</h2>
+<p>Настройки групп пользователей.</p>
+<p><strong>Стандартные группы:</strong></p>
+<ul>
+<li>Unregistered / Unconfirmed <code>ID(1)</code></li>
+<li>Registered <code>ID(2)</code></li>
+<li>Administrative <code>ID(3)</code></li>
+<li>Moderating <code>ID(4)</code></li>
+</ul>]]></content:encoded><pubDate>Wed, 18 Aug 2021 06:55:19 +0000</pubDate><category>CMF</category><category>Разработка</category></item><item><title>Зеркалирование репозитория между хостингами</title><link>https://lib.onl/ru/posts/2021/07/3834fbed-71c8-5979-b6c2-236269f5ecea/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/07/3834fbed-71c8-5979-b6c2-236269f5ecea/</guid><description>В предыдущей статье Синхронизация репозитория от GitHub к GitLab я рассказал о том, как организовать синхронизацию между репозиториями GIT на разных хостингах, в частности, между GitHub и GitLab. В итоге, я решил сделать собственный GitHub Action, который позволяет полностью зеркалировать репозитории.</description><content:encoded><![CDATA[<p>В предыдущей статье <span class="shortcode shortcode-uuid"><a href="/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/">Синхронизация репозитория от GitHub к GitLab</a></span> я рассказал о том, как организовать синхронизацию между репозиториями GIT на разных хостингах, в частности, между GitHub и GitLab. В итоге, я решил сделать собственный GitHub Action, который позволяет полностью зеркалировать репозитории.</p>
+<div class="shortcode shortcode-github-repo mb-3">
+  <div class="row row-cols-1 row-cols-lg-2 g-3">
+      
+          
+          
+
+          <div class="col">
+            <div class="card">
+              <div class="row g-0">
+                <div class="col-md-4 p-1">
+                  <a class="d-inline-block" href="https://github.com/ghastore/mirror" target="_blank" rel="noopener nofollow">
+                    <img src="https://avatars.githubusercontent.com/u/112582249?v=4" class="card-img" alt="mirror"/>
+                  </a>
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body h-100">
+                    <div class="d-flex flex-column h-100">
+                      <div class="flex-shrink-0">
+                        <h5 class="card-title">
+                          <a href="https://github.com/ghastore/mirror" target="_blank" rel="noopener nofollow">mirror</a>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">GitHub Actions Store</h6>
+                        <p class="card-text"></p>
+                      </div>
+                      <div class="mt-auto">
+                        <ul class="list-inline m-0 mt-3">
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="https://github.com/ghastore/mirror/watchers" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-eye fa-fw me-1"></i>
+                                1
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="https://github.com/ghastore/mirror/stargazers" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-star fa-fw me-1"></i>
+                                0
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="https://github.com/ghastore/mirror/network/members" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-code-branch fa-fw me-1"></i>
+                                0
+                            </a>
+                          </li>
+                            
+                                
+                                <li class="list-inline-item">
+                                  <a class="btn btn-light btn-sm text-muted" href="http://choosealicense.com/licenses/mit/" target="_blank" rel="noopener nofollow" role="button">
+                                    <i class="fas fa-copyright fa-fw me-1"></i>
+                                      MIT
+                                  </a>
+                                </li>
+                            
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      
+  </div>
+</div>
+
+<h2 id="использование">Использование</h2>
+<p>Для подключения зеркалирования, к примеру, с GitHub на GitLab, необходимо в исходном репозитории создать файл <code>.github/workflows/mirror.yml</code>, в котором указать следующее содержимое:</p>
+<pre><code class="language-yml">name: &quot;Repository Mirror&quot;
+
+on:
+  - push
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    name: &quot;Mirror&quot;
+    steps:
+      - uses: pkgstore/github-action-mirror@main
+        with:
+          source_repo: &quot;https://github.com/${{ github.repository }}.git&quot;
+          source_user: &quot;${{ secrets.MIRROR_SOURCE_USER_GITHUB }}&quot;
+          source_token: &quot;${{ secrets.MIRROR_SOURCE_TOKEN_GITHUB }}&quot;
+          target_repo: &quot;https://gitlab.com/${{ github.repository }}.git&quot;
+          target_user: &quot;${{ secrets.MIRROR_TARGET_USER_GITLAB }}&quot;
+          target_token: &quot;${{ secrets.MIRROR_TARGET_TOKEN_GITLAB }}&quot;
+</code></pre>
+<ul>
+<li><code>source_repo</code> - <strong>URL</strong> исходного репозитория.</li>
+<li><code>source_user</code> - <strong>пользователь</strong> исходного репозитория.</li>
+<li><code>source_token</code> - <strong>токен пользователя</strong> исходного репозитория.</li>
+<li><code>target_repo</code> - <strong>URL</strong> зеркального репозитория.</li>
+<li><code>target_user</code> - <strong>пользователь</strong> зеркального репозитория.</li>
+<li><code>target_token</code> - <strong>токен пользователя</strong> зеркального репозитория.</li>
+</ul>
+<p>В этом коде стоит обратить внимание на параметр <code>target_repo</code>. GitLab позволяет автоматически создавать репозиторий при зеркалировании, а так как у меня адреса репозиториев совпадают между GitHub и GitLab, мне гораздо проще выстроить конструкцию <code>https://gitlab.com/${{ github.repository }}.git</code>. Переменная <code>${{ github.repository }}</code> содержит имя пользователя / организации и название репозитория, и, при настройке зеркалирования репозитория на GitHub&rsquo;е, зеркало репозитория автоматически создаётся на GitLab&rsquo;е.</p>]]></content:encoded><pubDate>Tue, 06 Jul 2021 17:40:43 +0000</pubDate><category>Разработка</category></item><item><title>Генератор иконок для сайта</title><link>https://lib.onl/ru/posts/2021/05/841ba281-a22b-55ee-b97d-251a5dc111d8/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/841ba281-a22b-55ee-b97d-251a5dc111d8/</guid><description>Сделал для сайта автоматизированное создание иконок типа favicon, которыми пользуются браузеры и устройства для своих нужд.</description><content:encoded><![CDATA[<p>Сделал для сайта автоматизированное создание иконок типа <code>favicon</code>, которыми пользуются браузеры и устройства для своих нужд.</p>
+<p>Я накидал небольшой скрипт, состоящий из двух функций <code>png()</code> и <code>ico()</code>. Функция <code>png()</code> берёт файл <code>icon.svg</code> и преобразует его в PNG, указанных в массиве <code>size</code>, размеров. Функция <code>ico()</code> также берёт файл <code>icon.svg</code> и преобразует его в формат ICO, который содержит в себе несколько размеров изображения.</p>
+<h2 id="использование">Использование</h2>
+<p>Для работы скрипта необходимо, чтобы в системе были установлены <strong>Inkscape</strong> и <strong>ImageMagick</strong>. Скрипт можно сохранить с произвольным именем, например, <code>icon.sh</code> в директорию, где находится изображение <code>icon.svg</code>. Далее, вызывать функции следующим образом:</p>
+<pre><code class="language-text">user@localhost ~ % bash icon.sh png
+</code></pre>
+<pre><code class="language-text">user@localhost ~ % bash icon.sh ico
+</code></pre>
+<p>Скрипт ищет файл <code>icon.svg</code> и преобразует его в необходимые изображения.</p>
+<h2 id="скрипт">Скрипт</h2>
+
+
+
+
+<div class="shortcode shortcode-github-repo mb-3">
+  <div class="row row-cols-1 row-cols-lg-2 g-3">
+      
+          
+          
+
+          <div class="col">
+            <div class="card">
+              <div class="row g-0">
+                <div class="col-md-4 p-1">
+                  <a class="d-inline-block" href="https://github.com/pkgstore/bash-favicon" target="_blank" rel="noopener nofollow">
+                    <img src="https://avatars.githubusercontent.com/u/119821612?v=4" class="card-img" alt="bash-favicon"/>
+                  </a>
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body h-100">
+                    <div class="d-flex flex-column h-100">
+                      <div class="flex-shrink-0">
+                        <h5 class="card-title">
+                          <a href="https://github.com/pkgstore/bash-favicon" target="_blank" rel="noopener nofollow">bash-favicon</a>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Package Store</h6>
+                        <p class="card-text">Bash script for favicon generation.</p>
+                      </div>
+                      <div class="mt-auto">
+                        <ul class="list-inline m-0 mt-3">
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="https://github.com/pkgstore/bash-favicon/watchers" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-eye fa-fw me-1"></i>
+                                0
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="https://github.com/pkgstore/bash-favicon/stargazers" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-star fa-fw me-1"></i>
+                                0
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="https://github.com/pkgstore/bash-favicon/network/members" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-code-branch fa-fw me-1"></i>
+                                0
+                            </a>
+                          </li>
+                            
+                                
+                                <li class="list-inline-item">
+                                  <a class="btn btn-light btn-sm text-muted" href="http://choosealicense.com/licenses/mit/" target="_blank" rel="noopener nofollow" role="button">
+                                    <i class="fas fa-copyright fa-fw me-1"></i>
+                                      MIT
+                                  </a>
+                                </li>
+                            
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      
+  </div>
+</div>]]></content:encoded><pubDate>Tue, 18 May 2021 07:41:46 +0000</pubDate><category>Разработка</category></item><item><title>Синхронизация репозитория от GitHub к GitLab</title><link>https://lib.onl/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/</guid><description>Понадобилось мне на днях синхронизировать некоторые свои репозитории между GitHub и GitLab. Сам GitLab имеет встроенные средства зеркалирования репозиториев от себя к другому git-хранилищу. GitHub же не обладает такой функцией. Но эту функцию можно воссоздать при помощи GitHub Actions.</description><content:encoded><![CDATA[<p>Понадобилось мне на днях синхронизировать некоторые свои репозитории между GitHub и GitLab. Сам GitLab имеет встроенные средства зеркалирования репозиториев от себя к другому git-хранилищу. GitHub же не обладает такой функцией. Но эту функцию можно воссоздать при помощи GitHub Actions.</p>
+<p>Для начала необходимо создать &ldquo;секреты&rdquo; с такими переменными:</p>
+<ul>
+<li><code>GITLAB_SYNC_REPO_URL</code> - ссылка на пустой репозиторий GitLab.</li>
+<li><code>GITLAB_SYNC_USER_NAME</code> - имя пользователя GitLab.</li>
+<li><code>GITLAB_SYNC_USER_TOKEN</code> - токен пользователя GitLab. Токен создаётся в настройках аккаунта GitLab.</li>
+</ul>
+<p>Далее, в корне репозитория нужно создать файл <code>.github/workflows/gitlab-sync.yml</code> со следующим содержанием:</p>
+<pre><code class="language-yml">name: GitLab Sync
+
+on:
+  - push
+  - delete
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    name: Git Repo Sync
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wangchucheng/git-repo-sync@v0.1.0
+        with:
+          # Such as https://github.com/wangchucheng/git-repo-sync.git
+          target-url: ${{ secrets.GITLAB_SYNC_REPO_URL }}
+          # Such as wangchucheng
+          target-username: ${{ secrets.GITLAB_SYNC_USER_NAME }}
+          # You can store token in your project's 'Setting &gt; Secrets' and reference the name here. Such as ${{ secrets.ACCESS_TOKEN }}
+          target-token: ${{ secrets.GITLAB_SYNC_USER_TOKEN }}
+</code></pre>
+<p>На этом всё. Теперь при коммите в репозиторий, GutHub будет запускать Action и автоматически синхронизировать изменения с репозиторием на GitLab.</p>]]></content:encoded><pubDate>Sat, 08 May 2021 21:06:18 +0000</pubDate><category>Разработка</category></item></channel></rss>

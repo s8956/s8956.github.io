@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>Git | Library Online</title><link>https://lib.onl/ru/categories/git/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/categories/git/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>Git | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sat, 14 Aug 2021 15:52:38 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/categories/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Настройка и использование Git</title><link>https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</guid><description>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</description><content:encoded><![CDATA[<p>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</p>
+<h2 id="первичная-настройка">Первичная настройка</h2>
+<p>Для начала работы с Git&rsquo;ом, его необходимо хотя бы минимально настроить.</p>
+<ol>
+<li>Указать своё имя:</li>
+</ol>
+<pre><code>git config --global user.name &quot;John Doe&quot;
+</code></pre>
+<ol start="2">
+<li>Указать свой адрес e-mail:</li>
+</ol>
+<pre><code>git config --global user.email &quot;johndoe@example.com&quot;
+</code></pre>
+<h2 id="настройка-подписи">Настройка подписи</h2>
+<p>Хорошим тоном будет считаться подпись каждого своего коммита.</p>
+<ol>
+<li>Выяснить какие ключи установлены в системе (о создании ключей я публиковал заметку <span class="shortcode shortcode-uuid"><a href="/ru/posts/2020/07/7a204545-daa8-58ce-ba35-75e732e1bcc0/">GnuPG: Создание и работа с ключами шифрования</a></span>):</li>
+</ol>
+<pre><code>gpg --list-secret-keys --keyid-format=long
+</code></pre>
+<ol start="2">
+<li>Указать Git&rsquo;у всегда подписывать каждый коммит:</li>
+</ol>
+<pre><code>git config --global commit.gpgsign true
+</code></pre>
+<ol start="3">
+<li>Указать Git&rsquo;у идентификатор ключа для подписи коммита:</li>
+</ol>
+<pre><code>git config --global user.signingkey 3AA5C34371567BD2
+</code></pre>
+<h2 id="хранилище-паролей">Хранилище паролей</h2>
+<p>Git по умолчанию не сохраняет регистрационные данные для репозиториев. Эта настройка позволяет указать Git&rsquo;у использовать для хранения регистрационных данных текстовый файл <code>~/.git-credentials</code>:</p>
+<pre><code>git config --global credential.helper store
+</code></pre>
+<h2 id="отмена-изменений">Отмена изменений</h2>
+<p>Отмена конкретного коммита:</p>
+<pre><code>git revert [commit]
+</code></pre>
+<p>Отмена 2-х коммитов подряд:</p>
+<pre><code>git revert HEAD~2
+</code></pre>
+<h2 id="модули">Модули</h2>
+<p>Добавление модуля:</p>
+<pre><code>git submodule add https://github.com/[MODULE] [MODULE]
+</code></pre>
+<p>Рекурсивное обновление всех модулей:</p>
+<pre><code>git submodule update --recursive --remote --merge
+</code></pre>
+<p>Удаление модуля:</p>
+<pre><code>git submodule deinit -f [MODULE]  \
+  &amp;&amp; git rm -r --cached [MODULE]  \
+  &amp;&amp; rm -rf .git/modules/[MODULE] \
+  &amp;&amp; rm -rf [MODULE]
+</code></pre>
+<h2 id="изменение-адреса-репозитория">Изменение адреса репозитория</h2>
+<p>Показать текущий адрес:</p>
+<pre><code>git remote -v
+</code></pre>
+<p>Установить новый адрес:</p>
+<pre><code>git remote set-url origin '[URL]'
+</code></pre>]]></content:encoded><pubDate>Sat, 14 Aug 2021 15:52:38 +0000</pubDate><category>Linux</category><category>Git</category><category>Terminal</category><category>Статьи в разработке</category></item></channel></rss>

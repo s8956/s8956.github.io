@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>code | Library Online</title><link>https://lib.onl/ru/tags/code/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/tags/code/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>code | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Tue, 17 Aug 2021 12:21:10 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/code/index.xml" rel="self" type="application/rss+xml"/><item><title>Условия в шаблонах XenForo</title><link>https://lib.onl/ru/posts/2021/08/f9a39e37-8816-5f80-8133-893f3dc8f352/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/08/f9a39e37-8816-5f80-8133-893f3dc8f352/</guid><description>Представляю список условий, которые можно использовать в шаблонах XenForo. Все возможные условия перечислить затруднительно, потому что существует множество различных вариантов фильтрации и выборки информации. Здесь представлены наиболее популярные варианты.</description><content:encoded><![CDATA[<p>Представляю список условий, которые можно использовать в шаблонах XenForo. Все возможные условия перечислить затруднительно, потому что существует множество различных вариантов фильтрации и выборки информации. Здесь представлены наиболее популярные варианты.</p>
+<p>С этой статьи я начинаю попытку восстановления накопленных данных за период моей деятельности в качестве исследователя и разработчика веб-приложений.</p>
+<ol>
+<li>Отображение информации только администраторам.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$xf.visitor.is_admin&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="2">
+<li>Отображение информации только модераторам.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$xf.visitor.is_moderator&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="3">
+<li>Отображение информации только администраторам и модераторам.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$xf.visitor.is_admin OR $xf.visitor.is_moderator&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="4">
+<li>Отображение информации только зарегистрированному пользователю</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$xf.visitor.user_id&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="5">
+<li>Отображение информации гостю.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;!$xf.visitor.user_id&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="6">
+<li>Отображение разной информации зарегистрированному пользователю и гостю.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;!$xf.visitor.user_id&quot;&gt;
+&lt;!-- content for members --&gt;
+&lt;xf:else /&gt;
+&lt;!-- content for guests --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="7">
+<li>Отображение информации только заблокированным пользователям.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$user.is_banned&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="8">
+<li>Отображение информации только если у пользователя симпатий больше определённого количества.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$user.like_count|number &gt; X&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="9">
+<li>Отображение информации только если у пользователя сообщений больше определённого количества.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$xf.visitor.message_count|number} &gt; X&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="10">
+<li>Отображение информации только если у пользователя очков больше определённого количества.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$user.trophy_points|number &gt; X&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="11">
+<li>Отображение информации определённому пользователю.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$xf.visitor.user_id == X&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="12">
+<li>Отображение информации определённым пользователям.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;in_array($xf.visitor.user_id, [X, Y, Z])&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="13">
+<li>(1) Отображение информации определённым группам пользователей.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{{$xf.visitor.isMemberOf([X, Y])}}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="13">
+<li>(2) Отображение информации определённой группе пользователей.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{{$xf.visitor.isMemberOf(X)}}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="14">
+<li>(1) Скрытие информации от определённых групп пользователей.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{{!$xf.visitor.isMemberOf([X, Y])}}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="14">
+<li>(2) Скрытие информации от определённой группы пользователей.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{{!$xf.visitor.isMemberOf(X)}}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="15">
+<li>(1) Отображение информации после первого сообщения в теме.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$post.position % $xf.options.messagesPerPage == 0&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="15">
+<li>(2) Отображение информации через определённое количества сообщений.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$post.position % $xf.options.messagesPerPage == X&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="16">
+<li>Отображение информации на странице, на которой присутствует боковая панель.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$sidebar&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="17">
+<li>Отображение информации на главной (домашней) странице форума.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template == 'forum_list'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="18">
+<li>Скрытие информации только с главной (домашней) странице форума.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template !== 'forum_list'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="19">
+<li>Отображение информации на странице создания новой темы.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template == 'forum_post_thread'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="20">
+<li>Скрытие информации на странице создания новой темы.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template != 'forum_post_thread'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="21">
+<li>Отображение информации на странице создания нового ресурса.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template == 'xfrm_category_add_resource'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="22">
+<li>Скрытие информации на странице создания нового ресурса.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template != 'xfrm_category_add_resource'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="23">
+<li>Отображение информации на странице поисковой формы.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template == 'search_form'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="24">
+<li>Скрытие информации на странице поисковой формы.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template != 'search_form'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="25">
+<li>Отображение информации на странице &ldquo;Что нового?&rdquo;.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template == 'whats_new'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="26">
+<li>Скрытие информации на странице &ldquo;Что нового?&rdquo;.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template != 'whats_new'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="27">
+<li>Отображение информации на странице просмотра личной переписки.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template == 'conversation_view'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="28">
+<li>Скрытие информации на странице просмотра личной переписки.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template != 'conversation_view'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="29">
+<li>Отображение информации на странице просмотра списка личных переписок.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template == 'conversation_list'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="30">
+<li>Скрытие информации на странице просмотра списка личных переписок.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template != 'conversation_list'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="31">
+<li>Отображение информации на главной странице ресурсов.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template == 'xfrm_overview'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="32">
+<li>Скрытие информации на главной странице ресурсов.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template != 'xfrm_overview'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="33">
+<li>Отображение информации на странице просмотра ресурса.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template == 'xfrm_resource_view'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="34">
+<li>Скрытие информации на странице просмотра ресурса.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template != 'xfrm_resource_view'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="35">
+<li>Отображение информации на странице просмотра темы.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template == 'thread_view'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="36">
+<li>Скрытие информации на странице просмотра темы.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template !='thread_view'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="37">
+<li>Отображение информации на странице просмотра форума (раздела).</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template =='forum_view'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="38">
+<li>Скрытие информации на странице просмотра форума (раздела).</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$template != 'forum_view'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="39">
+<li>Отображение информации &ldquo;наказанным&rdquo; пользователям.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$xf.visitor.Option.is_discouraged}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="40">
+<li>Отображение информации пользователям, которые имеют Gravatar.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$xf.visitor.gravatar}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="41">
+<li>Отображение информации пользователям поддержки форума.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$xf.visitor.is_staff}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="42">
+<li>Отображение информации пользователям без подтверждённого адреса e-mail.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$xf.visitor.isAwaitingEmailConfirmation()}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="43">
+<li>Отображение информации в нескольких форумах (разделах).</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;in_array({$forum.node_id}, [X, Y, Z])&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="44">
+<li>Скрытие информации в нескольких форумах (разделах).</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;in_array($forum.node_id, [X, Y, Z])&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="45">
+<li>Отображение информации в определённом форуме (разделе).</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$forum.node_id == X&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="46">
+<li>Скрытие информации в определённом форуме (разделе).</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;$forum.node_id != 3&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="47">
+<li>Отображение информации только после первого сообщения в каждой теме.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$post.position} % {$xf.options.messagesPerPage} == 1&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="48">
+<li>Отображение информации только внутри первого сообщения в каждой теме.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$post.position} % {$xf.options.messagesPerPage} == 0&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="49">
+<li>Отображение информации только при заполненном поле местоположения.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$xf.visitor.location}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="50">
+<li>Отображение информации только при заполненном поле веб-сайта.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$xf.visitor.website}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="51">
+<li>Отображение информации при указанной подписи.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$xf.visitor.signature}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="52">
+<li>Отображение информации только активированным пользователям.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$xf.visitor.user_state} == 'valid'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="53">
+<li>Отображение информации только пользователям, ожидающим подтверждения адреса e-mail.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$xf.visitor.user_state} == 'email_confirm_edit'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="54">
+<li>Отображение информации только пользователям с проблемным адресом e-mail.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$xf.visitor.user_state} == 'email_bounce'&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="55">
+<li>Отображение информации, если ID пользователя = ID автора темы.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$__globals.thread} AND {$__globals.thread.user_id} == {$user.user_id}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>
+<ol start="56">
+<li>Отображение информации пользователю, который является автором темы.</li>
+</ol>
+<pre><code>&lt;xf:if is=&quot;{$thread.user_id} == {$xf.visitor.user_id}&quot;&gt;
+&lt;!-- content --&gt;
+&lt;/xf:if&gt;
+</code></pre>]]></content:encoded><pubDate>Tue, 17 Aug 2021 12:21:10 +0000</pubDate><category>CMF</category></item></channel></rss>

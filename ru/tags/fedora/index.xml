@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>fedora | Library Online</title><link>https://lib.onl/ru/tags/fedora/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/tags/fedora/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>fedora | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Wed, 08 Sep 2021 09:39:36 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/fedora/index.xml" rel="self" type="application/rss+xml"/><item><title>Распаковка пакетов DEB / RPM</title><link>https://lib.onl/ru/posts/2021/09/b2caccc7-92bf-57ed-970f-136c546f18e2/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/b2caccc7-92bf-57ed-970f-136c546f18e2/</guid><description>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</description><content:encoded><![CDATA[<p>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</p>
+<h2 id="deb">DEB</h2>
+<p>Пакет <code>.deb</code> архивируется при помощи 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://en.wikipedia.org/wiki/Ar_%28Unix%29" target="_blank" rel="noopener noreferrer nofollow">ar</a>
+. Соответственно, распаковать пакет тоже следует через данный архиватор:</p>
+<pre><code class="language-sh">ar x example.deb
+</code></pre>
+<ul>
+<li><code>debian-binary</code> – файл, содержащий версию формата <code>.deb</code>.</li>
+<li><code>control.tar.xz</code> – файл, содержащий md5sums и директорию для сборки пакета.</li>
+<li><code>data.tar.xz</code> – архив, содержащий все файлы, которые должны быть установлены в системе при установке пакета.</li>
+</ul>
+<h2 id="rpm">RPM</h2>
+<p>Пакет <code>.rpm</code> содержит архив <code>cpio</code>. Имеется удобная утилита <code>rpm2cpio</code>, которая преобразует <code>.rpm</code> в архив <code>cpio</code>.</p>
+<pre><code class="language-sh">rpm2cpio myrpmfile.rpm
+rpm2cpio - &lt; myrpmfile.rpm
+rpm2cpio myrpmfile.rpm | cpio -idmv
+</code></pre>
+<p>Опции <code>rpm2cpio</code>:</p>
+<ul>
+<li><code>-i</code> - восстановить архив.</li>
+<li><code>-d</code> - создать необходимые каталоги.</li>
+<li><code>-m</code> - сохранить время модификации файлов.</li>
+<li><code>-v</code> - подробный вывод процесса преобразования.</li>
+</ul>
+<p>Также, просматривать <code>.rpm</code> можно при помощи файлового менеджера Midnight Commander (<code>mc</code>).</p>]]></content:encoded><pubDate>Wed, 08 Sep 2021 09:39:36 +0000</pubDate><category>Linux</category></item><item><title>Обновление Fedora Linux до актуальной версии</title><link>https://lib.onl/ru/posts/2021/05/0acd3f9d-07b7-52b8-9fac-b5cb1cc579e0/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/0acd3f9d-07b7-52b8-9fac-b5cb1cc579e0/</guid><description>Новые версии Fedora публикуются каждые 6-8 месяцев. В этой статье я опишу шаги по обновлению дистрибутива между версиями.</description><content:encoded><![CDATA[<p>Новые версии Fedora публикуются каждые 6-8 месяцев. В этой статье я опишу шаги по обновлению дистрибутива между версиями.</p>
+<ol>
+<li>Устанавливаем плагин обновления системы:</li>
+</ol>
+<pre><code class="language-text">root@localhost ~ # dnf install dnf-plugin-system-upgrade
+</code></pre>
+<ol start="2">
+<li>Скачивание актуальной версии системы:</li>
+</ol>
+<pre><code class="language-text">root@localhost ~ # dnf system-upgrade download --releasever=34
+</code></pre>
+<ul>
+<li><code>releasever</code> - номер актуальной версии системы.</li>
+</ul>
+<ol start="3">
+<li>Запуск обновления системы на актуальную версию:</li>
+</ol>
+<pre><code class="language-text">root@localhost ~ # dnf system-upgrade reboot
+</code></pre>
+<p>Вот и всё. Система обновит пакетную базу и перезагрузится.</p>]]></content:encoded><pubDate>Sat, 15 May 2021 20:29:16 +0000</pubDate><category>Terminal</category><category>Linux</category></item><item><title>Первичная настройка UAIK</title><link>https://lib.onl/ru/posts/2020/06/59781965-afe7-5dd5-9798-d1c5ba6cdafd/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2020/06/59781965-afe7-5dd5-9798-d1c5ba6cdafd/</guid><description>После автоматической установки (Kickstart) при помощи UAIK , Fedora запустится в текстовом режиме. На этом этапе необходимо произвести первичную настройку операционной системы.</description><content:encoded><![CDATA[<p>После автоматической установки (Kickstart) при помощи 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://uaik.github.io/" target="_blank" rel="noopener noreferrer nofollow">UAIK</a>
+ , Fedora запустится в текстовом режиме. На этом этапе необходимо произвести первичную настройку операционной системы.</p>
+<h4 id="включение-графического-режима">Включение графического режима</h4>
+<pre><code class="language-bash">systemctl set-default graphical.target
+</code></pre>
+<h4 id="создание-пользователя">Создание пользователя</h4>
+<pre><code class="language-bash"># Добавить пользователя.
+useradd -mc &quot;User 0001&quot; user-0001
+
+# Установить пароль для пользователя.
+passwd user-0001
+</code></pre>
+<h4 id="отключение-пользователя">Отключение пользователя</h4>
+<pre><code class="language-bash"># Отключить пользователя.
+usermod -L user-0000
+</code></pre>
+<h4 id="перемещение-пользователя">Перемещение пользователя</h4>
+<pre><code class="language-bash">usermod -md /new_home/user-0001 user-0001
+</code></pre>
+<h4 id="работа-с-диском">Работа с диском</h4>
+<p>Чтобы создать на новом диске раздел, необходимо войти в программу <code>parted</code>:</p>
+<pre><code class="language-bash">parted -a optimal /dev/sdb
+</code></pre>
+<p>Выполнить следующие команды:</p>
+<pre><code class="language-bash">(parted) mklabel gpt
+(parted) mkpart primary 0% 100%
+(parted) quit
+</code></pre>
+<p>Создать файловую систему:</p>
+<pre><code class="language-bash">mkfs.xfs /dev/sdb1
+</code></pre>
+<p>Настроить автоматическое монтирование раздела в <code>/etc/fstab</code>:</p>
+<pre><code class="language-bash">/dev/sdb1 /home/storage xfs defaults 0 0
+</code></pre>]]></content:encoded><pubDate>Tue, 02 Jun 2020 06:20:27 +0000</pubDate><category>Linux</category></item></channel></rss>

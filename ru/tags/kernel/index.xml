@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>kernel | Library Online</title><link>https://lib.onl/ru/tags/kernel/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/tags/kernel/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>kernel | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 13 Jan 2022 22:44:15 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/kernel/index.xml" rel="self" type="application/rss+xml"/><item><title>Установка ядра XanMod в Debian</title><link>https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</guid><description>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра XanMod в Debian.</description><content:encoded><![CDATA[<p>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра <strong>XanMod</strong> в Debian.</p>
+<p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>
+:</p>
+<ul>
+<li>Caching, Virtual Memory Manager and CPUFreq Governor improvements.</li>
+<li>Full multi-core block layer runqueue requests for high I/O throughput.</li>
+<li>BBRv2 TCP congestion control + FQ-PIE packet scheduling and AQM algorithm.</li>
+<li>ORC Unwinder for kernel stack traces (debuginfo) implementation.</li>
+<li>High responsiveness multitasking Task Type scheduler (SCHED_NORMAL) build available [5.15-tt].</li>
+<li>Real-time Linux kernel (PREEMPT_RT) build available [5.15-rt] [5.10-rt].</li>
+<li>Third-party patchset available: patches
+<ul>
+<li>le9&rsquo;s file mappings under memory pressure protection.</li>
+<li>Linux Random Number Generator (LRNG) framework.</li>
+<li>TCP performance optimizations backport from linux/net-next [5.16] [5.15].</li>
+<li>AMD&rsquo;s P-state driver for Zen2 and Zen3 processors [5.16] [5.15].</li>
+<li>Futex waitv and legacy WAIT_MULTIPLE implementation for Wine / Proton Fsync support.</li>
+<li>WineSync driver for fast kernel-backed Wine [5.16] [5.15] [as module: winesync].</li>
+<li>Google&rsquo;s Multigenerational LRU framework [5.16] [5.15].</li>
+<li>Google&rsquo;s BBRv2 TCP congestion control.</li>
+<li>Paragon&rsquo;s Software NTFS3 driver [as module: ntfs3].</li>
+<li>PCIe ACS Override for bypassing IOMMU groups support.</li>
+<li>Graysky&rsquo;s additional CPU optimizations for GCC and Clang.</li>
+<li>Clear Linux patchset [partial].</li>
+<li>Android Ashmem and Binder IPC driver as module for Anbox.</li>
+<li>Updated ZSTD library for bug fixes and r/w performance compression improvements on Btrfs, F2FS, SquashFS, pstore, initramfs and vmlinuz.</li>
+</ul>
+</li>
+<li>Generic packages for compatibility with most Debian &amp; Ubuntu based distributions. Builts on the latest LLVM 12.0.1, GCC 11.2 and Binutils 2.37.</li>
+<li>GPLv2 license. Can be built for any distribution or purpose.</li>
+</ul>
+<p>Стоит заметить, что ядро <strong>XanMod</strong> не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>
+, которое занимается практически тем же самым. Но, посмотрев 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a>
+ на Phoronix&rsquo;е, я сделал выбор в пользу <strong>XanMod</strong>.</p>
+<p>Однострочная команда по добавлению ядра <strong>XanMod</strong> в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
+<ol>
+<li>Добавление файла <code>xanmod-kernel.list</code> в директорию <code>/etc/apt/sources.list.d</code>.</li>
+<li>Скачивание файла подписи <code>gpg.key</code> и размещение его в директорию <code>/etc/apt/trusted.gpg.d</code> с названием <code>xanmod-kernel.gpg</code>.</li>
+<li>Обновление информации из репозитория при помощи команды <code>apt update</code>.</li>
+</ol>
+<pre><code class="language-sh">echo 'deb http://deb.xanmod.org releases main' | tee /etc/apt/sources.list.d/xanmod-kernel.list &amp;&amp; curl -fsSL 'https://dl.xanmod.org/gpg.key' | gpg --dearmor | tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null &amp;&amp; apt update
+</code></pre>
+<p>После выполнения команды, установка ядра <strong>XanMod</strong> происходит таким образом:</p>
+<pre><code>apt install linux-xanmod
+</code></pre>
+<p>Для установки Mainline-версии ядра команда будет такой:</p>
+<pre><code>apt install linux-xanmod-edge
+</code></pre>
+<h2 id="fq-pie">FQ-PIE</h2>
+<p>Для включения планировщика пакетов <strong>FQ-PIE</strong>, необходимо выполнить команду:</p>
+<pre><code>echo 'net.core.default_qdisc = fq_pie' | tee /etc/sysctl.d/90-override.conf
+</code></pre>
+<p>Проверка:</p>
+<pre><code>tc qdisc show
+</code></pre>]]></content:encoded><pubDate>Thu, 13 Jan 2022 22:44:15 +0000</pubDate><category>Linux</category></item></channel></rss>

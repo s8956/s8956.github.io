@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>rpm2cpio | Library Online</title><link>https://lib.onl/ru/tags/rpm2cpio/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/tags/rpm2cpio/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>rpm2cpio | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Wed, 08 Sep 2021 09:39:36 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/rpm2cpio/index.xml" rel="self" type="application/rss+xml"/><item><title>Распаковка пакетов DEB / RPM</title><link>https://lib.onl/ru/posts/2021/09/b2caccc7-92bf-57ed-970f-136c546f18e2/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/b2caccc7-92bf-57ed-970f-136c546f18e2/</guid><description>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</description><content:encoded><![CDATA[<p>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</p>
+<h2 id="deb">DEB</h2>
+<p>Пакет <code>.deb</code> архивируется при помощи 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://en.wikipedia.org/wiki/Ar_%28Unix%29" target="_blank" rel="noopener noreferrer nofollow">ar</a>
+. Соответственно, распаковать пакет тоже следует через данный архиватор:</p>
+<pre><code class="language-sh">ar x example.deb
+</code></pre>
+<ul>
+<li><code>debian-binary</code> – файл, содержащий версию формата <code>.deb</code>.</li>
+<li><code>control.tar.xz</code> – файл, содержащий md5sums и директорию для сборки пакета.</li>
+<li><code>data.tar.xz</code> – архив, содержащий все файлы, которые должны быть установлены в системе при установке пакета.</li>
+</ul>
+<h2 id="rpm">RPM</h2>
+<p>Пакет <code>.rpm</code> содержит архив <code>cpio</code>. Имеется удобная утилита <code>rpm2cpio</code>, которая преобразует <code>.rpm</code> в архив <code>cpio</code>.</p>
+<pre><code class="language-sh">rpm2cpio myrpmfile.rpm
+rpm2cpio - &lt; myrpmfile.rpm
+rpm2cpio myrpmfile.rpm | cpio -idmv
+</code></pre>
+<p>Опции <code>rpm2cpio</code>:</p>
+<ul>
+<li><code>-i</code> - восстановить архив.</li>
+<li><code>-d</code> - создать необходимые каталоги.</li>
+<li><code>-m</code> - сохранить время модификации файлов.</li>
+<li><code>-v</code> - подробный вывод процесса преобразования.</li>
+</ul>
+<p>Также, просматривать <code>.rpm</code> можно при помощи файлового менеджера Midnight Commander (<code>mc</code>).</p>]]></content:encoded><pubDate>Wed, 08 Sep 2021 09:39:36 +0000</pubDate><category>Linux</category></item></channel></rss>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>mikrotik | Library Online</title><link>https://lib.onl/ru/tags/mikrotik/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/tags/mikrotik/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>mikrotik | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sun, 12 Jul 2020 15:09:48 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/mikrotik/index.xml" rel="self" type="application/rss+xml"/><item><title>MikroTik и Cloudflare: Динамический IP для домена</title><link>https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</guid><description>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в MikroTik Marketplace . Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</description><content:encoded><![CDATA[<p>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare" target="_blank" rel="noopener noreferrer nofollow">MikroTik Marketplace</a>
+. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</p>
+<p>Сам скрипт нужно настроить под себя, прописав в нём значения переменных. Значения переменных я указал в 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare/blob/main/README.md" target="_blank" rel="noopener noreferrer nofollow">README</a>
+ на GitHub’е. Большинство значений можно узнать из панели управления доменом в Cloudflare, но для получения значения переменной <code>cfDNSID</code> необходимо выполнит немного телодвижений.</p>
+<p>Для начала в терминале Linux выполнить следующую команду:</p>
+<pre><code class="language-bash">curl -X GET &quot;https://api.cloudflare.com/client/v4/zones/API_ZONE_ID/dns_records&quot;  \
+-H &quot;X-Auth-Email: USER_EMAIL&quot;                                                     \
+-H &quot;X-Auth-Key: USER_TOKEN&quot;                                                       \
+-H &quot;Content-Type: application/json&quot; | python -mjson.tool
+</code></pre>
+<p>&hellip;соответственно, подставив собственные значения, например (значения фальшивые):</p>
+<pre><code class="language-bash">curl -X GET &quot;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&quot;   \
+-H &quot;X-Auth-Email: user@cloudflare.com&quot;                                                                  \
+-H &quot;X-Auth-Key: CcDXmj5lzd9Na3Wi2fQLPvAJIuwUrxF1VnMyS&quot;                                                  \
+-H &quot;Content-Type: application/json&quot; | python -mjson.tool
+</code></pre>
+<p>Команды вернёт результат в формате JSON, к примеру (результаты фальшивые):</p>
+<pre><code class="language-json">{
+    &quot;result&quot;: [
+        {
+            &quot;id&quot;: &quot;gJDSG5la4IWNOEVn6K2PHyope8Q9YhzC&quot;,
+            &quot;zone_id&quot;: &quot;Q7dslfag51U2B3jRpmbxMInDTCoSFYyH&quot;,
+            &quot;zone_name&quot;: &quot;example.com&quot;,
+            &quot;name&quot;: &quot;example.com&quot;,
+            &quot;type&quot;: &quot;A&quot;,
+            &quot;content&quot;: &quot;192.168.10.232&quot;,
+            &quot;proxiable&quot;: true,
+            &quot;proxied&quot;: true,
+            &quot;ttl&quot;: 1,
+            &quot;locked&quot;: false,
+            &quot;meta&quot;: {
+                &quot;auto_added&quot;: false,
+                &quot;managed_by_apps&quot;: false,
+                &quot;managed_by_argo_tunnel&quot;: false,
+                &quot;source&quot;: &quot;primary&quot;
+            },
+            &quot;created_on&quot;: &quot;2020-02-23T21:26:27.56227Z&quot;,
+            &quot;modified_on&quot;: &quot;2020-02-23T21:26:27.56227Z&quot;
+        }
+    ],
+    &quot;success&quot;: true,
+    &quot;errors&quot;: [],
+    &quot;messages&quot;: [],
+    &quot;result_info&quot;: {
+        &quot;page&quot;: 1,
+        &quot;per_page&quot;: 20,
+        &quot;count&quot;: 7,
+        &quot;total_count&quot;: 7,
+        &quot;total_pages&quot;: 1
+    }
+}
+</code></pre>
+<p>Смотрим поле <code>id</code> и значение этого поля вставляем в переменную <code>cfDNSID</code>.</p>
+<p>На этом всё. Не забываем выдать скрипту необходимые права в панели MikroTik, а также прописать автоматический запуск скрипта через <strong>Scheduler</strong>.</p>]]></content:encoded><pubDate>Sun, 12 Jul 2020 15:09:48 +0000</pubDate><category>Network</category></item></channel></rss>

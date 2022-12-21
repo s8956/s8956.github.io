@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>git | Library Online</title><link>https://lib.onl/ru/tags/git/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/tags/git/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>git | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sat, 14 Aug 2021 15:52:38 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Настройка и использование Git</title><link>https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</guid><description>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</description><content:encoded><![CDATA[<p>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</p>
+<h2 id="первичная-настройка">Первичная настройка</h2>
+<p>Для начала работы с Git&rsquo;ом, его необходимо хотя бы минимально настроить.</p>
+<ol>
+<li>Указать своё имя:</li>
+</ol>
+<pre><code>git config --global user.name &quot;John Doe&quot;
+</code></pre>
+<ol start="2">
+<li>Указать свой адрес e-mail:</li>
+</ol>
+<pre><code>git config --global user.email &quot;johndoe@example.com&quot;
+</code></pre>
+<h2 id="настройка-подписи">Настройка подписи</h2>
+<p>Хорошим тоном будет считаться подпись каждого своего коммита.</p>
+<ol>
+<li>Выяснить какие ключи установлены в системе (о создании ключей я публиковал заметку <span class="shortcode shortcode-uuid"><a href="/ru/posts/2020/07/7a204545-daa8-58ce-ba35-75e732e1bcc0/">GnuPG: Создание и работа с ключами шифрования</a></span>):</li>
+</ol>
+<pre><code>gpg --list-secret-keys --keyid-format=long
+</code></pre>
+<ol start="2">
+<li>Указать Git&rsquo;у всегда подписывать каждый коммит:</li>
+</ol>
+<pre><code>git config --global commit.gpgsign true
+</code></pre>
+<ol start="3">
+<li>Указать Git&rsquo;у идентификатор ключа для подписи коммита:</li>
+</ol>
+<pre><code>git config --global user.signingkey 3AA5C34371567BD2
+</code></pre>
+<h2 id="хранилище-паролей">Хранилище паролей</h2>
+<p>Git по умолчанию не сохраняет регистрационные данные для репозиториев. Эта настройка позволяет указать Git&rsquo;у использовать для хранения регистрационных данных текстовый файл <code>~/.git-credentials</code>:</p>
+<pre><code>git config --global credential.helper store
+</code></pre>
+<h2 id="отмена-изменений">Отмена изменений</h2>
+<p>Отмена конкретного коммита:</p>
+<pre><code>git revert [commit]
+</code></pre>
+<p>Отмена 2-х коммитов подряд:</p>
+<pre><code>git revert HEAD~2
+</code></pre>
+<h2 id="модули">Модули</h2>
+<p>Добавление модуля:</p>
+<pre><code>git submodule add https://github.com/[MODULE] [MODULE]
+</code></pre>
+<p>Рекурсивное обновление всех модулей:</p>
+<pre><code>git submodule update --recursive --remote --merge
+</code></pre>
+<p>Удаление модуля:</p>
+<pre><code>git submodule deinit -f [MODULE]  \
+  &amp;&amp; git rm -r --cached [MODULE]  \
+  &amp;&amp; rm -rf .git/modules/[MODULE] \
+  &amp;&amp; rm -rf [MODULE]
+</code></pre>
+<h2 id="изменение-адреса-репозитория">Изменение адреса репозитория</h2>
+<p>Показать текущий адрес:</p>
+<pre><code>git remote -v
+</code></pre>
+<p>Установить новый адрес:</p>
+<pre><code>git remote set-url origin '[URL]'
+</code></pre>]]></content:encoded><pubDate>Sat, 14 Aug 2021 15:52:38 +0000</pubDate><category>Linux</category><category>Git</category><category>Terminal</category><category>Статьи в разработке</category></item><item><title>Зеркалирование репозитория между хостингами</title><link>https://lib.onl/ru/posts/2021/07/3834fbed-71c8-5979-b6c2-236269f5ecea/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/07/3834fbed-71c8-5979-b6c2-236269f5ecea/</guid><description>В предыдущей статье Синхронизация репозитория от GitHub к GitLab я рассказал о том, как организовать синхронизацию между репозиториями GIT на разных хостингах, в частности, между GitHub и GitLab. В итоге, я решил сделать собственный GitHub Action, который позволяет полностью зеркалировать репозитории.</description><content:encoded><![CDATA[<p>В предыдущей статье <span class="shortcode shortcode-uuid"><a href="/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/">Синхронизация репозитория от GitHub к GitLab</a></span> я рассказал о том, как организовать синхронизацию между репозиториями GIT на разных хостингах, в частности, между GitHub и GitLab. В итоге, я решил сделать собственный GitHub Action, который позволяет полностью зеркалировать репозитории.</p>
+<div class="shortcode shortcode-github-repo mb-3">
+  <div class="row row-cols-1 row-cols-lg-2 g-3">
+      
+          
+          
+
+          <div class="col">
+            <div class="card">
+              <div class="row g-0">
+                <div class="col-md-4 p-1">
+                  <a class="d-inline-block" href="https://github.com/ghastore/mirror" target="_blank" rel="noopener nofollow">
+                    <img src="https://avatars.githubusercontent.com/u/112582249?v=4" class="card-img" alt="mirror"/>
+                  </a>
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body h-100">
+                    <div class="d-flex flex-column h-100">
+                      <div class="flex-shrink-0">
+                        <h5 class="card-title">
+                          <a href="https://github.com/ghastore/mirror" target="_blank" rel="noopener nofollow">mirror</a>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">GitHub Actions Store</h6>
+                        <p class="card-text"></p>
+                      </div>
+                      <div class="mt-auto">
+                        <ul class="list-inline m-0 mt-3">
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="https://github.com/ghastore/mirror/watchers" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-eye fa-fw me-1"></i>
+                                1
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="https://github.com/ghastore/mirror/stargazers" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-star fa-fw me-1"></i>
+                                0
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="https://github.com/ghastore/mirror/network/members" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-code-branch fa-fw me-1"></i>
+                                0
+                            </a>
+                          </li>
+                            
+                                
+                                <li class="list-inline-item">
+                                  <a class="btn btn-light btn-sm text-muted" href="http://choosealicense.com/licenses/mit/" target="_blank" rel="noopener nofollow" role="button">
+                                    <i class="fas fa-copyright fa-fw me-1"></i>
+                                      MIT
+                                  </a>
+                                </li>
+                            
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      
+  </div>
+</div>
+
+<h2 id="использование">Использование</h2>
+<p>Для подключения зеркалирования, к примеру, с GitHub на GitLab, необходимо в исходном репозитории создать файл <code>.github/workflows/mirror.yml</code>, в котором указать следующее содержимое:</p>
+<pre><code class="language-yml">name: &quot;Repository Mirror&quot;
+
+on:
+  - push
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    name: &quot;Mirror&quot;
+    steps:
+      - uses: pkgstore/github-action-mirror@main
+        with:
+          source_repo: &quot;https://github.com/${{ github.repository }}.git&quot;
+          source_user: &quot;${{ secrets.MIRROR_SOURCE_USER_GITHUB }}&quot;
+          source_token: &quot;${{ secrets.MIRROR_SOURCE_TOKEN_GITHUB }}&quot;
+          target_repo: &quot;https://gitlab.com/${{ github.repository }}.git&quot;
+          target_user: &quot;${{ secrets.MIRROR_TARGET_USER_GITLAB }}&quot;
+          target_token: &quot;${{ secrets.MIRROR_TARGET_TOKEN_GITLAB }}&quot;
+</code></pre>
+<ul>
+<li><code>source_repo</code> - <strong>URL</strong> исходного репозитория.</li>
+<li><code>source_user</code> - <strong>пользователь</strong> исходного репозитория.</li>
+<li><code>source_token</code> - <strong>токен пользователя</strong> исходного репозитория.</li>
+<li><code>target_repo</code> - <strong>URL</strong> зеркального репозитория.</li>
+<li><code>target_user</code> - <strong>пользователь</strong> зеркального репозитория.</li>
+<li><code>target_token</code> - <strong>токен пользователя</strong> зеркального репозитория.</li>
+</ul>
+<p>В этом коде стоит обратить внимание на параметр <code>target_repo</code>. GitLab позволяет автоматически создавать репозиторий при зеркалировании, а так как у меня адреса репозиториев совпадают между GitHub и GitLab, мне гораздо проще выстроить конструкцию <code>https://gitlab.com/${{ github.repository }}.git</code>. Переменная <code>${{ github.repository }}</code> содержит имя пользователя / организации и название репозитория, и, при настройке зеркалирования репозитория на GitHub&rsquo;е, зеркало репозитория автоматически создаётся на GitLab&rsquo;е.</p>]]></content:encoded><pubDate>Tue, 06 Jul 2021 17:40:43 +0000</pubDate><category>Разработка</category></item><item><title>Синхронизация репозитория от GitHub к GitLab</title><link>https://lib.onl/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/</guid><description>Понадобилось мне на днях синхронизировать некоторые свои репозитории между GitHub и GitLab. Сам GitLab имеет встроенные средства зеркалирования репозиториев от себя к другому git-хранилищу. GitHub же не обладает такой функцией. Но эту функцию можно воссоздать при помощи GitHub Actions.</description><content:encoded><![CDATA[<p>Понадобилось мне на днях синхронизировать некоторые свои репозитории между GitHub и GitLab. Сам GitLab имеет встроенные средства зеркалирования репозиториев от себя к другому git-хранилищу. GitHub же не обладает такой функцией. Но эту функцию можно воссоздать при помощи GitHub Actions.</p>
+<p>Для начала необходимо создать &ldquo;секреты&rdquo; с такими переменными:</p>
+<ul>
+<li><code>GITLAB_SYNC_REPO_URL</code> - ссылка на пустой репозиторий GitLab.</li>
+<li><code>GITLAB_SYNC_USER_NAME</code> - имя пользователя GitLab.</li>
+<li><code>GITLAB_SYNC_USER_TOKEN</code> - токен пользователя GitLab. Токен создаётся в настройках аккаунта GitLab.</li>
+</ul>
+<p>Далее, в корне репозитория нужно создать файл <code>.github/workflows/gitlab-sync.yml</code> со следующим содержанием:</p>
+<pre><code class="language-yml">name: GitLab Sync
+
+on:
+  - push
+  - delete
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    name: Git Repo Sync
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wangchucheng/git-repo-sync@v0.1.0
+        with:
+          # Such as https://github.com/wangchucheng/git-repo-sync.git
+          target-url: ${{ secrets.GITLAB_SYNC_REPO_URL }}
+          # Such as wangchucheng
+          target-username: ${{ secrets.GITLAB_SYNC_USER_NAME }}
+          # You can store token in your project's 'Setting &gt; Secrets' and reference the name here. Such as ${{ secrets.ACCESS_TOKEN }}
+          target-token: ${{ secrets.GITLAB_SYNC_USER_TOKEN }}
+</code></pre>
+<p>На этом всё. Теперь при коммите в репозиторий, GutHub будет запускать Action и автоматически синхронизировать изменения с репозиторием на GitLab.</p>]]></content:encoded><pubDate>Sat, 08 May 2021 21:06:18 +0000</pubDate><category>Разработка</category></item></channel></rss>
