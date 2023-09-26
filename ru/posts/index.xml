@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>Статьи | Library Online</title><link>https://lib.onl/ru/posts/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/posts/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>Статьи | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sun, 14 Aug 2022 18:16:34 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Включение DNS over TLS (DoT) в OPNsense</title><link>https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</guid><description>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</description><content:encoded><![CDATA[<p>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</p>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>Статьи | Library Online</title><link>https://lib.onl/ru/posts/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/posts/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>
+Статьи | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sun, 14 Aug 2022 18:16:34 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Включение DNS over TLS (DoT) в OPNsense</title><link>https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</guid><description>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</description><content:encoded><![CDATA[<p>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</p>
 <p><strong>DNS поверх TLS</strong> или <strong>DoT</strong> это протокол, при помощи которого происходит шифрование запросов и ответов к DNS через TLS. Таким образом, повышается конфиденциальность и безопасность пользователей в интернете.</p>
 <p>Не все публичные сервера поддерживают DoT. Список наиболее предпочтительных, по моему мнению, я приведу в таблице в конце статьи. А теперь, по пунктам, я расскажу как правильно настроить OPNsense, чтобы она задействовала протокол DoT в своей работе. Для этого нужно выполнить всего несколько шагов&hellip;</p>
-<h2 id="настройка-opnsense">Настройка OPNsense</h2>
+<h2>Настройка OPNsense</h2>
 <ul>
 <li>System / Settings / General
 <ul>
@@ -27,9 +28,9 @@
 </ul>
 </li>
 </ul>
-<h2 id="публичные-сервера-dns">Публичные сервера DNS</h2>
+<h2>Публичные сервера DNS</h2>
 <p>Ниже я привожу список публичных серверов DNS, которые поддерживают функцию DNS over TLS (DoT).</p>
-<h4 id="cloudflare">Cloudflare</h4>
+<h4>Cloudflare</h4>
 
 
 
@@ -67,7 +68,7 @@
 </tbody>
 </table>
 
-<h4 id="google">Google</h4>
+<h4>Google</h4>
 
 
 
@@ -105,7 +106,7 @@
 </tbody>
 </table>
 
-<h4 id="quad9">Quad9</h4>
+<h4>Quad9</h4>
 
 
 
@@ -143,7 +144,7 @@
 </tbody>
 </table>
 
-<h4 id="cisco-umbrella">Cisco Umbrella</h4>
+<h4>Cisco Umbrella</h4>
 
 
 
@@ -181,7 +182,7 @@
 </tbody>
 </table>
 
-<h4 id="cleanbrowsing">CleanBrowsing</h4>
+<h4>CleanBrowsing</h4>
 
 
 
@@ -219,7 +220,7 @@
 </tbody>
 </table>
 
-<h4 id="adguard-dns">AdGuard DNS</h4>
+<h4>AdGuard DNS</h4>
 
 
 
@@ -256,7 +257,7 @@
 </tr>
 </tbody>
 </table>]]></content:encoded><pubDate>Sun, 14 Aug 2022 18:16:34 +0000</pubDate><category>Network</category></item><item><title>Windows Server 2022 для рабочей станции</title><link>https://lib.onl/ru/posts/2022/05/36058650-3f35-5ed5-9565-0aa7d8800c28/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/05/36058650-3f35-5ed5-9565-0aa7d8800c28/</guid><description>В этой небольшой заметке я расскажу, как перенастроить серверную версию ОС Windows для работы на обычном стационарном ПК.</description><content:encoded><![CDATA[<p>В этой небольшой заметке я расскажу, как перенастроить серверную версию ОС Windows для работы на обычном стационарном ПК.</p>
-<h2 id="настройка-служб">Настройка служб</h2>
+<h2>Настройка служб</h2>
 <p>На сервере нет необходимости использовать поисковые механизмы и вывод звука, поэтому они отключены. Но на рабочей станции эти параметры необходимы. Для включения звука и поискового механизма, необходимо настроить запуск соответствующих служб.</p>
 <ul>
 <li>Services
@@ -291,7 +292,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="отключение-shutdown-event-tracker">Отключение Shutdown Event Tracker</h2>
+<h2>Отключение Shutdown Event Tracker</h2>
 <p>Сервер должен работать бесперебойно. Любое отключение сервера, по хорошему, должно записываться в специальный журнал. Но так как у нас рабочая станция, записывать каждые перезагрузку или выключение нет необходимости. Включаем службы.</p>
 <ul>
 <li>Local Group Policy
@@ -308,7 +309,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="отключение-строгой-системы-безопасности-ie">Отключение строгой системы безопасности IE</h2>
+<h2>Отключение строгой системы безопасности IE</h2>
 <p>Сервер использует строгие параметры системы безопасности IE. Но на рабочей станции в этих параметрах нет необходимости и они будут только мешать. Отключаем их.</p>
 <ul>
 <li>Server Manager / Local Server
@@ -321,7 +322,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="оптимизация-производительности-для-приложений">Оптимизация производительности для приложений</h2>
+<h2>Оптимизация производительности для приложений</h2>
 <p>По умолчанию, на сервере оптимизация включена для фоновых служб. На рабочей станции необходима оптимизация для программ. Включаем оптимизацию для программ.</p>
 <ul>
 <li>System / Advanced System Settings / Advanced / Performance / Advanced
@@ -334,7 +335,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="отключение-dep">Отключение DEP</h2>
+<h2>Отключение DEP</h2>
 <p>По умолчанию, 
 
 
@@ -374,7 +375,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="включение-memory-compression-operation-api-и-pagecombining">Включение Memory Compression, Operation API и PageCombining</h2>
+<h2>Включение Memory Compression, Operation API и PageCombining</h2>
 <p>В ОС Windows для обычных компьютеров включены Memory Compression, Operation API и PageCombining. Поэтому, перенастраиваем серверную версию ОС на такую же конфигурацию. Для этого запускаем PowerShell от имени Администратора и выполняем команду:</p>
 <pre><code>Enable-MMAgent -MemoryCompression -OperationAPI -PageCombining
 </code></pre>]]></content:encoded><pubDate>Mon, 09 May 2022 11:53:26 +0000</pubDate><category>Windows</category></item><item><title>Установка ядра XanMod в Debian</title><link>https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</guid><description>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра XanMod в Debian.</description><content:encoded><![CDATA[<p>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра <strong>XanMod</strong> в Debian.</p>
@@ -515,7 +516,7 @@
 <p>Для установки Mainline-версии ядра команда будет такой:</p>
 <pre><code>apt install linux-xanmod-edge
 </code></pre>
-<h2 id="fq-pie">FQ-PIE</h2>
+<h2>FQ-PIE</h2>
 <p>Для включения планировщика пакетов <strong>FQ-PIE</strong>, необходимо выполнить команду:</p>
 <pre><code>echo 'net.core.default_qdisc = fq_pie' | tee /etc/sysctl.d/90-override.conf
 </code></pre>
@@ -536,7 +537,7 @@
 </code></pre>]]></content:encoded><pubDate>Thu, 13 Jan 2022 22:44:01 +0000</pubDate><category>Linux</category></item><item><title>Чёрный экран с курсором при старте GDM</title><link>https://lib.onl/ru/posts/2021/09/581804b8-0613-52a8-a5c4-fdae90e7bc8a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/581804b8-0613-52a8-a5c4-fdae90e7bc8a/</guid><description>На днях установил Debian 11 на несколько ПК. Всё было отлично, кроме как на одном из ПК почему то GDM не стал загружаться. Чёрный экран с мигающем текстовым курсором&amp;hellip;</description><content:encoded><![CDATA[<p>На днях установил <strong>Debian 11</strong> на несколько ПК. Всё было отлично, кроме как на одном из ПК почему то <strong>GDM</strong> не стал загружаться. Чёрный экран с мигающем текстовым курсором&hellip;</p>
 <p>На других ПК всё было нормально. Отличие проблемного ПК от остальных заключалось в том, что на проблемном ПК система была установлена на <strong>SSD</strong>. Может быть дело в этом. В интернете я нашёл похожую проблему. По сути, проблема заключается в том, что сам GDM запускается чуть раньше, чем начинается инициализация графической подсистемы. И на кой чёрт его несёт вперёд&hellip;</p>
 <p>В общем, предлагают несколько решений.</p>
-<h2 id="настройка-сервиса-gdm">Настройка сервиса GDM</h2>
+<h2>Настройка сервиса GDM</h2>
 <p>Данный вариант решения проблемы предлагает отредактировать стартовые параметры сервиса GDM, чтобы тот запускался с небольшой задержкой и не лез вперёд остальной графической подсистемы.</p>
 <p>В терминале нужно ввести от root&rsquo;а команду <code>systemctl edit gdm.service</code>, откроется редактор сервиса GDM. В нем необходимо добавить строку <code>ExecStartPre=/bin/sleep 2</code>, которая создаёт задержку перед запуском самого GDM. Примерно вот так:</p>
 <pre><code class="language-ini">### Anything between here and the comment below will become the new contents of the file
@@ -649,7 +650,7 @@ After=systemd-udev-trigger.service systemd-udev-settle.service
 <p>Но это не совсем корректное исправление (хотя исправление, изложенное выше, тоже трудно назвать правильным), так как после применения этих строк, появляется ошибка:</p>
 <pre><code class="language-txt">Dec 27 22:23:48 oleksandr-xps15 udevadm[260]: systemd-udev-settle.service is deprecated. Please fix gdm.service not to pull it in.
 </code></pre>
-<h2 id="указание-порядка-инициализации-графической-подсистемы">Указание порядка инициализации графической подсистемы</h2>
+<h2>Указание порядка инициализации графической подсистемы</h2>
 <p>Этот вариант решения проблемы подходит для <strong>Arch Linux</strong>. Необходимо в файле <code>/etc/mkinitcpio.conf</code> добавить в массив <code>MODULES</code> свою графическую подсистему, чтобы та запускалась раньше, чем GDM. Например:</p>
 <pre><code>MODULES=(amdgpu)
 </code></pre>
@@ -669,7 +670,7 @@ After=systemd-udev-trigger.service systemd-udev-settle.service
 <pre><code class="language-ini">WaylandEnable=false
 </code></pre>
 <p>Таким образом даём понять GDM, что мы не желаем использовать Wayland.</p>]]></content:encoded><pubDate>Thu, 30 Sep 2021 07:51:30 +0000</pubDate><category>Linux</category></item><item><title>Установка Proxmox VE на Debian 11 (Bullseye)</title><link>https://lib.onl/ru/posts/2021/09/1cf305cd-85d0-5e02-aabb-e01346bfee0f/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/1cf305cd-85d0-5e02-aabb-e01346bfee0f/</guid><description>В этой небольшой заметке, я расскажу как установить Proxmox VE на чистый Debian 11 (Bullseye).</description><content:encoded><![CDATA[<p>В этой небольшой заметке, я расскажу как установить <strong>Proxmox VE</strong> на чистый <strong>Debian 11 (Bullseye)</strong>.</p>
-<h2 id="подготовка">Подготовка</h2>
+<h2>Подготовка</h2>
 <p>Для начала необходимо отредактировать файл <code>/etc/hosts</code>, прописав туда IP сервера, на который будет устанавливаться наш Proxmox VE:</p>
 <pre><code>127.0.0.1   localhost
 127.0.1.1   localhost.localdomain     localhost
@@ -678,7 +679,7 @@ After=systemd-udev-trigger.service systemd-udev-settle.service
 10.0.1.1    srv-vm.home.local         srv-vm
 </code></pre>
 <p>Для проверки, можно выполнить команду <code>hostname --ip-address</code>, которая вернёт IP сервера, указанного в <code>/etc/hosts</code> выше.</p>
-<h2 id="добавление-репозиториев">Добавление репозиториев</h2>
+<h2>Добавление репозиториев</h2>
 <p>Добавим репозиторий Proxmox VE:</p>
 <pre><code class="language-sh">echo &quot;deb [arch=amd64] http://download.proxmox.com/debian/pve bullseye pve-no-subscription&quot; &gt; /etc/apt/sources.list.d/pve.list
 </code></pre>
@@ -688,14 +689,14 @@ After=systemd-udev-trigger.service systemd-udev-settle.service
 <p>Обновим базу пакетов APT и саму систему:</p>
 <pre><code>apt update &amp;&amp; apt full-upgrade
 </code></pre>
-<h2 id="установка-пакетов">Установка пакетов</h2>
+<h2>Установка пакетов</h2>
 <p>Начнём установку пакетов командой:</p>
 <pre><code>apt install proxmox-ve postfix open-iscsi
 </code></pre>
 <p>Стоит заметить, что устанавливается Postfix, он необходим для отправки писем от Proxmox VE. Но мне в локальной сети такая функция не нужна. При установке, Postfix спросит в каком режиме ему необходимо будет работать. Я выбираю <strong>local only</strong>.</p>
-<h2 id="исправление-ошибок">Исправление ошибок</h2>
+<h2>Исправление ошибок</h2>
 <p>После установки Proxmox VE через пакетны менеджер APT, я столкнулся с некоторыми проблемами. Не знаю, может быть они будут отсутствовать, если устанавливать Proxmox VE при помощи его отдельного ISO-файла&hellip;</p>
-<h3 id="lvm2-activation-generator-lvmconfig-failed">lvm2-activation-generator: lvmconfig failed</h3>
+<h3>lvm2-activation-generator: lvmconfig failed</h3>
 <p>Для исправления ошибки <code>lvm2-activation-generator: lvmconfig failed</code>, необходимо в файле <code>/etc/lvm/lvm.conf</code> изменить параметр <code>event_activation</code>, а именно раскомментировать и установить в <code>0</code>:</p>
 <pre><code>global {
   &lt;...&gt;
@@ -727,7 +728,7 @@ After=systemd-udev-trigger.service systemd-udev-settle.service
   &lt;...&gt;
 }
 </code></pre>
-<h3 id="не-поднимается--интерфейс">Не поднимается  интерфейс</h3>
+<h3>Не поднимается  интерфейс</h3>
 <p>После установки, у меня перестал автоматически подниматься сетевой интерфейс. Может быть, в отдельном ISO-образе Proxmox VE такой проблемы нет, потому что при установке с отдельного ISO-образа, он запрашивает у администратора параметры сети. Но если устанавливать Proxmox VE через пакетную систему Debian, то никаких запросов не появляется. В общем, я сделал так (<code>/etc/network/interfaces</code>):</p>
 <pre><code>auto lo
 iface lo inet loopback
@@ -752,7 +753,7 @@ iface vmbr0 inet static
   bridge-fd 0
 </code></pre>
 <p>Где указал мост с физической картой <code>enp3s0</code>. Саму же карту <code>enp3s0</code> я перевёл в режим <code>manual</code>. После этого, сетевой интерфейс на сервере заработал в штатном режиме.</p>
-<p>На этом консольная настройка сервера виртуализации закончена. Настройка самого Proxmox&rsquo;а можно выполнять уже в удобном web-интерфейсе.</p>]]></content:encoded><pubDate>Sun, 12 Sep 2021 21:36:02 +0000</pubDate><category>Linux</category><category>Статьи в разработке</category></item><item><title>Debian: Wired Networks are Unmanaged</title><link>https://lib.onl/ru/posts/2021/09/ff829d15-4a19-52e3-a3aa-ad70aa38854a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/ff829d15-4a19-52e3-a3aa-ad70aa38854a/</guid><description>При базовой установке Debian, Network Manager не устанавливается и, соответственно, он не управляет сетевой конфигурацией. Исправим данную ситуацию&amp;hellip;</description><content:encoded><![CDATA[<p>При базовой установке Debian, Network Manager не устанавливается и, соответственно, он не управляет сетевой конфигурацией. Исправим данную ситуацию&hellip;</p>
+<p>На этом консольная настройка сервера виртуализации закончена. Настройка самого Proxmox&rsquo;а можно выполнять уже в удобном web-интерфейсе.</p>]]></content:encoded><pubDate>Sun, 12 Sep 2021 21:36:02 +0000</pubDate><category>Linux</category><category>InDev</category></item><item><title>Debian: Wired Networks are Unmanaged</title><link>https://lib.onl/ru/posts/2021/09/ff829d15-4a19-52e3-a3aa-ad70aa38854a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/ff829d15-4a19-52e3-a3aa-ad70aa38854a/</guid><description>При базовой установке Debian, Network Manager не устанавливается и, соответственно, он не управляет сетевой конфигурацией. Исправим данную ситуацию&amp;hellip;</description><content:encoded><![CDATA[<p>При базовой установке Debian, Network Manager не устанавливается и, соответственно, он не управляет сетевой конфигурацией. Исправим данную ситуацию&hellip;</p>
 <p>Лично я люблю ставить систему в минимальной комплектации. У меня есть 
 
 
@@ -793,7 +794,7 @@ iface vmbr0 inet static
 <pre><code>service NetworkManager restart
 </code></pre>
 <p>На этом всё. Теперь сетевой конфигурацией управляет Network Manager.</p>]]></content:encoded><pubDate>Thu, 09 Sep 2021 19:14:12 +0000</pubDate><category>Linux</category></item><item><title>Распаковка пакетов DEB / RPM</title><link>https://lib.onl/ru/posts/2021/09/b2caccc7-92bf-57ed-970f-136c546f18e2/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/b2caccc7-92bf-57ed-970f-136c546f18e2/</guid><description>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</description><content:encoded><![CDATA[<p>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</p>
-<h2 id="deb">DEB</h2>
+<h2>DEB</h2>
 <p>Пакет <code>.deb</code> архивируется при помощи 
 
 
@@ -833,7 +834,7 @@ iface vmbr0 inet static
 <li><code>control.tar.xz</code> – файл, содержащий md5sums и директорию для сборки пакета.</li>
 <li><code>data.tar.xz</code> – архив, содержащий все файлы, которые должны быть установлены в системе при установке пакета.</li>
 </ul>
-<h2 id="rpm">RPM</h2>
+<h2>RPM</h2>
 <p>Пакет <code>.rpm</code> содержит архив <code>cpio</code>. Имеется удобная утилита <code>rpm2cpio</code>, которая преобразует <code>.rpm</code> в архив <code>cpio</code>.</p>
 <pre><code class="language-sh">rpm2cpio myrpmfile.rpm
 rpm2cpio - &lt; myrpmfile.rpm

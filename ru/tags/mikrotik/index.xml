@@ -1,4 +1,342 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>mikrotik | Library Online</title><link>https://lib.onl/ru/tags/mikrotik/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><managingEditor>mail@lib.onl (Library Online)</managingEditor><webMaster>mail@lib.onl (Library Online)</webMaster><copyright>CC BY-SA 4.0</copyright><image><link>https://lib.onl/ru/tags/mikrotik/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>mikrotik | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sun, 12 Jul 2020 15:09:48 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/mikrotik/index.xml" rel="self" type="application/rss+xml"/><item><title>MikroTik и Cloudflare: Динамический IP для домена</title><link>https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</guid><description>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в MikroTik Marketplace . Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</description><content:encoded><![CDATA[<p>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в 
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>mikrotik | Library Online</title><link>https://lib.onl/ru/tags/mikrotik/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/mikrotik/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>
+mikrotik | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sun, 12 Jul 2020 15:09:48 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/mikrotik/index.xml" rel="self" type="application/rss+xml"/><item><title>Включение DNS over TLS (DoT) в OPNsense</title><link>https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</guid><description>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</description><content:encoded><![CDATA[<p>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</p>
+<p><strong>DNS поверх TLS</strong> или <strong>DoT</strong> это протокол, при помощи которого происходит шифрование запросов и ответов к DNS через TLS. Таким образом, повышается конфиденциальность и безопасность пользователей в интернете.</p>
+<p>Не все публичные сервера поддерживают DoT. Список наиболее предпочтительных, по моему мнению, я приведу в таблице в конце статьи. А теперь, по пунктам, я расскажу как правильно настроить OPNsense, чтобы она задействовала протокол DoT в своей работе. Для этого нужно выполнить всего несколько шагов&hellip;</p>
+<h2>Настройка OPNsense</h2>
+<ul>
+<li>System / Settings / General
+<ul>
+<li>Отключить параметр <strong>Do not use the local DNS service as a nameserver for this system</strong>.</li>
+</ul>
+</li>
+<li>Services / DHCPv4 / [LAN]
+<ul>
+<li>Удалить все записи о DNS, если они имеются.</li>
+</ul>
+</li>
+<li>Services / Unbound DNS / General
+<ul>
+<li>Включить сервис, поставив галочку напротив <strong>Enable</strong>.</li>
+<li>Выбрать в параметре <strong>Network Interfaces</strong> пункт локальной сети, в данном случае, <em>LAN</em>.</li>
+<li>Включить <strong>DNSSEC</strong>, поставив галочку напротив парамера <strong>Enable DNSSEC Support</strong>.</li>
+<li>Остальные параметры можно выключить.</li>
+</ul>
+</li>
+<li>Services / Unbound DNS / DNS over TLS
+<ul>
+<li>Добавить публичные сервера DNS из списка ниже.</li>
+</ul>
+</li>
+</ul>
+<h2>Публичные сервера DNS</h2>
+<p>Ниже я привожу список публичных серверов DNS, которые поддерживают функцию DNS over TLS (DoT).</p>
+<h4>Cloudflare</h4>
+
+
+
+
+
+<table class='table table-striped table-bordered table-responsive w-50'>
+<thead>
+<tr>
+<th>Server IP</th>
+<th>Server Port</th>
+<th>Verify CN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.1.1.1</td>
+<td>853</td>
+<td>cloudflare-dns.com</td>
+</tr>
+<tr>
+<td>1.0.0.1</td>
+<td>853</td>
+<td>cloudflare-dns.com</td>
+</tr>
+<tr>
+<td>2606:4700:4700::1111</td>
+<td>853</td>
+<td>cloudflare-dns.com</td>
+</tr>
+<tr>
+<td>2606:4700:4700::1001</td>
+<td>853</td>
+<td>cloudflare-dns.com</td>
+</tr>
+</tbody>
+</table>
+
+<h4>Google</h4>
+
+
+
+
+
+<table class='table table-striped table-bordered table-responsive w-50'>
+<thead>
+<tr>
+<th>Server IP</th>
+<th>Server Port</th>
+<th>Verify CN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8.8.8.8</td>
+<td>853</td>
+<td>dns.google</td>
+</tr>
+<tr>
+<td>8.8.4.4</td>
+<td>853</td>
+<td>dns.google</td>
+</tr>
+<tr>
+<td>2001:4860:4860::8888</td>
+<td>853</td>
+<td>dns.google</td>
+</tr>
+<tr>
+<td>2001:4860:4860::8844</td>
+<td>853</td>
+<td>dns.google</td>
+</tr>
+</tbody>
+</table>
+
+<h4>Quad9</h4>
+
+
+
+
+
+<table class='table table-striped table-bordered table-responsive w-50'>
+<thead>
+<tr>
+<th>Server IP</th>
+<th>Server Port</th>
+<th>Verify CN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9.9.9.9</td>
+<td>853</td>
+<td>dns.quad9.net</td>
+</tr>
+<tr>
+<td>149.112.112.112</td>
+<td>853</td>
+<td>dns.quad9.net</td>
+</tr>
+<tr>
+<td>2620:fe::fe</td>
+<td>853</td>
+<td>dns.quad9.net</td>
+</tr>
+<tr>
+<td>2620:fe::9</td>
+<td>853</td>
+<td>dns.quad9.net</td>
+</tr>
+</tbody>
+</table>
+
+<h4>Cisco Umbrella</h4>
+
+
+
+
+
+<table class='table table-striped table-bordered table-responsive w-50'>
+<thead>
+<tr>
+<th>Server IP</th>
+<th>Server Port</th>
+<th>Verify CN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>208.67.222.222</td>
+<td>853</td>
+<td>dns.opendns.com</td>
+</tr>
+<tr>
+<td>208.67.220.220</td>
+<td>853</td>
+<td>dns.opendns.com</td>
+</tr>
+<tr>
+<td>2620:119:35::35</td>
+<td>853</td>
+<td>dns.opendns.com</td>
+</tr>
+<tr>
+<td>2620:119:53::53</td>
+<td>853</td>
+<td>dns.opendns.com</td>
+</tr>
+</tbody>
+</table>
+
+<h4>CleanBrowsing</h4>
+
+
+
+
+
+<table class='table table-striped table-bordered table-responsive w-50'>
+<thead>
+<tr>
+<th>Server IP</th>
+<th>Server Port</th>
+<th>Verify CN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>185.228.168.9</td>
+<td>853</td>
+<td>security-filter-dns.cleanbrowsing.org</td>
+</tr>
+<tr>
+<td>185.228.169.9</td>
+<td>853</td>
+<td>security-filter-dns.cleanbrowsing.org</td>
+</tr>
+<tr>
+<td>2a0d:2a00:1::2</td>
+<td>853</td>
+<td>security-filter-dns.cleanbrowsing.org</td>
+</tr>
+<tr>
+<td>2a0d:2a00:2::2</td>
+<td>853</td>
+<td>security-filter-dns.cleanbrowsing.org</td>
+</tr>
+</tbody>
+</table>
+
+<h4>AdGuard DNS</h4>
+
+
+
+
+
+<table class='table table-striped table-bordered table-responsive w-50'>
+<thead>
+<tr>
+<th>Server IP</th>
+<th>Server Port</th>
+<th>Verify CN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>94.140.14.14</td>
+<td>853</td>
+<td>dns.adguard-dns.com</td>
+</tr>
+<tr>
+<td>94.140.15.15</td>
+<td>853</td>
+<td>dns.adguard-dns.com</td>
+</tr>
+<tr>
+<td>2a10:50c0::ad1:ff</td>
+<td>853</td>
+<td>dns.adguard-dns.com</td>
+</tr>
+<tr>
+<td>2a10:50c0::ad2:ff</td>
+<td>853</td>
+<td>dns.adguard-dns.com</td>
+</tr>
+</tbody>
+</table>]]></content:encoded><pubDate>Sun, 14 Aug 2022 18:16:34 +0000</pubDate><category>Network</category></item><item><title>Windows Server 2022 для рабочей станции</title><link>https://lib.onl/ru/posts/2022/05/36058650-3f35-5ed5-9565-0aa7d8800c28/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/05/36058650-3f35-5ed5-9565-0aa7d8800c28/</guid><description>В этой небольшой заметке я расскажу, как перенастроить серверную версию ОС Windows для работы на обычном стационарном ПК.</description><content:encoded><![CDATA[<p>В этой небольшой заметке я расскажу, как перенастроить серверную версию ОС Windows для работы на обычном стационарном ПК.</p>
+<h2>Настройка служб</h2>
+<p>На сервере нет необходимости использовать поисковые механизмы и вывод звука, поэтому они отключены. Но на рабочей станции эти параметры необходимы. Для включения звука и поискового механизма, необходимо настроить запуск соответствующих служб.</p>
+<ul>
+<li>Services
+<ul>
+<li>Windows Audio
+<ul>
+<li>Startup type
+<ul>
+<li>Automatic</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Windows Audio Endpoint
+<ul>
+<li>Startup type
+<ul>
+<li>Automatic</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Windows Search
+<ul>
+<li>Startup type
+<ul>
+<li>Automatic (Delayed Start)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2>Отключение Shutdown Event Tracker</h2>
+<p>Сервер должен работать бесперебойно. Любое отключение сервера, по хорошему, должно записываться в специальный журнал. Но так как у нас рабочая станция, записывать каждые перезагрузку или выключение нет необходимости. Включаем службы.</p>
+<ul>
+<li>Local Group Policy
+<ul>
+<li>Computer Configuration / Administrative Templates / System
+<ul>
+<li>Display Shutdown Event Tracker
+<ul>
+<li>Disabled</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2>Отключение строгой системы безопасности IE</h2>
+<p>Сервер использует строгие параметры системы безопасности IE. Но на рабочей станции в этих параметрах нет необходимости и они будут только мешать. Отключаем их.</p>
+<ul>
+<li>Server Manager / Local Server
+<ul>
+<li>IE Enhanced Security Configuration
+<ul>
+<li>Off</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2>Оптимизация производительности для приложений</h2>
+<p>По умолчанию, на сервере оптимизация включена для фоновых служб. На рабочей станции необходима оптимизация для программ. Включаем оптимизацию для программ.</p>
+<ul>
+<li>System / Advanced System Settings / Advanced / Performance / Advanced
+<ul>
+<li>Adjust for best performance of
+<ul>
+<li>Programs</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2>Отключение DEP</h2>
+<p>По умолчанию, 
 
 
 
@@ -28,9 +366,20 @@
     
 
 
-<a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare" target="_blank" rel="noopener noreferrer nofollow">MikroTik Marketplace</a>
-. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</p>
-<p>Сам скрипт нужно настроить под себя, прописав в нём значения переменных. Значения переменных я указал в 
+<a title="" href="https://docs.microsoft.com/en-us/windows/win32/memory/data-execution-prevention" target="_blank" rel="noopener noreferrer nofollow">Data Execution Prevention (DEP)</a>
+ включена абсолютно для всех программ и сервисов. Такая излишняя защита на рабочей станции не нужна. Поэтому, переключаем выполнение DEP только для программ и сервисов самой ОС Windows.</p>
+<ul>
+<li>System / Advanced System Settings / Advanced / Performance / Data Execution Prevention
+<ul>
+<li>Turn on DEP for essential Windows programs and services only</li>
+</ul>
+</li>
+</ul>
+<h2>Включение Memory Compression, Operation API и PageCombining</h2>
+<p>В ОС Windows для обычных компьютеров включены Memory Compression, Operation API и PageCombining. Поэтому, перенастраиваем серверную версию ОС на такую же конфигурацию. Для этого запускаем PowerShell от имени Администратора и выполняем команду:</p>
+<pre><code>Enable-MMAgent -MemoryCompression -OperationAPI -PageCombining
+</code></pre>]]></content:encoded><pubDate>Mon, 09 May 2022 11:53:26 +0000</pubDate><category>Windows</category></item><item><title>Установка ядра XanMod в Debian</title><link>https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</guid><description>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра XanMod в Debian.</description><content:encoded><![CDATA[<p>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра <strong>XanMod</strong> в Debian.</p>
+<p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с 
 
 
 
@@ -60,55 +409,447 @@
     
 
 
-<a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare/blob/main/README.md" target="_blank" rel="noopener noreferrer nofollow">README</a>
- на GitHub’е. Большинство значений можно узнать из панели управления доменом в Cloudflare, но для получения значения переменной <code>cfDNSID</code> необходимо выполнит немного телодвижений.</p>
-<p>Для начала в терминале Linux выполнить следующую команду:</p>
-<pre><code class="language-bash">curl -X GET &quot;https://api.cloudflare.com/client/v4/zones/API_ZONE_ID/dns_records&quot;  \
--H &quot;X-Auth-Email: USER_EMAIL&quot;                                                     \
--H &quot;X-Auth-Key: USER_TOKEN&quot;                                                       \
--H &quot;Content-Type: application/json&quot; | python -mjson.tool
+<a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>
+:</p>
+<ul>
+<li>Caching, Virtual Memory Manager and CPUFreq Governor improvements.</li>
+<li>Full multi-core block layer runqueue requests for high I/O throughput.</li>
+<li>BBRv2 TCP congestion control + FQ-PIE packet scheduling and AQM algorithm.</li>
+<li>ORC Unwinder for kernel stack traces (debuginfo) implementation.</li>
+<li>High responsiveness multitasking Task Type scheduler (SCHED_NORMAL) build available [5.15-tt].</li>
+<li>Real-time Linux kernel (PREEMPT_RT) build available [5.15-rt] [5.10-rt].</li>
+<li>Third-party patchset available: patches
+<ul>
+<li>le9&rsquo;s file mappings under memory pressure protection.</li>
+<li>Linux Random Number Generator (LRNG) framework.</li>
+<li>TCP performance optimizations backport from linux/net-next [5.16] [5.15].</li>
+<li>AMD&rsquo;s P-state driver for Zen2 and Zen3 processors [5.16] [5.15].</li>
+<li>Futex waitv and legacy WAIT_MULTIPLE implementation for Wine / Proton Fsync support.</li>
+<li>WineSync driver for fast kernel-backed Wine [5.16] [5.15] [as module: winesync].</li>
+<li>Google&rsquo;s Multigenerational LRU framework [5.16] [5.15].</li>
+<li>Google&rsquo;s BBRv2 TCP congestion control.</li>
+<li>Paragon&rsquo;s Software NTFS3 driver [as module: ntfs3].</li>
+<li>PCIe ACS Override for bypassing IOMMU groups support.</li>
+<li>Graysky&rsquo;s additional CPU optimizations for GCC and Clang.</li>
+<li>Clear Linux patchset [partial].</li>
+<li>Android Ashmem and Binder IPC driver as module for Anbox.</li>
+<li>Updated ZSTD library for bug fixes and r/w performance compression improvements on Btrfs, F2FS, SquashFS, pstore, initramfs and vmlinuz.</li>
+</ul>
+</li>
+<li>Generic packages for compatibility with most Debian &amp; Ubuntu based distributions. Builts on the latest LLVM 12.0.1, GCC 11.2 and Binutils 2.37.</li>
+<li>GPLv2 license. Can be built for any distribution or purpose.</li>
+</ul>
+<p>Стоит заметить, что ядро <strong>XanMod</strong> не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>
+, которое занимается практически тем же самым. Но, посмотрев 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a>
+ на Phoronix&rsquo;е, я сделал выбор в пользу <strong>XanMod</strong>.</p>
+<p>Однострочная команда по добавлению ядра <strong>XanMod</strong> в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
+<ol>
+<li>Добавление файла <code>xanmod-kernel.list</code> в директорию <code>/etc/apt/sources.list.d</code>.</li>
+<li>Скачивание файла подписи <code>gpg.key</code> и размещение его в директорию <code>/etc/apt/trusted.gpg.d</code> с названием <code>xanmod-kernel.gpg</code>.</li>
+<li>Обновление информации из репозитория при помощи команды <code>apt update</code>.</li>
+</ol>
+<pre><code class="language-sh">echo 'deb http://deb.xanmod.org releases main' | tee /etc/apt/sources.list.d/xanmod-kernel.list &amp;&amp; curl -fsSL 'https://dl.xanmod.org/gpg.key' | gpg --dearmor | tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null &amp;&amp; apt update
 </code></pre>
-<p>&hellip;соответственно, подставив собственные значения, например (значения фальшивые):</p>
-<pre><code class="language-bash">curl -X GET &quot;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&quot;   \
--H &quot;X-Auth-Email: user@cloudflare.com&quot;                                                                  \
--H &quot;X-Auth-Key: CcDXmj5lzd9Na3Wi2fQLPvAJIuwUrxF1VnMyS&quot;                                                  \
--H &quot;Content-Type: application/json&quot; | python -mjson.tool
+<p>После выполнения команды, установка ядра <strong>XanMod</strong> происходит таким образом:</p>
+<pre><code>apt install linux-xanmod
 </code></pre>
-<p>Команды вернёт результат в формате JSON, к примеру (результаты фальшивые):</p>
-<pre><code class="language-json">{
-    &quot;result&quot;: [
-        {
-            &quot;id&quot;: &quot;gJDSG5la4IWNOEVn6K2PHyope8Q9YhzC&quot;,
-            &quot;zone_id&quot;: &quot;Q7dslfag51U2B3jRpmbxMInDTCoSFYyH&quot;,
-            &quot;zone_name&quot;: &quot;example.com&quot;,
-            &quot;name&quot;: &quot;example.com&quot;,
-            &quot;type&quot;: &quot;A&quot;,
-            &quot;content&quot;: &quot;192.168.10.232&quot;,
-            &quot;proxiable&quot;: true,
-            &quot;proxied&quot;: true,
-            &quot;ttl&quot;: 1,
-            &quot;locked&quot;: false,
-            &quot;meta&quot;: {
-                &quot;auto_added&quot;: false,
-                &quot;managed_by_apps&quot;: false,
-                &quot;managed_by_argo_tunnel&quot;: false,
-                &quot;source&quot;: &quot;primary&quot;
-            },
-            &quot;created_on&quot;: &quot;2020-02-23T21:26:27.56227Z&quot;,
-            &quot;modified_on&quot;: &quot;2020-02-23T21:26:27.56227Z&quot;
-        }
-    ],
-    &quot;success&quot;: true,
-    &quot;errors&quot;: [],
-    &quot;messages&quot;: [],
-    &quot;result_info&quot;: {
-        &quot;page&quot;: 1,
-        &quot;per_page&quot;: 20,
-        &quot;count&quot;: 7,
-        &quot;total_count&quot;: 7,
-        &quot;total_pages&quot;: 1
-    }
+<p>Для установки Mainline-версии ядра команда будет такой:</p>
+<pre><code>apt install linux-xanmod-edge
+</code></pre>
+<h2>FQ-PIE</h2>
+<p>Для включения планировщика пакетов <strong>FQ-PIE</strong>, необходимо выполнить команду:</p>
+<pre><code>echo 'net.core.default_qdisc = fq_pie' | tee /etc/sysctl.d/90-override.conf
+</code></pre>
+<p>Проверка:</p>
+<pre><code>tc qdisc show
+</code></pre>]]></content:encoded><pubDate>Thu, 13 Jan 2022 22:44:15 +0000</pubDate><category>Linux</category></item><item><title>Установка Vivaldi в Debian</title><link>https://lib.onl/ru/posts/2022/01/ddddd243-d182-5e26-a161-d2ea7812214a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/01/ddddd243-d182-5e26-a161-d2ea7812214a/</guid><description>Привет всем! В этой небольшой заметке я приведу команду, при помощи которой можно добавить репозиторий браузера Vivaldi в Debian.</description><content:encoded><![CDATA[<p>Привет всем! В этой небольшой заметке я приведу команду, при помощи которой можно добавить репозиторий браузера <strong>Vivaldi</strong> в Debian.</p>
+<p>Установочный пакет <strong>Vivaldi</strong> уже выполняет указанные действия, но для этого он задействует утилиту <code>apt-key</code>, которая в <strong>Debian 11</strong> имеет статус <code>deprecated</code>.</p>
+<p>Однострочная команда по добавлению <strong>Vivaldi</strong> в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
+<ol>
+<li>Добавление файла <code>vivaldi-archive.list</code> в директорию <code>/etc/apt/sources.list.d</code>.</li>
+<li>Скачивание файла подписи <code>linux_signing_key.pub</code> и размещение его в директорию <code>/etc/apt/trusted.gpg.d</code> с названием <code>vivaldi-browser.gpg</code>.</li>
+<li>Обновление информации из репозитория при помощи команды <code>apt update</code>.</li>
+</ol>
+<pre><code class="language-sh">echo &quot;deb [signed-by=/etc/apt/trusted.gpg.d/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main&quot; | tee /etc/apt/sources.list.d/vivaldi-archive.list &amp;&amp; curl -fsSL 'https://repo.vivaldi.com/archive/linux_signing_key.pub' | gpg --dearmor | tee /etc/apt/trusted.gpg.d/vivaldi-browser.gpg &gt; /dev/null &amp;&amp; apt update
+</code></pre>
+<p>После выполнения команды, установка <strong>Vivaldi</strong> происходит таким образом:</p>
+<pre><code>apt install vivaldi-stable
+</code></pre>]]></content:encoded><pubDate>Thu, 13 Jan 2022 22:44:01 +0000</pubDate><category>Linux</category></item><item><title>Чёрный экран с курсором при старте GDM</title><link>https://lib.onl/ru/posts/2021/09/581804b8-0613-52a8-a5c4-fdae90e7bc8a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/581804b8-0613-52a8-a5c4-fdae90e7bc8a/</guid><description>На днях установил Debian 11 на несколько ПК. Всё было отлично, кроме как на одном из ПК почему то GDM не стал загружаться. Чёрный экран с мигающем текстовым курсором&amp;hellip;</description><content:encoded><![CDATA[<p>На днях установил <strong>Debian 11</strong> на несколько ПК. Всё было отлично, кроме как на одном из ПК почему то <strong>GDM</strong> не стал загружаться. Чёрный экран с мигающем текстовым курсором&hellip;</p>
+<p>На других ПК всё было нормально. Отличие проблемного ПК от остальных заключалось в том, что на проблемном ПК система была установлена на <strong>SSD</strong>. Может быть дело в этом. В интернете я нашёл похожую проблему. По сути, проблема заключается в том, что сам GDM запускается чуть раньше, чем начинается инициализация графической подсистемы. И на кой чёрт его несёт вперёд&hellip;</p>
+<p>В общем, предлагают несколько решений.</p>
+<h2>Настройка сервиса GDM</h2>
+<p>Данный вариант решения проблемы предлагает отредактировать стартовые параметры сервиса GDM, чтобы тот запускался с небольшой задержкой и не лез вперёд остальной графической подсистемы.</p>
+<p>В терминале нужно ввести от root&rsquo;а команду <code>systemctl edit gdm.service</code>, откроется редактор сервиса GDM. В нем необходимо добавить строку <code>ExecStartPre=/bin/sleep 2</code>, которая создаёт задержку перед запуском самого GDM. Примерно вот так:</p>
+<pre><code class="language-ini">### Anything between here and the comment below will become the new contents of the file
+
+[Service]
+ExecStartPre=/bin/sleep 2
+
+### Lines below this comment will be discarded
+</code></pre>
+<p>Таким образом GDM начинает запускаться после того, как инициализируется графическая подсистема.</p>
+<p>Сделал специальный пакет для исправления проблемы:</p>
+
+
+
+
+<div class="shortcode shortcode-github-repo mb-3">
+  <div class="row row-cols-1 row-cols-lg-2 g-3">
+      
+          
+          
+
+          <div class="col">
+            <div class="card">
+              <div class="row g-0">
+                <div class="col-md-4 p-1">
+                  <a class="d-inline-block" href="" target="_blank" rel="noopener nofollow">
+                    <img src="" class="card-img" alt=""/>
+                  </a>
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body h-100">
+                    <div class="d-flex flex-column h-100">
+                      <div class="flex-shrink-0">
+                        <h5 class="card-title">
+                          <a href="" target="_blank" rel="noopener nofollow"></a>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted"></h6>
+                        <p class="card-text"></p>
+                      </div>
+                      <div class="mt-auto">
+                        <ul class="list-inline m-0 mt-3">
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="/watchers" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-eye fa-fw me-1"></i>
+                                
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="/stargazers" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-star fa-fw me-1"></i>
+                                
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a class="btn btn-light btn-sm text-muted" href="/network/members" target="_blank" rel="noopener nofollow" role="button">
+                              <i class="fas fa-code-branch fa-fw me-1"></i>
+                                
+                            </a>
+                          </li>
+                            
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      
+  </div>
+</div>
+
+<p>Ещё одно исправление 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://gitlab.gnome.org/GNOME/gdm/-/issues/662#note_993169" target="_blank" rel="noopener noreferrer nofollow">предложили</a>
+ в баг-трекере GNOME/GDM. Вместо торможения загрузки GDM, необходимо добавить следующие строки:</p>
+<pre><code class="language-ini">[Unit]
+Wants=systemd-udev-trigger.service systemd-udev-settle.service
+After=systemd-udev-trigger.service systemd-udev-settle.service
+</code></pre>
+<p>Но это не совсем корректное исправление (хотя исправление, изложенное выше, тоже трудно назвать правильным), так как после применения этих строк, появляется ошибка:</p>
+<pre><code class="language-txt">Dec 27 22:23:48 oleksandr-xps15 udevadm[260]: systemd-udev-settle.service is deprecated. Please fix gdm.service not to pull it in.
+</code></pre>
+<h2>Указание порядка инициализации графической подсистемы</h2>
+<p>Этот вариант решения проблемы подходит для <strong>Arch Linux</strong>. Необходимо в файле <code>/etc/mkinitcpio.conf</code> добавить в массив <code>MODULES</code> свою графическую подсистему, чтобы та запускалась раньше, чем GDM. Например:</p>
+<pre><code>MODULES=(amdgpu)
+</code></pre>
+<p>Можно указать другие графические подсистемы, всё зависит от видеокарты, установленной в ПК:</p>
+<ul>
+<li><code>amdgpu</code> - для современных видеокарт AMD.</li>
+<li><code>radeon</code> - для устаревших видеокарт AMD.</li>
+<li><code>nouveau</code> - для Nvidia Nouveau.</li>
+<li><code>i915</code> - для Intel.</li>
+<li><code>mgag200</code> - для видеокарт Matrox.</li>
+</ul>
+<p>Если в системе используется Intel в качестве графики и в модулях прописан <code>i915</code>, то могут появится ошибки ACPI. Для исправления этих ошибок необходимо добавить <code>intel_agp</code> перед <code>i915</code>. Чтобы проверить корректность загрузки модуля, можно ввести команду <code>lsmod | grep intel_agp</code>.</p>]]></content:encoded><pubDate>Thu, 30 Sep 2021 08:10:19 +0000</pubDate><category>Linux</category></item><item><title>Отключение режима Wayland в GDM</title><link>https://lib.onl/ru/posts/2021/09/0d11ecc0-2714-5c5c-9b48-804f50419590/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/0d11ecc0-2714-5c5c-9b48-804f50419590/</guid><description>Использовать Wayland мне, пока что, нет необходимости. Поэтому, я решил его отключить в GDM.</description><content:encoded><![CDATA[<p>Использовать <strong>Wayland</strong> мне, пока что, нет необходимости. Поэтому, я решил его отключить в <strong>GDM</strong>.</p>
+<p>Для того, чтобы отключить выбор режима Wayland в GDM, необходимо в файле <code>/etc/gdm3/daemon.conf</code> раскомментировать строку:</p>
+<pre><code class="language-ini"># WaylandEnable=false
+</code></pre>
+<p>Должно получится так:</p>
+<pre><code class="language-ini">WaylandEnable=false
+</code></pre>
+<p>Таким образом даём понять GDM, что мы не желаем использовать Wayland.</p>]]></content:encoded><pubDate>Thu, 30 Sep 2021 07:51:30 +0000</pubDate><category>Linux</category></item><item><title>Установка Proxmox VE на Debian 11 (Bullseye)</title><link>https://lib.onl/ru/posts/2021/09/1cf305cd-85d0-5e02-aabb-e01346bfee0f/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/1cf305cd-85d0-5e02-aabb-e01346bfee0f/</guid><description>В этой небольшой заметке, я расскажу как установить Proxmox VE на чистый Debian 11 (Bullseye).</description><content:encoded><![CDATA[<p>В этой небольшой заметке, я расскажу как установить <strong>Proxmox VE</strong> на чистый <strong>Debian 11 (Bullseye)</strong>.</p>
+<h2>Подготовка</h2>
+<p>Для начала необходимо отредактировать файл <code>/etc/hosts</code>, прописав туда IP сервера, на который будет устанавливаться наш Proxmox VE:</p>
+<pre><code>127.0.0.1   localhost
+127.0.1.1   localhost.localdomain     localhost
+
+# Proxmox
+10.0.1.1    srv-vm.home.local         srv-vm
+</code></pre>
+<p>Для проверки, можно выполнить команду <code>hostname --ip-address</code>, которая вернёт IP сервера, указанного в <code>/etc/hosts</code> выше.</p>
+<h2>Добавление репозиториев</h2>
+<p>Добавим репозиторий Proxmox VE:</p>
+<pre><code class="language-sh">echo &quot;deb [arch=amd64] http://download.proxmox.com/debian/pve bullseye pve-no-subscription&quot; &gt; /etc/apt/sources.list.d/pve.list
+</code></pre>
+<p>Скачаем и установим ключ репозитория:</p>
+<pre><code class="language-sh">curl 'https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg' -o /etc/apt/trusted.gpg.d/pve.gpg
+</code></pre>
+<p>Обновим базу пакетов APT и саму систему:</p>
+<pre><code>apt update &amp;&amp; apt full-upgrade
+</code></pre>
+<h2>Установка пакетов</h2>
+<p>Начнём установку пакетов командой:</p>
+<pre><code>apt install proxmox-ve postfix open-iscsi
+</code></pre>
+<p>Стоит заметить, что устанавливается Postfix, он необходим для отправки писем от Proxmox VE. Но мне в локальной сети такая функция не нужна. При установке, Postfix спросит в каком режиме ему необходимо будет работать. Я выбираю <strong>local only</strong>.</p>
+<h2>Исправление ошибок</h2>
+<p>После установки Proxmox VE через пакетны менеджер APT, я столкнулся с некоторыми проблемами. Не знаю, может быть они будут отсутствовать, если устанавливать Proxmox VE при помощи его отдельного ISO-файла&hellip;</p>
+<h3>lvm2-activation-generator: lvmconfig failed</h3>
+<p>Для исправления ошибки <code>lvm2-activation-generator: lvmconfig failed</code>, необходимо в файле <code>/etc/lvm/lvm.conf</code> изменить параметр <code>event_activation</code>, а именно раскомментировать и установить в <code>0</code>:</p>
+<pre><code>global {
+  &lt;...&gt;
+  # Configuration option global/event_activation.
+  # Activate LVs based on system-generated device events.
+  # When a device appears on the system, a system-generated event runs
+  # the pvscan command to activate LVs if the new PV completes the VG.
+  # Use auto_activation_volume_list to select which LVs should be
+  # activated from these events (the default is all.)
+  # When event_activation is disabled, the system will generally run
+  # a direct activation command to activate LVs in complete VGs.
+  # This configuration option has an automatic default value.
+  # event_activation = 1
+  &lt;...&gt;
 }
 </code></pre>
-<p>Смотрим поле <code>id</code> и значение этого поля вставляем в переменную <code>cfDNSID</code>.</p>
-<p>На этом всё. Не забываем выдать скрипту необходимые права в панели MikroTik, а также прописать автоматический запуск скрипта через <strong>Scheduler</strong>.</p>]]></content:encoded><pubDate>Sun, 12 Jul 2020 15:09:48 +0000</pubDate><category>Network</category></item></channel></rss>
+<pre><code>global {
+  &lt;...&gt;
+  # Configuration option global/event_activation.
+  # Activate LVs based on system-generated device events.
+  # When a device appears on the system, a system-generated event runs
+  # the pvscan command to activate LVs if the new PV completes the VG.
+  # Use auto_activation_volume_list to select which LVs should be
+  # activated from these events (the default is all.)
+  # When event_activation is disabled, the system will generally run
+  # a direct activation command to activate LVs in complete VGs.
+  # This configuration option has an automatic default value.
+  event_activation = 0
+  &lt;...&gt;
+}
+</code></pre>
+<h3>Не поднимается  интерфейс</h3>
+<p>После установки, у меня перестал автоматически подниматься сетевой интерфейс. Может быть, в отдельном ISO-образе Proxmox VE такой проблемы нет, потому что при установке с отдельного ISO-образа, он запрашивает у администратора параметры сети. Но если устанавливать Proxmox VE через пакетную систему Debian, то никаких запросов не появляется. В общем, я сделал так (<code>/etc/network/interfaces</code>):</p>
+<pre><code>auto lo
+iface lo inet loopback
+
+iface enp3s0 inet manual
+
+auto vmbr0
+iface vmbr0 inet static
+  address 10.0.1.1/16
+  gateway 10.0.0.1
+  bridge-ports enp3s0
+  bridge-stp off
+  bridge-fd 0
+</code></pre>
+<p>Конкретно, тут я добавил блок виртуального соединения:</p>
+<pre><code>auto vmbr0
+iface vmbr0 inet static
+  address 10.0.1.1/16
+  gateway 10.0.0.1
+  bridge-ports enp3s0
+  bridge-stp off
+  bridge-fd 0
+</code></pre>
+<p>Где указал мост с физической картой <code>enp3s0</code>. Саму же карту <code>enp3s0</code> я перевёл в режим <code>manual</code>. После этого, сетевой интерфейс на сервере заработал в штатном режиме.</p>
+<p>На этом консольная настройка сервера виртуализации закончена. Настройка самого Proxmox&rsquo;а можно выполнять уже в удобном web-интерфейсе.</p>]]></content:encoded><pubDate>Sun, 12 Sep 2021 21:36:02 +0000</pubDate><category>Linux</category><category>InDev</category></item><item><title>Debian: Wired Networks are Unmanaged</title><link>https://lib.onl/ru/posts/2021/09/ff829d15-4a19-52e3-a3aa-ad70aa38854a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/ff829d15-4a19-52e3-a3aa-ad70aa38854a/</guid><description>При базовой установке Debian, Network Manager не устанавливается и, соответственно, он не управляет сетевой конфигурацией. Исправим данную ситуацию&amp;hellip;</description><content:encoded><![CDATA[<p>При базовой установке Debian, Network Manager не устанавливается и, соответственно, он не управляет сетевой конфигурацией. Исправим данную ситуацию&hellip;</p>
+<p>Лично я люблю ставить систему в минимальной комплектации. У меня есть 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://uaik.github.io/" target="_blank" rel="noopener noreferrer nofollow">отдельный ресурс</a>
+ со сценариями автоматической установки. Это шаблоны, которые позволяют поставить систему в автоматическом режиме и с минимальным набором компонентов. В основном, такие шаблоны полезны для серверов. Однако, для домашнего компьютера тоже вполне подойдут. Но после установки домашней системы через такой шаблон, потребуется небольшая корректировка.</p>
+<p>Итак, установим Network Manager при помощи пакетного менеджера <strong>APT</strong>:</p>
+<pre><code>apt install network-manager
+</code></pre>
+<p>Но этого недостаточно. Система будет говорить, что &ldquo;Wired Networks are Unmanaged&rdquo;, потому что всё ещё сетевой конфигурацией управляет не Network Manager. Для исправления этой ситуации, необходимо в <code>/etc/NetworkManager/NetworkManager.conf</code> изменить <code>managed=false</code> на <code>managed=true</code>.</p>
+<p>Далее, перезапустить службу:</p>
+<pre><code>service NetworkManager restart
+</code></pre>
+<p>На этом всё. Теперь сетевой конфигурацией управляет Network Manager.</p>]]></content:encoded><pubDate>Thu, 09 Sep 2021 19:14:12 +0000</pubDate><category>Linux</category></item><item><title>Распаковка пакетов DEB / RPM</title><link>https://lib.onl/ru/posts/2021/09/b2caccc7-92bf-57ed-970f-136c546f18e2/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/b2caccc7-92bf-57ed-970f-136c546f18e2/</guid><description>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</description><content:encoded><![CDATA[<p>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</p>
+<h2>DEB</h2>
+<p>Пакет <code>.deb</code> архивируется при помощи 
+
+
+
+
+
+
+    
+    
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+<a title="" href="https://en.wikipedia.org/wiki/Ar_%28Unix%29" target="_blank" rel="noopener noreferrer nofollow">ar</a>
+. Соответственно, распаковать пакет тоже следует через данный архиватор:</p>
+<pre><code class="language-sh">ar x example.deb
+</code></pre>
+<ul>
+<li><code>debian-binary</code> – файл, содержащий версию формата <code>.deb</code>.</li>
+<li><code>control.tar.xz</code> – файл, содержащий md5sums и директорию для сборки пакета.</li>
+<li><code>data.tar.xz</code> – архив, содержащий все файлы, которые должны быть установлены в системе при установке пакета.</li>
+</ul>
+<h2>RPM</h2>
+<p>Пакет <code>.rpm</code> содержит архив <code>cpio</code>. Имеется удобная утилита <code>rpm2cpio</code>, которая преобразует <code>.rpm</code> в архив <code>cpio</code>.</p>
+<pre><code class="language-sh">rpm2cpio myrpmfile.rpm
+rpm2cpio - &lt; myrpmfile.rpm
+rpm2cpio myrpmfile.rpm | cpio -idmv
+</code></pre>
+<p>Опции <code>rpm2cpio</code>:</p>
+<ul>
+<li><code>-i</code> - восстановить архив.</li>
+<li><code>-d</code> - создать необходимые каталоги.</li>
+<li><code>-m</code> - сохранить время модификации файлов.</li>
+<li><code>-v</code> - подробный вывод процесса преобразования.</li>
+</ul>
+<p>Также, просматривать <code>.rpm</code> можно при помощи файлового менеджера Midnight Commander (<code>mc</code>).</p>]]></content:encoded><pubDate>Wed, 08 Sep 2021 09:39:36 +0000</pubDate><category>Linux</category></item><item><title>Отключение установки дополнительных пакетов в Debian APT</title><link>https://lib.onl/ru/posts/2021/09/43b40b92-c29a-504b-87fa-5eac368dcf95/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/43b40b92-c29a-504b-87fa-5eac368dcf95/</guid><description>Стандартное действие APT при установке пакета, это установить дополнительные рекомендуемые пакеты. Но, к примеру, мне рекомендуемые пакеты не нужны. Они занимают место и, если я захочу поставить что-то дополнительно, я поставлю это сам.</description><content:encoded><![CDATA[<p>Стандартное действие APT при установке пакета, это установить дополнительные рекомендуемые пакеты. Но, к примеру, мне рекомендуемые пакеты не нужны. Они занимают место и, если я захочу поставить что-то дополнительно, я поставлю это сам.</p>
+<p>Ниже приведены две команды, которые позволяют отключить установку рекомендуемых (Recommends) и дополнительных (Suggests)пакетов.</p>
+<pre><code class="language-sh">echo 'APT::Install-Recommends &quot;false&quot;;' &gt; /etc/apt/apt.conf.d/00InstallRecommends
+echo 'APT::Install-Suggests &quot;false&quot;;' &gt; /etc/apt/apt.conf.d/00InstallSuggests
+</code></pre>
+<p>Стоит заметить, что при установке Debian на завершающем этапе можно отключить рекомендуемые пакеты (в preseed этот параметр именуется как <code>d-i base-installer/install-recommends boolean false</code>). При этом, после установки, Debian сам создаст файл <code>00InstallRecommends</code> в <code>/etc/apt/apt.conf.d</code> с соответствующим содержанием.</p>]]></content:encoded><pubDate>Tue, 07 Sep 2021 13:07:46 +0000</pubDate><category>Linux</category></item></channel></rss>
