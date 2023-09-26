@@ -1,5 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"><channel><title>Linux | Library Online</title><link>https://lib.onl/ru/categories/linux/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/categories/linux/</link><url>https://lib.onl/img/icon-128.png</url><width>128</width><height>128</height><title>
-Linux | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 13 Jan 2022 22:44:15 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/categories/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Включение DNS over TLS (DoT) в OPNsense</title><link>https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</guid><description>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</description><content:encoded><![CDATA[<p>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</p>
+Linux | Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 13 Jan 2022 22:44:15 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/categories/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Получение и установка MS Office 2021 LTSC</title><link>https://lib.onl/ru/posts/2023/09/dd5a3e1a-596b-50d5-b070-b2a065f99f32/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/09/dd5a3e1a-596b-50d5-b070-b2a065f99f32/</guid><description>MS Office является самым популярным набором приложений для офисной работы. На момент написания этой статьи, актуальной версией MS Office является 2021. Её можно купить в магазине. Но здесь я расскажу как получить актуальную версию MS Office 2021 LTSC с серверов Microsoft.</description><content:encoded><![CDATA[<p>MS Office является самым популярным набором приложений для офисной работы. На момент написания этой статьи, актуальной версией MS Office является 2021. Её можно купить в магазине. Но здесь я расскажу как получить актуальную версию MS Office 2021 LTSC с серверов Microsoft.</p>
+<p>MS Office 2021 LTSC просто так не купить, это программное обеспечение распространяется для организаций по соглашению о корпоративном лицензировании. MS Office 2021 LTSC поддерживает устройства только с операционными системами <strong>MS Windows 10</strong> или <strong>MS Windows 11</strong>.</p>
+<h2>Получение MS Office 2021 LTSC</h2>
+<p>Для получения установочного дистрибутива необходимо выполнить подготовительные шаги:</p>
+<ol>
+<li>Скачать и запустить <a href="https://www.microsoft.com/download/details.aspx?id=49117">Office Deployment Tool</a>.</li>
+<li>Во время установки, выбрать директорию для распаковки <strong>Office Deployment Tool</strong>. В эту директорию будет в дальнейшем загружен установочный дистрибутив MS Office 2021 LTSC.</li>
+<li>После завершения процесса установки, открыть консоль и перейти в директорию (<code>cd &lt;path&gt;</code>), куда был установлен Office Deployment Tool.</li>
+<li>В корне директории Office Deployment Tool создать файл <code>office.2021.xml</code> следующего содержания:</li>
+</ol>
+<pre><code class="language-xml">&lt;Configuration ID=&quot;42865718-c416-4c72-990b-20b6972cb9af&quot;&gt;
+  &lt;Add OfficeClientEdition=&quot;64&quot; Channel=&quot;PerpetualVL2021&quot;&gt;
+    &lt;Product ID=&quot;ProPlus2021Volume&quot; PIDKEY=&quot;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&quot;&gt;
+      &lt;Language ID=&quot;en-us&quot; /&gt;
+      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;/Product&gt;
+    &lt;Product ID=&quot;VisioPro2021Volume&quot; PIDKEY=&quot;KNH8D-FGHT4-T8RK3-CTDYJ-K2HT4&quot;&gt;
+      &lt;Language ID=&quot;en-us&quot; /&gt;
+      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;/Product&gt;
+    &lt;Product ID=&quot;ProjectPro2021Volume&quot; PIDKEY=&quot;FTNWT-C6WBT-8HMGF-K9PRX-QV9H8&quot;&gt;
+      &lt;Language ID=&quot;en-us&quot; /&gt;
+      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;/Product&gt;
+    &lt;Product ID=&quot;LanguagePack&quot;&gt;
+      &lt;Language ID=&quot;en-us&quot; /&gt;
+      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;/Product&gt;
+    &lt;Product ID=&quot;ProofingTools&quot;&gt;
+      &lt;Language ID=&quot;en-us&quot; /&gt;
+      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;/Product&gt;
+  &lt;/Add&gt;
+  &lt;Property Name=&quot;SharedComputerLicensing&quot; Value=&quot;0&quot; /&gt;
+  &lt;Property Name=&quot;FORCEAPPSHUTDOWN&quot; Value=&quot;FALSE&quot; /&gt;
+  &lt;Property Name=&quot;DeviceBasedLicensing&quot; Value=&quot;0&quot; /&gt;
+  &lt;Property Name=&quot;SCLCacheOverride&quot; Value=&quot;0&quot; /&gt;
+  &lt;Property Name=&quot;AUTOACTIVATE&quot; Value=&quot;1&quot; /&gt;
+  &lt;Updates Enabled=&quot;TRUE&quot; /&gt;
+  &lt;RemoveMSI /&gt;
+&lt;/Configuration&gt;
+</code></pre>
+<p>Далее, в консоли выполните команду <code>setup.exe /download office.2021.xml</code>. Команда запускает формирование и скачивание установочного дистрибутива MS Office 2021 LTCS с серверов Microsoft. Команда может не отображать процесс своей работы. После завершения команды, консоль вернёт управление пользователю, тем самым можно контролировать завершение получения установочного дистрибутива.</p>
+<h2>Установка полной версии MS Office 2021 LTSC</h2>
+<p>После получения установочного дистрибутива MS Office 2021 LTCS, в той же консоли необходимо выполнить команду <code>setup.exe /configure office.2021.xml</code>. Эта команда запускает процесс установки <strong>полной версии</strong> MS Office 2021 LTCS на компьютер пользователя со всеми дополнительными модулями.</p>
+<h2>Установка минимальной версии</h2>
+<p>Для администраторов, которые хотят установить на компьютер пользователя только самые необходимые компоненты (Access, Excel, Outlook, PowerPoint и World), предлагаю следующий конфигурационный файл:</p>
+<pre><code class="language-xml">&lt;Configuration ID=&quot;42865718-c416-4c72-990b-20b6972cb9af&quot;&gt;
+  &lt;Add OfficeClientEdition=&quot;64&quot; Channel=&quot;PerpetualVL2021&quot;&gt;
+    &lt;Product ID=&quot;ProPlus2021Volume&quot; PIDKEY=&quot;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&quot;&gt;
+      &lt;Language ID=&quot;en-us&quot; /&gt;
+      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+      &lt;ExcludeApp ID=&quot;Lync&quot; /&gt;
+      &lt;ExcludeApp ID=&quot;OneDrive&quot; /&gt;
+      &lt;ExcludeApp ID=&quot;OneNote&quot; /&gt;
+      &lt;ExcludeApp ID=&quot;Publisher&quot; /&gt;
+      &lt;ExcludeApp ID=&quot;Teams&quot; /&gt;
+    &lt;/Product&gt;
+    &lt;Product ID=&quot;LanguagePack&quot;&gt;
+      &lt;Language ID=&quot;en-us&quot; /&gt;
+      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;/Product&gt;
+    &lt;Product ID=&quot;ProofingTools&quot;&gt;
+      &lt;Language ID=&quot;en-us&quot; /&gt;
+      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;/Product&gt;
+  &lt;/Add&gt;
+  &lt;Property Name=&quot;SharedComputerLicensing&quot; Value=&quot;0&quot; /&gt;
+  &lt;Property Name=&quot;FORCEAPPSHUTDOWN&quot; Value=&quot;FALSE&quot; /&gt;
+  &lt;Property Name=&quot;DeviceBasedLicensing&quot; Value=&quot;0&quot; /&gt;
+  &lt;Property Name=&quot;SCLCacheOverride&quot; Value=&quot;0&quot; /&gt;
+  &lt;Property Name=&quot;AUTOACTIVATE&quot; Value=&quot;1&quot; /&gt;
+  &lt;Updates Enabled=&quot;TRUE&quot; /&gt;
+  &lt;RemoveMSI /&gt;
+&lt;/Configuration&gt;
+</code></pre>
+<p>Сохраните его под названием <code>office.2021.minimal.xml</code> и запустите процесс установки при помощи команды <code>setup.exe /configure office.2021.minimal.xml</code>.</p>
+<h2>Создание собственных конфигураций</h2>
+<p>Приведённые выше XML-файлы это файлы конфигураций. Их можно создавать самому при помощи веб-инструмента <a href="https://config.office.com/deploymentsettings">Office Deployment Center</a>. На странице создания конфигураций укажите необходимые параметры и настройки, и нажмите кнопку 
+
+<span class="shortcode shortcode-key"><kbd>Импорт</kbd></span>
+.</p>
+<p>Полученный XML-файл можно указывать в командах <code>setup.exe /download &lt;XML_FILE&gt;</code> и <code>setup.exe /configure &lt;XML_FILE&gt;</code> для конфигурирования установочного дистрибутива.</p>]]></content:encoded><pubDate>Tue, 26 Sep 2023 17:17:18 +0000</pubDate><category>Office</category></item><item><title>Включение DNS over TLS (DoT) в OPNsense</title><link>https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</guid><description>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</description><content:encoded><![CDATA[<p>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</p>
 <p><strong>DNS поверх TLS</strong> или <strong>DoT</strong> это протокол, при помощи которого происходит шифрование запросов и ответов к DNS через TLS. Таким образом, повышается конфиденциальность и безопасность пользователей в интернете.</p>
 <p>Не все публичные сервера поддерживают DoT. Список наиболее предпочтительных, по моему мнению, я приведу в таблице в конце статьи. А теперь, по пунктам, я расскажу как правильно настроить OPNsense, чтобы она задействовала протокол DoT в своей работе. Для этого нужно выполнить всего несколько шагов&hellip;</p>
 <h2>Настройка OPNsense</h2>
@@ -572,9 +654,4 @@ rpm2cpio myrpmfile.rpm | cpio -idmv
 <li><code>-m</code> - сохранить время модификации файлов.</li>
 <li><code>-v</code> - подробный вывод процесса преобразования.</li>
 </ul>
-<p>Также, просматривать <code>.rpm</code> можно при помощи файлового менеджера Midnight Commander (<code>mc</code>).</p>]]></content:encoded><pubDate>Wed, 08 Sep 2021 09:39:36 +0000</pubDate><category>Linux</category></item><item><title>Отключение установки дополнительных пакетов в Debian APT</title><link>https://lib.onl/ru/posts/2021/09/43b40b92-c29a-504b-87fa-5eac368dcf95/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/43b40b92-c29a-504b-87fa-5eac368dcf95/</guid><description>Стандартное действие APT при установке пакета, это установить дополнительные рекомендуемые пакеты. Но, к примеру, мне рекомендуемые пакеты не нужны. Они занимают место и, если я захочу поставить что-то дополнительно, я поставлю это сам.</description><content:encoded><![CDATA[<p>Стандартное действие APT при установке пакета, это установить дополнительные рекомендуемые пакеты. Но, к примеру, мне рекомендуемые пакеты не нужны. Они занимают место и, если я захочу поставить что-то дополнительно, я поставлю это сам.</p>
-<p>Ниже приведены две команды, которые позволяют отключить установку рекомендуемых (Recommends) и дополнительных (Suggests)пакетов.</p>
-<pre><code class="language-sh">echo 'APT::Install-Recommends &quot;false&quot;;' &gt; /etc/apt/apt.conf.d/00InstallRecommends
-echo 'APT::Install-Suggests &quot;false&quot;;' &gt; /etc/apt/apt.conf.d/00InstallSuggests
-</code></pre>
-<p>Стоит заметить, что при установке Debian на завершающем этапе можно отключить рекомендуемые пакеты (в preseed этот параметр именуется как <code>d-i base-installer/install-recommends boolean false</code>). При этом, после установки, Debian сам создаст файл <code>00InstallRecommends</code> в <code>/etc/apt/apt.conf.d</code> с соответствующим содержанием.</p>]]></content:encoded><pubDate>Tue, 07 Sep 2021 13:07:46 +0000</pubDate><category>Linux</category></item></channel></rss>
+<p>Также, просматривать <code>.rpm</code> можно при помощи файлового менеджера Midnight Commander (<code>mc</code>).</p>]]></content:encoded><pubDate>Wed, 08 Sep 2021 09:39:36 +0000</pubDate><category>Linux</category></item></channel></rss>
