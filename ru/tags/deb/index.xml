@@ -336,37 +336,7 @@ deb | Library Online</title><description>Заметки на тему админ
 </li>
 </ul>
 <h2>Отключение DEP</h2>
-<p>По умолчанию, 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://docs.microsoft.com/en-us/windows/win32/memory/data-execution-prevention" target="_blank" rel="noopener noreferrer nofollow">Data Execution Prevention (DEP)</a> включена абсолютно для всех программ и сервисов. Такая излишняя защита на рабочей станции не нужна. Поэтому, переключаем выполнение DEP только для программ и сервисов самой ОС Windows.</p>
+<p>По умолчанию, <a href="https://docs.microsoft.com/en-us/windows/win32/memory/data-execution-prevention">Data Execution Prevention (DEP)</a> включена абсолютно для всех программ и сервисов. Такая излишняя защита на рабочей станции не нужна. Поэтому, переключаем выполнение DEP только для программ и сервисов самой ОС Windows.</p>
 <ul>
 <li>System / Advanced System Settings / Advanced / Performance / Data Execution Prevention
 <ul>
@@ -378,37 +348,7 @@ deb | Library Online</title><description>Заметки на тему админ
 <p>В ОС Windows для обычных компьютеров включены Memory Compression, Operation API и PageCombining. Поэтому, перенастраиваем серверную версию ОС на такую же конфигурацию. Для этого запускаем PowerShell от имени Администратора и выполняем команду:</p>
 <pre><code>Enable-MMAgent -MemoryCompression -OperationAPI -PageCombining
 </code></pre>]]></content:encoded><pubDate>Mon, 09 May 2022 11:53:26 +0000</pubDate><category>Windows</category></item><item><title>Установка ядра XanMod в Debian</title><link>https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</guid><description>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра XanMod в Debian.</description><content:encoded><![CDATA[<p>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра <strong>XanMod</strong> в Debian.</p>
-<p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>:</p>
+<p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с <a href="https://xanmod.org">официального сайта</a>:</p>
 <ul>
 <li>Caching, Virtual Memory Manager and CPUFreq Governor improvements.</li>
 <li>Full multi-core block layer runqueue requests for high I/O throughput.</li>
@@ -437,67 +377,7 @@ deb | Library Online</title><description>Заметки на тему админ
 <li>Generic packages for compatibility with most Debian &amp; Ubuntu based distributions. Builts on the latest LLVM 12.0.1, GCC 11.2 and Binutils 2.37.</li>
 <li>GPLv2 license. Can be built for any distribution or purpose.</li>
 </ul>
-<p>Стоит заметить, что ядро <strong>XanMod</strong> не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>, которое занимается практически тем же самым. Но, посмотрев 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a> на Phoronix&rsquo;е, я сделал выбор в пользу <strong>XanMod</strong>.</p>
+<p>Стоит заметить, что ядро <strong>XanMod</strong> не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро <a href="https://liquorix.net"><strong>Liquorix</strong></a>, которое занимается практически тем же самым. Но, посмотрев <a href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix">обзор и тесты</a> на Phoronix&rsquo;е, я сделал выбор в пользу <strong>XanMod</strong>.</p>
 <p>Однострочная команда по добавлению ядра <strong>XanMod</strong> в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
 <ol>
 <li>Добавление файла <code>xanmod-kernel.list</code> в директорию <code>/etc/apt/sources.list.d</code>.</li>
@@ -544,37 +424,7 @@ ExecStartPre=/bin/sleep 2
 ### Lines below this comment will be discarded
 </code></pre>
 <p>Таким образом GDM начинает запускаться после того, как инициализируется графическая подсистема.</p>
-<p>Ещё одно исправление 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://gitlab.gnome.org/GNOME/gdm/-/issues/662#note_993169" target="_blank" rel="noopener noreferrer nofollow">предложили</a> в баг-трекере GNOME/GDM. Вместо торможения загрузки GDM, необходимо добавить следующие строки:</p>
+<p>Ещё одно исправление <a href="https://gitlab.gnome.org/GNOME/gdm/-/issues/662#note_993169">предложили</a> в баг-трекере GNOME/GDM. Вместо торможения загрузки GDM, необходимо добавить следующие строки:</p>
 <pre><code class="language-ini">[Unit]
 Wants=systemd-udev-trigger.service systemd-udev-settle.service
 After=systemd-udev-trigger.service systemd-udev-settle.service
@@ -686,37 +536,7 @@ iface vmbr0 inet static
 </code></pre>
 <p>Где указал мост с физической картой <code>enp3s0</code>. Саму же карту <code>enp3s0</code> я перевёл в режим <code>manual</code>. После этого, сетевой интерфейс на сервере заработал в штатном режиме.</p>
 <p>На этом консольная настройка сервера виртуализации закончена. Настройка самого Proxmox&rsquo;а можно выполнять уже в удобном web-интерфейсе.</p>]]></content:encoded><pubDate>Sun, 12 Sep 2021 21:36:02 +0000</pubDate><category>Linux</category><category>InDev</category></item><item><title>Debian: Wired Networks are Unmanaged</title><link>https://lib.onl/ru/posts/2021/09/ff829d15-4a19-52e3-a3aa-ad70aa38854a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/ff829d15-4a19-52e3-a3aa-ad70aa38854a/</guid><description>При базовой установке Debian, Network Manager не устанавливается и, соответственно, он не управляет сетевой конфигурацией. Исправим данную ситуацию&amp;hellip;</description><content:encoded><![CDATA[<p>При базовой установке Debian, Network Manager не устанавливается и, соответственно, он не управляет сетевой конфигурацией. Исправим данную ситуацию&hellip;</p>
-<p>Лично я люблю ставить систему в минимальной комплектации. У меня есть 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://uaik.github.io/" target="_blank" rel="noopener noreferrer nofollow">отдельный ресурс</a> со сценариями автоматической установки. Это шаблоны, которые позволяют поставить систему в автоматическом режиме и с минимальным набором компонентов. В основном, такие шаблоны полезны для серверов. Однако, для домашнего компьютера тоже вполне подойдут. Но после установки домашней системы через такой шаблон, потребуется небольшая корректировка.</p>
+<p>Лично я люблю ставить систему в минимальной комплектации. У меня есть <a href="https://uaik.github.io/">отдельный ресурс</a> со сценариями автоматической установки. Это шаблоны, которые позволяют поставить систему в автоматическом режиме и с минимальным набором компонентов. В основном, такие шаблоны полезны для серверов. Однако, для домашнего компьютера тоже вполне подойдут. Но после установки домашней системы через такой шаблон, потребуется небольшая корректировка.</p>
 <p>Итак, установим Network Manager при помощи пакетного менеджера <strong>APT</strong>:</p>
 <pre><code>apt install network-manager
 </code></pre>
@@ -726,37 +546,7 @@ iface vmbr0 inet static
 </code></pre>
 <p>На этом всё. Теперь сетевой конфигурацией управляет Network Manager.</p>]]></content:encoded><pubDate>Thu, 09 Sep 2021 19:14:12 +0000</pubDate><category>Linux</category></item><item><title>Распаковка пакетов DEB / RPM</title><link>https://lib.onl/ru/posts/2021/09/b2caccc7-92bf-57ed-970f-136c546f18e2/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/b2caccc7-92bf-57ed-970f-136c546f18e2/</guid><description>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</description><content:encoded><![CDATA[<p>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</p>
 <h2>DEB</h2>
-<p>Пакет <code>.deb</code> архивируется при помощи 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://en.wikipedia.org/wiki/Ar_%28Unix%29" target="_blank" rel="noopener noreferrer nofollow">ar</a>. Соответственно, распаковать пакет тоже следует через данный архиватор:</p>
+<p>Пакет <code>.deb</code> архивируется при помощи <a href="https://en.wikipedia.org/wiki/Ar_(Unix)">ar</a>. Соответственно, распаковать пакет тоже следует через данный архиватор:</p>
 <pre><code class="language-sh">ar x example.deb
 </code></pre>
 <ul>
