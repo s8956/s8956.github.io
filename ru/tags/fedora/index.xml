@@ -150,70 +150,7 @@ fedora | Library Online</title><description>Заметки на тему адм�
 
 <span class="shortcode shortcode-key"><kbd>Импорт</kbd></span>
 .</p>
-<p>Полученный XML-файл можно указывать в командах <code>setup.exe /download &lt;XML_FILE&gt;</code> и <code>setup.exe /configure &lt;XML_FILE&gt;</code> для конфигурирования установочного дистрибутива.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Add</span> <span class="na">OfficeClientEdition=</span><span class="s">&#34;64&#34;</span> <span class="na">Channel=</span><span class="s">&#34;PerpetualVL2021&#34;</span><span class="nt">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProPlus2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;</span><span class="nt">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;Lync&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;OneDrive&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;OneNote&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;Publisher&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;Teams&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;LanguagePack&#34;</span><span class="nt">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProofingTools&#34;</span><span class="nt">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/Add&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;SharedComputerLicensing&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;FORCEAPPSHUTDOWN&#34;</span> <span class="na">Value=</span><span class="s">&#34;FALSE&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;DeviceBasedLicensing&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;SCLCacheOverride&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;AUTOACTIVATE&#34;</span> <span class="na">Value=</span><span class="s">&#34;1&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Updates</span> <span class="na">Enabled=</span><span class="s">&#34;TRUE&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;RemoveMSI</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Configuration&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>]]></content:encoded><pubDate>Tue, 26 Sep 2023 17:17:18 +0000</pubDate><category>Office</category></item><item><title>Включение DNS over TLS (DoT) в OPNsense</title><link>https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</guid><description>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</description><content:encoded><![CDATA[<p>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</p>
+<p>Полученный XML-файл можно указывать в командах <code>setup.exe /download &lt;XML_FILE&gt;</code> и <code>setup.exe /configure &lt;XML_FILE&gt;</code> для конфигурирования установочного дистрибутива.</p>]]></content:encoded><pubDate>Tue, 26 Sep 2023 17:17:18 +0000</pubDate><category>Office</category></item><item><title>Включение DNS over TLS (DoT) в OPNsense</title><link>https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</guid><description>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</description><content:encoded><![CDATA[<p>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</p>
 <p><strong>DNS поверх TLS</strong> или <strong>DoT</strong> это протокол, при помощи которого происходит шифрование запросов и ответов к DNS через TLS. Таким образом, повышается конфиденциальность и безопасность пользователей в интернете.</p>
 <p>Не все публичные сервера поддерживают DoT. Список наиболее предпочтительных, по моему мнению, я приведу в таблице в конце статьи. А теперь, по пунктам, я расскажу как правильно настроить OPNsense, чтобы она задействовала протокол DoT в своей работе. Для этого нужно выполнить всего несколько шагов&hellip;</p>
 <h2>Настройка OPNsense</h2>
