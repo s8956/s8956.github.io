@@ -42,38 +42,65 @@ office | Library Online</title><description>Заметки на тему адм�
 <li>После завершения процесса установки, открыть консоль и перейти в директорию (<code>cd &lt;path&gt;</code>), куда был установлен Office Deployment Tool.</li>
 <li>В корне директории Office Deployment Tool создать файл <code>office.2021.xml</code> следующего содержания:</li>
 </ol>
-<pre><code class="language-xml">&lt;Configuration ID=&quot;42865718-c416-4c72-990b-20b6972cb9af&quot;&gt;
-  &lt;Add OfficeClientEdition=&quot;64&quot; Channel=&quot;PerpetualVL2021&quot;&gt;
-    &lt;Product ID=&quot;ProPlus2021Volume&quot; PIDKEY=&quot;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&quot;&gt;
-      &lt;Language ID=&quot;en-us&quot; /&gt;
-      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+
+
+
+
+
+
+
+<div class="shortcode shortcode-codebox mb-3">
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+          
+            <code>office.2021.xml</code>
+          
+        <div class="d-flex ms-auto">
+          <button type="button" class="btn btn-light btn-sm"
+                  data-bs-tooltip data-bs-title='Скопировать в буфер обмена'
+                  data-fn="clipboard" data-clipboard-target="#codebox-f5b9fd9912ab840782acf1fc6386c8c7">
+            <i class="far fa-copy fa-fw"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body pb-0">
+      <pre><code id="codebox-f5b9fd9912ab840782acf1fc6386c8c7" class="">&lt;Configuration ID=&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;&gt;
+  &lt;Add OfficeClientEdition=&#34;64&#34; Channel=&#34;PerpetualVL2021&#34;&gt;
+    &lt;Product ID=&#34;ProPlus2021Volume&#34; PIDKEY=&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;&gt;
+      &lt;Language ID=&#34;en-us&#34; /&gt;
+      &lt;Language ID=&#34;ru-ru&#34; /&gt;
     &lt;/Product&gt;
-    &lt;Product ID=&quot;VisioPro2021Volume&quot; PIDKEY=&quot;KNH8D-FGHT4-T8RK3-CTDYJ-K2HT4&quot;&gt;
-      &lt;Language ID=&quot;en-us&quot; /&gt;
-      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;Product ID=&#34;VisioPro2021Volume&#34; PIDKEY=&#34;KNH8D-FGHT4-T8RK3-CTDYJ-K2HT4&#34;&gt;
+      &lt;Language ID=&#34;en-us&#34; /&gt;
+      &lt;Language ID=&#34;ru-ru&#34; /&gt;
     &lt;/Product&gt;
-    &lt;Product ID=&quot;ProjectPro2021Volume&quot; PIDKEY=&quot;FTNWT-C6WBT-8HMGF-K9PRX-QV9H8&quot;&gt;
-      &lt;Language ID=&quot;en-us&quot; /&gt;
-      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;Product ID=&#34;ProjectPro2021Volume&#34; PIDKEY=&#34;FTNWT-C6WBT-8HMGF-K9PRX-QV9H8&#34;&gt;
+      &lt;Language ID=&#34;en-us&#34; /&gt;
+      &lt;Language ID=&#34;ru-ru&#34; /&gt;
     &lt;/Product&gt;
-    &lt;Product ID=&quot;LanguagePack&quot;&gt;
-      &lt;Language ID=&quot;en-us&quot; /&gt;
-      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;Product ID=&#34;LanguagePack&#34;&gt;
+      &lt;Language ID=&#34;en-us&#34; /&gt;
+      &lt;Language ID=&#34;ru-ru&#34; /&gt;
     &lt;/Product&gt;
-    &lt;Product ID=&quot;ProofingTools&quot;&gt;
-      &lt;Language ID=&quot;en-us&quot; /&gt;
-      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;Product ID=&#34;ProofingTools&#34;&gt;
+      &lt;Language ID=&#34;en-us&#34; /&gt;
+      &lt;Language ID=&#34;ru-ru&#34; /&gt;
     &lt;/Product&gt;
   &lt;/Add&gt;
-  &lt;Property Name=&quot;SharedComputerLicensing&quot; Value=&quot;0&quot; /&gt;
-  &lt;Property Name=&quot;FORCEAPPSHUTDOWN&quot; Value=&quot;FALSE&quot; /&gt;
-  &lt;Property Name=&quot;DeviceBasedLicensing&quot; Value=&quot;0&quot; /&gt;
-  &lt;Property Name=&quot;SCLCacheOverride&quot; Value=&quot;0&quot; /&gt;
-  &lt;Property Name=&quot;AUTOACTIVATE&quot; Value=&quot;1&quot; /&gt;
-  &lt;Updates Enabled=&quot;TRUE&quot; /&gt;
+  &lt;Property Name=&#34;SharedComputerLicensing&#34; Value=&#34;0&#34; /&gt;
+  &lt;Property Name=&#34;FORCEAPPSHUTDOWN&#34; Value=&#34;FALSE&#34; /&gt;
+  &lt;Property Name=&#34;DeviceBasedLicensing&#34; Value=&#34;0&#34; /&gt;
+  &lt;Property Name=&#34;SCLCacheOverride&#34; Value=&#34;0&#34; /&gt;
+  &lt;Property Name=&#34;AUTOACTIVATE&#34; Value=&#34;1&#34; /&gt;
+  &lt;Updates Enabled=&#34;TRUE&#34; /&gt;
   &lt;RemoveMSI /&gt;
-&lt;/Configuration&gt;
-</code></pre>
+&lt;/Configuration&gt;</code></pre>
+    </div>
+  </div>
+</div>
+
 <p>Далее, в консоли выполните команду <code>setup.exe /download office.2021.xml</code>. Команда запускает формирование и скачивание установочного дистрибутива MS Office 2021 LTCS с серверов Microsoft. Команда может не отображать процесс своей работы. После завершения команды, консоль вернёт управление пользователю, тем самым можно контролировать завершение получения установочного дистрибутива.</p>
 
 <h2 id="установка-полной-версии-ms-office-2021-ltsc">
@@ -85,35 +112,62 @@ office | Library Online</title><description>Заметки на тему адм�
     Установка минимальной версии MS Office 2021 LTSC
   <sup><a class="text-muted small" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%bc%d0%b8%d0%bd%d0%b8%d0%bc%d0%b0%d0%bb%d1%8c%d0%bd%d0%be%d0%b9-%d0%b2%d0%b5%d1%80%d1%81%d0%b8%d0%b8-ms-office-2021-ltsc"><i class="fas fa-link fa-fw"></i></a></sup>
 </h2><p>Для администраторов, которые хотят установить на компьютер пользователя только самые необходимые компоненты (Access, Excel, Outlook, PowerPoint и World), предлагаю следующий конфигурационный файл:</p>
-<pre><code class="language-xml">&lt;Configuration ID=&quot;42865718-c416-4c72-990b-20b6972cb9af&quot;&gt;
-  &lt;Add OfficeClientEdition=&quot;64&quot; Channel=&quot;PerpetualVL2021&quot;&gt;
-    &lt;Product ID=&quot;ProPlus2021Volume&quot; PIDKEY=&quot;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&quot;&gt;
-      &lt;Language ID=&quot;en-us&quot; /&gt;
-      &lt;Language ID=&quot;ru-ru&quot; /&gt;
-      &lt;ExcludeApp ID=&quot;Lync&quot; /&gt;
-      &lt;ExcludeApp ID=&quot;OneDrive&quot; /&gt;
-      &lt;ExcludeApp ID=&quot;OneNote&quot; /&gt;
-      &lt;ExcludeApp ID=&quot;Publisher&quot; /&gt;
-      &lt;ExcludeApp ID=&quot;Teams&quot; /&gt;
+
+
+
+
+
+
+
+<div class="shortcode shortcode-codebox mb-3">
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+          
+            <code>office.2021.minimal.xml</code>
+          
+        <div class="d-flex ms-auto">
+          <button type="button" class="btn btn-light btn-sm"
+                  data-bs-tooltip data-bs-title='Скопировать в буфер обмена'
+                  data-fn="clipboard" data-clipboard-target="#codebox-7c7f82669794e357fc0f2c344bfba09e">
+            <i class="far fa-copy fa-fw"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body pb-0">
+      <pre><code id="codebox-7c7f82669794e357fc0f2c344bfba09e" class="">&lt;Configuration ID=&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;&gt;
+  &lt;Add OfficeClientEdition=&#34;64&#34; Channel=&#34;PerpetualVL2021&#34;&gt;
+    &lt;Product ID=&#34;ProPlus2021Volume&#34; PIDKEY=&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;&gt;
+      &lt;Language ID=&#34;en-us&#34; /&gt;
+      &lt;Language ID=&#34;ru-ru&#34; /&gt;
+      &lt;ExcludeApp ID=&#34;Lync&#34; /&gt;
+      &lt;ExcludeApp ID=&#34;OneDrive&#34; /&gt;
+      &lt;ExcludeApp ID=&#34;OneNote&#34; /&gt;
+      &lt;ExcludeApp ID=&#34;Publisher&#34; /&gt;
+      &lt;ExcludeApp ID=&#34;Teams&#34; /&gt;
     &lt;/Product&gt;
-    &lt;Product ID=&quot;LanguagePack&quot;&gt;
-      &lt;Language ID=&quot;en-us&quot; /&gt;
-      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;Product ID=&#34;LanguagePack&#34;&gt;
+      &lt;Language ID=&#34;en-us&#34; /&gt;
+      &lt;Language ID=&#34;ru-ru&#34; /&gt;
     &lt;/Product&gt;
-    &lt;Product ID=&quot;ProofingTools&quot;&gt;
-      &lt;Language ID=&quot;en-us&quot; /&gt;
-      &lt;Language ID=&quot;ru-ru&quot; /&gt;
+    &lt;Product ID=&#34;ProofingTools&#34;&gt;
+      &lt;Language ID=&#34;en-us&#34; /&gt;
+      &lt;Language ID=&#34;ru-ru&#34; /&gt;
     &lt;/Product&gt;
   &lt;/Add&gt;
-  &lt;Property Name=&quot;SharedComputerLicensing&quot; Value=&quot;0&quot; /&gt;
-  &lt;Property Name=&quot;FORCEAPPSHUTDOWN&quot; Value=&quot;FALSE&quot; /&gt;
-  &lt;Property Name=&quot;DeviceBasedLicensing&quot; Value=&quot;0&quot; /&gt;
-  &lt;Property Name=&quot;SCLCacheOverride&quot; Value=&quot;0&quot; /&gt;
-  &lt;Property Name=&quot;AUTOACTIVATE&quot; Value=&quot;1&quot; /&gt;
-  &lt;Updates Enabled=&quot;TRUE&quot; /&gt;
+  &lt;Property Name=&#34;SharedComputerLicensing&#34; Value=&#34;0&#34; /&gt;
+  &lt;Property Name=&#34;FORCEAPPSHUTDOWN&#34; Value=&#34;FALSE&#34; /&gt;
+  &lt;Property Name=&#34;DeviceBasedLicensing&#34; Value=&#34;0&#34; /&gt;
+  &lt;Property Name=&#34;SCLCacheOverride&#34; Value=&#34;0&#34; /&gt;
+  &lt;Property Name=&#34;AUTOACTIVATE&#34; Value=&#34;1&#34; /&gt;
+  &lt;Updates Enabled=&#34;TRUE&#34; /&gt;
   &lt;RemoveMSI /&gt;
-&lt;/Configuration&gt;
-</code></pre>
+&lt;/Configuration&gt;</code></pre>
+    </div>
+  </div>
+</div>
+
 <p>Сохраните его под названием <code>office.2021.minimal.xml</code> и запустите процесс установки при помощи команды <code>setup.exe /configure office.2021.minimal.xml</code>.</p>
 
 <h2 id="создание-собственных-конфигураций">
