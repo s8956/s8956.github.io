@@ -110,13 +110,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-93d3d8eb0bd61c282f41908a1f8dcf8d" class="language-powershell">${CERT_ROOT} = &#39;russian_trusted_root_ca.cer&#39;; ${CERT_SUB} = &#39;russian_trusted_sub_ca.cer&#39;; ${DIR} = (New-Object -ComObject Shell.Application).NameSpace(&#39;shell:Downloads&#39;).Self.Path; Invoke-WebRequest &#34;https://gu-st.ru/content/Other/doc/${CERT_ROOT}&#34; -OutFile &#34;${DIR}\${CERT_ROOT}&#34;; Import-Certificate -FilePath &#34;${DIR}\${CERT_ROOT}&#34; -CertStoreLocation &#39;Cert:\CurrentUser\Root&#39;; Invoke-WebRequest &#34;https://gu-st.ru/content/Other/doc/${CERT_SUB}&#34; -OutFile &#34;${DIR}\${CERT_SUB}&#34;; Import-Certificate -FilePath &#34;${DIR}\${CERT_SUB}&#34; -CertStoreLocation &#39;Cert:\CurrentUser\CA&#39;;</code></pre>
+      <pre class="mb-0"><code id="sc-code-fe7002abaed34815888adcf4715dc975" class="language-powershell">${CERT_ROOT} = &#39;russian_trusted_root_ca.cer&#39;; ${CERT_SUB} = &#39;russian_trusted_sub_ca.cer&#39;; ${DIR} = (New-Object -ComObject Shell.Application).NameSpace(&#39;shell:Downloads&#39;).Self.Path; Invoke-WebRequest &#34;https://gu-st.ru/content/Other/doc/${CERT_ROOT}&#34; -OutFile &#34;${DIR}\${CERT_ROOT}&#34;; Import-Certificate -FilePath &#34;${DIR}\${CERT_ROOT}&#34; -CertStoreLocation &#39;Cert:\CurrentUser\Root&#39;; Invoke-WebRequest &#34;https://gu-st.ru/content/Other/doc/${CERT_SUB}&#34; -OutFile &#34;${DIR}\${CERT_SUB}&#34;; Import-Certificate -FilePath &#34;${DIR}\${CERT_SUB}&#34; -CertStoreLocation &#39;Cert:\CurrentUser\CA&#39;;</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-93d3d8eb0bd61c282f41908a1f8dcf8d"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-fe7002abaed34815888adcf4715dc975"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -198,13 +198,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-025c28da18df0001913b6f26eea6a30e" class="language-bash">CERT=&#39;russiantrustedca.pem&#39;; curl -o &#34;/usr/local/share/ca-certificates/${CERT}&#34; &#34;https://gu-st.ru/content/Other/doc/${CERT}&#34; &amp;&amp; update-ca-certificates --fresh;</code></pre>
+      <pre class="mb-0"><code id="sc-code-3aed608fafd6c9478f978a31999d89bf" class="language-bash">CERT=&#39;russiantrustedca.pem&#39;; curl -o &#34;/usr/local/share/ca-certificates/${CERT}&#34; &#34;https://gu-st.ru/content/Other/doc/${CERT}&#34; &amp;&amp; update-ca-certificates --fresh;</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-025c28da18df0001913b6f26eea6a30e"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-3aed608fafd6c9478f978a31999d89bf"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -226,13 +226,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-b4355ac0a4c32476b0e1e943f808af60" class="language-bash">CERT=&#39;russiantrustedca.pem&#39;; curl -o &#34;/etc/pki/ca-trust/source/anchors/${CERT}&#34; &#34;https://gu-st.ru/content/Other/doc/${CERT}&#34; &amp;&amp; update-ca-trust force-enable &amp;&amp; update-ca-trust extract;</code></pre>
+      <pre class="mb-0"><code id="sc-code-c2cbb084096bf4df22a07a39225cff2f" class="language-bash">CERT=&#39;russiantrustedca.pem&#39;; curl -o &#34;/etc/pki/ca-trust/source/anchors/${CERT}&#34; &#34;https://gu-st.ru/content/Other/doc/${CERT}&#34; &amp;&amp; update-ca-trust force-enable &amp;&amp; update-ca-trust extract;</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-b4355ac0a4c32476b0e1e943f808af60"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-c2cbb084096bf4df22a07a39225cff2f"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -303,7 +303,7 @@ upgrade | Library Online</title><description>Заметки на тему адм
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
                   <a class="text-muted" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#sc-codebox-7d2cdce1da63952096af8c3229b8dfb2"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#sc-codebox-c343ac1f5fc1ddd9ef13d46a109c3250"
                      role="button">
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -313,7 +313,7 @@ upgrade | Library Online</title><description>Заметки на тему адм
           </div>
         </div>
         <div class="card-body">
-          <pre class="mb-0"><code id="sc-codebox-7d2cdce1da63952096af8c3229b8dfb2" class="">&lt;Configuration ID=&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;&gt;
+          <pre class="mb-0"><code id="sc-codebox-c343ac1f5fc1ddd9ef13d46a109c3250" class="">&lt;Configuration ID=&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;&gt;
   &lt;Add OfficeClientEdition=&#34;64&#34; Channel=&#34;PerpetualVL2021&#34;&gt;
     &lt;Product ID=&#34;ProPlus2021Volume&#34; PIDKEY=&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;&gt;
       &lt;Language ID=&#34;en-us&#34; /&gt;
@@ -378,7 +378,7 @@ upgrade | Library Online</title><description>Заметки на тему адм
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
                   <a class="text-muted" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#sc-codebox-8b48c3814e2552c4a236c01a6a11277c"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#sc-codebox-cb221fbf701d89a804dc645bd0bf96b3"
                      role="button">
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -388,7 +388,7 @@ upgrade | Library Online</title><description>Заметки на тему адм
           </div>
         </div>
         <div class="card-body">
-          <pre class="mb-0"><code id="sc-codebox-8b48c3814e2552c4a236c01a6a11277c" class="">&lt;Configuration ID=&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;&gt;
+          <pre class="mb-0"><code id="sc-codebox-cb221fbf701d89a804dc645bd0bf96b3" class="">&lt;Configuration ID=&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;&gt;
   &lt;Add OfficeClientEdition=&#34;64&#34; Channel=&#34;PerpetualVL2021&#34;&gt;
     &lt;Product ID=&#34;ProPlus2021Volume&#34; PIDKEY=&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;&gt;
       &lt;Language ID=&#34;en-us&#34; /&gt;
@@ -497,13 +497,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-910c20dae04faa244d897347822da100" class="">cscript ospp.vbs /sethst:kms.example.com</code></pre>
+      <pre class="mb-0"><code id="sc-code-7f8d598d88d86d6a492b956efba2b334" class="">cscript ospp.vbs /sethst:kms.example.com</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-910c20dae04faa244d897347822da100"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-7f8d598d88d86d6a492b956efba2b334"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -524,13 +524,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-c899b6859a0446494c7ec240484900f9" class="">cscript ospp.vbs /setprt:1689</code></pre>
+      <pre class="mb-0"><code id="sc-code-e83f383563589b24a6111ac934a7c08e" class="">cscript ospp.vbs /setprt:1689</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-c899b6859a0446494c7ec240484900f9"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-e83f383563589b24a6111ac934a7c08e"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -551,13 +551,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-e02570ff12dab8e18efc58d3128b9134" class="">cscript ospp.vbs /act</code></pre>
+      <pre class="mb-0"><code id="sc-code-b839c6f384cfa9287fd24c1b29c7d0db" class="">cscript ospp.vbs /act</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-e02570ff12dab8e18efc58d3128b9134"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-b839c6f384cfa9287fd24c1b29c7d0db"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -578,13 +578,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-27e8734f32f3830a56f5086baa839f6c" class="">cscript ospp.vbs /dstatusall</code></pre>
+      <pre class="mb-0"><code id="sc-code-7807decc63790d77c15945f3e0ba14aa" class="">cscript ospp.vbs /dstatusall</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-27e8734f32f3830a56f5086baa839f6c"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-7807decc63790d77c15945f3e0ba14aa"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1153,13 +1153,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-b76d878029ac7177968c50ba82bdb8dc" class="">echo &#39;deb http://deb.xanmod.org releases main&#39; | tee /etc/apt/sources.list.d/xanmod-kernel.list &amp;&amp; curl -fsSL &#39;https://dl.xanmod.org/gpg.key&#39; | gpg --dearmor | tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null &amp;&amp; apt update</code></pre>
+      <pre class="mb-0"><code id="sc-code-0a3af2714baf7997975992904d568789" class="">echo &#39;deb http://deb.xanmod.org releases main&#39; | tee /etc/apt/sources.list.d/xanmod-kernel.list &amp;&amp; curl -fsSL &#39;https://dl.xanmod.org/gpg.key&#39; | gpg --dearmor | tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null &amp;&amp; apt update</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-b76d878029ac7177968c50ba82bdb8dc"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-0a3af2714baf7997975992904d568789"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1178,13 +1178,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-954b9db50fed6fd2e56eadb82d61f0b0" class="">apt install linux-xanmod</code></pre>
+      <pre class="mb-0"><code id="sc-code-b09fb78b4f122a62b7f9f55887eb5bda" class="">apt install linux-xanmod</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-954b9db50fed6fd2e56eadb82d61f0b0"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-b09fb78b4f122a62b7f9f55887eb5bda"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1203,13 +1203,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-0a3b826ea051fb132b0ea82c35be3406" class="">apt install linux-xanmod-edge</code></pre>
+      <pre class="mb-0"><code id="sc-code-8cfb1adc098fc2d997d570389d2d2a65" class="">apt install linux-xanmod-edge</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-0a3b826ea051fb132b0ea82c35be3406"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-8cfb1adc098fc2d997d570389d2d2a65"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1232,13 +1232,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-49f371fa437f6a5198b3933cc5fc9fce" class="">echo &#39;net.core.default_qdisc = fq_pie&#39; | tee /etc/sysctl.d/90-override.conf</code></pre>
+      <pre class="mb-0"><code id="sc-code-52dacf73f2c4a92b54eacde9294a1be6" class="">echo &#39;net.core.default_qdisc = fq_pie&#39; | tee /etc/sysctl.d/90-override.conf</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-49f371fa437f6a5198b3933cc5fc9fce"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-52dacf73f2c4a92b54eacde9294a1be6"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1257,13 +1257,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-0e068da56ffc130e2f3d6cc02a1cef8e" class="">tc qdisc show</code></pre>
+      <pre class="mb-0"><code id="sc-code-e3f699565fc9c022d1fb5e849a907ada" class="">tc qdisc show</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-0e068da56ffc130e2f3d6cc02a1cef8e"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-e3f699565fc9c022d1fb5e849a907ada"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1287,13 +1287,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-a36fc96fe8c82305f9b1fa4dfb817201" class="">echo &#34;deb [signed-by=/etc/apt/trusted.gpg.d/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main&#34; | tee /etc/apt/sources.list.d/vivaldi-archive.list &amp;&amp; curl -fsSL &#39;https://repo.vivaldi.com/archive/linux_signing_key.pub&#39; | gpg --dearmor | tee /etc/apt/trusted.gpg.d/vivaldi-browser.gpg &gt; /dev/null &amp;&amp; apt update</code></pre>
+      <pre class="mb-0"><code id="sc-code-0126dc82b0255dc5bf9ae113a31fca29" class="">echo &#34;deb [signed-by=/etc/apt/trusted.gpg.d/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main&#34; | tee /etc/apt/sources.list.d/vivaldi-archive.list &amp;&amp; curl -fsSL &#39;https://repo.vivaldi.com/archive/linux_signing_key.pub&#39; | gpg --dearmor | tee /etc/apt/trusted.gpg.d/vivaldi-browser.gpg &gt; /dev/null &amp;&amp; apt update</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-a36fc96fe8c82305f9b1fa4dfb817201"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-0126dc82b0255dc5bf9ae113a31fca29"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1312,13 +1312,13 @@ upgrade | Library Online</title><description>Заметки на тему адм
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-48232b19bb03120817fa8208d3b339b3" class="">apt install vivaldi-stable</code></pre>
+      <pre class="mb-0"><code id="sc-code-a968a05607e7efe819e9d5b20966c8cd" class="">apt install vivaldi-stable</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-48232b19bb03120817fa8208d3b339b3"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-a968a05607e7efe819e9d5b20966c8cd"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1428,13 +1428,13 @@ After=systemd-udev-trigger.service systemd-udev-settle.service
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-442fcc35661fc04050eb509e189e937f" class="">echo &#34;deb [arch=amd64] http://download.proxmox.com/debian/pve bullseye pve-no-subscription&#34; &gt; /etc/apt/sources.list.d/pve.list</code></pre>
+      <pre class="mb-0"><code id="sc-code-8a6049edec6f0baeb9bbd626b8f20a18" class="">echo &#34;deb [arch=amd64] http://download.proxmox.com/debian/pve bullseye pve-no-subscription&#34; &gt; /etc/apt/sources.list.d/pve.list</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-442fcc35661fc04050eb509e189e937f"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-8a6049edec6f0baeb9bbd626b8f20a18"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1453,13 +1453,13 @@ After=systemd-udev-trigger.service systemd-udev-settle.service
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-d1d5d14caf66afb3cadaec4a94b5d2f6" class="">curl &#39;https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg&#39; -o /etc/apt/trusted.gpg.d/pve.gpg</code></pre>
+      <pre class="mb-0"><code id="sc-code-d563bd06517be1478a54abbdf087180a" class="">curl &#39;https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg&#39; -o /etc/apt/trusted.gpg.d/pve.gpg</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-d1d5d14caf66afb3cadaec4a94b5d2f6"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-d563bd06517be1478a54abbdf087180a"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1478,13 +1478,13 @@ After=systemd-udev-trigger.service systemd-udev-settle.service
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-0e950627fe6dcc83f0fba74e2b626ad3" class="">apt update &amp;&amp; apt full-upgrade</code></pre>
+      <pre class="mb-0"><code id="sc-code-30a6d9b238f309aa705aab5ad0144b11" class="">apt update &amp;&amp; apt full-upgrade</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-0e950627fe6dcc83f0fba74e2b626ad3"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-30a6d9b238f309aa705aab5ad0144b11"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1507,13 +1507,13 @@ After=systemd-udev-trigger.service systemd-udev-settle.service
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-2cf9590521ec0b1c0ea3ba02cf6417ab" class="">apt install proxmox-ve postfix open-iscsi</code></pre>
+      <pre class="mb-0"><code id="sc-code-a1816e3f884676daa969186cfbf2c230" class="">apt install proxmox-ve postfix open-iscsi</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-2cf9590521ec0b1c0ea3ba02cf6417ab"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-a1816e3f884676daa969186cfbf2c230"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1633,13 +1633,13 @@ iface vmbr0 inet static
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-10f01391c6216d14739197e031e552bb" class="">apt install network-manager</code></pre>
+      <pre class="mb-0"><code id="sc-code-49d1af0d1c4f096d31790a7365541463" class="">apt install network-manager</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-10f01391c6216d14739197e031e552bb"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-49d1af0d1c4f096d31790a7365541463"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1659,13 +1659,13 @@ iface vmbr0 inet static
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-3c21ba790997c65a84a1088cdc54ca21" class="">service NetworkManager restart</code></pre>
+      <pre class="mb-0"><code id="sc-code-880796e73a743f6975fbadeb1fc4f1cd" class="">service NetworkManager restart</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-3c21ba790997c65a84a1088cdc54ca21"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-880796e73a743f6975fbadeb1fc4f1cd"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1743,13 +1743,13 @@ rpm2cpio myrpmfile.rpm | cpio -idmv
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-4265e38e248b97d8d531b3f26d7cae71" class="">echo &#39;APT::Install-Recommends &#34;false&#34;;&#39; &gt; /etc/apt/apt.conf.d/00InstallRecommends</code></pre>
+      <pre class="mb-0"><code id="sc-code-3b93d9a14aa99a760b4b0b198f228a10" class="">echo &#39;APT::Install-Recommends &#34;false&#34;;&#39; &gt; /etc/apt/apt.conf.d/00InstallRecommends</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-4265e38e248b97d8d531b3f26d7cae71"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-3b93d9a14aa99a760b4b0b198f228a10"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1767,13 +1767,13 @@ rpm2cpio myrpmfile.rpm | cpio -idmv
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-a6dac1abce6929293739c89a05a85aa8" class="">echo &#39;APT::Install-Suggests &#34;false&#34;;&#39; &gt; /etc/apt/apt.conf.d/00InstallSuggests</code></pre>
+      <pre class="mb-0"><code id="sc-code-101f71bde52b5b079af98cb0f3f48578" class="">echo &#39;APT::Install-Suggests &#34;false&#34;;&#39; &gt; /etc/apt/apt.conf.d/00InstallSuggests</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-a6dac1abce6929293739c89a05a85aa8"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-101f71bde52b5b079af98cb0f3f48578"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1796,13 +1796,13 @@ rpm2cpio myrpmfile.rpm | cpio -idmv
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-633c1b937312edcdcd30be3d5553de72" class="">echo &#39;send dhcp-client-identifier = hardware;&#39; &gt;&gt; /etc/dhcp/dhclient.conf</code></pre>
+      <pre class="mb-0"><code id="sc-code-8488557a7e0547b205d8958648c626e0" class="">echo &#39;send dhcp-client-identifier = hardware;&#39; &gt;&gt; /etc/dhcp/dhclient.conf</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-633c1b937312edcdcd30be3d5553de72"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-8488557a7e0547b205d8958648c626e0"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -1843,7 +1843,7 @@ rpm2cpio myrpmfile.rpm | cpio -idmv
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
                   <a class="text-muted" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#sc-codebox-4a047ed4c7e882283cf74c0c89f347e1"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#sc-codebox-b4d4b1479fd39582bbca62800358607f"
                      role="button">
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -1853,7 +1853,7 @@ rpm2cpio myrpmfile.rpm | cpio -idmv
           </div>
         </div>
         <div class="card-body">
-          <pre class="mb-0"><code id="sc-codebox-4a047ed4c7e882283cf74c0c89f347e1" class="">#!/usr/bin/bash
+          <pre class="mb-0"><code id="sc-codebox-b4d4b1479fd39582bbca62800358607f" class="">#!/usr/bin/bash
 
 days=&#34;${1}&#34;
 dir=&#34;${2}&#34;
@@ -2043,7 +2043,7 @@ exit 0</code></pre>
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
                   <a class="text-muted" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#sc-codebox-c1b4f0838ced2fa5d884dd1206ee15f8"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#sc-codebox-dfdfe728508c362667404072bc94908c"
                      role="button">
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -2053,7 +2053,7 @@ exit 0</code></pre>
           </div>
         </div>
         <div class="card-body">
-          <pre class="mb-0"><code id="sc-codebox-c1b4f0838ced2fa5d884dd1206ee15f8" class="">&lt;?php
+          <pre class="mb-0"><code id="sc-codebox-dfdfe728508c362667404072bc94908c" class="">&lt;?php
 
 # Database.
 $config[&#39;db&#39;][&#39;host&#39;]                             = &#39;127.0.0.1&#39;;
@@ -2123,13 +2123,13 @@ $config[&#39;cache&#39;][&#39;context&#39;][&#39;page&#39;][&#39;config&#39;]   
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-a0ea17877134112dfef9c15dbe9ec239" class="">#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#</code></pre>
+      <pre class="mb-0"><code id="sc-code-8f0818cd45151b3af0bb038501cf8f83" class="">#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-a0ea17877134112dfef9c15dbe9ec239"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-8f0818cd45151b3af0bb038501cf8f83"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -2153,13 +2153,13 @@ $config[&#39;cache&#39;][&#39;context&#39;][&#39;page&#39;][&#39;config&#39;]   
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-8bac76856f44e4c079e6a84398a41d0f" class="">#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#</code></pre>
+      <pre class="mb-0"><code id="sc-code-2900e133c6fea8e346f03043e649e951" class="">#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-8bac76856f44e4c079e6a84398a41d0f"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-2900e133c6fea8e346f03043e649e951"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -2728,7 +2728,7 @@ $config[&#39;cache&#39;][&#39;context&#39;][&#39;page&#39;][&#39;config&#39;]   
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
                   <a class="text-muted" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#sc-codebox-6a7418e853266891396bc2ae4e50e4b6"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#sc-codebox-2642052bcafd6400af4355bfb8925385"
                      role="button">
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -2738,7 +2738,7 @@ $config[&#39;cache&#39;][&#39;context&#39;][&#39;page&#39;][&#39;config&#39;]   
           </div>
         </div>
         <div class="card-body">
-          <pre class="mb-0"><code id="sc-codebox-6a7418e853266891396bc2ae4e50e4b6" class="">name: &#34;Repository Mirror&#34;
+          <pre class="mb-0"><code id="sc-codebox-2642052bcafd6400af4355bfb8925385" class="">name: &#34;Repository Mirror&#34;
 
 on:
   - push
@@ -2830,7 +2830,7 @@ jobs:
                     </li>
                     <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
                       <a class="text-muted" href="#"
-                         data-fn="clipboard preventDefault" data-clipboard-target="#sc-gh-file-9f086332197d98ea01236193deab3f6c"
+                         data-fn="clipboard preventDefault" data-clipboard-target="#sc-gh-file-8e23f424af0758ed570c5faf8e523de4"
                          role="button">
                         <i class="fas fa-copy fa-fw"></i>
                       </a>
@@ -2855,7 +2855,7 @@ jobs:
             </div>
             <div class="card-body">
               <div class="node-body">
-                <pre class="mb-0"><code id="sc-gh-file-9f086332197d98ea01236193deab3f6c">#!/usr/bin/bash -e
+                <pre class="mb-0"><code id="sc-gh-file-8e23f424af0758ed570c5faf8e523de4">#!/usr/bin/bash -e
 #
 # Generating &#39;favicon&#39; file.
 #
@@ -3314,7 +3314,7 @@ llc                    16384  2 bridge,stp
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
                   <a class="text-muted" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#sc-codebox-c4b1a6fa47e97e63c56fbfcb8720898b"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#sc-codebox-8d3fd9ecc6bb0d0ce9ad959cfa1483d4"
                      role="button">
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -3324,7 +3324,7 @@ llc                    16384  2 bridge,stp
           </div>
         </div>
         <div class="card-body">
-          <pre class="mb-0"><code id="sc-codebox-c4b1a6fa47e97e63c56fbfcb8720898b" class="">name: GitLab Sync
+          <pre class="mb-0"><code id="sc-codebox-8d3fd9ecc6bb0d0ce9ad959cfa1483d4" class="">name: GitLab Sync
 
 on:
   - push
@@ -3441,13 +3441,13 @@ systemctl disable --now xmrig@root
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-734769dae80075a6c5017e8fe35ce9a1" class="">echo &#34;ext_$(date +%s%N | sha512sum | fold -w 8 | head -n 1)&#34;</code></pre>
+      <pre class="mb-0"><code id="sc-code-0a5b4e06380ba10cffe205453f2109b5" class="">echo &#34;ext_$(date +%s%N | sha512sum | fold -w 8 | head -n 1)&#34;</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-734769dae80075a6c5017e8fe35ce9a1"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-0a5b4e06380ba10cffe205453f2109b5"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -3467,13 +3467,13 @@ systemctl disable --now xmrig@root
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-b5d3318d6178575cd5025eeb118f1c6d" class="">echo &#34;EXT_$(date +%s%N | sha512sum | fold -w 8 | head -n 1 | tr &#39;[:lower:]&#39; &#39;[:upper:]&#39;)&#34;</code></pre>
+      <pre class="mb-0"><code id="sc-code-c983767d73798e1eb25c53b2ec6f0588" class="">echo &#34;EXT_$(date +%s%N | sha512sum | fold -w 8 | head -n 1 | tr &#39;[:lower:]&#39; &#39;[:upper:]&#39;)&#34;</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-b5d3318d6178575cd5025eeb118f1c6d"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-c983767d73798e1eb25c53b2ec6f0588"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -3847,13 +3847,13 @@ systemctl disable --now xmrig@root
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-f80080bd0e1c50e11a3eb285e32f4374" class="">dnf install gnupg</code></pre>
+      <pre class="mb-0"><code id="sc-code-a3723b91e85ef7096b8f659a03966d03" class="">dnf install gnupg</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-f80080bd0e1c50e11a3eb285e32f4374"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-a3723b91e85ef7096b8f659a03966d03"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -3874,13 +3874,13 @@ systemctl disable --now xmrig@root
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-f65dca883cc51f319d8fead01fcd73f9" class="">apt install gnupg</code></pre>
+      <pre class="mb-0"><code id="sc-code-0a4af5ad21edc7c6afac7384bb81e365" class="">apt install gnupg</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-f65dca883cc51f319d8fead01fcd73f9"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-0a4af5ad21edc7c6afac7384bb81e365"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -3899,13 +3899,13 @@ systemctl disable --now xmrig@root
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-583bab70ae9f5a2a611ac2b11297877f" class="">gpg --expert --full-gen-key</code></pre>
+      <pre class="mb-0"><code id="sc-code-6bb9e74ea0a37aa087c6b895cd8ccda4" class="">gpg --expert --full-gen-key</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-583bab70ae9f5a2a611ac2b11297877f"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-6bb9e74ea0a37aa087c6b895cd8ccda4"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
@@ -3967,13 +3967,13 @@ Key is valid for? (0)
 <div class="shortcode shortcode-code mb-3">
   <div class="d-flex">
     <div class="flex-grow-1 overflow-hidden">
-      <pre class="mb-0"><code id="sc-code-59547c1b70dfbce46b0ba3bc5be10c75" class="">gpg --list-keys --keyid-format LONG --with-fingerprint</code></pre>
+      <pre class="mb-0"><code id="sc-code-9fa6fcc2d96957ad646feac79791c549" class="">gpg --list-keys --keyid-format LONG --with-fingerprint</code></pre>
     </div>
     <div class="flex-shrink-0">
       <ul class="list-inline mb-0">
         <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать в буфер обмена'>
           <a class="text-muted" href="#"
-             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-59547c1b70dfbce46b0ba3bc5be10c75"
+             data-fn="clipboard preventDefault" data-clipboard-target="#sc-code-9fa6fcc2d96957ad646feac79791c549"
              role="button">
             <i class="fas fa-copy fa-fw"></i>
           </a>
