@@ -1,35 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>xanmod / Library Online</title><link>https://lib.onl/ru/tags/xanmod/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/xanmod/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>xanmod / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 13 Jan 2022 22:44:15 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/xanmod/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Установка ядра XanMod в Debian</title><link>https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</guid><description>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра XanMod в Debian.</description><media:content medium="image" url="https://images.unsplash.com/photo-1615485021362-5db597fbab1d" width="1600" height="900"/><content:encoded><![CDATA[<p>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра <strong>XanMod</strong> в Debian.</p>
-<p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>:</p>
+<p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с <a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>:</p>
 <ul>
 <li>Caching, Virtual Memory Manager and CPUFreq Governor improvements.</li>
 <li>Full multi-core block layer runqueue requests for high I/O throughput.</li>
@@ -58,67 +28,7 @@
 <li>Generic packages for compatibility with most Debian &amp; Ubuntu based distributions. Builts on the latest LLVM 12.0.1, GCC 11.2 and Binutils 2.37.</li>
 <li>GPLv2 license. Can be built for any distribution or purpose.</li>
 </ul>
-<p>Стоит заметить, что ядро <strong>XanMod</strong> не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>, которое занимается практически тем же самым. Но, посмотрев 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a> на Phoronix&rsquo;е, я сделал выбор в пользу <strong>XanMod</strong>.</p>
+<p>Стоит заметить, что ядро <strong>XanMod</strong> не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро <a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>, которое занимается практически тем же самым. Но, посмотрев <a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a> на Phoronix&rsquo;е, я сделал выбор в пользу <strong>XanMod</strong>.</p>
 <p>Однострочная команда по добавлению ядра <strong>XanMod</strong> в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
 <ol>
 <li>Добавление файла <code>xanmod-kernel.list</code> в директорию <code>/etc/apt/sources.list.d</code>.</li>
@@ -135,12 +45,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a426feaa6333e968f892838e8664d14a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;deb http://deb.xanmod.org releases main&#39;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/xanmod-kernel.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://dl.xanmod.org/gpg.key&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-dac6902970eb2d4a1f513260eb55305d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;deb http://deb.xanmod.org releases main&#39;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/xanmod-kernel.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://dl.xanmod.org/gpg.key&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a426feaa6333e968f892838e8664d14a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-dac6902970eb2d4a1f513260eb55305d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -162,12 +72,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ab5d6b399e79dccffc86397493e4b365"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d3a06fd7c5c595b162379e8da4d529ea"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ab5d6b399e79dccffc86397493e4b365"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d3a06fd7c5c595b162379e8da4d529ea"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -189,12 +99,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0f558ad2601ce49a20d5969bdd686552"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-edge</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1484cb5e2e9195f3ed98c87c269d20c7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-edge</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0f558ad2601ce49a20d5969bdd686552"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1484cb5e2e9195f3ed98c87c269d20c7"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -205,10 +115,8 @@
   </div>
 
 
-
 <h2 id="fq-pie">
-    FQ-PIE
-  <sup><a class="text-body-secondary small" href="#fq-pie"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#fq-pie">FQ-PIE</a>
 </h2><p>Для включения планировщика пакетов <strong>FQ-PIE</strong>, необходимо выполнить команду:</p>
 
 
@@ -220,12 +128,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c3fd048048ff6bd4cb69084b65ab98ff"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;net.core.default_qdisc = fq_pie&#39;</span> <span class="p">|</span> tee /etc/sysctl.d/90-override.conf</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2967ccfd9f29edcb21b122912f5ce9f3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;net.core.default_qdisc = fq_pie&#39;</span> <span class="p">|</span> tee /etc/sysctl.d/90-override.conf</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c3fd048048ff6bd4cb69084b65ab98ff"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2967ccfd9f29edcb21b122912f5ce9f3"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -247,12 +155,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-eef0b5f65309761c8f253fcad32565b2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">tc qdisc show</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f65684e64949937cbb562e309ee4d310"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">tc qdisc show</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-eef0b5f65309761c8f253fcad32565b2"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f65684e64949937cbb562e309ee4d310"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -261,37 +169,7 @@
       </div>
     </div>
   </div>]]></content:encoded><turbo:source/><turbo:topic>Установка ядра XanMod в Debian</turbo:topic><turbo:content><![CDATA[<p>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра <strong>XanMod</strong> в Debian.</p>
-<p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>:</p>
+<p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с <a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>:</p>
 <ul>
 <li>Caching, Virtual Memory Manager and CPUFreq Governor improvements.</li>
 <li>Full multi-core block layer runqueue requests for high I/O throughput.</li>
@@ -320,67 +198,7 @@
 <li>Generic packages for compatibility with most Debian &amp; Ubuntu based distributions. Builts on the latest LLVM 12.0.1, GCC 11.2 and Binutils 2.37.</li>
 <li>GPLv2 license. Can be built for any distribution or purpose.</li>
 </ul>
-<p>Стоит заметить, что ядро <strong>XanMod</strong> не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>, которое занимается практически тем же самым. Но, посмотрев 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a> на Phoronix&rsquo;е, я сделал выбор в пользу <strong>XanMod</strong>.</p>
+<p>Стоит заметить, что ядро <strong>XanMod</strong> не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро <a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>, которое занимается практически тем же самым. Но, посмотрев <a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a> на Phoronix&rsquo;е, я сделал выбор в пользу <strong>XanMod</strong>.</p>
 <p>Однострочная команда по добавлению ядра <strong>XanMod</strong> в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
 <ol>
 <li>Добавление файла <code>xanmod-kernel.list</code> в директорию <code>/etc/apt/sources.list.d</code>.</li>
@@ -397,12 +215,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a426feaa6333e968f892838e8664d14a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;deb http://deb.xanmod.org releases main&#39;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/xanmod-kernel.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://dl.xanmod.org/gpg.key&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-dac6902970eb2d4a1f513260eb55305d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;deb http://deb.xanmod.org releases main&#39;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/xanmod-kernel.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://dl.xanmod.org/gpg.key&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a426feaa6333e968f892838e8664d14a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-dac6902970eb2d4a1f513260eb55305d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -424,12 +242,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ab5d6b399e79dccffc86397493e4b365"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d3a06fd7c5c595b162379e8da4d529ea"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ab5d6b399e79dccffc86397493e4b365"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d3a06fd7c5c595b162379e8da4d529ea"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -451,12 +269,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0f558ad2601ce49a20d5969bdd686552"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-edge</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1484cb5e2e9195f3ed98c87c269d20c7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-edge</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0f558ad2601ce49a20d5969bdd686552"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1484cb5e2e9195f3ed98c87c269d20c7"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -467,10 +285,8 @@
   </div>
 
 
-
 <h2 id="fq-pie">
-    FQ-PIE
-  <sup><a class="text-body-secondary small" href="#fq-pie"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#fq-pie">FQ-PIE</a>
 </h2><p>Для включения планировщика пакетов <strong>FQ-PIE</strong>, необходимо выполнить команду:</p>
 
 
@@ -482,12 +298,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c3fd048048ff6bd4cb69084b65ab98ff"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;net.core.default_qdisc = fq_pie&#39;</span> <span class="p">|</span> tee /etc/sysctl.d/90-override.conf</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2967ccfd9f29edcb21b122912f5ce9f3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;net.core.default_qdisc = fq_pie&#39;</span> <span class="p">|</span> tee /etc/sysctl.d/90-override.conf</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c3fd048048ff6bd4cb69084b65ab98ff"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2967ccfd9f29edcb21b122912f5ce9f3"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -509,12 +325,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-eef0b5f65309761c8f253fcad32565b2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">tc qdisc show</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f65684e64949937cbb562e309ee4d310"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">tc qdisc show</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-eef0b5f65309761c8f253fcad32565b2"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f65684e64949937cbb562e309ee4d310"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>

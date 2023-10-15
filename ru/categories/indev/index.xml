@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>В доработке / Library Online</title><link>https://lib.onl/ru/categories/indev/</link><description>Материал в этой категории находится в доработке.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/categories/indev/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>В доработке / Library Online</title><description>Материал в этой категории находится в доработке.</description></image><lastBuildDate>Sun, 12 Sep 2021 21:36:02 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/categories/indev/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Установка Proxmox VE на Debian 11 (Bullseye)</title><link>https://lib.onl/ru/posts/2021/09/1cf305cd-85d0-5e02-aabb-e01346bfee0f/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/1cf305cd-85d0-5e02-aabb-e01346bfee0f/</guid><description>В этой небольшой заметке, я расскажу как установить Proxmox VE на чистый Debian 11 (Bullseye).</description><media:content medium="image" url="https://images.unsplash.com/photo-1566443280617-35db331c54fb" width="1600" height="900"/><content:encoded><![CDATA[<p>В этой небольшой заметке, я расскажу как установить <strong>Proxmox VE</strong> на чистый <strong>Debian 11 (Bullseye)</strong>.</p>
 <h2 id="подготовка">
-    Подготовка
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
 </h2><p>Для начала необходимо отредактировать файл <code>/etc/hosts</code>, прописав туда IP сервера, на который будет устанавливаться наш Proxmox VE:</p>
 
 
@@ -13,7 +12,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a5ec8a6276dc3d3806ecf6437e7b6e98"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">127.0.0.1   localhost
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-00c6007eca008d21bd701f1f6f27a736"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">127.0.0.1   localhost
 </span></span><span class="line"><span class="cl">127.0.1.1   localhost.localdomain     localhost
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"># Proxmox
@@ -22,7 +21,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a5ec8a6276dc3d3806ecf6437e7b6e98"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-00c6007eca008d21bd701f1f6f27a736"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -34,10 +33,8 @@
 
 
 <p>Для проверки, можно выполнить команду <code>hostname --ip-address</code>, которая вернёт IP сервера, указанного в <code>/etc/hosts</code> выше.</p>
-
 <h2 id="добавление-репозиториев">
-    Добавление репозиториев
-  <sup><a class="text-body-secondary small" href="#%d0%b4%d0%be%d0%b1%d0%b0%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b5-%d1%80%d0%b5%d0%bf%d0%be%d0%b7%d0%b8%d1%82%d0%be%d1%80%d0%b8%d0%b5%d0%b2"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%b4%d0%be%d0%b1%d0%b0%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b5-%d1%80%d0%b5%d0%bf%d0%be%d0%b7%d0%b8%d1%82%d0%be%d1%80%d0%b8%d0%b5%d0%b2">Добавление репозиториев</a>
 </h2><p>Добавим репозиторий Proxmox VE:</p>
 
 
@@ -49,12 +46,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2a11580bb611660db2e96f02355debb4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [arch=amd64] http://download.proxmox.com/debian/pve bullseye pve-no-subscription&#34;</span> &gt; /etc/apt/sources.list.d/pve.list</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e3d1893a855f1a97cab570111602db99"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [arch=amd64] http://download.proxmox.com/debian/pve bullseye pve-no-subscription&#34;</span> &gt; /etc/apt/sources.list.d/pve.list</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2a11580bb611660db2e96f02355debb4"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e3d1893a855f1a97cab570111602db99"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -76,12 +73,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f6754024c779986bae22d59c7ca4e0cd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl <span class="s1">&#39;https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg&#39;</span> -o /etc/apt/trusted.gpg.d/pve.gpg</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a74bc6a58c1facfc881c392077be7594"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl <span class="s1">&#39;https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg&#39;</span> -o /etc/apt/trusted.gpg.d/pve.gpg</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f6754024c779986bae22d59c7ca4e0cd"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a74bc6a58c1facfc881c392077be7594"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -103,12 +100,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8d425b069af9a17ee7bf29efff62ed4c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt update <span class="o">&amp;&amp;</span> apt full-upgrade</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a72a2c566252c5708a205c424c8b5d51"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt update <span class="o">&amp;&amp;</span> apt full-upgrade</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8d425b069af9a17ee7bf29efff62ed4c"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a72a2c566252c5708a205c424c8b5d51"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -119,10 +116,8 @@
   </div>
 
 
-
 <h2 id="установка-пакетов">
-    Установка пакетов
-  <sup><a class="text-body-secondary small" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%bf%d0%b0%d0%ba%d0%b5%d1%82%d0%be%d0%b2"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%bf%d0%b0%d0%ba%d0%b5%d1%82%d0%be%d0%b2">Установка пакетов</a>
 </h2><p>Начнём установку пакетов командой:</p>
 
 
@@ -134,12 +129,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-52e7f4ae092bb50654bf4e104e638c9c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install proxmox-ve postfix open-iscsi</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1c27c5ab7923947e96f7d60434f3c9c8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install proxmox-ve postfix open-iscsi</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-52e7f4ae092bb50654bf4e104e638c9c"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1c27c5ab7923947e96f7d60434f3c9c8"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -151,15 +146,11 @@
 
 
 <p>Стоит заметить, что устанавливается Postfix, он необходим для отправки писем от Proxmox VE. Но мне в локальной сети такая функция не нужна. При установке, Postfix спросит в каком режиме ему необходимо будет работать. Я выбираю <strong>local only</strong>.</p>
-
 <h2 id="исправление-ошибок">
-    Исправление ошибок
-  <sup><a class="text-body-secondary small" href="#%d0%b8%d1%81%d0%bf%d1%80%d0%b0%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b5-%d0%be%d1%88%d0%b8%d0%b1%d0%be%d0%ba"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%b8%d1%81%d0%bf%d1%80%d0%b0%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b5-%d0%be%d1%88%d0%b8%d0%b1%d0%be%d0%ba">Исправление ошибок</a>
 </h2><p>После установки Proxmox VE через пакетны менеджер APT, я столкнулся с некоторыми проблемами. Не знаю, может быть они будут отсутствовать, если устанавливать Proxmox VE при помощи его отдельного ISO-файла&hellip;</p>
-
 <h3 id="lvm2-activation-generator-lvmconfig-failed">
-    lvm2-activation-generator: lvmconfig failed
-  <sup><a class="text-body-secondary small" href="#lvm2-activation-generator-lvmconfig-failed"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#lvm2-activation-generator-lvmconfig-failed">lvm2-activation-generator: lvmconfig failed</a>
 </h3><p>Для исправления ошибки <code>lvm2-activation-generator: lvmconfig failed</code>, необходимо в файле <code>/etc/lvm/lvm.conf</code> изменить параметр <code>event_activation</code>, а именно раскомментировать и установить в <code>0</code>:</p>
 
 
@@ -171,7 +162,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-961a9d1720592d9bced092c7beab2ae9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-641248b62bec0fa9d3361908d7525e03"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
 </span></span><span class="line"><span class="cl">  &lt;...&gt;
 </span></span><span class="line"><span class="cl">  # Configuration option global/event_activation.
 </span></span><span class="line"><span class="cl">  # Activate LVs based on system-generated device events.
@@ -189,7 +180,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-961a9d1720592d9bced092c7beab2ae9"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-641248b62bec0fa9d3361908d7525e03"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -210,7 +201,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-badb7adb7bb8cf3c296591c9f2c9d07f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c63529c0507cb45458721ef00ff11198"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
 </span></span><span class="line"><span class="cl">  &lt;...&gt;
 </span></span><span class="line"><span class="cl">  # Configuration option global/event_activation.
 </span></span><span class="line"><span class="cl">  # Activate LVs based on system-generated device events.
@@ -228,7 +219,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-badb7adb7bb8cf3c296591c9f2c9d07f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c63529c0507cb45458721ef00ff11198"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -239,10 +230,8 @@
   </div>
 
 
-
 <h3 id="не-поднимается--интерфейс">
-    Не поднимается  интерфейс
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b5-%d0%bf%d0%be%d0%b4%d0%bd%d0%b8%d0%bc%d0%b0%d0%b5%d1%82%d1%81%d1%8f--%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d1%84%d0%b5%d0%b9%d1%81"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b5-%d0%bf%d0%be%d0%b4%d0%bd%d0%b8%d0%bc%d0%b0%d0%b5%d1%82%d1%81%d1%8f--%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d1%84%d0%b5%d0%b9%d1%81">Не поднимается  интерфейс</a>
 </h3><p>После установки, у меня перестал автоматически подниматься сетевой интерфейс. Может быть, в отдельном ISO-образе Proxmox VE такой проблемы нет, потому что при установке с отдельного ISO-образа, он запрашивает у администратора параметры сети. Но если устанавливать Proxmox VE через пакетную систему Debian, то никаких запросов не появляется. В общем, я сделал так (<code>/etc/network/interfaces</code>):</p>
 
 
@@ -254,7 +243,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-89c4db6aeed7bea36414dd98fc14d7df"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto lo
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-357d1b1bb1286ee0ad1c3a317abb9593"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto lo
 </span></span><span class="line"><span class="cl">iface lo inet loopback
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">iface enp3s0 inet manual
@@ -270,7 +259,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-89c4db6aeed7bea36414dd98fc14d7df"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-357d1b1bb1286ee0ad1c3a317abb9593"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -292,7 +281,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d13ae10ed65ba0215b967cc05ed6f730"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto vmbr0
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8e9e298e8dd383d155d74e151892ef47"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto vmbr0
 </span></span><span class="line"><span class="cl">iface vmbr0 inet static
 </span></span><span class="line"><span class="cl">  address 10.0.1.1/16
 </span></span><span class="line"><span class="cl">  gateway 10.0.0.1
@@ -303,7 +292,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d13ae10ed65ba0215b967cc05ed6f730"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8e9e298e8dd383d155d74e151892ef47"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -317,8 +306,7 @@
 <p>Где указал мост с физической картой <code>enp3s0</code>. Саму же карту <code>enp3s0</code> я перевёл в режим <code>manual</code>. После этого, сетевой интерфейс на сервере заработал в штатном режиме.</p>
 <p>На этом консольная настройка сервера виртуализации закончена. Настройка самого Proxmox&rsquo;а можно выполнять уже в удобном web-интерфейсе.</p>]]></content:encoded><turbo:source/><turbo:topic>Установка Proxmox VE на Debian 11 (Bullseye)</turbo:topic><turbo:content><![CDATA[<p>В этой небольшой заметке, я расскажу как установить <strong>Proxmox VE</strong> на чистый <strong>Debian 11 (Bullseye)</strong>.</p>
 <h2 id="подготовка">
-    Подготовка
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
 </h2><p>Для начала необходимо отредактировать файл <code>/etc/hosts</code>, прописав туда IP сервера, на который будет устанавливаться наш Proxmox VE:</p>
 
 
@@ -330,7 +318,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a5ec8a6276dc3d3806ecf6437e7b6e98"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">127.0.0.1   localhost
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-00c6007eca008d21bd701f1f6f27a736"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">127.0.0.1   localhost
 </span></span><span class="line"><span class="cl">127.0.1.1   localhost.localdomain     localhost
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"># Proxmox
@@ -339,7 +327,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a5ec8a6276dc3d3806ecf6437e7b6e98"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-00c6007eca008d21bd701f1f6f27a736"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -351,10 +339,8 @@
 
 
 <p>Для проверки, можно выполнить команду <code>hostname --ip-address</code>, которая вернёт IP сервера, указанного в <code>/etc/hosts</code> выше.</p>
-
 <h2 id="добавление-репозиториев">
-    Добавление репозиториев
-  <sup><a class="text-body-secondary small" href="#%d0%b4%d0%be%d0%b1%d0%b0%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b5-%d1%80%d0%b5%d0%bf%d0%be%d0%b7%d0%b8%d1%82%d0%be%d1%80%d0%b8%d0%b5%d0%b2"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%b4%d0%be%d0%b1%d0%b0%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b5-%d1%80%d0%b5%d0%bf%d0%be%d0%b7%d0%b8%d1%82%d0%be%d1%80%d0%b8%d0%b5%d0%b2">Добавление репозиториев</a>
 </h2><p>Добавим репозиторий Proxmox VE:</p>
 
 
@@ -366,12 +352,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2a11580bb611660db2e96f02355debb4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [arch=amd64] http://download.proxmox.com/debian/pve bullseye pve-no-subscription&#34;</span> &gt; /etc/apt/sources.list.d/pve.list</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e3d1893a855f1a97cab570111602db99"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [arch=amd64] http://download.proxmox.com/debian/pve bullseye pve-no-subscription&#34;</span> &gt; /etc/apt/sources.list.d/pve.list</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2a11580bb611660db2e96f02355debb4"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e3d1893a855f1a97cab570111602db99"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -393,12 +379,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f6754024c779986bae22d59c7ca4e0cd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl <span class="s1">&#39;https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg&#39;</span> -o /etc/apt/trusted.gpg.d/pve.gpg</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a74bc6a58c1facfc881c392077be7594"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl <span class="s1">&#39;https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg&#39;</span> -o /etc/apt/trusted.gpg.d/pve.gpg</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f6754024c779986bae22d59c7ca4e0cd"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a74bc6a58c1facfc881c392077be7594"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -420,12 +406,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8d425b069af9a17ee7bf29efff62ed4c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt update <span class="o">&amp;&amp;</span> apt full-upgrade</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a72a2c566252c5708a205c424c8b5d51"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt update <span class="o">&amp;&amp;</span> apt full-upgrade</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8d425b069af9a17ee7bf29efff62ed4c"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a72a2c566252c5708a205c424c8b5d51"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -436,10 +422,8 @@
   </div>
 
 
-
 <h2 id="установка-пакетов">
-    Установка пакетов
-  <sup><a class="text-body-secondary small" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%bf%d0%b0%d0%ba%d0%b5%d1%82%d0%be%d0%b2"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%bf%d0%b0%d0%ba%d0%b5%d1%82%d0%be%d0%b2">Установка пакетов</a>
 </h2><p>Начнём установку пакетов командой:</p>
 
 
@@ -451,12 +435,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-52e7f4ae092bb50654bf4e104e638c9c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install proxmox-ve postfix open-iscsi</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1c27c5ab7923947e96f7d60434f3c9c8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install proxmox-ve postfix open-iscsi</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-52e7f4ae092bb50654bf4e104e638c9c"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1c27c5ab7923947e96f7d60434f3c9c8"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -468,15 +452,11 @@
 
 
 <p>Стоит заметить, что устанавливается Postfix, он необходим для отправки писем от Proxmox VE. Но мне в локальной сети такая функция не нужна. При установке, Postfix спросит в каком режиме ему необходимо будет работать. Я выбираю <strong>local only</strong>.</p>
-
 <h2 id="исправление-ошибок">
-    Исправление ошибок
-  <sup><a class="text-body-secondary small" href="#%d0%b8%d1%81%d0%bf%d1%80%d0%b0%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b5-%d0%be%d1%88%d0%b8%d0%b1%d0%be%d0%ba"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%b8%d1%81%d0%bf%d1%80%d0%b0%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b5-%d0%be%d1%88%d0%b8%d0%b1%d0%be%d0%ba">Исправление ошибок</a>
 </h2><p>После установки Proxmox VE через пакетны менеджер APT, я столкнулся с некоторыми проблемами. Не знаю, может быть они будут отсутствовать, если устанавливать Proxmox VE при помощи его отдельного ISO-файла&hellip;</p>
-
 <h3 id="lvm2-activation-generator-lvmconfig-failed">
-    lvm2-activation-generator: lvmconfig failed
-  <sup><a class="text-body-secondary small" href="#lvm2-activation-generator-lvmconfig-failed"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#lvm2-activation-generator-lvmconfig-failed">lvm2-activation-generator: lvmconfig failed</a>
 </h3><p>Для исправления ошибки <code>lvm2-activation-generator: lvmconfig failed</code>, необходимо в файле <code>/etc/lvm/lvm.conf</code> изменить параметр <code>event_activation</code>, а именно раскомментировать и установить в <code>0</code>:</p>
 
 
@@ -488,7 +468,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-961a9d1720592d9bced092c7beab2ae9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-641248b62bec0fa9d3361908d7525e03"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
 </span></span><span class="line"><span class="cl">  &lt;...&gt;
 </span></span><span class="line"><span class="cl">  # Configuration option global/event_activation.
 </span></span><span class="line"><span class="cl">  # Activate LVs based on system-generated device events.
@@ -506,7 +486,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-961a9d1720592d9bced092c7beab2ae9"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-641248b62bec0fa9d3361908d7525e03"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -527,7 +507,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-badb7adb7bb8cf3c296591c9f2c9d07f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c63529c0507cb45458721ef00ff11198"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
 </span></span><span class="line"><span class="cl">  &lt;...&gt;
 </span></span><span class="line"><span class="cl">  # Configuration option global/event_activation.
 </span></span><span class="line"><span class="cl">  # Activate LVs based on system-generated device events.
@@ -545,7 +525,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-badb7adb7bb8cf3c296591c9f2c9d07f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c63529c0507cb45458721ef00ff11198"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -556,10 +536,8 @@
   </div>
 
 
-
 <h3 id="не-поднимается--интерфейс">
-    Не поднимается  интерфейс
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b5-%d0%bf%d0%be%d0%b4%d0%bd%d0%b8%d0%bc%d0%b0%d0%b5%d1%82%d1%81%d1%8f--%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d1%84%d0%b5%d0%b9%d1%81"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b5-%d0%bf%d0%be%d0%b4%d0%bd%d0%b8%d0%bc%d0%b0%d0%b5%d1%82%d1%81%d1%8f--%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d1%84%d0%b5%d0%b9%d1%81">Не поднимается  интерфейс</a>
 </h3><p>После установки, у меня перестал автоматически подниматься сетевой интерфейс. Может быть, в отдельном ISO-образе Proxmox VE такой проблемы нет, потому что при установке с отдельного ISO-образа, он запрашивает у администратора параметры сети. Но если устанавливать Proxmox VE через пакетную систему Debian, то никаких запросов не появляется. В общем, я сделал так (<code>/etc/network/interfaces</code>):</p>
 
 
@@ -571,7 +549,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-89c4db6aeed7bea36414dd98fc14d7df"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto lo
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-357d1b1bb1286ee0ad1c3a317abb9593"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto lo
 </span></span><span class="line"><span class="cl">iface lo inet loopback
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">iface enp3s0 inet manual
@@ -587,7 +565,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-89c4db6aeed7bea36414dd98fc14d7df"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-357d1b1bb1286ee0ad1c3a317abb9593"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -609,7 +587,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d13ae10ed65ba0215b967cc05ed6f730"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto vmbr0
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8e9e298e8dd383d155d74e151892ef47"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto vmbr0
 </span></span><span class="line"><span class="cl">iface vmbr0 inet static
 </span></span><span class="line"><span class="cl">  address 10.0.1.1/16
 </span></span><span class="line"><span class="cl">  gateway 10.0.0.1
@@ -620,7 +598,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d13ae10ed65ba0215b967cc05ed6f730"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8e9e298e8dd383d155d74e151892ef47"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -634,286 +612,31 @@
 <p>Где указал мост с физической картой <code>enp3s0</code>. Саму же карту <code>enp3s0</code> я перевёл в режим <code>manual</code>. После этого, сетевой интерфейс на сервере заработал в штатном режиме.</p>
 <p>На этом консольная настройка сервера виртуализации закончена. Настройка самого Proxmox&rsquo;а можно выполнять уже в удобном web-интерфейсе.</p>]]></turbo:content><pubDate>Sun, 12 Sep 2021 21:36:02 +0000</pubDate><category>Linux</category><category>В доработке</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Интересные модули Drupal</title><link>https://lib.onl/ru/posts/2021/08/28fa2886-aea6-5abc-9da8-43be56283cdb/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/08/28fa2886-aea6-5abc-9da8-43be56283cdb/</guid><description>Здесь собраны ссылки на интересные и необходимые для меня в работе модули.</description><media:content medium="image" url="https://images.unsplash.com/photo-1532622785990-d2c36a76f5a6" width="1600" height="900"/><content:encoded><![CDATA[<p>Здесь собраны ссылки на интересные и необходимые для меня в работе модули.</p>
 <h2 id="permissions-by-term">
-    Permissions by Term
-  <sup><a class="text-body-secondary small" href="#permissions-by-term"><i class="fas fa-link fa-fw"></i></a></sup>
-</h2><p>
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://www.drupal.org/project/permissions_by_term" target="_blank" rel="noopener noreferrer nofollow">Модуль</a> позволяет применять права доступа к материалу путём добавления термина таксономии.</p>
-
+  <a class="link-body-emphasis" href="#permissions-by-term">Permissions by Term</a>
+</h2><p><a title="" href="https://www.drupal.org/project/permissions_by_term" target="_blank" rel="noopener noreferrer nofollow">Модуль</a> позволяет применять права доступа к материалу путём добавления термина таксономии.</p>
 <h2 id="node-view-permissions">
-    Node View Permissions
-  <sup><a class="text-body-secondary small" href="#node-view-permissions"><i class="fas fa-link fa-fw"></i></a></sup>
-</h2><p>
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://www.drupal.org/project/node_view_permissions" target="_blank" rel="noopener noreferrer nofollow">Модуль</a> разрешает или запрещает просматривать материал определённым ролям пользователей. Подобная функция была в Drupal 6, но в последующих версиях её убрали.</p>
-
+  <a class="link-body-emphasis" href="#node-view-permissions">Node View Permissions</a>
+</h2><p><a title="" href="https://www.drupal.org/project/node_view_permissions" target="_blank" rel="noopener noreferrer nofollow">Модуль</a> разрешает или запрещает просматривать материал определённым ролям пользователей. Подобная функция была в Drupal 6, но в последующих версиях её убрали.</p>
 <h2 id="poll">
-    Poll
-  <sup><a class="text-body-secondary small" href="#poll"><i class="fas fa-link fa-fw"></i></a></sup>
-</h2><p>
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://www.drupal.org/project/poll" target="_blank" rel="noopener noreferrer nofollow">Модуль</a> опросов. Позволяет создавать опросы в различной конфигурации.</p>
-
+  <a class="link-body-emphasis" href="#poll">Poll</a>
+</h2><p><a title="" href="https://www.drupal.org/project/poll" target="_blank" rel="noopener noreferrer nofollow">Модуль</a> опросов. Позволяет создавать опросы в различной конфигурации.</p>
 <h2 id="scheduler">
-    Scheduler
-  <sup><a class="text-body-secondary small" href="#scheduler"><i class="fas fa-link fa-fw"></i></a></sup>
-</h2><p>Очень полезный 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://www.drupal.org/project/scheduler" target="_blank" rel="noopener noreferrer nofollow">модуль</a>, особенно редакторам. Модуль позволяет создавать отложенные материалы, которые необходимо опубликовать через определённое время.</p>]]></content:encoded><turbo:source/><turbo:topic>Интересные модули Drupal</turbo:topic><turbo:content><![CDATA[<p>Здесь собраны ссылки на интересные и необходимые для меня в работе модули.</p>
+  <a class="link-body-emphasis" href="#scheduler">Scheduler</a>
+</h2><p>Очень полезный <a title="" href="https://www.drupal.org/project/scheduler" target="_blank" rel="noopener noreferrer nofollow">модуль</a>, особенно редакторам. Модуль позволяет создавать отложенные материалы, которые необходимо опубликовать через определённое время.</p>]]></content:encoded><turbo:source/><turbo:topic>Интересные модули Drupal</turbo:topic><turbo:content><![CDATA[<p>Здесь собраны ссылки на интересные и необходимые для меня в работе модули.</p>
 <h2 id="permissions-by-term">
-    Permissions by Term
-  <sup><a class="text-body-secondary small" href="#permissions-by-term"><i class="fas fa-link fa-fw"></i></a></sup>
-</h2><p>
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://www.drupal.org/project/permissions_by_term" target="_blank" rel="noopener noreferrer nofollow">Модуль</a> позволяет применять права доступа к материалу путём добавления термина таксономии.</p>
-
+  <a class="link-body-emphasis" href="#permissions-by-term">Permissions by Term</a>
+</h2><p><a title="" href="https://www.drupal.org/project/permissions_by_term" target="_blank" rel="noopener noreferrer nofollow">Модуль</a> позволяет применять права доступа к материалу путём добавления термина таксономии.</p>
 <h2 id="node-view-permissions">
-    Node View Permissions
-  <sup><a class="text-body-secondary small" href="#node-view-permissions"><i class="fas fa-link fa-fw"></i></a></sup>
-</h2><p>
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://www.drupal.org/project/node_view_permissions" target="_blank" rel="noopener noreferrer nofollow">Модуль</a> разрешает или запрещает просматривать материал определённым ролям пользователей. Подобная функция была в Drupal 6, но в последующих версиях её убрали.</p>
-
+  <a class="link-body-emphasis" href="#node-view-permissions">Node View Permissions</a>
+</h2><p><a title="" href="https://www.drupal.org/project/node_view_permissions" target="_blank" rel="noopener noreferrer nofollow">Модуль</a> разрешает или запрещает просматривать материал определённым ролям пользователей. Подобная функция была в Drupal 6, но в последующих версиях её убрали.</p>
 <h2 id="poll">
-    Poll
-  <sup><a class="text-body-secondary small" href="#poll"><i class="fas fa-link fa-fw"></i></a></sup>
-</h2><p>
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://www.drupal.org/project/poll" target="_blank" rel="noopener noreferrer nofollow">Модуль</a> опросов. Позволяет создавать опросы в различной конфигурации.</p>
-
+  <a class="link-body-emphasis" href="#poll">Poll</a>
+</h2><p><a title="" href="https://www.drupal.org/project/poll" target="_blank" rel="noopener noreferrer nofollow">Модуль</a> опросов. Позволяет создавать опросы в различной конфигурации.</p>
 <h2 id="scheduler">
-    Scheduler
-  <sup><a class="text-body-secondary small" href="#scheduler"><i class="fas fa-link fa-fw"></i></a></sup>
-</h2><p>Очень полезный 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://www.drupal.org/project/scheduler" target="_blank" rel="noopener noreferrer nofollow">модуль</a>, особенно редакторам. Модуль позволяет создавать отложенные материалы, которые необходимо опубликовать через определённое время.</p>]]></turbo:content><pubDate>Wed, 18 Aug 2021 06:58:21 +0000</pubDate><category>CMF</category><category>В доработке</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Настройка и использование Git</title><link>https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</guid><description>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</description><media:content medium="image" url="https://images.unsplash.com/photo-1556075798-4825dfaaf498" width="1600" height="900"/><content:encoded><![CDATA[<p>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</p>
+  <a class="link-body-emphasis" href="#scheduler">Scheduler</a>
+</h2><p>Очень полезный <a title="" href="https://www.drupal.org/project/scheduler" target="_blank" rel="noopener noreferrer nofollow">модуль</a>, особенно редакторам. Модуль позволяет создавать отложенные материалы, которые необходимо опубликовать через определённое время.</p>]]></turbo:content><pubDate>Wed, 18 Aug 2021 06:58:21 +0000</pubDate><category>CMF</category><category>В доработке</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Настройка и использование Git</title><link>https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</guid><description>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</description><media:content medium="image" url="https://images.unsplash.com/photo-1556075798-4825dfaaf498" width="1600" height="900"/><content:encoded><![CDATA[<p>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</p>
 <h2 id="первичная-настройка">
-    Первичная настройка
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d0%b5%d1%80%d0%b2%d0%b8%d1%87%d0%bd%d0%b0%d1%8f-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b5%d1%80%d0%b2%d0%b8%d1%87%d0%bd%d0%b0%d1%8f-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0">Первичная настройка</a>
 </h2><p>Для начала работы с Git&rsquo;ом, его необходимо хотя бы минимально настроить.</p>
 <ol>
 <li>Указать своё имя:</li>
@@ -928,12 +651,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ab15023272ccb84fbefaf6d43c07774c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;John Doe&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-921204ce7e4d8d6c10a0d6dfd560b4fb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;John Doe&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ab15023272ccb84fbefaf6d43c07774c"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-921204ce7e4d8d6c10a0d6dfd560b4fb"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -957,12 +680,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cbea5b8bf57bbd38df8377dbe29fd043"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;johndoe@example.com&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4ece2268a4217bc39c5e08c3b2d99a5d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;johndoe@example.com&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cbea5b8bf57bbd38df8377dbe29fd043"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4ece2268a4217bc39c5e08c3b2d99a5d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -973,10 +696,8 @@
   </div>
 
 
-
 <h2 id="настройка-подписи">
-    Настройка подписи
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d0%bf%d0%be%d0%b4%d0%bf%d0%b8%d1%81%d0%b8"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d0%bf%d0%be%d0%b4%d0%bf%d0%b8%d1%81%d0%b8">Настройка подписи</a>
 </h2><p>Хорошим тоном будет считаться подпись каждого своего коммита.</p>
 <ol>
 <li>Выяснить какие ключи установлены в системе (о создании ключей я публиковал заметку <span class="shortcode shortcode-uuid"><a href="/ru/posts/2020/07/7a204545-daa8-58ce-ba35-75e732e1bcc0/">GnuPG: Создание и работа с ключами шифрования</a></span>):</li>
@@ -991,12 +712,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d6a6a09f2fd114aedf066a0fef9b99b7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format<span class="o">=</span>long</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-52b64317f0d023bc72f0ccdc83bc536d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format<span class="o">=</span>long</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d6a6a09f2fd114aedf066a0fef9b99b7"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-52b64317f0d023bc72f0ccdc83bc536d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1020,12 +741,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d6f82efe1e5ef1a5db01ac79bc5b1442"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e5128fdba239695c9b8f24a00ba4d0a2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d6f82efe1e5ef1a5db01ac79bc5b1442"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e5128fdba239695c9b8f24a00ba4d0a2"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1049,12 +770,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-74dde98727bc5b600f7d3d3cddc32730"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.signingkey 3AA5C34371567BD2</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-457659cf61f657098166e0daf19c2be4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.signingkey 3AA5C34371567BD2</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-74dde98727bc5b600f7d3d3cddc32730"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-457659cf61f657098166e0daf19c2be4"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1065,10 +786,8 @@
   </div>
 
 
-
 <h2 id="хранилище-паролей">
-    Хранилище паролей
-  <sup><a class="text-body-secondary small" href="#%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b5-%d0%bf%d0%b0%d1%80%d0%be%d0%bb%d0%b5%d0%b9"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b5-%d0%bf%d0%b0%d1%80%d0%be%d0%bb%d0%b5%d0%b9">Хранилище паролей</a>
 </h2><p>Git по умолчанию не сохраняет регистрационные данные для репозиториев. Эта настройка позволяет указать Git&rsquo;у использовать для хранения регистрационных данных текстовый файл <code>~/.git-credentials</code>:</p>
 
 
@@ -1080,12 +799,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cc98524f69dd7f71b309b6b3d08bd973"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global credential.helper store</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3283c07d3da5ff0b4216615f3e38483e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global credential.helper store</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cc98524f69dd7f71b309b6b3d08bd973"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3283c07d3da5ff0b4216615f3e38483e"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1096,10 +815,8 @@
   </div>
 
 
-
 <h2 id="отмена-изменений">
-    Отмена изменений
-  <sup><a class="text-body-secondary small" href="#%d0%be%d1%82%d0%bc%d0%b5%d0%bd%d0%b0-%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b9"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%be%d1%82%d0%bc%d0%b5%d0%bd%d0%b0-%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b9">Отмена изменений</a>
 </h2><p>Отмена конкретного коммита:</p>
 
 
@@ -1111,12 +828,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-809ea7b945708199543cf3e12800f58a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert <span class="o">[</span>commit<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7b31f4cc6c85cccb6e998282d1d4e97e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert <span class="o">[</span>commit<span class="o">]</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-809ea7b945708199543cf3e12800f58a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7b31f4cc6c85cccb6e998282d1d4e97e"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1138,12 +855,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0b7b0eab8cf5abad8bc9081818d9a14f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert HEAD~2</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-684faee09a61da9eea282a91edf9475d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert HEAD~2</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0b7b0eab8cf5abad8bc9081818d9a14f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-684faee09a61da9eea282a91edf9475d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1154,10 +871,8 @@
   </div>
 
 
-
 <h2 id="модули">
-    Модули
-  <sup><a class="text-body-secondary small" href="#%d0%bc%d0%be%d0%b4%d1%83%d0%bb%d0%b8"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bc%d0%be%d0%b4%d1%83%d0%bb%d0%b8">Модули</a>
 </h2><p>Добавление модуля:</p>
 
 
@@ -1169,12 +884,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-904efb97ea1fcc267c3f5e81eab40c70"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule add https://github.com/<span class="o">[</span>MODULE<span class="o">]</span> <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c2d01a5872ba36be6822eb4de9c41f80"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule add https://github.com/<span class="o">[</span>MODULE<span class="o">]</span> <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-904efb97ea1fcc267c3f5e81eab40c70"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c2d01a5872ba36be6822eb4de9c41f80"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1196,12 +911,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-465efee992a2fe9ee61e2e58e7dca17f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule update --recursive --remote --merge</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9d8c44063f8ccf84fa6df0f5e54569d7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule update --recursive --remote --merge</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-465efee992a2fe9ee61e2e58e7dca17f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9d8c44063f8ccf84fa6df0f5e54569d7"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1223,7 +938,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f81eb00c40cc9b5322610712cff6471f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule deinit -f <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bd4f2149e920237ef1c3a45e378ea31c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule deinit -f <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> git rm -r --cached <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> rm -rf .git/modules/<span class="o">[</span>MODULE<span class="o">]</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> rm -rf <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
@@ -1231,7 +946,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f81eb00c40cc9b5322610712cff6471f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bd4f2149e920237ef1c3a45e378ea31c"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1242,10 +957,8 @@
   </div>
 
 
-
 <h2 id="изменение-адреса-репозитория">
-    Изменение адреса репозитория
-  <sup><a class="text-body-secondary small" href="#%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b0%d0%b4%d1%80%d0%b5%d1%81%d0%b0-%d1%80%d0%b5%d0%bf%d0%be%d0%b7%d0%b8%d1%82%d0%be%d1%80%d0%b8%d1%8f"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b0%d0%b4%d1%80%d0%b5%d1%81%d0%b0-%d1%80%d0%b5%d0%bf%d0%be%d0%b7%d0%b8%d1%82%d0%be%d1%80%d0%b8%d1%8f">Изменение адреса репозитория</a>
 </h2><p>Показать текущий адрес:</p>
 
 
@@ -1257,12 +970,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-23214a734543302583a8537bdad5c26e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote -v</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-08337ce3e3a032ab9e6f8d724e28f5f6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote -v</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-23214a734543302583a8537bdad5c26e"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-08337ce3e3a032ab9e6f8d724e28f5f6"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1284,12 +997,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3810937d2253e0aaff12292d14f62793"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote set-url origin <span class="s1">&#39;[URL]&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a9a6ffea23c8daec5644e5978e4edfba"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote set-url origin <span class="s1">&#39;[URL]&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3810937d2253e0aaff12292d14f62793"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a9a6ffea23c8daec5644e5978e4edfba"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1299,8 +1012,7 @@
     </div>
   </div>]]></content:encoded><turbo:source/><turbo:topic>Настройка и использование Git</turbo:topic><turbo:content><![CDATA[<p>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</p>
 <h2 id="первичная-настройка">
-    Первичная настройка
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d0%b5%d1%80%d0%b2%d0%b8%d1%87%d0%bd%d0%b0%d1%8f-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b5%d1%80%d0%b2%d0%b8%d1%87%d0%bd%d0%b0%d1%8f-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0">Первичная настройка</a>
 </h2><p>Для начала работы с Git&rsquo;ом, его необходимо хотя бы минимально настроить.</p>
 <ol>
 <li>Указать своё имя:</li>
@@ -1315,12 +1027,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ab15023272ccb84fbefaf6d43c07774c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;John Doe&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-921204ce7e4d8d6c10a0d6dfd560b4fb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;John Doe&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ab15023272ccb84fbefaf6d43c07774c"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-921204ce7e4d8d6c10a0d6dfd560b4fb"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1344,12 +1056,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cbea5b8bf57bbd38df8377dbe29fd043"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;johndoe@example.com&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4ece2268a4217bc39c5e08c3b2d99a5d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;johndoe@example.com&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cbea5b8bf57bbd38df8377dbe29fd043"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4ece2268a4217bc39c5e08c3b2d99a5d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1360,10 +1072,8 @@
   </div>
 
 
-
 <h2 id="настройка-подписи">
-    Настройка подписи
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d0%bf%d0%be%d0%b4%d0%bf%d0%b8%d1%81%d0%b8"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d0%bf%d0%be%d0%b4%d0%bf%d0%b8%d1%81%d0%b8">Настройка подписи</a>
 </h2><p>Хорошим тоном будет считаться подпись каждого своего коммита.</p>
 <ol>
 <li>Выяснить какие ключи установлены в системе (о создании ключей я публиковал заметку <span class="shortcode shortcode-uuid"><a href="/ru/posts/2020/07/7a204545-daa8-58ce-ba35-75e732e1bcc0/">GnuPG: Создание и работа с ключами шифрования</a></span>):</li>
@@ -1378,12 +1088,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d6a6a09f2fd114aedf066a0fef9b99b7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format<span class="o">=</span>long</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-52b64317f0d023bc72f0ccdc83bc536d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format<span class="o">=</span>long</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d6a6a09f2fd114aedf066a0fef9b99b7"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-52b64317f0d023bc72f0ccdc83bc536d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1407,12 +1117,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d6f82efe1e5ef1a5db01ac79bc5b1442"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e5128fdba239695c9b8f24a00ba4d0a2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d6f82efe1e5ef1a5db01ac79bc5b1442"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e5128fdba239695c9b8f24a00ba4d0a2"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1436,12 +1146,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-74dde98727bc5b600f7d3d3cddc32730"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.signingkey 3AA5C34371567BD2</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-457659cf61f657098166e0daf19c2be4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.signingkey 3AA5C34371567BD2</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-74dde98727bc5b600f7d3d3cddc32730"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-457659cf61f657098166e0daf19c2be4"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1452,10 +1162,8 @@
   </div>
 
 
-
 <h2 id="хранилище-паролей">
-    Хранилище паролей
-  <sup><a class="text-body-secondary small" href="#%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b5-%d0%bf%d0%b0%d1%80%d0%be%d0%bb%d0%b5%d0%b9"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b5-%d0%bf%d0%b0%d1%80%d0%be%d0%bb%d0%b5%d0%b9">Хранилище паролей</a>
 </h2><p>Git по умолчанию не сохраняет регистрационные данные для репозиториев. Эта настройка позволяет указать Git&rsquo;у использовать для хранения регистрационных данных текстовый файл <code>~/.git-credentials</code>:</p>
 
 
@@ -1467,12 +1175,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cc98524f69dd7f71b309b6b3d08bd973"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global credential.helper store</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3283c07d3da5ff0b4216615f3e38483e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global credential.helper store</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cc98524f69dd7f71b309b6b3d08bd973"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3283c07d3da5ff0b4216615f3e38483e"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1483,10 +1191,8 @@
   </div>
 
 
-
 <h2 id="отмена-изменений">
-    Отмена изменений
-  <sup><a class="text-body-secondary small" href="#%d0%be%d1%82%d0%bc%d0%b5%d0%bd%d0%b0-%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b9"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%be%d1%82%d0%bc%d0%b5%d0%bd%d0%b0-%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b9">Отмена изменений</a>
 </h2><p>Отмена конкретного коммита:</p>
 
 
@@ -1498,12 +1204,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-809ea7b945708199543cf3e12800f58a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert <span class="o">[</span>commit<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7b31f4cc6c85cccb6e998282d1d4e97e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert <span class="o">[</span>commit<span class="o">]</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-809ea7b945708199543cf3e12800f58a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7b31f4cc6c85cccb6e998282d1d4e97e"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1525,12 +1231,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0b7b0eab8cf5abad8bc9081818d9a14f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert HEAD~2</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-684faee09a61da9eea282a91edf9475d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert HEAD~2</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0b7b0eab8cf5abad8bc9081818d9a14f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-684faee09a61da9eea282a91edf9475d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1541,10 +1247,8 @@
   </div>
 
 
-
 <h2 id="модули">
-    Модули
-  <sup><a class="text-body-secondary small" href="#%d0%bc%d0%be%d0%b4%d1%83%d0%bb%d0%b8"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bc%d0%be%d0%b4%d1%83%d0%bb%d0%b8">Модули</a>
 </h2><p>Добавление модуля:</p>
 
 
@@ -1556,12 +1260,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-904efb97ea1fcc267c3f5e81eab40c70"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule add https://github.com/<span class="o">[</span>MODULE<span class="o">]</span> <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c2d01a5872ba36be6822eb4de9c41f80"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule add https://github.com/<span class="o">[</span>MODULE<span class="o">]</span> <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-904efb97ea1fcc267c3f5e81eab40c70"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c2d01a5872ba36be6822eb4de9c41f80"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1583,12 +1287,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-465efee992a2fe9ee61e2e58e7dca17f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule update --recursive --remote --merge</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9d8c44063f8ccf84fa6df0f5e54569d7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule update --recursive --remote --merge</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-465efee992a2fe9ee61e2e58e7dca17f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9d8c44063f8ccf84fa6df0f5e54569d7"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1610,7 +1314,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f81eb00c40cc9b5322610712cff6471f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule deinit -f <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bd4f2149e920237ef1c3a45e378ea31c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule deinit -f <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> git rm -r --cached <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> rm -rf .git/modules/<span class="o">[</span>MODULE<span class="o">]</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> rm -rf <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
@@ -1618,7 +1322,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f81eb00c40cc9b5322610712cff6471f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bd4f2149e920237ef1c3a45e378ea31c"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1629,10 +1333,8 @@
   </div>
 
 
-
 <h2 id="изменение-адреса-репозитория">
-    Изменение адреса репозитория
-  <sup><a class="text-body-secondary small" href="#%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b0%d0%b4%d1%80%d0%b5%d1%81%d0%b0-%d1%80%d0%b5%d0%bf%d0%be%d0%b7%d0%b8%d1%82%d0%be%d1%80%d0%b8%d1%8f"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b0%d0%b4%d1%80%d0%b5%d1%81%d0%b0-%d1%80%d0%b5%d0%bf%d0%be%d0%b7%d0%b8%d1%82%d0%be%d1%80%d0%b8%d1%8f">Изменение адреса репозитория</a>
 </h2><p>Показать текущий адрес:</p>
 
 
@@ -1644,12 +1346,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-23214a734543302583a8537bdad5c26e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote -v</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-08337ce3e3a032ab9e6f8d724e28f5f6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote -v</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-23214a734543302583a8537bdad5c26e"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-08337ce3e3a032ab9e6f8d724e28f5f6"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1671,12 +1373,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3810937d2253e0aaff12292d14f62793"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote set-url origin <span class="s1">&#39;[URL]&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a9a6ffea23c8daec5644e5978e4edfba"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote set-url origin <span class="s1">&#39;[URL]&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3810937d2253e0aaff12292d14f62793"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a9a6ffea23c8daec5644e5978e4edfba"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1686,8 +1388,7 @@
     </div>
   </div>]]></turbo:content><pubDate>Sat, 14 Aug 2021 15:52:38 +0000</pubDate><category>Linux</category><category>Git</category><category>Терминал</category><category>В доработке</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Настройка статического IP адреса</title><link>https://lib.onl/ru/posts/2021/05/ee559a6c-5cde-5166-9d2d-3ceb55878eb8/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/ee559a6c-5cde-5166-9d2d-3ceb55878eb8/</guid><description>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</description><media:content medium="image" url="https://images.unsplash.com/photo-1544197150-b99a580bb7a8" width="1600" height="900"/><content:encoded><![CDATA[<p>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</p>
 <h2 id="подготовка">
-    Подготовка
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
 </h2><p>Смотрим текущие сетевые устройства и соединения:</p>
 
 
@@ -1711,7 +1412,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1f79571941c471ec1bd802fe735fc6d6"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fefc476599a7b500d12a52fa5f74f63b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1720,7 +1421,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1f79571941c471ec1bd802fe735fc6d6"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
+    <div class="card-body p-0" id="clipboard-fefc476599a7b500d12a52fa5f74f63b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
 
 1: lo: &lt;loopback,up,lower_up&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
   link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -1730,10 +1431,8 @@ shortcode-codeblock-terminal-linux-root">
   inet 192.168.10.123/24 brd 192.168.10.255 scope global dynamic noprefixroute enp1s0</code></pre></div>
   </div>
 </div>
-
 <h2 id="настройка-ip-в-rhel-based-дистрибутивах">
-    Настройка IP в RHEL-based дистрибутивах
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%b2-rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0%d1%85"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%b2-rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0%d1%85">Настройка IP в RHEL-based дистрибутивах</a>
 </h2><p>В директории <code>/etc/sysconfig/network-scripts</code> находятся конфигурационные файлы для сетевых интерфейсов. Имя файла состоит из префикса <code>ifcfg</code> и имени интерфейса. Например, содержимое файла для интерфейса <code>enp1s0</code>:</p>
 
 
@@ -1757,7 +1456,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cbdc7ad6d5e493934a054c13f2d6b110"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5d7cf96a06f3ef51b368089a6f542efc"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1766,7 +1465,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-cbdc7ad6d5e493934a054c13f2d6b110"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
+    <div class="card-body p-0" id="clipboard-5d7cf96a06f3ef51b368089a6f542efc"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
 
 TYPE=&#34;Ethernet&#34;
 PROXY_METHOD=&#34;none&#34;
@@ -1809,7 +1508,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-465ed4503418bfdba1458acc860ee6aa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-28bb50912208606d44313728c9eb3bd1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">PROXY_METHOD</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BROWSER_ONLY</span><span class="o">=</span><span class="s">&#34;no&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BOOTPROTO</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
@@ -1833,7 +1532,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-465ed4503418bfdba1458acc860ee6aa"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-28bb50912208606d44313728c9eb3bd1"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1867,7 +1566,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4cf858bb876339c23409d4870375e12c"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a49a43ddb66be75d57e84dc479bb9eb1"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1876,13 +1575,11 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-4cf858bb876339c23409d4870375e12c"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-a49a43ddb66be75d57e84dc479bb9eb1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>
-
 <h2 id="настройка-ip-при-помощи-network-manager-cli-nmcli">
-    Настройка IP при помощи Network Manager CLI (nmcli)
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-network-manager-cli-nmcli"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-network-manager-cli-nmcli">Настройка IP при помощи Network Manager CLI (nmcli)</a>
 </h2><p>Установка IP адреса:</p>
 
 
@@ -1906,7 +1603,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1616321306ecc4f5c1159ade24adc63f"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ce41c8e94a3950eab00f3eca6ab11c2b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1915,7 +1612,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1616321306ecc4f5c1159ade24adc63f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ce41c8e94a3950eab00f3eca6ab11c2b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка шлюза:</p>
@@ -1941,7 +1638,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb5bd65f3617dad65928ead11bae3ef0"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ff75b1e9727ab6bdf252ff95ece64e3f"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1950,7 +1647,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-bb5bd65f3617dad65928ead11bae3ef0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ff75b1e9727ab6bdf252ff95ece64e3f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка DNS:</p>
@@ -1976,7 +1673,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-945a51caf21722abf9e2f682e21a4d07"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e369fcf2fc34244346ae67d086389f47"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1985,7 +1682,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-945a51caf21722abf9e2f682e21a4d07"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-e369fcf2fc34244346ae67d086389f47"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка <strong>BOOTPROTO</strong> в <code>none</code>:</p>
@@ -2011,7 +1708,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fa0815efa015095597374789a874ef38"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ec4894aec3bad4bdf27d1fef79e90bcb"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2020,7 +1717,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-fa0815efa015095597374789a874ef38"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ec4894aec3bad4bdf27d1fef79e90bcb"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
   </div>
 </div>
 <p>Перезапуск интерфейса:</p>
@@ -2046,7 +1743,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-041f58a3114f379096319daa2d2758a8"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b822dfe3ae60531411d6f9cfa5cdf64"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2055,12 +1752,11 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-041f58a3114f379096319daa2d2758a8"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-4b822dfe3ae60531411d6f9cfa5cdf64"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>]]></content:encoded><turbo:source/><turbo:topic>Настройка статического IP адреса</turbo:topic><turbo:content><![CDATA[<p>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</p>
 <h2 id="подготовка">
-    Подготовка
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
 </h2><p>Смотрим текущие сетевые устройства и соединения:</p>
 
 
@@ -2084,7 +1780,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1f79571941c471ec1bd802fe735fc6d6"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fefc476599a7b500d12a52fa5f74f63b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2093,7 +1789,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1f79571941c471ec1bd802fe735fc6d6"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
+    <div class="card-body p-0" id="clipboard-fefc476599a7b500d12a52fa5f74f63b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
 
 1: lo: &lt;loopback,up,lower_up&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
   link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -2103,10 +1799,8 @@ shortcode-codeblock-terminal-linux-root">
   inet 192.168.10.123/24 brd 192.168.10.255 scope global dynamic noprefixroute enp1s0</code></pre></div>
   </div>
 </div>
-
 <h2 id="настройка-ip-в-rhel-based-дистрибутивах">
-    Настройка IP в RHEL-based дистрибутивах
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%b2-rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0%d1%85"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%b2-rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0%d1%85">Настройка IP в RHEL-based дистрибутивах</a>
 </h2><p>В директории <code>/etc/sysconfig/network-scripts</code> находятся конфигурационные файлы для сетевых интерфейсов. Имя файла состоит из префикса <code>ifcfg</code> и имени интерфейса. Например, содержимое файла для интерфейса <code>enp1s0</code>:</p>
 
 
@@ -2130,7 +1824,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cbdc7ad6d5e493934a054c13f2d6b110"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5d7cf96a06f3ef51b368089a6f542efc"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2139,7 +1833,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-cbdc7ad6d5e493934a054c13f2d6b110"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
+    <div class="card-body p-0" id="clipboard-5d7cf96a06f3ef51b368089a6f542efc"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
 
 TYPE=&#34;Ethernet&#34;
 PROXY_METHOD=&#34;none&#34;
@@ -2182,7 +1876,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-465ed4503418bfdba1458acc860ee6aa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-28bb50912208606d44313728c9eb3bd1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">PROXY_METHOD</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BROWSER_ONLY</span><span class="o">=</span><span class="s">&#34;no&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BOOTPROTO</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
@@ -2206,7 +1900,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-465ed4503418bfdba1458acc860ee6aa"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-28bb50912208606d44313728c9eb3bd1"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2240,7 +1934,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4cf858bb876339c23409d4870375e12c"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a49a43ddb66be75d57e84dc479bb9eb1"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2249,13 +1943,11 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-4cf858bb876339c23409d4870375e12c"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-a49a43ddb66be75d57e84dc479bb9eb1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>
-
 <h2 id="настройка-ip-при-помощи-network-manager-cli-nmcli">
-    Настройка IP при помощи Network Manager CLI (nmcli)
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-network-manager-cli-nmcli"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-network-manager-cli-nmcli">Настройка IP при помощи Network Manager CLI (nmcli)</a>
 </h2><p>Установка IP адреса:</p>
 
 
@@ -2279,7 +1971,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1616321306ecc4f5c1159ade24adc63f"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ce41c8e94a3950eab00f3eca6ab11c2b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2288,7 +1980,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1616321306ecc4f5c1159ade24adc63f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ce41c8e94a3950eab00f3eca6ab11c2b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка шлюза:</p>
@@ -2314,7 +2006,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb5bd65f3617dad65928ead11bae3ef0"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ff75b1e9727ab6bdf252ff95ece64e3f"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2323,7 +2015,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-bb5bd65f3617dad65928ead11bae3ef0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ff75b1e9727ab6bdf252ff95ece64e3f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка DNS:</p>
@@ -2349,7 +2041,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-945a51caf21722abf9e2f682e21a4d07"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e369fcf2fc34244346ae67d086389f47"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2358,7 +2050,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-945a51caf21722abf9e2f682e21a4d07"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-e369fcf2fc34244346ae67d086389f47"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка <strong>BOOTPROTO</strong> в <code>none</code>:</p>
@@ -2384,7 +2076,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fa0815efa015095597374789a874ef38"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ec4894aec3bad4bdf27d1fef79e90bcb"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2393,7 +2085,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-fa0815efa015095597374789a874ef38"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ec4894aec3bad4bdf27d1fef79e90bcb"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
   </div>
 </div>
 <p>Перезапуск интерфейса:</p>
@@ -2419,7 +2111,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-041f58a3114f379096319daa2d2758a8"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b822dfe3ae60531411d6f9cfa5cdf64"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2428,19 +2120,15 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-041f58a3114f379096319daa2d2758a8"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-4b822dfe3ae60531411d6f9cfa5cdf64"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>]]></turbo:content><pubDate>Sat, 15 May 2021 17:08:30 +0000</pubDate><category>Терминал</category><category>Linux</category><category>Сеть</category><category>В доработке</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Разнообразие команд ls*</title><link>https://lib.onl/ru/posts/2021/05/5ba03b8a-0505-5d80-bfad-f7a4d66f07b0/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/5ba03b8a-0505-5d80-bfad-f7a4d66f07b0/</guid><description>Команда ls и её разновидности позволяют вывести список директорий, файлов, устройств и различной другой информации. Я расскажу только о некоторых командах ls*, которые присутствуют в большинстве дистрибутивов Linux.</description><media:content medium="image" url="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d" width="1600" height="900"/><content:encoded><![CDATA[<p>Команда <code>ls</code> и её разновидности позволяют вывести список директорий, файлов, устройств и различной другой информации. Я расскажу только о некоторых командах <code>ls*</code>, которые присутствуют в большинстве дистрибутивов Linux.</p>
 <p>Знаю, что есть <code>lsscsi</code>, <code>lsusb</code> и т.п., которые появляются в системе с установкой дополнительных пакетов, но я подобные команды рассматривать не стал. Хотя, по возможности, статью буду дополнять.</p>
-
 <h2 id="ls">
-    ls
-  <sup><a class="text-body-secondary small" href="#ls"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#ls">ls</a>
 </h2><p>Команда позволяет вывести список директорий и файлов в текущем каталоге.</p>
-
 <h3 id="некоторые-опции">
-    Некоторые опции
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b5%d0%ba%d0%be%d1%82%d0%be%d1%80%d1%8b%d0%b5-%d0%be%d0%bf%d1%86%d0%b8%d0%b8"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b5%d0%ba%d0%be%d1%82%d0%be%d1%80%d1%8b%d0%b5-%d0%be%d0%bf%d1%86%d0%b8%d0%b8">Некоторые опции</a>
 </h3><ul>
 <li><code>-l</code> - использовать длинный формат отображения.</li>
 <li><code>-S</code> - сортировать по размеру файла.</li>
@@ -2450,22 +2138,16 @@ shortcode-codeblock-terminal-linux-root">
 <li><code>-h</code> - отображение размеров файлов в человеко-читаемом формате.</li>
 <li><code>--hide='*.txt' -l</code> - игнорировать файлы с форматом <code>.txt</code>.</li>
 </ul>
-
 <h2 id="lscpu">
-    lscpu
-  <sup><a class="text-body-secondary small" href="#lscpu"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#lscpu">lscpu</a>
 </h2><p>Отображение доступной информации об установленном процессоре.</p>
-
 <h3 id="некоторые-опции-1">
-    Некоторые опции
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b5%d0%ba%d0%be%d1%82%d0%be%d1%80%d1%8b%d0%b5-%d0%be%d0%bf%d1%86%d0%b8%d0%b8-1"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b5%d0%ba%d0%be%d1%82%d0%be%d1%80%d1%8b%d0%b5-%d0%be%d0%bf%d1%86%d0%b8%d0%b8-1">Некоторые опции</a>
 </h3><ul>
 <li><code>-a</code> - показать ВСЕ CPU, как включённые, так и отключённые.</li>
 </ul>
-
 <h3 id="пример-использования">
-    Пример использования
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f">Пример использования</a>
 </h3>
 
 
@@ -2488,7 +2170,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7850facae1acd29e31488089e593c6aa"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f140ace6c85fd826d6e6e4eca4914e62"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2497,7 +2179,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-7850facae1acd29e31488089e593c6aa"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lscpu
+    <div class="card-body p-0" id="clipboard-f140ace6c85fd826d6e6e4eca4914e62"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lscpu
 
 Architecture:                    x86_64
 CPU op-mode(s):                  32-bit, 64-bit
@@ -2524,15 +2206,11 @@ L2 cache:                        1.5 MiB
 L3 cache:                        12 MiB</code></pre></div>
   </div>
 </div>
-
 <h2 id="lspci">
-    lspci
-  <sup><a class="text-body-secondary small" href="#lspci"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#lspci">lspci</a>
 </h2><p>Отображение информации по шине PCI и подключённых к ней устройствах.</p>
-
 <h3 id="пример-использования-1">
-    Пример использования
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-1"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-1">Пример использования</a>
 </h3>
 
 
@@ -2555,7 +2233,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-80d92d13ce3916cd846b3b98303cc97c"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6069f04503ae58a5e0bd74a887d9f53a"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2564,7 +2242,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-80d92d13ce3916cd846b3b98303cc97c"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lspci
+    <div class="card-body p-0" id="clipboard-6069f04503ae58a5e0bd74a887d9f53a"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lspci
 
 00:00.0 Host bridge: Intel Corporation Comet Lake-S 6c Host Bridge/DRAM Controller (rev 05)
 00:01.0 PCI bridge: Intel Corporation 6th-10th Gen Core Processor PCIe Controller (x16) (rev 05)
@@ -2585,15 +2263,11 @@ shortcode-codeblock-terminal-linux">
 01:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Baffin HDMI/DP Audio [Radeon RX 550 640SP / RX 560/560X]</code></pre></div>
   </div>
 </div>
-
 <h2 id="lsblk">
-    lsblk
-  <sup><a class="text-body-secondary small" href="#lsblk"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#lsblk">lsblk</a>
 </h2><p>Отображение информации по блочным устройствам.</p>
-
 <h3 id="пример-использования-2">
-    Пример использования
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-2"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-2">Пример использования</a>
 </h3>
 
 
@@ -2616,7 +2290,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-48275def7f69ae96f59bb6b739bab154"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-697fe8312a7bc417596bb4f11b9b151b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2625,7 +2299,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-48275def7f69ae96f59bb6b739bab154"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsblk
+    <div class="card-body p-0" id="clipboard-697fe8312a7bc417596bb4f11b9b151b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsblk
 
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 sda      8:0    0 232.9G  0 disk
@@ -2645,15 +2319,11 @@ sdd      8:48   1  59.8G  0 disk
 zram0  252:0    0     4G  0 disk [SWAP]</code></pre></div>
   </div>
 </div>
-
 <h2 id="lsmod">
-    lsmod
-  <sup><a class="text-body-secondary small" href="#lsmod"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#lsmod">lsmod</a>
 </h2><p>Отображение модулей ядра, загруженных в системе.</p>
-
 <h3 id="пример-использования-3">
-    Пример использования
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-3"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-3">Пример использования</a>
 </h3>
 
 
@@ -2676,7 +2346,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-67e47f320c2bfeaa57737b152ab9cb97"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fcecde52ffb546cad6a895a38719b7e0"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2685,7 +2355,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-67e47f320c2bfeaa57737b152ab9cb97"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsmod
+    <div class="card-body p-0" id="clipboard-fcecde52ffb546cad6a895a38719b7e0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsmod
 
 Module                  Size  Used by
 exfat                  81920  1
@@ -2711,15 +2381,11 @@ llc                    16384  2 bridge,stp</code></pre></div>
   </div>
 </div>]]></content:encoded><turbo:source/><turbo:topic>Разнообразие команд ls*</turbo:topic><turbo:content><![CDATA[<p>Команда <code>ls</code> и её разновидности позволяют вывести список директорий, файлов, устройств и различной другой информации. Я расскажу только о некоторых командах <code>ls*</code>, которые присутствуют в большинстве дистрибутивов Linux.</p>
 <p>Знаю, что есть <code>lsscsi</code>, <code>lsusb</code> и т.п., которые появляются в системе с установкой дополнительных пакетов, но я подобные команды рассматривать не стал. Хотя, по возможности, статью буду дополнять.</p>
-
 <h2 id="ls">
-    ls
-  <sup><a class="text-body-secondary small" href="#ls"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#ls">ls</a>
 </h2><p>Команда позволяет вывести список директорий и файлов в текущем каталоге.</p>
-
 <h3 id="некоторые-опции">
-    Некоторые опции
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b5%d0%ba%d0%be%d1%82%d0%be%d1%80%d1%8b%d0%b5-%d0%be%d0%bf%d1%86%d0%b8%d0%b8"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b5%d0%ba%d0%be%d1%82%d0%be%d1%80%d1%8b%d0%b5-%d0%be%d0%bf%d1%86%d0%b8%d0%b8">Некоторые опции</a>
 </h3><ul>
 <li><code>-l</code> - использовать длинный формат отображения.</li>
 <li><code>-S</code> - сортировать по размеру файла.</li>
@@ -2729,22 +2395,16 @@ llc                    16384  2 bridge,stp</code></pre></div>
 <li><code>-h</code> - отображение размеров файлов в человеко-читаемом формате.</li>
 <li><code>--hide='*.txt' -l</code> - игнорировать файлы с форматом <code>.txt</code>.</li>
 </ul>
-
 <h2 id="lscpu">
-    lscpu
-  <sup><a class="text-body-secondary small" href="#lscpu"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#lscpu">lscpu</a>
 </h2><p>Отображение доступной информации об установленном процессоре.</p>
-
 <h3 id="некоторые-опции-1">
-    Некоторые опции
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b5%d0%ba%d0%be%d1%82%d0%be%d1%80%d1%8b%d0%b5-%d0%be%d0%bf%d1%86%d0%b8%d0%b8-1"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b5%d0%ba%d0%be%d1%82%d0%be%d1%80%d1%8b%d0%b5-%d0%be%d0%bf%d1%86%d0%b8%d0%b8-1">Некоторые опции</a>
 </h3><ul>
 <li><code>-a</code> - показать ВСЕ CPU, как включённые, так и отключённые.</li>
 </ul>
-
 <h3 id="пример-использования">
-    Пример использования
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f">Пример использования</a>
 </h3>
 
 
@@ -2767,7 +2427,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7850facae1acd29e31488089e593c6aa"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f140ace6c85fd826d6e6e4eca4914e62"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2776,7 +2436,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-7850facae1acd29e31488089e593c6aa"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lscpu
+    <div class="card-body p-0" id="clipboard-f140ace6c85fd826d6e6e4eca4914e62"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lscpu
 
 Architecture:                    x86_64
 CPU op-mode(s):                  32-bit, 64-bit
@@ -2803,15 +2463,11 @@ L2 cache:                        1.5 MiB
 L3 cache:                        12 MiB</code></pre></div>
   </div>
 </div>
-
 <h2 id="lspci">
-    lspci
-  <sup><a class="text-body-secondary small" href="#lspci"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#lspci">lspci</a>
 </h2><p>Отображение информации по шине PCI и подключённых к ней устройствах.</p>
-
 <h3 id="пример-использования-1">
-    Пример использования
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-1"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-1">Пример использования</a>
 </h3>
 
 
@@ -2834,7 +2490,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-80d92d13ce3916cd846b3b98303cc97c"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6069f04503ae58a5e0bd74a887d9f53a"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2843,7 +2499,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-80d92d13ce3916cd846b3b98303cc97c"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lspci
+    <div class="card-body p-0" id="clipboard-6069f04503ae58a5e0bd74a887d9f53a"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lspci
 
 00:00.0 Host bridge: Intel Corporation Comet Lake-S 6c Host Bridge/DRAM Controller (rev 05)
 00:01.0 PCI bridge: Intel Corporation 6th-10th Gen Core Processor PCIe Controller (x16) (rev 05)
@@ -2864,15 +2520,11 @@ shortcode-codeblock-terminal-linux">
 01:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Baffin HDMI/DP Audio [Radeon RX 550 640SP / RX 560/560X]</code></pre></div>
   </div>
 </div>
-
 <h2 id="lsblk">
-    lsblk
-  <sup><a class="text-body-secondary small" href="#lsblk"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#lsblk">lsblk</a>
 </h2><p>Отображение информации по блочным устройствам.</p>
-
 <h3 id="пример-использования-2">
-    Пример использования
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-2"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-2">Пример использования</a>
 </h3>
 
 
@@ -2895,7 +2547,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-48275def7f69ae96f59bb6b739bab154"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-697fe8312a7bc417596bb4f11b9b151b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2904,7 +2556,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-48275def7f69ae96f59bb6b739bab154"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsblk
+    <div class="card-body p-0" id="clipboard-697fe8312a7bc417596bb4f11b9b151b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsblk
 
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 sda      8:0    0 232.9G  0 disk
@@ -2924,15 +2576,11 @@ sdd      8:48   1  59.8G  0 disk
 zram0  252:0    0     4G  0 disk [SWAP]</code></pre></div>
   </div>
 </div>
-
 <h2 id="lsmod">
-    lsmod
-  <sup><a class="text-body-secondary small" href="#lsmod"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#lsmod">lsmod</a>
 </h2><p>Отображение модулей ядра, загруженных в системе.</p>
-
 <h3 id="пример-использования-3">
-    Пример использования
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-3"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d1%8f-3">Пример использования</a>
 </h3>
 
 
@@ -2955,7 +2603,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-67e47f320c2bfeaa57737b152ab9cb97"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fcecde52ffb546cad6a895a38719b7e0"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2964,7 +2612,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-67e47f320c2bfeaa57737b152ab9cb97"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsmod
+    <div class="card-body p-0" id="clipboard-fcecde52ffb546cad6a895a38719b7e0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsmod
 
 Module                  Size  Used by
 exfat                  81920  1

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>ip / Library Online</title><link>https://lib.onl/ru/tags/ip/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/ip/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>ip / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sat, 15 May 2021 17:08:30 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/ip/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Настройка статического IP адреса</title><link>https://lib.onl/ru/posts/2021/05/ee559a6c-5cde-5166-9d2d-3ceb55878eb8/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/ee559a6c-5cde-5166-9d2d-3ceb55878eb8/</guid><description>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</description><media:content medium="image" url="https://images.unsplash.com/photo-1544197150-b99a580bb7a8" width="1600" height="900"/><content:encoded><![CDATA[<p>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</p>
 <h2 id="подготовка">
-    Подготовка
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
 </h2><p>Смотрим текущие сетевые устройства и соединения:</p>
 
 
@@ -25,7 +24,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1f79571941c471ec1bd802fe735fc6d6"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fefc476599a7b500d12a52fa5f74f63b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -34,7 +33,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1f79571941c471ec1bd802fe735fc6d6"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
+    <div class="card-body p-0" id="clipboard-fefc476599a7b500d12a52fa5f74f63b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
 
 1: lo: &lt;loopback,up,lower_up&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
   link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -44,10 +43,8 @@ shortcode-codeblock-terminal-linux-root">
   inet 192.168.10.123/24 brd 192.168.10.255 scope global dynamic noprefixroute enp1s0</code></pre></div>
   </div>
 </div>
-
 <h2 id="настройка-ip-в-rhel-based-дистрибутивах">
-    Настройка IP в RHEL-based дистрибутивах
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%b2-rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0%d1%85"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%b2-rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0%d1%85">Настройка IP в RHEL-based дистрибутивах</a>
 </h2><p>В директории <code>/etc/sysconfig/network-scripts</code> находятся конфигурационные файлы для сетевых интерфейсов. Имя файла состоит из префикса <code>ifcfg</code> и имени интерфейса. Например, содержимое файла для интерфейса <code>enp1s0</code>:</p>
 
 
@@ -71,7 +68,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cbdc7ad6d5e493934a054c13f2d6b110"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5d7cf96a06f3ef51b368089a6f542efc"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -80,7 +77,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-cbdc7ad6d5e493934a054c13f2d6b110"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
+    <div class="card-body p-0" id="clipboard-5d7cf96a06f3ef51b368089a6f542efc"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
 
 TYPE=&#34;Ethernet&#34;
 PROXY_METHOD=&#34;none&#34;
@@ -123,7 +120,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-465ed4503418bfdba1458acc860ee6aa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-28bb50912208606d44313728c9eb3bd1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">PROXY_METHOD</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BROWSER_ONLY</span><span class="o">=</span><span class="s">&#34;no&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BOOTPROTO</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
@@ -147,7 +144,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-465ed4503418bfdba1458acc860ee6aa"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-28bb50912208606d44313728c9eb3bd1"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -181,7 +178,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4cf858bb876339c23409d4870375e12c"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a49a43ddb66be75d57e84dc479bb9eb1"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -190,13 +187,11 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-4cf858bb876339c23409d4870375e12c"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-a49a43ddb66be75d57e84dc479bb9eb1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>
-
 <h2 id="настройка-ip-при-помощи-network-manager-cli-nmcli">
-    Настройка IP при помощи Network Manager CLI (nmcli)
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-network-manager-cli-nmcli"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-network-manager-cli-nmcli">Настройка IP при помощи Network Manager CLI (nmcli)</a>
 </h2><p>Установка IP адреса:</p>
 
 
@@ -220,7 +215,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1616321306ecc4f5c1159ade24adc63f"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ce41c8e94a3950eab00f3eca6ab11c2b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -229,7 +224,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1616321306ecc4f5c1159ade24adc63f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ce41c8e94a3950eab00f3eca6ab11c2b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка шлюза:</p>
@@ -255,7 +250,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb5bd65f3617dad65928ead11bae3ef0"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ff75b1e9727ab6bdf252ff95ece64e3f"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -264,7 +259,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-bb5bd65f3617dad65928ead11bae3ef0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ff75b1e9727ab6bdf252ff95ece64e3f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка DNS:</p>
@@ -290,7 +285,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-945a51caf21722abf9e2f682e21a4d07"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e369fcf2fc34244346ae67d086389f47"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -299,7 +294,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-945a51caf21722abf9e2f682e21a4d07"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-e369fcf2fc34244346ae67d086389f47"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка <strong>BOOTPROTO</strong> в <code>none</code>:</p>
@@ -325,7 +320,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fa0815efa015095597374789a874ef38"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ec4894aec3bad4bdf27d1fef79e90bcb"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -334,7 +329,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-fa0815efa015095597374789a874ef38"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ec4894aec3bad4bdf27d1fef79e90bcb"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
   </div>
 </div>
 <p>Перезапуск интерфейса:</p>
@@ -360,7 +355,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-041f58a3114f379096319daa2d2758a8"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b822dfe3ae60531411d6f9cfa5cdf64"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -369,12 +364,11 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-041f58a3114f379096319daa2d2758a8"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-4b822dfe3ae60531411d6f9cfa5cdf64"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>]]></content:encoded><turbo:source/><turbo:topic>Настройка статического IP адреса</turbo:topic><turbo:content><![CDATA[<p>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</p>
 <h2 id="подготовка">
-    Подготовка
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
 </h2><p>Смотрим текущие сетевые устройства и соединения:</p>
 
 
@@ -398,7 +392,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1f79571941c471ec1bd802fe735fc6d6"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fefc476599a7b500d12a52fa5f74f63b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -407,7 +401,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1f79571941c471ec1bd802fe735fc6d6"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
+    <div class="card-body p-0" id="clipboard-fefc476599a7b500d12a52fa5f74f63b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
 
 1: lo: &lt;loopback,up,lower_up&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
   link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -417,10 +411,8 @@ shortcode-codeblock-terminal-linux-root">
   inet 192.168.10.123/24 brd 192.168.10.255 scope global dynamic noprefixroute enp1s0</code></pre></div>
   </div>
 </div>
-
 <h2 id="настройка-ip-в-rhel-based-дистрибутивах">
-    Настройка IP в RHEL-based дистрибутивах
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%b2-rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0%d1%85"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%b2-rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0%d1%85">Настройка IP в RHEL-based дистрибутивах</a>
 </h2><p>В директории <code>/etc/sysconfig/network-scripts</code> находятся конфигурационные файлы для сетевых интерфейсов. Имя файла состоит из префикса <code>ifcfg</code> и имени интерфейса. Например, содержимое файла для интерфейса <code>enp1s0</code>:</p>
 
 
@@ -444,7 +436,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cbdc7ad6d5e493934a054c13f2d6b110"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5d7cf96a06f3ef51b368089a6f542efc"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -453,7 +445,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-cbdc7ad6d5e493934a054c13f2d6b110"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
+    <div class="card-body p-0" id="clipboard-5d7cf96a06f3ef51b368089a6f542efc"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
 
 TYPE=&#34;Ethernet&#34;
 PROXY_METHOD=&#34;none&#34;
@@ -496,7 +488,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-465ed4503418bfdba1458acc860ee6aa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-28bb50912208606d44313728c9eb3bd1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">PROXY_METHOD</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BROWSER_ONLY</span><span class="o">=</span><span class="s">&#34;no&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BOOTPROTO</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
@@ -520,7 +512,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-465ed4503418bfdba1458acc860ee6aa"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-28bb50912208606d44313728c9eb3bd1"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -554,7 +546,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4cf858bb876339c23409d4870375e12c"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a49a43ddb66be75d57e84dc479bb9eb1"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -563,13 +555,11 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-4cf858bb876339c23409d4870375e12c"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-a49a43ddb66be75d57e84dc479bb9eb1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>
-
 <h2 id="настройка-ip-при-помощи-network-manager-cli-nmcli">
-    Настройка IP при помощи Network Manager CLI (nmcli)
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-network-manager-cli-nmcli"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-network-manager-cli-nmcli">Настройка IP при помощи Network Manager CLI (nmcli)</a>
 </h2><p>Установка IP адреса:</p>
 
 
@@ -593,7 +583,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1616321306ecc4f5c1159ade24adc63f"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ce41c8e94a3950eab00f3eca6ab11c2b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -602,7 +592,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1616321306ecc4f5c1159ade24adc63f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ce41c8e94a3950eab00f3eca6ab11c2b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка шлюза:</p>
@@ -628,7 +618,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb5bd65f3617dad65928ead11bae3ef0"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ff75b1e9727ab6bdf252ff95ece64e3f"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -637,7 +627,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-bb5bd65f3617dad65928ead11bae3ef0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ff75b1e9727ab6bdf252ff95ece64e3f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка DNS:</p>
@@ -663,7 +653,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-945a51caf21722abf9e2f682e21a4d07"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e369fcf2fc34244346ae67d086389f47"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -672,7 +662,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-945a51caf21722abf9e2f682e21a4d07"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-e369fcf2fc34244346ae67d086389f47"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка <strong>BOOTPROTO</strong> в <code>none</code>:</p>
@@ -698,7 +688,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fa0815efa015095597374789a874ef38"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ec4894aec3bad4bdf27d1fef79e90bcb"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -707,7 +697,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-fa0815efa015095597374789a874ef38"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ec4894aec3bad4bdf27d1fef79e90bcb"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
   </div>
 </div>
 <p>Перезапуск интерфейса:</p>
@@ -733,7 +723,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-041f58a3114f379096319daa2d2758a8"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b822dfe3ae60531411d6f9cfa5cdf64"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -742,6 +732,6 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-041f58a3114f379096319daa2d2758a8"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-4b822dfe3ae60531411d6f9cfa5cdf64"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>]]></turbo:content><pubDate>Sat, 15 May 2021 17:08:30 +0000</pubDate><category>Терминал</category><category>Linux</category><category>Сеть</category><category>В доработке</category></item></channel></rss>

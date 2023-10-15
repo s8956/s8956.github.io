@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>Сеть / Library Online</title><link>https://lib.onl/ru/categories/network/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/categories/network/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>Сеть / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sun, 14 Aug 2022 18:16:34 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/categories/network/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Включение DNS over TLS (DoT) в OPNsense</title><link>https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</guid><description>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</description><media:content medium="image" url="https://images.unsplash.com/photo-1521106047354-5a5b85e819ee" width="1600" height="900"/><content:encoded><![CDATA[<p>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</p>
 <p><strong>DNS поверх TLS</strong> или <strong>DoT</strong> это протокол, при помощи которого происходит шифрование запросов и ответов к DNS через TLS. Таким образом, повышается конфиденциальность и безопасность пользователей в интернете.</p>
 <p>Не все публичные сервера поддерживают DoT. Список наиболее предпочтительных, по моему мнению, я приведу в таблице в конце статьи. А теперь, по пунктам, я расскажу как правильно настроить OPNsense, чтобы она задействовала протокол DoT в своей работе. Для этого нужно выполнить всего несколько шагов&hellip;</p>
-
 <h2 id="настройка-opnsense">
-    Настройка OPNsense
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-opnsense"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-opnsense">Настройка OPNsense</a>
 </h2><ul>
 <li>System / Settings / General
 <ul>
@@ -30,15 +28,11 @@
 </ul>
 </li>
 </ul>
-
 <h2 id="публичные-сервера-dns">
-    Публичные сервера DNS
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d1%83%d0%b1%d0%bb%d0%b8%d1%87%d0%bd%d1%8b%d0%b5-%d1%81%d0%b5%d1%80%d0%b2%d0%b5%d1%80%d0%b0-dns"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d1%83%d0%b1%d0%bb%d0%b8%d1%87%d0%bd%d1%8b%d0%b5-%d1%81%d0%b5%d1%80%d0%b2%d0%b5%d1%80%d0%b0-dns">Публичные сервера DNS</a>
 </h2><p>Ниже я привожу список публичных серверов DNS, которые поддерживают функцию DNS over TLS (DoT).</p>
-
 <h3 id="cloudflare">
-    Cloudflare
-  <sup><a class="text-body-secondary small" href="#cloudflare"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#cloudflare">Cloudflare</a>
 </h3>
 
 
@@ -77,10 +71,8 @@
 </table>
 
 
-
 <h3 id="google">
-    Google
-  <sup><a class="text-body-secondary small" href="#google"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#google">Google</a>
 </h3>
 
 
@@ -119,10 +111,8 @@
 </table>
 
 
-
 <h3 id="quad9">
-    Quad9
-  <sup><a class="text-body-secondary small" href="#quad9"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#quad9">Quad9</a>
 </h3>
 
 
@@ -161,10 +151,8 @@
 </table>
 
 
-
 <h3 id="cisco-umbrella">
-    Cisco Umbrella
-  <sup><a class="text-body-secondary small" href="#cisco-umbrella"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#cisco-umbrella">Cisco Umbrella</a>
 </h3>
 
 
@@ -203,10 +191,8 @@
 </table>
 
 
-
 <h3 id="cleanbrowsing">
-    CleanBrowsing
-  <sup><a class="text-body-secondary small" href="#cleanbrowsing"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#cleanbrowsing">CleanBrowsing</a>
 </h3>
 
 
@@ -245,10 +231,8 @@
 </table>
 
 
-
 <h3 id="adguard-dns">
-    AdGuard DNS
-  <sup><a class="text-body-secondary small" href="#adguard-dns"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#adguard-dns">AdGuard DNS</a>
 </h3>
 
 
@@ -287,10 +271,8 @@
 </table>]]></content:encoded><turbo:source/><turbo:topic>Включение DNS over TLS (DoT) в OPNsense</turbo:topic><turbo:content><![CDATA[<p>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</p>
 <p><strong>DNS поверх TLS</strong> или <strong>DoT</strong> это протокол, при помощи которого происходит шифрование запросов и ответов к DNS через TLS. Таким образом, повышается конфиденциальность и безопасность пользователей в интернете.</p>
 <p>Не все публичные сервера поддерживают DoT. Список наиболее предпочтительных, по моему мнению, я приведу в таблице в конце статьи. А теперь, по пунктам, я расскажу как правильно настроить OPNsense, чтобы она задействовала протокол DoT в своей работе. Для этого нужно выполнить всего несколько шагов&hellip;</p>
-
 <h2 id="настройка-opnsense">
-    Настройка OPNsense
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-opnsense"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-opnsense">Настройка OPNsense</a>
 </h2><ul>
 <li>System / Settings / General
 <ul>
@@ -316,15 +298,11 @@
 </ul>
 </li>
 </ul>
-
 <h2 id="публичные-сервера-dns">
-    Публичные сервера DNS
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d1%83%d0%b1%d0%bb%d0%b8%d1%87%d0%bd%d1%8b%d0%b5-%d1%81%d0%b5%d1%80%d0%b2%d0%b5%d1%80%d0%b0-dns"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d1%83%d0%b1%d0%bb%d0%b8%d1%87%d0%bd%d1%8b%d0%b5-%d1%81%d0%b5%d1%80%d0%b2%d0%b5%d1%80%d0%b0-dns">Публичные сервера DNS</a>
 </h2><p>Ниже я привожу список публичных серверов DNS, которые поддерживают функцию DNS over TLS (DoT).</p>
-
 <h3 id="cloudflare">
-    Cloudflare
-  <sup><a class="text-body-secondary small" href="#cloudflare"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#cloudflare">Cloudflare</a>
 </h3>
 
 
@@ -363,10 +341,8 @@
 </table>
 
 
-
 <h3 id="google">
-    Google
-  <sup><a class="text-body-secondary small" href="#google"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#google">Google</a>
 </h3>
 
 
@@ -405,10 +381,8 @@
 </table>
 
 
-
 <h3 id="quad9">
-    Quad9
-  <sup><a class="text-body-secondary small" href="#quad9"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#quad9">Quad9</a>
 </h3>
 
 
@@ -447,10 +421,8 @@
 </table>
 
 
-
 <h3 id="cisco-umbrella">
-    Cisco Umbrella
-  <sup><a class="text-body-secondary small" href="#cisco-umbrella"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#cisco-umbrella">Cisco Umbrella</a>
 </h3>
 
 
@@ -489,10 +461,8 @@
 </table>
 
 
-
 <h3 id="cleanbrowsing">
-    CleanBrowsing
-  <sup><a class="text-body-secondary small" href="#cleanbrowsing"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#cleanbrowsing">CleanBrowsing</a>
 </h3>
 
 
@@ -531,10 +501,8 @@
 </table>
 
 
-
 <h3 id="adguard-dns">
-    AdGuard DNS
-  <sup><a class="text-body-secondary small" href="#adguard-dns"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#adguard-dns">AdGuard DNS</a>
 </h3>
 
 
@@ -572,8 +540,7 @@
 </tbody>
 </table>]]></turbo:content><pubDate>Sun, 14 Aug 2022 18:16:34 +0000</pubDate><category>Сеть</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Настройка статического IP адреса</title><link>https://lib.onl/ru/posts/2021/05/ee559a6c-5cde-5166-9d2d-3ceb55878eb8/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/ee559a6c-5cde-5166-9d2d-3ceb55878eb8/</guid><description>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</description><media:content medium="image" url="https://images.unsplash.com/photo-1544197150-b99a580bb7a8" width="1600" height="900"/><content:encoded><![CDATA[<p>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</p>
 <h2 id="подготовка">
-    Подготовка
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
 </h2><p>Смотрим текущие сетевые устройства и соединения:</p>
 
 
@@ -597,7 +564,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1f79571941c471ec1bd802fe735fc6d6"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fefc476599a7b500d12a52fa5f74f63b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -606,7 +573,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1f79571941c471ec1bd802fe735fc6d6"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
+    <div class="card-body p-0" id="clipboard-fefc476599a7b500d12a52fa5f74f63b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
 
 1: lo: &lt;loopback,up,lower_up&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
   link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -616,10 +583,8 @@ shortcode-codeblock-terminal-linux-root">
   inet 192.168.10.123/24 brd 192.168.10.255 scope global dynamic noprefixroute enp1s0</code></pre></div>
   </div>
 </div>
-
 <h2 id="настройка-ip-в-rhel-based-дистрибутивах">
-    Настройка IP в RHEL-based дистрибутивах
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%b2-rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0%d1%85"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%b2-rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0%d1%85">Настройка IP в RHEL-based дистрибутивах</a>
 </h2><p>В директории <code>/etc/sysconfig/network-scripts</code> находятся конфигурационные файлы для сетевых интерфейсов. Имя файла состоит из префикса <code>ifcfg</code> и имени интерфейса. Например, содержимое файла для интерфейса <code>enp1s0</code>:</p>
 
 
@@ -643,7 +608,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cbdc7ad6d5e493934a054c13f2d6b110"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5d7cf96a06f3ef51b368089a6f542efc"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -652,7 +617,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-cbdc7ad6d5e493934a054c13f2d6b110"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
+    <div class="card-body p-0" id="clipboard-5d7cf96a06f3ef51b368089a6f542efc"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
 
 TYPE=&#34;Ethernet&#34;
 PROXY_METHOD=&#34;none&#34;
@@ -695,7 +660,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-465ed4503418bfdba1458acc860ee6aa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-28bb50912208606d44313728c9eb3bd1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">PROXY_METHOD</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BROWSER_ONLY</span><span class="o">=</span><span class="s">&#34;no&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BOOTPROTO</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
@@ -719,7 +684,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-465ed4503418bfdba1458acc860ee6aa"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-28bb50912208606d44313728c9eb3bd1"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -753,7 +718,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4cf858bb876339c23409d4870375e12c"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a49a43ddb66be75d57e84dc479bb9eb1"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -762,13 +727,11 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-4cf858bb876339c23409d4870375e12c"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-a49a43ddb66be75d57e84dc479bb9eb1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>
-
 <h2 id="настройка-ip-при-помощи-network-manager-cli-nmcli">
-    Настройка IP при помощи Network Manager CLI (nmcli)
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-network-manager-cli-nmcli"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-network-manager-cli-nmcli">Настройка IP при помощи Network Manager CLI (nmcli)</a>
 </h2><p>Установка IP адреса:</p>
 
 
@@ -792,7 +755,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1616321306ecc4f5c1159ade24adc63f"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ce41c8e94a3950eab00f3eca6ab11c2b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -801,7 +764,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1616321306ecc4f5c1159ade24adc63f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ce41c8e94a3950eab00f3eca6ab11c2b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка шлюза:</p>
@@ -827,7 +790,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb5bd65f3617dad65928ead11bae3ef0"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ff75b1e9727ab6bdf252ff95ece64e3f"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -836,7 +799,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-bb5bd65f3617dad65928ead11bae3ef0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ff75b1e9727ab6bdf252ff95ece64e3f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка DNS:</p>
@@ -862,7 +825,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-945a51caf21722abf9e2f682e21a4d07"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e369fcf2fc34244346ae67d086389f47"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -871,7 +834,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-945a51caf21722abf9e2f682e21a4d07"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-e369fcf2fc34244346ae67d086389f47"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка <strong>BOOTPROTO</strong> в <code>none</code>:</p>
@@ -897,7 +860,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fa0815efa015095597374789a874ef38"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ec4894aec3bad4bdf27d1fef79e90bcb"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -906,7 +869,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-fa0815efa015095597374789a874ef38"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ec4894aec3bad4bdf27d1fef79e90bcb"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
   </div>
 </div>
 <p>Перезапуск интерфейса:</p>
@@ -932,7 +895,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-041f58a3114f379096319daa2d2758a8"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b822dfe3ae60531411d6f9cfa5cdf64"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -941,12 +904,11 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-041f58a3114f379096319daa2d2758a8"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-4b822dfe3ae60531411d6f9cfa5cdf64"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>]]></content:encoded><turbo:source/><turbo:topic>Настройка статического IP адреса</turbo:topic><turbo:content><![CDATA[<p>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</p>
 <h2 id="подготовка">
-    Подготовка
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
 </h2><p>Смотрим текущие сетевые устройства и соединения:</p>
 
 
@@ -970,7 +932,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1f79571941c471ec1bd802fe735fc6d6"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fefc476599a7b500d12a52fa5f74f63b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -979,7 +941,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1f79571941c471ec1bd802fe735fc6d6"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
+    <div class="card-body p-0" id="clipboard-fefc476599a7b500d12a52fa5f74f63b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
 
 1: lo: &lt;loopback,up,lower_up&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
   link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -989,10 +951,8 @@ shortcode-codeblock-terminal-linux-root">
   inet 192.168.10.123/24 brd 192.168.10.255 scope global dynamic noprefixroute enp1s0</code></pre></div>
   </div>
 </div>
-
 <h2 id="настройка-ip-в-rhel-based-дистрибутивах">
-    Настройка IP в RHEL-based дистрибутивах
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%b2-rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0%d1%85"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%b2-rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0%d1%85">Настройка IP в RHEL-based дистрибутивах</a>
 </h2><p>В директории <code>/etc/sysconfig/network-scripts</code> находятся конфигурационные файлы для сетевых интерфейсов. Имя файла состоит из префикса <code>ifcfg</code> и имени интерфейса. Например, содержимое файла для интерфейса <code>enp1s0</code>:</p>
 
 
@@ -1016,7 +976,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cbdc7ad6d5e493934a054c13f2d6b110"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5d7cf96a06f3ef51b368089a6f542efc"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1025,7 +985,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-cbdc7ad6d5e493934a054c13f2d6b110"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
+    <div class="card-body p-0" id="clipboard-5d7cf96a06f3ef51b368089a6f542efc"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
 
 TYPE=&#34;Ethernet&#34;
 PROXY_METHOD=&#34;none&#34;
@@ -1068,7 +1028,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-465ed4503418bfdba1458acc860ee6aa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-28bb50912208606d44313728c9eb3bd1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">PROXY_METHOD</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BROWSER_ONLY</span><span class="o">=</span><span class="s">&#34;no&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BOOTPROTO</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
@@ -1092,7 +1052,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-465ed4503418bfdba1458acc860ee6aa"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-28bb50912208606d44313728c9eb3bd1"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1126,7 +1086,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4cf858bb876339c23409d4870375e12c"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a49a43ddb66be75d57e84dc479bb9eb1"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1135,13 +1095,11 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-4cf858bb876339c23409d4870375e12c"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-a49a43ddb66be75d57e84dc479bb9eb1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>
-
 <h2 id="настройка-ip-при-помощи-network-manager-cli-nmcli">
-    Настройка IP при помощи Network Manager CLI (nmcli)
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-network-manager-cli-nmcli"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-ip-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-network-manager-cli-nmcli">Настройка IP при помощи Network Manager CLI (nmcli)</a>
 </h2><p>Установка IP адреса:</p>
 
 
@@ -1165,7 +1123,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1616321306ecc4f5c1159ade24adc63f"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ce41c8e94a3950eab00f3eca6ab11c2b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1174,7 +1132,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1616321306ecc4f5c1159ade24adc63f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ce41c8e94a3950eab00f3eca6ab11c2b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка шлюза:</p>
@@ -1200,7 +1158,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb5bd65f3617dad65928ead11bae3ef0"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ff75b1e9727ab6bdf252ff95ece64e3f"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1209,7 +1167,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-bb5bd65f3617dad65928ead11bae3ef0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ff75b1e9727ab6bdf252ff95ece64e3f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка DNS:</p>
@@ -1235,7 +1193,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-945a51caf21722abf9e2f682e21a4d07"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e369fcf2fc34244346ae67d086389f47"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1244,7 +1202,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-945a51caf21722abf9e2f682e21a4d07"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-e369fcf2fc34244346ae67d086389f47"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка <strong>BOOTPROTO</strong> в <code>none</code>:</p>
@@ -1270,7 +1228,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fa0815efa015095597374789a874ef38"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ec4894aec3bad4bdf27d1fef79e90bcb"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1279,7 +1237,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-fa0815efa015095597374789a874ef38"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ec4894aec3bad4bdf27d1fef79e90bcb"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
   </div>
 </div>
 <p>Перезапуск интерфейса:</p>
@@ -1305,7 +1263,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-041f58a3114f379096319daa2d2758a8"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b822dfe3ae60531411d6f9cfa5cdf64"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1314,70 +1272,10 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-041f58a3114f379096319daa2d2758a8"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-4b822dfe3ae60531411d6f9cfa5cdf64"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
-</div>]]></turbo:content><pubDate>Sat, 15 May 2021 17:08:30 +0000</pubDate><category>Терминал</category><category>Linux</category><category>Сеть</category><category>В доработке</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>MikroTik и Cloudflare: Динамический IP для домена</title><link>https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</guid><description>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в MikroTik Marketplace. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</description><media:content medium="image" url="https://images.unsplash.com/photo-1521542464131-cb30f7398bc6" width="1600" height="900"/><content:encoded><![CDATA[<p>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare" target="_blank" rel="noopener noreferrer nofollow">MikroTik Marketplace</a>. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</p>
-<p>Сам скрипт нужно настроить под себя, прописав в нём значения переменных. Значения переменных я указал в 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare/blob/main/README.md" target="_blank" rel="noopener noreferrer nofollow">README</a> на GitHub’е. Большинство значений можно узнать из панели управления доменом в Cloudflare, но для получения значения переменной <code>cfDNSID</code> необходимо выполнит немного телодвижений.</p>
+</div>]]></turbo:content><pubDate>Sat, 15 May 2021 17:08:30 +0000</pubDate><category>Терминал</category><category>Linux</category><category>Сеть</category><category>В доработке</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>MikroTik и Cloudflare: Динамический IP для домена</title><link>https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</guid><description>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в MikroTik Marketplace. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</description><media:content medium="image" url="https://images.unsplash.com/photo-1521542464131-cb30f7398bc6" width="1600" height="900"/><content:encoded><![CDATA[<p>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в <a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare" target="_blank" rel="noopener noreferrer nofollow">MikroTik Marketplace</a>. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</p>
+<p>Сам скрипт нужно настроить под себя, прописав в нём значения переменных. Значения переменных я указал в <a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare/blob/main/README.md" target="_blank" rel="noopener noreferrer nofollow">README</a> на GitHub’е. Большинство значений можно узнать из панели управления доменом в Cloudflare, но для получения значения переменной <code>cfDNSID</code> необходимо выполнит немного телодвижений.</p>
 <p>Для начала в терминале Linux выполнить следующую команду:</p>
 
 
@@ -1389,7 +1287,7 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-845a790583e9e4af3573af922e0475dc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/API_ZONE_ID/dns_records&#34;</span>  <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-6490a7f6ad60c47cbcd0e33b76c48f10"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/API_ZONE_ID/dns_records&#34;</span>  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Email: USER_EMAIL&#34;</span>                                                     <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Key: USER_TOKEN&#34;</span>                                                       <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python -mjson.tool</span></span></code></pre></div></div>
@@ -1397,7 +1295,7 @@ shortcode-codeblock-terminal-linux-root">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-845a790583e9e4af3573af922e0475dc"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6490a7f6ad60c47cbcd0e33b76c48f10"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1419,7 +1317,7 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-836a19baa586ec372dddf8347fd4dbf4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&#34;</span>   <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7c99eb5d38a1e9d2962459dca96ce9a5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&#34;</span>   <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Email: user@cloudflare.com&#34;</span>                                                                  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Key: CcDXmj5lzd9Na3Wi2fQLPvAJIuwUrxF1VnMyS&#34;</span>                                                  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python -mjson.tool</span></span></code></pre></div></div>
@@ -1427,7 +1325,7 @@ shortcode-codeblock-terminal-linux-root">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-836a19baa586ec372dddf8347fd4dbf4"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7c99eb5d38a1e9d2962459dca96ce9a5"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1461,7 +1359,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fe422b2094e4ea089b6ff365cd4db233"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b22e0009660b92f7ecb2c0548f66e556"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1470,7 +1368,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-fe422b2094e4ea089b6ff365cd4db233"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&#34; -H &#34;X-Auth-Email: user@cloudflare.com&#34; -H &#34;X-Auth-Key: CcDXmj5lzd9Na3Wi2fQLPvAJIuwUrxF1VnMyS&#34; -H &#34;Content-Type: application/json&#34; | python -mjson.tool
+    <div class="card-body p-0" id="clipboard-b22e0009660b92f7ecb2c0548f66e556"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&#34; -H &#34;X-Auth-Email: user@cloudflare.com&#34; -H &#34;X-Auth-Key: CcDXmj5lzd9Na3Wi2fQLPvAJIuwUrxF1VnMyS&#34; -H &#34;Content-Type: application/json&#34; | python -mjson.tool
 {
     &#34;result&#34;: [
         {
@@ -1508,68 +1406,8 @@ shortcode-codeblock-terminal-linux">
   </div>
 </div>
 <p>Смотрим поле <code>id</code> и значение этого поля вставляем в переменную <code>cfDNSID</code>.</p>
-<p>На этом всё. Не забываем выдать скрипту необходимые права в панели MikroTik, а также прописать автоматический запуск скрипта через <strong>Scheduler</strong>.</p>]]></content:encoded><turbo:source/><turbo:topic>MikroTik и Cloudflare: Динамический IP для домена</turbo:topic><turbo:content><![CDATA[<p>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare" target="_blank" rel="noopener noreferrer nofollow">MikroTik Marketplace</a>. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</p>
-<p>Сам скрипт нужно настроить под себя, прописав в нём значения переменных. Значения переменных я указал в 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare/blob/main/README.md" target="_blank" rel="noopener noreferrer nofollow">README</a> на GitHub’е. Большинство значений можно узнать из панели управления доменом в Cloudflare, но для получения значения переменной <code>cfDNSID</code> необходимо выполнит немного телодвижений.</p>
+<p>На этом всё. Не забываем выдать скрипту необходимые права в панели MikroTik, а также прописать автоматический запуск скрипта через <strong>Scheduler</strong>.</p>]]></content:encoded><turbo:source/><turbo:topic>MikroTik и Cloudflare: Динамический IP для домена</turbo:topic><turbo:content><![CDATA[<p>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в <a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare" target="_blank" rel="noopener noreferrer nofollow">MikroTik Marketplace</a>. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</p>
+<p>Сам скрипт нужно настроить под себя, прописав в нём значения переменных. Значения переменных я указал в <a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare/blob/main/README.md" target="_blank" rel="noopener noreferrer nofollow">README</a> на GitHub’е. Большинство значений можно узнать из панели управления доменом в Cloudflare, но для получения значения переменной <code>cfDNSID</code> необходимо выполнит немного телодвижений.</p>
 <p>Для начала в терминале Linux выполнить следующую команду:</p>
 
 
@@ -1581,7 +1419,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-845a790583e9e4af3573af922e0475dc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/API_ZONE_ID/dns_records&#34;</span>  <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-6490a7f6ad60c47cbcd0e33b76c48f10"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/API_ZONE_ID/dns_records&#34;</span>  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Email: USER_EMAIL&#34;</span>                                                     <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Key: USER_TOKEN&#34;</span>                                                       <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python -mjson.tool</span></span></code></pre></div></div>
@@ -1589,7 +1427,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-845a790583e9e4af3573af922e0475dc"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6490a7f6ad60c47cbcd0e33b76c48f10"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1611,7 +1449,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-836a19baa586ec372dddf8347fd4dbf4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&#34;</span>   <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7c99eb5d38a1e9d2962459dca96ce9a5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&#34;</span>   <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Email: user@cloudflare.com&#34;</span>                                                                  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Key: CcDXmj5lzd9Na3Wi2fQLPvAJIuwUrxF1VnMyS&#34;</span>                                                  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python -mjson.tool</span></span></code></pre></div></div>
@@ -1619,7 +1457,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-836a19baa586ec372dddf8347fd4dbf4"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7c99eb5d38a1e9d2962459dca96ce9a5"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1653,7 +1491,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fe422b2094e4ea089b6ff365cd4db233"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b22e0009660b92f7ecb2c0548f66e556"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1662,7 +1500,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-fe422b2094e4ea089b6ff365cd4db233"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&#34; -H &#34;X-Auth-Email: user@cloudflare.com&#34; -H &#34;X-Auth-Key: CcDXmj5lzd9Na3Wi2fQLPvAJIuwUrxF1VnMyS&#34; -H &#34;Content-Type: application/json&#34; | python -mjson.tool
+    <div class="card-body p-0" id="clipboard-b22e0009660b92f7ecb2c0548f66e556"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&#34; -H &#34;X-Auth-Email: user@cloudflare.com&#34; -H &#34;X-Auth-Key: CcDXmj5lzd9Na3Wi2fQLPvAJIuwUrxF1VnMyS&#34; -H &#34;Content-Type: application/json&#34; | python -mjson.tool
 {
     &#34;result&#34;: [
         {

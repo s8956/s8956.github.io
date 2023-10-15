@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>dns / Library Online</title><link>https://lib.onl/ru/tags/dns/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/dns/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>dns / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sun, 14 Aug 2022 18:16:34 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/dns/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Включение DNS over TLS (DoT) в OPNsense</title><link>https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/08/badb30a9-0471-5dab-a422-85422c0ac611/</guid><description>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</description><media:content medium="image" url="https://images.unsplash.com/photo-1521106047354-5a5b85e819ee" width="1600" height="900"/><content:encoded><![CDATA[<p>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</p>
 <p><strong>DNS поверх TLS</strong> или <strong>DoT</strong> это протокол, при помощи которого происходит шифрование запросов и ответов к DNS через TLS. Таким образом, повышается конфиденциальность и безопасность пользователей в интернете.</p>
 <p>Не все публичные сервера поддерживают DoT. Список наиболее предпочтительных, по моему мнению, я приведу в таблице в конце статьи. А теперь, по пунктам, я расскажу как правильно настроить OPNsense, чтобы она задействовала протокол DoT в своей работе. Для этого нужно выполнить всего несколько шагов&hellip;</p>
-
 <h2 id="настройка-opnsense">
-    Настройка OPNsense
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-opnsense"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-opnsense">Настройка OPNsense</a>
 </h2><ul>
 <li>System / Settings / General
 <ul>
@@ -30,15 +28,11 @@
 </ul>
 </li>
 </ul>
-
 <h2 id="публичные-сервера-dns">
-    Публичные сервера DNS
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d1%83%d0%b1%d0%bb%d0%b8%d1%87%d0%bd%d1%8b%d0%b5-%d1%81%d0%b5%d1%80%d0%b2%d0%b5%d1%80%d0%b0-dns"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d1%83%d0%b1%d0%bb%d0%b8%d1%87%d0%bd%d1%8b%d0%b5-%d1%81%d0%b5%d1%80%d0%b2%d0%b5%d1%80%d0%b0-dns">Публичные сервера DNS</a>
 </h2><p>Ниже я привожу список публичных серверов DNS, которые поддерживают функцию DNS over TLS (DoT).</p>
-
 <h3 id="cloudflare">
-    Cloudflare
-  <sup><a class="text-body-secondary small" href="#cloudflare"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#cloudflare">Cloudflare</a>
 </h3>
 
 
@@ -77,10 +71,8 @@
 </table>
 
 
-
 <h3 id="google">
-    Google
-  <sup><a class="text-body-secondary small" href="#google"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#google">Google</a>
 </h3>
 
 
@@ -119,10 +111,8 @@
 </table>
 
 
-
 <h3 id="quad9">
-    Quad9
-  <sup><a class="text-body-secondary small" href="#quad9"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#quad9">Quad9</a>
 </h3>
 
 
@@ -161,10 +151,8 @@
 </table>
 
 
-
 <h3 id="cisco-umbrella">
-    Cisco Umbrella
-  <sup><a class="text-body-secondary small" href="#cisco-umbrella"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#cisco-umbrella">Cisco Umbrella</a>
 </h3>
 
 
@@ -203,10 +191,8 @@
 </table>
 
 
-
 <h3 id="cleanbrowsing">
-    CleanBrowsing
-  <sup><a class="text-body-secondary small" href="#cleanbrowsing"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#cleanbrowsing">CleanBrowsing</a>
 </h3>
 
 
@@ -245,10 +231,8 @@
 </table>
 
 
-
 <h3 id="adguard-dns">
-    AdGuard DNS
-  <sup><a class="text-body-secondary small" href="#adguard-dns"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#adguard-dns">AdGuard DNS</a>
 </h3>
 
 
@@ -287,10 +271,8 @@
 </table>]]></content:encoded><turbo:source/><turbo:topic>Включение DNS over TLS (DoT) в OPNsense</turbo:topic><turbo:content><![CDATA[<p>Почитав несколько статей на тему DoT, я решил написать небольшую заметку по настройки OPNsense на использование этого протокола.</p>
 <p><strong>DNS поверх TLS</strong> или <strong>DoT</strong> это протокол, при помощи которого происходит шифрование запросов и ответов к DNS через TLS. Таким образом, повышается конфиденциальность и безопасность пользователей в интернете.</p>
 <p>Не все публичные сервера поддерживают DoT. Список наиболее предпочтительных, по моему мнению, я приведу в таблице в конце статьи. А теперь, по пунктам, я расскажу как правильно настроить OPNsense, чтобы она задействовала протокол DoT в своей работе. Для этого нужно выполнить всего несколько шагов&hellip;</p>
-
 <h2 id="настройка-opnsense">
-    Настройка OPNsense
-  <sup><a class="text-body-secondary small" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-opnsense"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-opnsense">Настройка OPNsense</a>
 </h2><ul>
 <li>System / Settings / General
 <ul>
@@ -316,15 +298,11 @@
 </ul>
 </li>
 </ul>
-
 <h2 id="публичные-сервера-dns">
-    Публичные сервера DNS
-  <sup><a class="text-body-secondary small" href="#%d0%bf%d1%83%d0%b1%d0%bb%d0%b8%d1%87%d0%bd%d1%8b%d0%b5-%d1%81%d0%b5%d1%80%d0%b2%d0%b5%d1%80%d0%b0-dns"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#%d0%bf%d1%83%d0%b1%d0%bb%d0%b8%d1%87%d0%bd%d1%8b%d0%b5-%d1%81%d0%b5%d1%80%d0%b2%d0%b5%d1%80%d0%b0-dns">Публичные сервера DNS</a>
 </h2><p>Ниже я привожу список публичных серверов DNS, которые поддерживают функцию DNS over TLS (DoT).</p>
-
 <h3 id="cloudflare">
-    Cloudflare
-  <sup><a class="text-body-secondary small" href="#cloudflare"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#cloudflare">Cloudflare</a>
 </h3>
 
 
@@ -363,10 +341,8 @@
 </table>
 
 
-
 <h3 id="google">
-    Google
-  <sup><a class="text-body-secondary small" href="#google"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#google">Google</a>
 </h3>
 
 
@@ -405,10 +381,8 @@
 </table>
 
 
-
 <h3 id="quad9">
-    Quad9
-  <sup><a class="text-body-secondary small" href="#quad9"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#quad9">Quad9</a>
 </h3>
 
 
@@ -447,10 +421,8 @@
 </table>
 
 
-
 <h3 id="cisco-umbrella">
-    Cisco Umbrella
-  <sup><a class="text-body-secondary small" href="#cisco-umbrella"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#cisco-umbrella">Cisco Umbrella</a>
 </h3>
 
 
@@ -489,10 +461,8 @@
 </table>
 
 
-
 <h3 id="cleanbrowsing">
-    CleanBrowsing
-  <sup><a class="text-body-secondary small" href="#cleanbrowsing"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#cleanbrowsing">CleanBrowsing</a>
 </h3>
 
 
@@ -531,10 +501,8 @@
 </table>
 
 
-
 <h3 id="adguard-dns">
-    AdGuard DNS
-  <sup><a class="text-body-secondary small" href="#adguard-dns"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#adguard-dns">AdGuard DNS</a>
 </h3>
 
 

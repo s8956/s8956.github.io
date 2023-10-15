@@ -1,38 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>deb / Library Online</title><link>https://lib.onl/ru/tags/deb/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/deb/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>deb / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Wed, 08 Sep 2021 09:39:36 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/deb/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Распаковка пакетов DEB / RPM</title><link>https://lib.onl/ru/posts/2021/09/b2caccc7-92bf-57ed-970f-136c546f18e2/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/b2caccc7-92bf-57ed-970f-136c546f18e2/</guid><description>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</description><media:content medium="image" url="https://images.unsplash.com/photo-1577705998148-6da4f3963bc8" width="1600" height="900"/><content:encoded><![CDATA[<p>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</p>
 <h2 id="deb">
-    DEB
-  <sup><a class="text-body-secondary small" href="#deb"><i class="fas fa-link fa-fw"></i></a></sup>
-</h2><p>Пакет <code>.deb</code> архивируется при помощи 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://en.wikipedia.org/wiki/Ar_%28Unix%29" target="_blank" rel="noopener noreferrer nofollow">ar</a>. Соответственно, распаковать пакет тоже следует через данный архиватор:</p>
+  <a class="link-body-emphasis" href="#deb">DEB</a>
+</h2><p>Пакет <code>.deb</code> архивируется при помощи <a title="" href="https://en.wikipedia.org/wiki/Ar_%28Unix%29" target="_blank" rel="noopener noreferrer nofollow">ar</a>. Соответственно, распаковать пакет тоже следует через данный архиватор:</p>
 
 
 
@@ -43,12 +12,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3c1ae9c44a8eafee7d74397dfd4dc0ad"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ar x example.deb</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5e1739c07bbca4f425eee961525ce4ac"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ar x example.deb</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3c1ae9c44a8eafee7d74397dfd4dc0ad"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5e1739c07bbca4f425eee961525ce4ac"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -64,10 +33,8 @@
 <li><code>control.tar.xz</code> – файл, содержащий md5sums и директорию для сборки пакета.</li>
 <li><code>data.tar.xz</code> – архив, содержащий все файлы, которые должны быть установлены в системе при установке пакета.</li>
 </ul>
-
 <h2 id="rpm">
-    RPM
-  <sup><a class="text-body-secondary small" href="#rpm"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#rpm">RPM</a>
 </h2><p>Пакет <code>.rpm</code> содержит архив <code>cpio</code>. Имеется удобная утилита <code>rpm2cpio</code>, которая преобразует <code>.rpm</code> в архив <code>cpio</code>.</p>
 
 
@@ -79,14 +46,14 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3d9dd22003ebfc59af3df7e03f14ebc3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">rpm2cpio myrpmfile.rpm
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-92b19c333898e842c5a7a87efbad7af0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">rpm2cpio myrpmfile.rpm
 </span></span><span class="line"><span class="cl">rpm2cpio - &lt; myrpmfile.rpm
 </span></span><span class="line"><span class="cl">rpm2cpio myrpmfile.rpm <span class="p">|</span> cpio -idmv</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3d9dd22003ebfc59af3df7e03f14ebc3"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-92b19c333898e842c5a7a87efbad7af0"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -106,39 +73,8 @@
 </ul>
 <p>Также, просматривать <code>.rpm</code> можно при помощи файлового менеджера Midnight Commander (<code>mc</code>).</p>]]></content:encoded><turbo:source/><turbo:topic>Распаковка пакетов DEB / RPM</turbo:topic><turbo:content><![CDATA[<p>Я собираю пакеты для Debian и RHEL. И зачастую, мне необходимо посмотреть содержимое собранного пакета, чтобы удостоверится в правильности сборки и корректности расположения файлов внутри пакета. В этой статье кратно расскажу, как и при помощи чего можно посмотреть собранные пакеты.</p>
 <h2 id="deb">
-    DEB
-  <sup><a class="text-body-secondary small" href="#deb"><i class="fas fa-link fa-fw"></i></a></sup>
-</h2><p>Пакет <code>.deb</code> архивируется при помощи 
-
-
-
-
-
-
-    
-    
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-
-<a title="" href="https://en.wikipedia.org/wiki/Ar_%28Unix%29" target="_blank" rel="noopener noreferrer nofollow">ar</a>. Соответственно, распаковать пакет тоже следует через данный архиватор:</p>
+  <a class="link-body-emphasis" href="#deb">DEB</a>
+</h2><p>Пакет <code>.deb</code> архивируется при помощи <a title="" href="https://en.wikipedia.org/wiki/Ar_%28Unix%29" target="_blank" rel="noopener noreferrer nofollow">ar</a>. Соответственно, распаковать пакет тоже следует через данный архиватор:</p>
 
 
 
@@ -149,12 +85,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3c1ae9c44a8eafee7d74397dfd4dc0ad"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ar x example.deb</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5e1739c07bbca4f425eee961525ce4ac"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ar x example.deb</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3c1ae9c44a8eafee7d74397dfd4dc0ad"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5e1739c07bbca4f425eee961525ce4ac"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -170,10 +106,8 @@
 <li><code>control.tar.xz</code> – файл, содержащий md5sums и директорию для сборки пакета.</li>
 <li><code>data.tar.xz</code> – архив, содержащий все файлы, которые должны быть установлены в системе при установке пакета.</li>
 </ul>
-
 <h2 id="rpm">
-    RPM
-  <sup><a class="text-body-secondary small" href="#rpm"><i class="fas fa-link fa-fw"></i></a></sup>
+  <a class="link-body-emphasis" href="#rpm">RPM</a>
 </h2><p>Пакет <code>.rpm</code> содержит архив <code>cpio</code>. Имеется удобная утилита <code>rpm2cpio</code>, которая преобразует <code>.rpm</code> в архив <code>cpio</code>.</p>
 
 
@@ -185,14 +119,14 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3d9dd22003ebfc59af3df7e03f14ebc3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">rpm2cpio myrpmfile.rpm
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-92b19c333898e842c5a7a87efbad7af0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">rpm2cpio myrpmfile.rpm
 </span></span><span class="line"><span class="cl">rpm2cpio - &lt; myrpmfile.rpm
 </span></span><span class="line"><span class="cl">rpm2cpio myrpmfile.rpm <span class="p">|</span> cpio -idmv</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Скопировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3d9dd22003ebfc59af3df7e03f14ebc3"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-92b19c333898e842c5a7a87efbad7af0"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
