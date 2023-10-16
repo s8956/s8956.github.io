@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>debian / Library Online</title><link>https://lib.onl/ru/tags/debian/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/debian/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>debian / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 13 Jan 2022 22:44:15 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/debian/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Установка ядра XanMod в Debian</title><link>https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</guid><description>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра XanMod в Debian.</description><media:content medium="image" url="https://images.unsplash.com/photo-1615485021362-5db597fbab1d" width="1600" height="900"/><content:encoded><![CDATA[<p>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра <strong>XanMod</strong> в Debian.</p>
-<p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с <a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>:</p>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>debian / Library Online</title><link>https://lib.onl/ru/tags/debian/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/debian/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>debian / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 13 Jan 2022 22:44:15 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/debian/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Установка ядра XanMod в Debian</title><link>https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</guid><description>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра XanMod в Debian.</description><media:content medium="image" url="https://images.unsplash.com/photo-1615485021362-5db597fbab1d" width="1600" height="900"/><content:encoded><![CDATA[<p>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра XanMod в Debian.</p>
+<h2 id="что-такое-ядро-xanmod">
+  <a class="link-body-emphasis" href="#%d1%87%d1%82%d0%be-%d1%82%d0%b0%d0%ba%d0%be%d0%b5-%d1%8f%d0%b4%d1%80%d0%be-xanmod">Что такое ядро XanMod?</a>
+</h2><p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с <a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>:</p>
 <ul>
 <li>Caching, Virtual Memory Manager and CPUFreq Governor improvements.</li>
 <li>Full multi-core block layer runqueue requests for high I/O throughput.</li>
@@ -28,11 +30,13 @@
 <li>Generic packages for compatibility with most Debian &amp; Ubuntu based distributions. Builts on the latest LLVM 12.0.1, GCC 11.2 and Binutils 2.37.</li>
 <li>GPLv2 license. Can be built for any distribution or purpose.</li>
 </ul>
-<p>Стоит заметить, что ядро <strong>XanMod</strong> не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро <a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>, которое занимается практически тем же самым. Но, посмотрев <a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a> на Phoronix&rsquo;е, я сделал выбор в пользу <strong>XanMod</strong>.</p>
-<p>Однострочная команда по добавлению ядра <strong>XanMod</strong> в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
+<p>Стоит заметить, что ядро XanMod не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро <a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>, которое занимается практически тем же самым. Но, посмотрев <a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a> на Phoronix&rsquo;е, я сделал выбор в пользу XanMod.</p>
+<h2 id="установка-xanmod">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-xanmod">Установка XanMod</a>
+</h2><p>Однострочная команда по добавлению ядра XanMod в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
 <ol>
 <li>Добавление файла <code>xanmod-kernel.list</code> в директорию <code>/etc/apt/sources.list.d</code>.</li>
-<li>Скачивание файла подписи <code>gpg.key</code> и размещение его в директорию <code>/etc/apt/trusted.gpg.d</code> с названием <code>xanmod-kernel.gpg</code>.</li>
+<li>Скачивание файла подписи <code>archive.key</code> и размещение его в директорию <code>/etc/apt/trusted.gpg.d</code> с названием <code>xanmod-kernel.gpg</code>.</li>
 <li>Обновление информации из репозитория при помощи команды <code>apt update</code>.</li>
 </ol>
 
@@ -45,12 +49,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-881dd423b1a8db3d7fcc922ca2d31aaf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;deb http://deb.xanmod.org releases main&#39;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/xanmod-kernel.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://dl.xanmod.org/gpg.key&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a92a1794c1dbda057f3515eb4d6968ed"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;deb [signed-by=/etc/apt/trusted.gpg.d/xanmod-kernel.gpg] http://deb.xanmod.org releases main&#39;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/xanmod-kernel.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://dl.xanmod.org/archive.key&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-881dd423b1a8db3d7fcc922ca2d31aaf"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a92a1794c1dbda057f3515eb4d6968ed"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -61,7 +65,7 @@
   </div>
 
 
-<p>После выполнения команды, установка ядра <strong>XanMod</strong> происходит таким образом:</p>
+<p>После выполнения вышеприведённой команды, установка ядра XanMod происходит таким образом:</p>
 
 
 
@@ -72,12 +76,126 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-878f86b37c783898bdfe9b415960e215"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-80fe92108c14137bd2b1d1bbfd9e4a7e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-<span class="o">[</span>ABI<span class="o">]</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-878f86b37c783898bdfe9b415960e215"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-80fe92108c14137bd2b1d1bbfd9e4a7e"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>[ABI]</code> - версия архитектуры. Список версий архитектур можно посмотреть ниже.</li>
+</ul>
+<h3 id="примеры">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">Примеры</a>
+</h3><p>Установить ядро XanMod с версией архитектуры <code>x64v1</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-817bc2ac06ddacc69d42098043ded1de"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v1</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-817bc2ac06ddacc69d42098043ded1de"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить ядро XanMod с версией архитектуры <code>x64v2</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-edc66409b66fb9dbcced72117a664f0d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v2</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-edc66409b66fb9dbcced72117a664f0d"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить ядро XanMod с версией архитектуры <code>x64v3</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fda2064aebdec7a0e6f599522e76ca15"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v3</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fda2064aebdec7a0e6f599522e76ca15"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить ядро XanMod с версией архитектуры <code>x64v4</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7ca9a7ddeaad2fc22f953032bdf5df71"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v4</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7ca9a7ddeaad2fc22f953032bdf5df71"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -99,12 +217,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e9b6dd77bf8238d5e1d6de071b09d9e7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-edge</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-01d0beea7acf0420c2cb6056bae74881"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-edge-x64v3</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e9b6dd77bf8238d5e1d6de071b09d9e7"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-01d0beea7acf0420c2cb6056bae74881"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -115,61 +233,79 @@
   </div>
 
 
-<h2 id="fq-pie">
-  <a class="link-body-emphasis" href="#fq-pie">FQ-PIE</a>
-</h2><p>Для включения планировщика пакетов <strong>FQ-PIE</strong>, необходимо выполнить команду:</p>
-
-
-
-
-
-
-
-
-  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
-    <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2d88d64074fa0de3b33aea9a0ed981cb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;net.core.default_qdisc = fq_pie&#39;</span> <span class="p">|</span> tee /etc/sysctl.d/90-override.conf</span></span></code></pre></div></div>
-      <div class="flex-shrink-0">
-        <ul class="list-inline mb-0">
-          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
-            <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2d88d64074fa0de3b33aea9a0ed981cb"
-               role="button">
-              <i class="fas fa-copy fa-fw"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-
-<p>Проверка:</p>
-
-
-
-
-
-
-
-
-  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
-    <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7daa67b6568d2a2b533e5c7f81137a3c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">tc qdisc show</span></span></code></pre></div></div>
-      <div class="flex-shrink-0">
-        <ul class="list-inline mb-0">
-          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
-            <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7daa67b6568d2a2b533e5c7f81137a3c"
-               role="button">
-              <i class="fas fa-copy fa-fw"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>]]></content:encoded><turbo:source/><turbo:topic>Установка ядра XanMod в Debian</turbo:topic><turbo:content><![CDATA[<p>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра <strong>XanMod</strong> в Debian.</p>
-<p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с <a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>:</p>
+<h2 id="версии-архитектур-xanmod">
+  <a class="link-body-emphasis" href="#%d0%b2%d0%b5%d1%80%d1%81%d0%b8%d0%b8-%d0%b0%d1%80%d1%85%d0%b8%d1%82%d0%b5%d0%ba%d1%82%d1%83%d1%80-xanmod">Версии архитектур XanMod</a>
+</h2><p>Версия архитектуры зависит от ядра процессора и поддерживаемых им инструкций. Версию архитектуры можно узнать из списка ниже.</p>
+<h3 id="x86-64-legacy">
+  <a class="link-body-emphasis" href="#x86-64-legacy">x86-64 (LEGACY)</a>
+</h3><p>Суффикс для установки ядра: <code>x64v1</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD K8-family</li>
+<li>AMD K10-family</li>
+<li>AMD Family 10h (Barcelona)</li>
+<li>Intel Pentium 4 / Xeon (Nocona)</li>
+<li>Intel Core 2 (all variants)</li>
+<li>All x86-64 CPUs</li>
+</ul>
+<h3 id="x86-64-v2">
+  <a class="link-body-emphasis" href="#x86-64-v2">x86-64-v2</a>
+</h3><p>Суффикс для установки ядра: <code>x64v2</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD Family 14h (Bobcat)</li>
+<li>AMD Family 16h (Jaguar)</li>
+<li>AMD Family 15h (Bulldozer)</li>
+<li>AMD Family 15h (Piledriver)</li>
+<li>AMD Family 15h (Steamroller)</li>
+<li>Intel 1st Gen Core (Nehalem)</li>
+<li>Intel 1.5 Gen Core (Westmere)</li>
+<li>Intel 2nd Gen Core (Sandybridge)</li>
+<li>Intel 3rd Gen Core (Ivybridge)</li>
+<li>Intel low-power Silvermont</li>
+<li>Intel Goldmont (Apollo Lake)</li>
+<li>Intel Goldmont (Denverton)</li>
+<li>Intel Goldmont Plus (Gemini Lake)</li>
+</ul>
+<h3 id="x86-64-v3">
+  <a class="link-body-emphasis" href="#x86-64-v3">x86-64-v3</a>
+</h3><p>Суффикс для установки ядра: <code>x64v3</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD Family 15h (Excavator)</li>
+<li>AMD Family 17h (Zen)</li>
+<li>AMD Family 17h (Zen+)</li>
+<li>AMD Family 17h (Zen2)</li>
+<li>AMD Family 19h (Zen3)</li>
+<li>Intel 4th Gen Core (Haswell)</li>
+<li>Intel 5th Gen Core (Broadwell)</li>
+<li>Intel 6th Gen Core (Skylake)</li>
+<li>Intel 7th Gen Core (Kaby Lake)</li>
+<li>Intel 8/9th Gen Core (Coffee Lake)</li>
+<li>Intel 10th Gen Core (Comet Lake)</li>
+<li>Intel 12th Gen (Alder Lake)</li>
+<li>Intel 13th Gen (Raptor Lake)</li>
+<li>Intel 14th Gen (Meteor Lake)</li>
+</ul>
+<h3 id="x86-64-v4-avx-512">
+  <a class="link-body-emphasis" href="#x86-64-v4-avx-512">x86-64-v4 (AVX-512)</a>
+</h3><p>Суффикс для установки ядра: <code>x64v4</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD Family 19h (Zen4)</li>
+<li>Intel 6th Gen Core (Skylake X)</li>
+<li>Intel 8th Gen Core i3 (Cannon Lake)</li>
+<li>Intel Xeon / 10th Gen Core (Ice Lake)</li>
+<li>Intel Xeon (Cascade Lake)</li>
+<li>Intel Xeon (Cooper Lake)</li>
+<li>Intel 3rd Gen 10nm++ (Tiger Lake)</li>
+<li>Intel 4th Gen 10nm++ (Sapphire Rapids)</li>
+<li>Intel 5th Gen 10nm++ (Emerald Rapids)</li>
+<li>Intel 11th Gen (Rocket Lake)</li>
+</ul>]]></content:encoded><turbo:source/><turbo:topic>Установка ядра XanMod в Debian</turbo:topic><turbo:content><![CDATA[<p>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра XanMod в Debian.</p>
+<h2 id="что-такое-ядро-xanmod">
+  <a class="link-body-emphasis" href="#%d1%87%d1%82%d0%be-%d1%82%d0%b0%d0%ba%d0%be%d0%b5-%d1%8f%d0%b4%d1%80%d0%be-xanmod">Что такое ядро XanMod?</a>
+</h2><p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с <a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>:</p>
 <ul>
 <li>Caching, Virtual Memory Manager and CPUFreq Governor improvements.</li>
 <li>Full multi-core block layer runqueue requests for high I/O throughput.</li>
@@ -198,11 +334,13 @@
 <li>Generic packages for compatibility with most Debian &amp; Ubuntu based distributions. Builts on the latest LLVM 12.0.1, GCC 11.2 and Binutils 2.37.</li>
 <li>GPLv2 license. Can be built for any distribution or purpose.</li>
 </ul>
-<p>Стоит заметить, что ядро <strong>XanMod</strong> не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро <a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>, которое занимается практически тем же самым. Но, посмотрев <a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a> на Phoronix&rsquo;е, я сделал выбор в пользу <strong>XanMod</strong>.</p>
-<p>Однострочная команда по добавлению ядра <strong>XanMod</strong> в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
+<p>Стоит заметить, что ядро XanMod не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро <a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>, которое занимается практически тем же самым. Но, посмотрев <a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a> на Phoronix&rsquo;е, я сделал выбор в пользу XanMod.</p>
+<h2 id="установка-xanmod">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-xanmod">Установка XanMod</a>
+</h2><p>Однострочная команда по добавлению ядра XanMod в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
 <ol>
 <li>Добавление файла <code>xanmod-kernel.list</code> в директорию <code>/etc/apt/sources.list.d</code>.</li>
-<li>Скачивание файла подписи <code>gpg.key</code> и размещение его в директорию <code>/etc/apt/trusted.gpg.d</code> с названием <code>xanmod-kernel.gpg</code>.</li>
+<li>Скачивание файла подписи <code>archive.key</code> и размещение его в директорию <code>/etc/apt/trusted.gpg.d</code> с названием <code>xanmod-kernel.gpg</code>.</li>
 <li>Обновление информации из репозитория при помощи команды <code>apt update</code>.</li>
 </ol>
 
@@ -215,12 +353,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-881dd423b1a8db3d7fcc922ca2d31aaf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;deb http://deb.xanmod.org releases main&#39;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/xanmod-kernel.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://dl.xanmod.org/gpg.key&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a92a1794c1dbda057f3515eb4d6968ed"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;deb [signed-by=/etc/apt/trusted.gpg.d/xanmod-kernel.gpg] http://deb.xanmod.org releases main&#39;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/xanmod-kernel.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://dl.xanmod.org/archive.key&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-881dd423b1a8db3d7fcc922ca2d31aaf"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a92a1794c1dbda057f3515eb4d6968ed"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -231,7 +369,7 @@
   </div>
 
 
-<p>После выполнения команды, установка ядра <strong>XanMod</strong> происходит таким образом:</p>
+<p>После выполнения вышеприведённой команды, установка ядра XanMod происходит таким образом:</p>
 
 
 
@@ -242,12 +380,126 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-878f86b37c783898bdfe9b415960e215"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-80fe92108c14137bd2b1d1bbfd9e4a7e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-<span class="o">[</span>ABI<span class="o">]</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-878f86b37c783898bdfe9b415960e215"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-80fe92108c14137bd2b1d1bbfd9e4a7e"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>[ABI]</code> - версия архитектуры. Список версий архитектур можно посмотреть ниже.</li>
+</ul>
+<h3 id="примеры">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">Примеры</a>
+</h3><p>Установить ядро XanMod с версией архитектуры <code>x64v1</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-817bc2ac06ddacc69d42098043ded1de"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v1</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-817bc2ac06ddacc69d42098043ded1de"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить ядро XanMod с версией архитектуры <code>x64v2</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-edc66409b66fb9dbcced72117a664f0d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v2</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-edc66409b66fb9dbcced72117a664f0d"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить ядро XanMod с версией архитектуры <code>x64v3</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fda2064aebdec7a0e6f599522e76ca15"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v3</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fda2064aebdec7a0e6f599522e76ca15"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить ядро XanMod с версией архитектуры <code>x64v4</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7ca9a7ddeaad2fc22f953032bdf5df71"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v4</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7ca9a7ddeaad2fc22f953032bdf5df71"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -269,12 +521,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e9b6dd77bf8238d5e1d6de071b09d9e7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-edge</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-01d0beea7acf0420c2cb6056bae74881"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-edge-x64v3</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e9b6dd77bf8238d5e1d6de071b09d9e7"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-01d0beea7acf0420c2cb6056bae74881"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -285,60 +537,76 @@
   </div>
 
 
-<h2 id="fq-pie">
-  <a class="link-body-emphasis" href="#fq-pie">FQ-PIE</a>
-</h2><p>Для включения планировщика пакетов <strong>FQ-PIE</strong>, необходимо выполнить команду:</p>
-
-
-
-
-
-
-
-
-  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
-    <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2d88d64074fa0de3b33aea9a0ed981cb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;net.core.default_qdisc = fq_pie&#39;</span> <span class="p">|</span> tee /etc/sysctl.d/90-override.conf</span></span></code></pre></div></div>
-      <div class="flex-shrink-0">
-        <ul class="list-inline mb-0">
-          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
-            <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2d88d64074fa0de3b33aea9a0ed981cb"
-               role="button">
-              <i class="fas fa-copy fa-fw"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-
-<p>Проверка:</p>
-
-
-
-
-
-
-
-
-  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
-    <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7daa67b6568d2a2b533e5c7f81137a3c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">tc qdisc show</span></span></code></pre></div></div>
-      <div class="flex-shrink-0">
-        <ul class="list-inline mb-0">
-          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
-            <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7daa67b6568d2a2b533e5c7f81137a3c"
-               role="button">
-              <i class="fas fa-copy fa-fw"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>]]></turbo:content><pubDate>Thu, 13 Jan 2022 22:44:15 +0000</pubDate><category>Linux</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Установка Vivaldi в Debian</title><link>https://lib.onl/ru/posts/2022/01/ddddd243-d182-5e26-a161-d2ea7812214a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/01/ddddd243-d182-5e26-a161-d2ea7812214a/</guid><description>Привет всем! В этой небольшой заметке я приведу команду, при помощи которой можно добавить репозиторий браузера Vivaldi в Debian.</description><media:content medium="image" url="https://images.unsplash.com/photo-1564760290292-23341e4df6ec" width="1600" height="900"/><content:encoded><![CDATA[<p>Привет всем! В этой небольшой заметке я приведу команду, при помощи которой можно добавить репозиторий браузера <strong>Vivaldi</strong> в Debian.</p>
+<h2 id="версии-архитектур-xanmod">
+  <a class="link-body-emphasis" href="#%d0%b2%d0%b5%d1%80%d1%81%d0%b8%d0%b8-%d0%b0%d1%80%d1%85%d0%b8%d1%82%d0%b5%d0%ba%d1%82%d1%83%d1%80-xanmod">Версии архитектур XanMod</a>
+</h2><p>Версия архитектуры зависит от ядра процессора и поддерживаемых им инструкций. Версию архитектуры можно узнать из списка ниже.</p>
+<h3 id="x86-64-legacy">
+  <a class="link-body-emphasis" href="#x86-64-legacy">x86-64 (LEGACY)</a>
+</h3><p>Суффикс для установки ядра: <code>x64v1</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD K8-family</li>
+<li>AMD K10-family</li>
+<li>AMD Family 10h (Barcelona)</li>
+<li>Intel Pentium 4 / Xeon (Nocona)</li>
+<li>Intel Core 2 (all variants)</li>
+<li>All x86-64 CPUs</li>
+</ul>
+<h3 id="x86-64-v2">
+  <a class="link-body-emphasis" href="#x86-64-v2">x86-64-v2</a>
+</h3><p>Суффикс для установки ядра: <code>x64v2</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD Family 14h (Bobcat)</li>
+<li>AMD Family 16h (Jaguar)</li>
+<li>AMD Family 15h (Bulldozer)</li>
+<li>AMD Family 15h (Piledriver)</li>
+<li>AMD Family 15h (Steamroller)</li>
+<li>Intel 1st Gen Core (Nehalem)</li>
+<li>Intel 1.5 Gen Core (Westmere)</li>
+<li>Intel 2nd Gen Core (Sandybridge)</li>
+<li>Intel 3rd Gen Core (Ivybridge)</li>
+<li>Intel low-power Silvermont</li>
+<li>Intel Goldmont (Apollo Lake)</li>
+<li>Intel Goldmont (Denverton)</li>
+<li>Intel Goldmont Plus (Gemini Lake)</li>
+</ul>
+<h3 id="x86-64-v3">
+  <a class="link-body-emphasis" href="#x86-64-v3">x86-64-v3</a>
+</h3><p>Суффикс для установки ядра: <code>x64v3</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD Family 15h (Excavator)</li>
+<li>AMD Family 17h (Zen)</li>
+<li>AMD Family 17h (Zen+)</li>
+<li>AMD Family 17h (Zen2)</li>
+<li>AMD Family 19h (Zen3)</li>
+<li>Intel 4th Gen Core (Haswell)</li>
+<li>Intel 5th Gen Core (Broadwell)</li>
+<li>Intel 6th Gen Core (Skylake)</li>
+<li>Intel 7th Gen Core (Kaby Lake)</li>
+<li>Intel 8/9th Gen Core (Coffee Lake)</li>
+<li>Intel 10th Gen Core (Comet Lake)</li>
+<li>Intel 12th Gen (Alder Lake)</li>
+<li>Intel 13th Gen (Raptor Lake)</li>
+<li>Intel 14th Gen (Meteor Lake)</li>
+</ul>
+<h3 id="x86-64-v4-avx-512">
+  <a class="link-body-emphasis" href="#x86-64-v4-avx-512">x86-64-v4 (AVX-512)</a>
+</h3><p>Суффикс для установки ядра: <code>x64v4</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD Family 19h (Zen4)</li>
+<li>Intel 6th Gen Core (Skylake X)</li>
+<li>Intel 8th Gen Core i3 (Cannon Lake)</li>
+<li>Intel Xeon / 10th Gen Core (Ice Lake)</li>
+<li>Intel Xeon (Cascade Lake)</li>
+<li>Intel Xeon (Cooper Lake)</li>
+<li>Intel 3rd Gen 10nm++ (Tiger Lake)</li>
+<li>Intel 4th Gen 10nm++ (Sapphire Rapids)</li>
+<li>Intel 5th Gen 10nm++ (Emerald Rapids)</li>
+<li>Intel 11th Gen (Rocket Lake)</li>
+</ul>]]></turbo:content><pubDate>Thu, 13 Jan 2022 22:44:15 +0000</pubDate><category>Linux</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Установка Vivaldi в Debian</title><link>https://lib.onl/ru/posts/2022/01/ddddd243-d182-5e26-a161-d2ea7812214a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/01/ddddd243-d182-5e26-a161-d2ea7812214a/</guid><description>Привет всем! В этой небольшой заметке я приведу команду, при помощи которой можно добавить репозиторий браузера Vivaldi в Debian.</description><media:content medium="image" url="https://images.unsplash.com/photo-1564760290292-23341e4df6ec" width="1600" height="900"/><content:encoded><![CDATA[<p>Привет всем! В этой небольшой заметке я приведу команду, при помощи которой можно добавить репозиторий браузера <strong>Vivaldi</strong> в Debian.</p>
 <p>Установочный пакет <strong>Vivaldi</strong> уже выполняет указанные действия, но для этого он задействует утилиту <code>apt-key</code>, которая в <strong>Debian 11</strong> имеет статус <code>deprecated</code>.</p>
 <p>Однострочная команда по добавлению <strong>Vivaldi</strong> в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
 <ol>
@@ -356,12 +624,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0c3b192c5240e9906b1a5cd1374e099f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [signed-by=/etc/apt/trusted.gpg.d/vivaldi-browser.gpg arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2">] https://repo.vivaldi.com/archive/deb/ stable main&#34;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/vivaldi-archive.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://repo.vivaldi.com/archive/linux_signing_key.pub&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/vivaldi-browser.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b337e003c32725daaf5988a30ae45395"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [signed-by=/etc/apt/trusted.gpg.d/vivaldi-browser.gpg arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2">] https://repo.vivaldi.com/archive/deb/ stable main&#34;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/vivaldi-archive.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://repo.vivaldi.com/archive/linux_signing_key.pub&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/vivaldi-browser.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0c3b192c5240e9906b1a5cd1374e099f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b337e003c32725daaf5988a30ae45395"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -383,12 +651,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ecf849adf9591b368d24f6942d694734"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install vivaldi-stable</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3290a8e42769bcd6134e7868cc768f19"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install vivaldi-stable</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ecf849adf9591b368d24f6942d694734"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3290a8e42769bcd6134e7868cc768f19"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -414,12 +682,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0c3b192c5240e9906b1a5cd1374e099f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [signed-by=/etc/apt/trusted.gpg.d/vivaldi-browser.gpg arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2">] https://repo.vivaldi.com/archive/deb/ stable main&#34;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/vivaldi-archive.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://repo.vivaldi.com/archive/linux_signing_key.pub&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/vivaldi-browser.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b337e003c32725daaf5988a30ae45395"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [signed-by=/etc/apt/trusted.gpg.d/vivaldi-browser.gpg arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2">] https://repo.vivaldi.com/archive/deb/ stable main&#34;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/vivaldi-archive.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://repo.vivaldi.com/archive/linux_signing_key.pub&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/vivaldi-browser.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0c3b192c5240e9906b1a5cd1374e099f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b337e003c32725daaf5988a30ae45395"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -441,12 +709,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ecf849adf9591b368d24f6942d694734"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install vivaldi-stable</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3290a8e42769bcd6134e7868cc768f19"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install vivaldi-stable</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ecf849adf9591b368d24f6942d694734"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3290a8e42769bcd6134e7868cc768f19"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -471,7 +739,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b4bb50e83b20d1b234e8832a6ff1af70"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1">### Anything between here and the comment below will become the new contents of the file</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-03609a6bc9ef35698b26fc41604c4c67"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1">### Anything between here and the comment below will become the new contents of the file</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">[Service]</span>
 </span></span><span class="line"><span class="cl"><span class="na">ExecStartPre</span><span class="o">=</span><span class="s">/bin/sleep 2</span>
@@ -481,7 +749,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b4bb50e83b20d1b234e8832a6ff1af70"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-03609a6bc9ef35698b26fc41604c4c67"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -504,14 +772,14 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4dddbe40880497f9af7043ba282ce376"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Unit]</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7f11c11f832c1ac4c82b62719364c27a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Unit]</span>
 </span></span><span class="line"><span class="cl"><span class="na">Wants</span><span class="o">=</span><span class="s">systemd-udev-trigger.service systemd-udev-settle.service</span>
 </span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">systemd-udev-trigger.service systemd-udev-settle.service</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4dddbe40880497f9af7043ba282ce376"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7f11c11f832c1ac4c82b62719364c27a"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -545,7 +813,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-675f4bfa0f9376be428031f1f3abe629"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b9e2c6eb872efe7bb8200a78d50f334a"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -554,7 +822,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-675f4bfa0f9376be428031f1f3abe629"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dec 27 22:23:48 oleksandr-xps15 udevadm[260]: systemd-udev-settle.service is deprecated. Please fix gdm.service not to pull it in.</code></pre></div>
+    <div class="card-body p-0" id="clipboard-b9e2c6eb872efe7bb8200a78d50f334a"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dec 27 22:23:48 oleksandr-xps15 udevadm[260]: systemd-udev-settle.service is deprecated. Please fix gdm.service not to pull it in.</code></pre></div>
   </div>
 </div>
 <h2 id="указание-порядка-инициализации-графической-подсистемы">
@@ -570,12 +838,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ae96f8d638ee1a70c56bbbfbb7a6a5f8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">MODULES=(amdgpu)</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8307e1102902bd57898c688ac7e11792"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">MODULES=(amdgpu)</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ae96f8d638ee1a70c56bbbfbb7a6a5f8"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8307e1102902bd57898c688ac7e11792"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -611,7 +879,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b4bb50e83b20d1b234e8832a6ff1af70"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1">### Anything between here and the comment below will become the new contents of the file</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-03609a6bc9ef35698b26fc41604c4c67"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1">### Anything between here and the comment below will become the new contents of the file</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">[Service]</span>
 </span></span><span class="line"><span class="cl"><span class="na">ExecStartPre</span><span class="o">=</span><span class="s">/bin/sleep 2</span>
@@ -621,7 +889,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b4bb50e83b20d1b234e8832a6ff1af70"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-03609a6bc9ef35698b26fc41604c4c67"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -644,14 +912,14 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4dddbe40880497f9af7043ba282ce376"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Unit]</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7f11c11f832c1ac4c82b62719364c27a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Unit]</span>
 </span></span><span class="line"><span class="cl"><span class="na">Wants</span><span class="o">=</span><span class="s">systemd-udev-trigger.service systemd-udev-settle.service</span>
 </span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">systemd-udev-trigger.service systemd-udev-settle.service</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4dddbe40880497f9af7043ba282ce376"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7f11c11f832c1ac4c82b62719364c27a"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -685,7 +953,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-675f4bfa0f9376be428031f1f3abe629"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b9e2c6eb872efe7bb8200a78d50f334a"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -694,7 +962,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-675f4bfa0f9376be428031f1f3abe629"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dec 27 22:23:48 oleksandr-xps15 udevadm[260]: systemd-udev-settle.service is deprecated. Please fix gdm.service not to pull it in.</code></pre></div>
+    <div class="card-body p-0" id="clipboard-b9e2c6eb872efe7bb8200a78d50f334a"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dec 27 22:23:48 oleksandr-xps15 udevadm[260]: systemd-udev-settle.service is deprecated. Please fix gdm.service not to pull it in.</code></pre></div>
   </div>
 </div>
 <h2 id="указание-порядка-инициализации-графической-подсистемы">
@@ -710,12 +978,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ae96f8d638ee1a70c56bbbfbb7a6a5f8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">MODULES=(amdgpu)</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8307e1102902bd57898c688ac7e11792"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">MODULES=(amdgpu)</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ae96f8d638ee1a70c56bbbfbb7a6a5f8"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8307e1102902bd57898c688ac7e11792"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -748,7 +1016,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-18cc3cad8e4007516c31b2bd10de7ded"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">127.0.0.1   localhost
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2cf443e473c95446ddbdf5874d1124d9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">127.0.0.1   localhost
 </span></span><span class="line"><span class="cl">127.0.1.1   localhost.localdomain     localhost
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"># Proxmox
@@ -757,7 +1025,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-18cc3cad8e4007516c31b2bd10de7ded"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2cf443e473c95446ddbdf5874d1124d9"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -782,12 +1050,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-387e50f070bebd7e92846ead2f62c194"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [arch=amd64] http://download.proxmox.com/debian/pve bullseye pve-no-subscription&#34;</span> &gt; /etc/apt/sources.list.d/pve.list</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a707d00c72f9b50c8de8158b8c4a439f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [arch=amd64] http://download.proxmox.com/debian/pve bullseye pve-no-subscription&#34;</span> &gt; /etc/apt/sources.list.d/pve.list</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-387e50f070bebd7e92846ead2f62c194"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a707d00c72f9b50c8de8158b8c4a439f"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -809,12 +1077,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8b90e0f4745775d22071f9fbdc7350fa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl <span class="s1">&#39;https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg&#39;</span> -o /etc/apt/trusted.gpg.d/pve.gpg</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d34131cdadba9c839458ddb15e993ec3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl <span class="s1">&#39;https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg&#39;</span> -o /etc/apt/trusted.gpg.d/pve.gpg</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8b90e0f4745775d22071f9fbdc7350fa"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d34131cdadba9c839458ddb15e993ec3"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -836,12 +1104,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9a96c24d42d7ceef90220e24f36d1e80"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt update <span class="o">&amp;&amp;</span> apt full-upgrade</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f16573d6ca93f2528861652169bae2c7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt update <span class="o">&amp;&amp;</span> apt full-upgrade</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9a96c24d42d7ceef90220e24f36d1e80"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f16573d6ca93f2528861652169bae2c7"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -865,12 +1133,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-85f688be486c20792e708d07a006f193"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install proxmox-ve postfix open-iscsi</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cd3f2945a032e9ffc45c2a1325176df5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install proxmox-ve postfix open-iscsi</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-85f688be486c20792e708d07a006f193"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cd3f2945a032e9ffc45c2a1325176df5"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -898,7 +1166,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-da15ff1a69c7961bfd926d5b91fbf797"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a7fe050d4a72564a72b4e0121bca7236"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
 </span></span><span class="line"><span class="cl">  &lt;...&gt;
 </span></span><span class="line"><span class="cl">  # Configuration option global/event_activation.
 </span></span><span class="line"><span class="cl">  # Activate LVs based on system-generated device events.
@@ -916,7 +1184,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-da15ff1a69c7961bfd926d5b91fbf797"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a7fe050d4a72564a72b4e0121bca7236"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -937,7 +1205,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-11bef7710830d4e3b5e8b1d708c30d7d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f43b738aedc427c5c9c742e91da2feec"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
 </span></span><span class="line"><span class="cl">  &lt;...&gt;
 </span></span><span class="line"><span class="cl">  # Configuration option global/event_activation.
 </span></span><span class="line"><span class="cl">  # Activate LVs based on system-generated device events.
@@ -955,7 +1223,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-11bef7710830d4e3b5e8b1d708c30d7d"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f43b738aedc427c5c9c742e91da2feec"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -979,7 +1247,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e09b4b181eb7217fdf1a5a7b42013077"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto lo
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a3f1298f1f71ebd2cafde87c5b8597ab"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto lo
 </span></span><span class="line"><span class="cl">iface lo inet loopback
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">iface enp3s0 inet manual
@@ -995,7 +1263,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e09b4b181eb7217fdf1a5a7b42013077"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a3f1298f1f71ebd2cafde87c5b8597ab"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1017,7 +1285,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9593daa42302294fed9be66578ceb0ed"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto vmbr0
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-11c8409f385a82727947081a90a9daed"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto vmbr0
 </span></span><span class="line"><span class="cl">iface vmbr0 inet static
 </span></span><span class="line"><span class="cl">  address 10.0.1.1/16
 </span></span><span class="line"><span class="cl">  gateway 10.0.0.1
@@ -1028,7 +1296,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9593daa42302294fed9be66578ceb0ed"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-11c8409f385a82727947081a90a9daed"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1054,7 +1322,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-18cc3cad8e4007516c31b2bd10de7ded"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">127.0.0.1   localhost
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2cf443e473c95446ddbdf5874d1124d9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">127.0.0.1   localhost
 </span></span><span class="line"><span class="cl">127.0.1.1   localhost.localdomain     localhost
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"># Proxmox
@@ -1063,7 +1331,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-18cc3cad8e4007516c31b2bd10de7ded"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2cf443e473c95446ddbdf5874d1124d9"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1088,12 +1356,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-387e50f070bebd7e92846ead2f62c194"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [arch=amd64] http://download.proxmox.com/debian/pve bullseye pve-no-subscription&#34;</span> &gt; /etc/apt/sources.list.d/pve.list</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a707d00c72f9b50c8de8158b8c4a439f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [arch=amd64] http://download.proxmox.com/debian/pve bullseye pve-no-subscription&#34;</span> &gt; /etc/apt/sources.list.d/pve.list</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-387e50f070bebd7e92846ead2f62c194"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a707d00c72f9b50c8de8158b8c4a439f"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1115,12 +1383,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8b90e0f4745775d22071f9fbdc7350fa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl <span class="s1">&#39;https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg&#39;</span> -o /etc/apt/trusted.gpg.d/pve.gpg</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d34131cdadba9c839458ddb15e993ec3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl <span class="s1">&#39;https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg&#39;</span> -o /etc/apt/trusted.gpg.d/pve.gpg</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8b90e0f4745775d22071f9fbdc7350fa"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d34131cdadba9c839458ddb15e993ec3"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1142,12 +1410,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9a96c24d42d7ceef90220e24f36d1e80"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt update <span class="o">&amp;&amp;</span> apt full-upgrade</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f16573d6ca93f2528861652169bae2c7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt update <span class="o">&amp;&amp;</span> apt full-upgrade</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9a96c24d42d7ceef90220e24f36d1e80"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f16573d6ca93f2528861652169bae2c7"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1171,12 +1439,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-85f688be486c20792e708d07a006f193"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install proxmox-ve postfix open-iscsi</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cd3f2945a032e9ffc45c2a1325176df5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install proxmox-ve postfix open-iscsi</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-85f688be486c20792e708d07a006f193"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cd3f2945a032e9ffc45c2a1325176df5"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1204,7 +1472,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-da15ff1a69c7961bfd926d5b91fbf797"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a7fe050d4a72564a72b4e0121bca7236"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
 </span></span><span class="line"><span class="cl">  &lt;...&gt;
 </span></span><span class="line"><span class="cl">  # Configuration option global/event_activation.
 </span></span><span class="line"><span class="cl">  # Activate LVs based on system-generated device events.
@@ -1222,7 +1490,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-da15ff1a69c7961bfd926d5b91fbf797"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a7fe050d4a72564a72b4e0121bca7236"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1243,7 +1511,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-11bef7710830d4e3b5e8b1d708c30d7d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f43b738aedc427c5c9c742e91da2feec"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">global {
 </span></span><span class="line"><span class="cl">  &lt;...&gt;
 </span></span><span class="line"><span class="cl">  # Configuration option global/event_activation.
 </span></span><span class="line"><span class="cl">  # Activate LVs based on system-generated device events.
@@ -1261,7 +1529,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-11bef7710830d4e3b5e8b1d708c30d7d"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f43b738aedc427c5c9c742e91da2feec"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1285,7 +1553,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e09b4b181eb7217fdf1a5a7b42013077"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto lo
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a3f1298f1f71ebd2cafde87c5b8597ab"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto lo
 </span></span><span class="line"><span class="cl">iface lo inet loopback
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">iface enp3s0 inet manual
@@ -1301,7 +1569,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e09b4b181eb7217fdf1a5a7b42013077"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a3f1298f1f71ebd2cafde87c5b8597ab"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1323,7 +1591,7 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9593daa42302294fed9be66578ceb0ed"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto vmbr0
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-11c8409f385a82727947081a90a9daed"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">auto vmbr0
 </span></span><span class="line"><span class="cl">iface vmbr0 inet static
 </span></span><span class="line"><span class="cl">  address 10.0.1.1/16
 </span></span><span class="line"><span class="cl">  gateway 10.0.0.1
@@ -1334,7 +1602,7 @@ shortcode-codeblock-terminal-linux">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9593daa42302294fed9be66578ceb0ed"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-11c8409f385a82727947081a90a9daed"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1359,12 +1627,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d0675d7bcd25b3f08ccf0427eb7d75cd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install network-manager</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8699620b3c66ec24f62858cef6758134"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install network-manager</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d0675d7bcd25b3f08ccf0427eb7d75cd"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8699620b3c66ec24f62858cef6758134"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1387,12 +1655,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-40470a1190bc9f3bd2b5bc8c49a860db"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">service NetworkManager restart</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-58418a47fa315577403ab296db380796"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">service NetworkManager restart</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-40470a1190bc9f3bd2b5bc8c49a860db"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-58418a47fa315577403ab296db380796"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1416,12 +1684,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d0675d7bcd25b3f08ccf0427eb7d75cd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install network-manager</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8699620b3c66ec24f62858cef6758134"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install network-manager</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d0675d7bcd25b3f08ccf0427eb7d75cd"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8699620b3c66ec24f62858cef6758134"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1444,12 +1712,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-40470a1190bc9f3bd2b5bc8c49a860db"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">service NetworkManager restart</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-58418a47fa315577403ab296db380796"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">service NetworkManager restart</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-40470a1190bc9f3bd2b5bc8c49a860db"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-58418a47fa315577403ab296db380796"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1474,12 +1742,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f92a7e502993c686cf16bb06c00c71ab"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ar x example.deb</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-12f9ebf7fb568301e55b087771c2da6c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ar x example.deb</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f92a7e502993c686cf16bb06c00c71ab"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-12f9ebf7fb568301e55b087771c2da6c"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1508,14 +1776,14 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8aa5572147ddc163cd232c63a3e1a255"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">rpm2cpio myrpmfile.rpm
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c40d39db65ad96b089d5f6ed849ad091"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">rpm2cpio myrpmfile.rpm
 </span></span><span class="line"><span class="cl">rpm2cpio - &lt; myrpmfile.rpm
 </span></span><span class="line"><span class="cl">rpm2cpio myrpmfile.rpm <span class="p">|</span> cpio -idmv</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8aa5572147ddc163cd232c63a3e1a255"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c40d39db65ad96b089d5f6ed849ad091"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1547,12 +1815,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f92a7e502993c686cf16bb06c00c71ab"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ar x example.deb</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-12f9ebf7fb568301e55b087771c2da6c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ar x example.deb</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f92a7e502993c686cf16bb06c00c71ab"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-12f9ebf7fb568301e55b087771c2da6c"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1581,14 +1849,14 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8aa5572147ddc163cd232c63a3e1a255"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">rpm2cpio myrpmfile.rpm
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c40d39db65ad96b089d5f6ed849ad091"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">rpm2cpio myrpmfile.rpm
 </span></span><span class="line"><span class="cl">rpm2cpio - &lt; myrpmfile.rpm
 </span></span><span class="line"><span class="cl">rpm2cpio myrpmfile.rpm <span class="p">|</span> cpio -idmv</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8aa5572147ddc163cd232c63a3e1a255"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c40d39db65ad96b089d5f6ed849ad091"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1618,12 +1886,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0cfbb82265320dd41a6d9177cc29f434"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;APT::Install-Recommends &#34;false&#34;;&#39;</span> &gt; /etc/apt/apt.conf.d/00InstallRecommends</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-05e88de9b66137ed09291f1625057fe7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;APT::Install-Recommends &#34;false&#34;;&#39;</span> &gt; /etc/apt/apt.conf.d/00InstallRecommends</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0cfbb82265320dd41a6d9177cc29f434"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-05e88de9b66137ed09291f1625057fe7"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1644,12 +1912,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-db50347203aa161b505064272ba889bd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;APT::Install-Suggests &#34;false&#34;;&#39;</span> &gt; /etc/apt/apt.conf.d/00InstallSuggests</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4087e6fd55b8bda8239923969db003b4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;APT::Install-Suggests &#34;false&#34;;&#39;</span> &gt; /etc/apt/apt.conf.d/00InstallSuggests</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-db50347203aa161b505064272ba889bd"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4087e6fd55b8bda8239923969db003b4"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1672,12 +1940,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0cfbb82265320dd41a6d9177cc29f434"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;APT::Install-Recommends &#34;false&#34;;&#39;</span> &gt; /etc/apt/apt.conf.d/00InstallRecommends</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-05e88de9b66137ed09291f1625057fe7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;APT::Install-Recommends &#34;false&#34;;&#39;</span> &gt; /etc/apt/apt.conf.d/00InstallRecommends</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0cfbb82265320dd41a6d9177cc29f434"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-05e88de9b66137ed09291f1625057fe7"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1698,12 +1966,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-db50347203aa161b505064272ba889bd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;APT::Install-Suggests &#34;false&#34;;&#39;</span> &gt; /etc/apt/apt.conf.d/00InstallSuggests</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4087e6fd55b8bda8239923969db003b4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;APT::Install-Suggests &#34;false&#34;;&#39;</span> &gt; /etc/apt/apt.conf.d/00InstallSuggests</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-db50347203aa161b505064272ba889bd"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4087e6fd55b8bda8239923969db003b4"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1726,12 +1994,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-aa56db4a315e931fda864cb5fcf741a7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">send dhcp-client-identifier</span> <span class="o">=</span> <span class="s">hardware;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9bbbfaf7a1ad9c82488f663edb55468c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">send dhcp-client-identifier</span> <span class="o">=</span> <span class="s">hardware;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aa56db4a315e931fda864cb5fcf741a7"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9bbbfaf7a1ad9c82488f663edb55468c"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1753,12 +2021,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e7d7d3a2f5cadaf11ab7781ca5cd2961"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;send dhcp-client-identifier = hardware;&#39;</span> &gt;&gt; /etc/dhcp/dhclient.conf</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-972eab9ae01f16e4bdf95b9311d4a17f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;send dhcp-client-identifier = hardware;&#39;</span> &gt;&gt; /etc/dhcp/dhclient.conf</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e7d7d3a2f5cadaf11ab7781ca5cd2961"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-972eab9ae01f16e4bdf95b9311d4a17f"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1778,12 +2046,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-aa56db4a315e931fda864cb5fcf741a7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">send dhcp-client-identifier</span> <span class="o">=</span> <span class="s">hardware;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9bbbfaf7a1ad9c82488f663edb55468c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">send dhcp-client-identifier</span> <span class="o">=</span> <span class="s">hardware;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aa56db4a315e931fda864cb5fcf741a7"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9bbbfaf7a1ad9c82488f663edb55468c"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1805,12 +2073,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e7d7d3a2f5cadaf11ab7781ca5cd2961"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;send dhcp-client-identifier = hardware;&#39;</span> &gt;&gt; /etc/dhcp/dhclient.conf</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-972eab9ae01f16e4bdf95b9311d4a17f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;send dhcp-client-identifier = hardware;&#39;</span> &gt;&gt; /etc/dhcp/dhclient.conf</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e7d7d3a2f5cadaf11ab7781ca5cd2961"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-972eab9ae01f16e4bdf95b9311d4a17f"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
