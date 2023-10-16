@@ -1,4 +1,710 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>Терминал / Library Online</title><link>https://lib.onl/ru/categories/terminal/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/categories/terminal/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>Терминал / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sat, 14 Aug 2021 15:52:38 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/categories/terminal/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Настройка и использование Git</title><link>https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</guid><description>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</description><media:content medium="image" url="https://images.unsplash.com/photo-1556075798-4825dfaaf498" width="1600" height="900"/><content:encoded><![CDATA[<p>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</p>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>Терминал / Library Online</title><link>https://lib.onl/ru/categories/terminal/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/categories/terminal/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>Терминал / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Mon, 09 May 2022 12:39:47 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/categories/terminal/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Интеграция обновлений в дистрибутив ОС MS Windows</title><link>https://lib.onl/ru/posts/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/</guid><description>Microsoft каждый месяц выпускает новые версии дистрибутивов с уже интегрированными обновлениями. Но есть редакции ОС, например LTSC, для которых Microsoft не выполняет подобные действия. Приходится делать самому&amp;hellip;</description><media:content medium="image" url="https://images.unsplash.com/photo-1620843002805-05a08cb72f57" width="1600" height="900"/><content:encoded><![CDATA[<p>Microsoft каждый месяц выпускает новые версии дистрибутивов с уже интегрированными обновлениями. Но есть редакции ОС, например LTSC, для которых Microsoft не выполняет подобные действия. Приходится делать самому&hellip;</p>
+<h2 id="подготовка">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
+</h2><p>Для интеграции обновлений в дистрибутив ОС, потребуется:</p>
+<ul>
+<li>Дистрибутив операционной системы в файле <code>.iso</code>.</li>
+<li>Доступ в интернет для скачивания необходимых инструментов и обновлений.</li>
+<li>Рекомендуется <strong>SSD</strong>. Все ниже приведённые этапы требуют активной работы с файлами. Поэтому, существенное ускорение можно получить выполняя все задачи на SSD.</li>
+</ul>
+<h3 id="структура-директорий">
+  <a class="link-body-emphasis" href="#%d1%81%d1%82%d1%80%d1%83%d0%ba%d1%82%d1%83%d1%80%d0%b0-%d0%b4%d0%b8%d1%80%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b8%d0%b9">Структура директорий</a>
+</h3><p>Для начала необходимо создать структуру директорий, которая послужит базисом для процесса интеграции обновлений:</p>
+<ul>
+<li><code>C:\BuildFarm</code> - корневая директория для работы.
+<ul>
+<li><code>\MNT</code> - директория, в которую будет монтироваться образ WIM.</li>
+<li><code>\UPD</code> - директория для хранения скаченных обновлений.</li>
+<li><code>\WIM</code> - директория для хранения образа WIM.</li>
+</ul>
+</li>
+</ul>
+<h3 id="ms-dism">
+  <a class="link-body-emphasis" href="#ms-dism">MS DISM</a>
+</h3><p>Для интеграции обновлений потребуется инструмент <strong>Deployment Image Servicing and Management (DISM)</strong> (<code>DISM.exe</code>), который входит в комплект <a title="" href="https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install" target="_blank" rel="noopener noreferrer nofollow">Windows Assessment and Deployment Kit (Windows ADK)</a>. Обычно, DISM уже поставляется с операционной системой, но я рекомендую <a title="" href="https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install#other-adk-downloads" target="_blank" rel="noopener noreferrer nofollow">скачивать</a> последнюю версию с сайта Microsoft и устанавливать вручную.</p>
+<p>Когда Windows ADK установлен, DISM можно найти в меню <strong>&ldquo;Пуск&rdquo;</strong> вместе с остальными программам. Запускать DISM необходимо под администратором. Все команды, приведённые ниже, должны будут выполняться только через установленный вручную DISM. Использовать DISM, поставляемый с операционной системой нет необходимости.</p>
+<h2 id="интеграция-обновлений">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9">Интеграция обновлений</a>
+</h2><p>Обновления можно скачивать с сайта-каталога <a title="" href="https://www.catalog.update.microsoft.com/" target="_blank" rel="noopener noreferrer nofollow">Microsoft Update Catalog</a>. Я беру так называемые &ldquo;кумулятивные (накопительные) обновления&rdquo; (cumulative updates), содержащие в себе сразу множество пакетов с исправлениями и обновлениями функций. <a title="" href="https://www.catalog.update.microsoft.com/Search.aspx?q=cumulative%20update" target="_blank" rel="noopener noreferrer nofollow">Найти</a> такие крупные обновления можно в каталоге при помощи поискового запроса <code>cumulative update</code>.</p>
+<p>Скачиваемые обновления помещаются в директорию <code>C:\BuildFarm\UPD</code> для дальнейшей интеграции в дистрибутив ОС.</p>
+<h3 id="извлечение-файла-wim-из-дистрибутива-ms-windows">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%b7%d0%b2%d0%bb%d0%b5%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-%d1%84%d0%b0%d0%b9%d0%bb%d0%b0-wim-%d0%b8%d0%b7-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0-ms-windows">Извлечение файла WIM из дистрибутива MS Windows</a>
+</h3><p>Образ ОС находится в специальном файле <code>sources\install.wim</code>. Его необходимо извлечь при помощи программ для работы с файлами <code>.iso</code> (подойдёт <a title="" href="https://www.ultraiso.com" target="_blank" rel="noopener noreferrer nofollow">UltraISO</a> или <a title="" href="https://www.poweriso.com" target="_blank" rel="noopener noreferrer nofollow">PowerISO</a>) в директорию <code>C:\BuildFarm\WIM</code>.</p>
+<h3 id="получение-информации-из-wim-образа">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%bb%d1%83%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b8%d0%bd%d1%84%d0%be%d1%80%d0%bc%d0%b0%d1%86%d0%b8%d0%b8-%d0%b8%d0%b7-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b0">Получение информации из WIM-образа</a>
+</h3><p>Файл <code>install.wim</code> может содержать несколько редакций ОС. Каждая редакция ОС имеет свой индекс. Для того, чтобы увидеть эти индексы, нужно ввести команду:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-71f0893dd0d73cf518e95ffe67adbb5f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-71f0893dd0d73cf518e95ffe67adbb5f"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Get-ImageInfo</code> - получить информацию о версиях операционной системы, находящихся в WIM-образ.</li>
+<li><code>/ImageFile</code> - путь к WIM-образу.</li>
+</ul>
+<p>Введённая команда предоставит примерно такой выхлоп:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-windows
+shortcode-codeblock-terminal-windows-root">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 text-danger">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-762b13165fa4f0aa9c6c683e7a4b924f"
+                 role="button">
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-762b13165fa4f0aa9c6c683e7a4b924f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
+
+Details for image : C:\BuildFarm\WIM\install.wim
+
+Index : 1
+Name : Windows 10 Education
+Description : Windows 10 Education
+Size : 15,643,499,526 bytes
+
+Index : 2
+Name : Windows 10 Education N
+Description : Windows 10 Education N
+Size : 14,878,972,660 bytes
+
+Index : 3
+Name : Windows 10 Enterprise
+Description : Windows 10 Enterprise
+Size : 15,643,653,521 bytes
+
+Index : 4
+Name : Windows 10 Enterprise N
+Description : Windows 10 Enterprise N
+Size : 14,878,878,937 bytes
+
+Index : 5
+Name : Windows 10 Pro
+Description : Windows 10 Pro
+Size : 15,658,943,281 bytes
+
+&lt;...&gt;
+Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre></div>
+  </div>
+</div>
+<h3 id="монтирование-wim-образа">
+  <a class="link-body-emphasis" href="#%d0%bc%d0%be%d0%bd%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b0">Монтирование WIM-образа</a>
+</h3><p>Индексы получены. Теперь необходимо примонтировать редакцию ОС из конкретного индекса. Выбор индекса зависит от вас: выбираете индекс той редакции ОС, которая вам необходима. Я выбрал редакцию <strong>Windows 10 Pro</strong> с индексом <code>5</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1c0c51b469a28cfb339c3ec8b0b3a5e1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1c0c51b469a28cfb339c3ec8b0b3a5e1"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Mount-Image</code> - команда на монтирование WIM-образа.</li>
+<li><code>/MountDir</code> - путь к директории, в которую необходимо поместить содержимое монтируемого WIM-образа.</li>
+<li><code>/index:5</code> - номер версии дистрибутива ОС. Номер можно узнать командой <code>/Get-ImageInfo</code>.</li>
+</ul>
+<h3 id="интеграция-обновлений-в-wim-образ">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9-%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7">Интеграция обновлений в WIM-образ</a>
+</h3><p>После монтирования редакции ОС с конкретным индексом, можно начинать процесс интеграции обновлений:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c9dc41023bdc6dbf94253d567dadb716"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c9dc41023bdc6dbf94253d567dadb716"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Add-Package</code> - команда на добавление пакетов (обновлений) в WIM-образ.
+<ul>
+<li><code>/PackagePath</code> - путь к директории, в которой находятся пакеты (обновления) для интеграции в WIM-образ.</li>
+</ul>
+</li>
+</ul>
+<h3 id="проверка-корректности-интеграции-обновлений-опционально">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%be%d0%b2%d0%b5%d1%80%d0%ba%d0%b0-%d0%ba%d0%be%d1%80%d1%80%d0%b5%d0%ba%d1%82%d0%bd%d0%be%d1%81%d1%82%d0%b8-%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d0%b8-%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9-%d0%be%d0%bf%d1%86%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d0%be">Проверка корректности интеграции обновлений (опционально)</a>
+</h3><p>По окончании процесса интеграции, можно проверить корректность выполненной задачи. Команда ниже покажет список пакетов, установленных в примонтированной редакции ОС. В этом списке пакетов будут интегрированные обновления.</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5bfe9f6cd26d23a7aaea1e344e10711d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5bfe9f6cd26d23a7aaea1e344e10711d"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Get-Packages</code> - команда для получения информации о интегрированных пакетах примонтированного WIM-образа.</li>
+</ul>
+<h3 id="очистка-хранилища-компонентов-wim-образ-опционально">
+  <a class="link-body-emphasis" href="#%d0%be%d1%87%d0%b8%d1%81%d1%82%d0%ba%d0%b0-%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b0-%d0%ba%d0%be%d0%bc%d0%bf%d0%be%d0%bd%d0%b5%d0%bd%d1%82%d0%be%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7-%d0%be%d0%bf%d1%86%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d0%be">Очистка хранилища компонентов WIM-образ (опционально)</a>
+</h3><p>Для уменьшения размера дистрибутива можно запустить процедуру удаления предыдущих версий компонентов, которые были изменены (заменены) установленными обновлениями:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c47896efb0a8dc0782aa643f80095a0a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c47896efb0a8dc0782aa643f80095a0a"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Cleanup-Image</code> - очистка и восстановление образа.
+<ul>
+<li><code>/StartComponentCleanup</code> - удаляет заменённые компоненты и уменьшает размер хранилища компонентов.
+<ul>
+<li><code>/ResetBase</code> - сброс базы заменяемых компонентов.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="проверка-хранилища-компонентов-wim-образа-опционально">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%be%d0%b2%d0%b5%d1%80%d0%ba%d0%b0-%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b0-%d0%ba%d0%be%d0%bc%d0%bf%d0%be%d0%bd%d0%b5%d0%bd%d1%82%d0%be%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b0-%d0%be%d0%bf%d1%86%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d0%be">Проверка хранилища компонентов WIM-образа (опционально)</a>
+</h3><p>Опциональный шаг перед заключительным этапом - проверить системные компоненты и файлы на повреждения:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3a26a13e22ea3bd5031aab2c0fa773cd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3a26a13e22ea3bd5031aab2c0fa773cd"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Cleanup-Image</code> - очистка и восстановление образа.
+<ul>
+<li><code>/ScanHealth</code> - сканирование образа на наличие повреждений хранилища компонентов.</li>
+</ul>
+</li>
+</ul>
+<h3 id="сохранение-изменений-в-wim-образе">
+  <a class="link-body-emphasis" href="#%d1%81%d0%be%d1%85%d1%80%d0%b0%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b9-%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b5">Сохранение изменений в WIM-образе</a>
+</h3><p>После выполнения всех действий, необходимо отмонтировать редакцию ОС с сохранением изменений. Делается это командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-513bec2e2a8a2f9c51a45c8ff0c2eae9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-513bec2e2a8a2f9c51a45c8ff0c2eae9"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Unmount-Image</code> - команда для отмонтирования WIM-образа.</li>
+<li><code>/MountDir</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Commit</code> - сохранение совершённых изменений в WIM-образе.</li>
+</ul>
+<p>Всё. Мы получили файл <code>install.wim</code> с интегрированными обновлениями. Теперь этот файл <code>install.wim</code> необходимо обратно упаковать в образ ISO с заменой старого.</p>]]></content:encoded><turbo:source/><turbo:topic>Интеграция обновлений в дистрибутив ОС MS Windows</turbo:topic><turbo:content><![CDATA[<p>Microsoft каждый месяц выпускает новые версии дистрибутивов с уже интегрированными обновлениями. Но есть редакции ОС, например LTSC, для которых Microsoft не выполняет подобные действия. Приходится делать самому&hellip;</p>
+<h2 id="подготовка">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
+</h2><p>Для интеграции обновлений в дистрибутив ОС, потребуется:</p>
+<ul>
+<li>Дистрибутив операционной системы в файле <code>.iso</code>.</li>
+<li>Доступ в интернет для скачивания необходимых инструментов и обновлений.</li>
+<li>Рекомендуется <strong>SSD</strong>. Все ниже приведённые этапы требуют активной работы с файлами. Поэтому, существенное ускорение можно получить выполняя все задачи на SSD.</li>
+</ul>
+<h3 id="структура-директорий">
+  <a class="link-body-emphasis" href="#%d1%81%d1%82%d1%80%d1%83%d0%ba%d1%82%d1%83%d1%80%d0%b0-%d0%b4%d0%b8%d1%80%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b8%d0%b9">Структура директорий</a>
+</h3><p>Для начала необходимо создать структуру директорий, которая послужит базисом для процесса интеграции обновлений:</p>
+<ul>
+<li><code>C:\BuildFarm</code> - корневая директория для работы.
+<ul>
+<li><code>\MNT</code> - директория, в которую будет монтироваться образ WIM.</li>
+<li><code>\UPD</code> - директория для хранения скаченных обновлений.</li>
+<li><code>\WIM</code> - директория для хранения образа WIM.</li>
+</ul>
+</li>
+</ul>
+<h3 id="ms-dism">
+  <a class="link-body-emphasis" href="#ms-dism">MS DISM</a>
+</h3><p>Для интеграции обновлений потребуется инструмент <strong>Deployment Image Servicing and Management (DISM)</strong> (<code>DISM.exe</code>), который входит в комплект <a title="" href="https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install" target="_blank" rel="noopener noreferrer nofollow">Windows Assessment and Deployment Kit (Windows ADK)</a>. Обычно, DISM уже поставляется с операционной системой, но я рекомендую <a title="" href="https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install#other-adk-downloads" target="_blank" rel="noopener noreferrer nofollow">скачивать</a> последнюю версию с сайта Microsoft и устанавливать вручную.</p>
+<p>Когда Windows ADK установлен, DISM можно найти в меню <strong>&ldquo;Пуск&rdquo;</strong> вместе с остальными программам. Запускать DISM необходимо под администратором. Все команды, приведённые ниже, должны будут выполняться только через установленный вручную DISM. Использовать DISM, поставляемый с операционной системой нет необходимости.</p>
+<h2 id="интеграция-обновлений">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9">Интеграция обновлений</a>
+</h2><p>Обновления можно скачивать с сайта-каталога <a title="" href="https://www.catalog.update.microsoft.com/" target="_blank" rel="noopener noreferrer nofollow">Microsoft Update Catalog</a>. Я беру так называемые &ldquo;кумулятивные (накопительные) обновления&rdquo; (cumulative updates), содержащие в себе сразу множество пакетов с исправлениями и обновлениями функций. <a title="" href="https://www.catalog.update.microsoft.com/Search.aspx?q=cumulative%20update" target="_blank" rel="noopener noreferrer nofollow">Найти</a> такие крупные обновления можно в каталоге при помощи поискового запроса <code>cumulative update</code>.</p>
+<p>Скачиваемые обновления помещаются в директорию <code>C:\BuildFarm\UPD</code> для дальнейшей интеграции в дистрибутив ОС.</p>
+<h3 id="извлечение-файла-wim-из-дистрибутива-ms-windows">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%b7%d0%b2%d0%bb%d0%b5%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-%d1%84%d0%b0%d0%b9%d0%bb%d0%b0-wim-%d0%b8%d0%b7-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0-ms-windows">Извлечение файла WIM из дистрибутива MS Windows</a>
+</h3><p>Образ ОС находится в специальном файле <code>sources\install.wim</code>. Его необходимо извлечь при помощи программ для работы с файлами <code>.iso</code> (подойдёт <a title="" href="https://www.ultraiso.com" target="_blank" rel="noopener noreferrer nofollow">UltraISO</a> или <a title="" href="https://www.poweriso.com" target="_blank" rel="noopener noreferrer nofollow">PowerISO</a>) в директорию <code>C:\BuildFarm\WIM</code>.</p>
+<h3 id="получение-информации-из-wim-образа">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%bb%d1%83%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b8%d0%bd%d1%84%d0%be%d1%80%d0%bc%d0%b0%d1%86%d0%b8%d0%b8-%d0%b8%d0%b7-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b0">Получение информации из WIM-образа</a>
+</h3><p>Файл <code>install.wim</code> может содержать несколько редакций ОС. Каждая редакция ОС имеет свой индекс. Для того, чтобы увидеть эти индексы, нужно ввести команду:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-71f0893dd0d73cf518e95ffe67adbb5f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-71f0893dd0d73cf518e95ffe67adbb5f"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Get-ImageInfo</code> - получить информацию о версиях операционной системы, находящихся в WIM-образ.</li>
+<li><code>/ImageFile</code> - путь к WIM-образу.</li>
+</ul>
+<p>Введённая команда предоставит примерно такой выхлоп:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-windows
+shortcode-codeblock-terminal-windows-root">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 text-danger">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-762b13165fa4f0aa9c6c683e7a4b924f"
+                 role="button">
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-762b13165fa4f0aa9c6c683e7a4b924f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
+
+Details for image : C:\BuildFarm\WIM\install.wim
+
+Index : 1
+Name : Windows 10 Education
+Description : Windows 10 Education
+Size : 15,643,499,526 bytes
+
+Index : 2
+Name : Windows 10 Education N
+Description : Windows 10 Education N
+Size : 14,878,972,660 bytes
+
+Index : 3
+Name : Windows 10 Enterprise
+Description : Windows 10 Enterprise
+Size : 15,643,653,521 bytes
+
+Index : 4
+Name : Windows 10 Enterprise N
+Description : Windows 10 Enterprise N
+Size : 14,878,878,937 bytes
+
+Index : 5
+Name : Windows 10 Pro
+Description : Windows 10 Pro
+Size : 15,658,943,281 bytes
+
+&lt;...&gt;
+Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre></div>
+  </div>
+</div>
+<h3 id="монтирование-wim-образа">
+  <a class="link-body-emphasis" href="#%d0%bc%d0%be%d0%bd%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b0">Монтирование WIM-образа</a>
+</h3><p>Индексы получены. Теперь необходимо примонтировать редакцию ОС из конкретного индекса. Выбор индекса зависит от вас: выбираете индекс той редакции ОС, которая вам необходима. Я выбрал редакцию <strong>Windows 10 Pro</strong> с индексом <code>5</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1c0c51b469a28cfb339c3ec8b0b3a5e1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1c0c51b469a28cfb339c3ec8b0b3a5e1"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Mount-Image</code> - команда на монтирование WIM-образа.</li>
+<li><code>/MountDir</code> - путь к директории, в которую необходимо поместить содержимое монтируемого WIM-образа.</li>
+<li><code>/index:5</code> - номер версии дистрибутива ОС. Номер можно узнать командой <code>/Get-ImageInfo</code>.</li>
+</ul>
+<h3 id="интеграция-обновлений-в-wim-образ">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9-%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7">Интеграция обновлений в WIM-образ</a>
+</h3><p>После монтирования редакции ОС с конкретным индексом, можно начинать процесс интеграции обновлений:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c9dc41023bdc6dbf94253d567dadb716"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c9dc41023bdc6dbf94253d567dadb716"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Add-Package</code> - команда на добавление пакетов (обновлений) в WIM-образ.
+<ul>
+<li><code>/PackagePath</code> - путь к директории, в которой находятся пакеты (обновления) для интеграции в WIM-образ.</li>
+</ul>
+</li>
+</ul>
+<h3 id="проверка-корректности-интеграции-обновлений-опционально">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%be%d0%b2%d0%b5%d1%80%d0%ba%d0%b0-%d0%ba%d0%be%d1%80%d1%80%d0%b5%d0%ba%d1%82%d0%bd%d0%be%d1%81%d1%82%d0%b8-%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d0%b8-%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9-%d0%be%d0%bf%d1%86%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d0%be">Проверка корректности интеграции обновлений (опционально)</a>
+</h3><p>По окончании процесса интеграции, можно проверить корректность выполненной задачи. Команда ниже покажет список пакетов, установленных в примонтированной редакции ОС. В этом списке пакетов будут интегрированные обновления.</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5bfe9f6cd26d23a7aaea1e344e10711d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5bfe9f6cd26d23a7aaea1e344e10711d"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Get-Packages</code> - команда для получения информации о интегрированных пакетах примонтированного WIM-образа.</li>
+</ul>
+<h3 id="очистка-хранилища-компонентов-wim-образ-опционально">
+  <a class="link-body-emphasis" href="#%d0%be%d1%87%d0%b8%d1%81%d1%82%d0%ba%d0%b0-%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b0-%d0%ba%d0%be%d0%bc%d0%bf%d0%be%d0%bd%d0%b5%d0%bd%d1%82%d0%be%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7-%d0%be%d0%bf%d1%86%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d0%be">Очистка хранилища компонентов WIM-образ (опционально)</a>
+</h3><p>Для уменьшения размера дистрибутива можно запустить процедуру удаления предыдущих версий компонентов, которые были изменены (заменены) установленными обновлениями:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c47896efb0a8dc0782aa643f80095a0a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c47896efb0a8dc0782aa643f80095a0a"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Cleanup-Image</code> - очистка и восстановление образа.
+<ul>
+<li><code>/StartComponentCleanup</code> - удаляет заменённые компоненты и уменьшает размер хранилища компонентов.
+<ul>
+<li><code>/ResetBase</code> - сброс базы заменяемых компонентов.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="проверка-хранилища-компонентов-wim-образа-опционально">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%be%d0%b2%d0%b5%d1%80%d0%ba%d0%b0-%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b0-%d0%ba%d0%be%d0%bc%d0%bf%d0%be%d0%bd%d0%b5%d0%bd%d1%82%d0%be%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b0-%d0%be%d0%bf%d1%86%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d0%be">Проверка хранилища компонентов WIM-образа (опционально)</a>
+</h3><p>Опциональный шаг перед заключительным этапом - проверить системные компоненты и файлы на повреждения:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3a26a13e22ea3bd5031aab2c0fa773cd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3a26a13e22ea3bd5031aab2c0fa773cd"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Cleanup-Image</code> - очистка и восстановление образа.
+<ul>
+<li><code>/ScanHealth</code> - сканирование образа на наличие повреждений хранилища компонентов.</li>
+</ul>
+</li>
+</ul>
+<h3 id="сохранение-изменений-в-wim-образе">
+  <a class="link-body-emphasis" href="#%d1%81%d0%be%d1%85%d1%80%d0%b0%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b9-%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b5">Сохранение изменений в WIM-образе</a>
+</h3><p>После выполнения всех действий, необходимо отмонтировать редакцию ОС с сохранением изменений. Делается это командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-513bec2e2a8a2f9c51a45c8ff0c2eae9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-513bec2e2a8a2f9c51a45c8ff0c2eae9"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Unmount-Image</code> - команда для отмонтирования WIM-образа.</li>
+<li><code>/MountDir</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Commit</code> - сохранение совершённых изменений в WIM-образе.</li>
+</ul>
+<p>Всё. Мы получили файл <code>install.wim</code> с интегрированными обновлениями. Теперь этот файл <code>install.wim</code> необходимо обратно упаковать в образ ISO с заменой старого.</p>]]></turbo:content><pubDate>Mon, 09 May 2022 12:39:47 +0000</pubDate><category>MS Windows</category><category>Терминал</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Настройка и использование Git</title><link>https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</guid><description>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</description><media:content medium="image" url="https://images.unsplash.com/photo-1556075798-4825dfaaf498" width="1600" height="900"/><content:encoded><![CDATA[<p>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</p>
 <h2 id="первичная-настройка">
   <a class="link-body-emphasis" href="#%d0%bf%d0%b5%d1%80%d0%b2%d0%b8%d1%87%d0%bd%d0%b0%d1%8f-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0">Первичная настройка</a>
 </h2><p>Для начала работы с Git&rsquo;ом, его необходимо хотя бы минимально настроить.</p>
@@ -15,12 +721,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-deccfc447a0a6f1180531550edc3e95e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;John Doe&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-01de37c747d0c20adeab0a67aa4840a7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;John Doe&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-deccfc447a0a6f1180531550edc3e95e"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-01de37c747d0c20adeab0a67aa4840a7"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -44,12 +750,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a0d228f33a9d395293e1cc07d13a30f7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;johndoe@example.com&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-32c57ee97876fbaafa4774736535251a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;johndoe@example.com&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a0d228f33a9d395293e1cc07d13a30f7"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-32c57ee97876fbaafa4774736535251a"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -76,12 +782,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b89f2f9a2d9eb9003eea9ae2926c0872"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format<span class="o">=</span>long</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7464dcf3bd4ee7553fb22f6fbf04239f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format<span class="o">=</span>long</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b89f2f9a2d9eb9003eea9ae2926c0872"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7464dcf3bd4ee7553fb22f6fbf04239f"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -105,12 +811,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5f4594512847d8bc9f5e50453454a3bf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fe45e8d32add51aeadf92b0cc6bd2298"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5f4594512847d8bc9f5e50453454a3bf"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fe45e8d32add51aeadf92b0cc6bd2298"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -134,12 +840,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0c1cb33490c0c6c9b5f174ec365b66a1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.signingkey 3AA5C34371567BD2</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bb8d66d04a3fdc094afa847f7cba53a0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.signingkey 3AA5C34371567BD2</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0c1cb33490c0c6c9b5f174ec365b66a1"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb8d66d04a3fdc094afa847f7cba53a0"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -163,12 +869,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-495f7da5f18b535fdf335eb10c3a740f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global credential.helper store</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0402dc52b22066538d04f4d06478c862"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global credential.helper store</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-495f7da5f18b535fdf335eb10c3a740f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0402dc52b22066538d04f4d06478c862"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -192,12 +898,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ffcf2e59d2abe2eaed86e766fb632507"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert <span class="o">[</span>commit<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-640eff42343d4f030277a19eac1564a5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert <span class="o">[</span>commit<span class="o">]</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ffcf2e59d2abe2eaed86e766fb632507"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-640eff42343d4f030277a19eac1564a5"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -219,12 +925,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-73882fb15a6f9e8f03ea2ea602a6a6ee"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert HEAD~2</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-163002dfa2e49721037328ba3ae2eb1d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert HEAD~2</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-73882fb15a6f9e8f03ea2ea602a6a6ee"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-163002dfa2e49721037328ba3ae2eb1d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -248,12 +954,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5656ee7e9bbdaa59e1e8137f4fcf0843"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule add https://github.com/<span class="o">[</span>MODULE<span class="o">]</span> <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3db04307083393974416b811842b8d97"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule add https://github.com/<span class="o">[</span>MODULE<span class="o">]</span> <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5656ee7e9bbdaa59e1e8137f4fcf0843"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3db04307083393974416b811842b8d97"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -275,12 +981,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b0eed1fc549f214af5c3c33e2f999cd9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule update --recursive --remote --merge</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bda54e95930504c4013f7205b48cfbbd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule update --recursive --remote --merge</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b0eed1fc549f214af5c3c33e2f999cd9"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bda54e95930504c4013f7205b48cfbbd"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -302,7 +1008,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c908144df1b12a60d60c4682491dd9f4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule deinit -f <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-69eb7f053547ce89a44ac5f8bb5accea"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule deinit -f <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> git rm -r --cached <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> rm -rf .git/modules/<span class="o">[</span>MODULE<span class="o">]</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> rm -rf <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
@@ -310,7 +1016,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c908144df1b12a60d60c4682491dd9f4"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-69eb7f053547ce89a44ac5f8bb5accea"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -334,12 +1040,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2e8c18199d159b5c16d8d2f659547412"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote -v</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e0f802608192ed6bda9ce32a1759c73d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote -v</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2e8c18199d159b5c16d8d2f659547412"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e0f802608192ed6bda9ce32a1759c73d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -361,12 +1067,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b026276e6adf780d1079971f96867129"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote set-url origin <span class="s1">&#39;[URL]&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b92f227f4d9b743a6b05173698d42f4a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote set-url origin <span class="s1">&#39;[URL]&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b026276e6adf780d1079971f96867129"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b92f227f4d9b743a6b05173698d42f4a"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -391,12 +1097,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-deccfc447a0a6f1180531550edc3e95e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;John Doe&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-01de37c747d0c20adeab0a67aa4840a7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;John Doe&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-deccfc447a0a6f1180531550edc3e95e"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-01de37c747d0c20adeab0a67aa4840a7"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -420,12 +1126,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a0d228f33a9d395293e1cc07d13a30f7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;johndoe@example.com&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-32c57ee97876fbaafa4774736535251a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;johndoe@example.com&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a0d228f33a9d395293e1cc07d13a30f7"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-32c57ee97876fbaafa4774736535251a"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -452,12 +1158,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b89f2f9a2d9eb9003eea9ae2926c0872"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format<span class="o">=</span>long</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7464dcf3bd4ee7553fb22f6fbf04239f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format<span class="o">=</span>long</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b89f2f9a2d9eb9003eea9ae2926c0872"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7464dcf3bd4ee7553fb22f6fbf04239f"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -481,12 +1187,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5f4594512847d8bc9f5e50453454a3bf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fe45e8d32add51aeadf92b0cc6bd2298"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5f4594512847d8bc9f5e50453454a3bf"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fe45e8d32add51aeadf92b0cc6bd2298"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -510,12 +1216,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0c1cb33490c0c6c9b5f174ec365b66a1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.signingkey 3AA5C34371567BD2</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bb8d66d04a3fdc094afa847f7cba53a0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.signingkey 3AA5C34371567BD2</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0c1cb33490c0c6c9b5f174ec365b66a1"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb8d66d04a3fdc094afa847f7cba53a0"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -539,12 +1245,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-495f7da5f18b535fdf335eb10c3a740f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global credential.helper store</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0402dc52b22066538d04f4d06478c862"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global credential.helper store</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-495f7da5f18b535fdf335eb10c3a740f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0402dc52b22066538d04f4d06478c862"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -568,12 +1274,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ffcf2e59d2abe2eaed86e766fb632507"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert <span class="o">[</span>commit<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-640eff42343d4f030277a19eac1564a5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert <span class="o">[</span>commit<span class="o">]</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ffcf2e59d2abe2eaed86e766fb632507"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-640eff42343d4f030277a19eac1564a5"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -595,12 +1301,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-73882fb15a6f9e8f03ea2ea602a6a6ee"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert HEAD~2</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-163002dfa2e49721037328ba3ae2eb1d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert HEAD~2</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-73882fb15a6f9e8f03ea2ea602a6a6ee"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-163002dfa2e49721037328ba3ae2eb1d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -624,12 +1330,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5656ee7e9bbdaa59e1e8137f4fcf0843"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule add https://github.com/<span class="o">[</span>MODULE<span class="o">]</span> <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3db04307083393974416b811842b8d97"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule add https://github.com/<span class="o">[</span>MODULE<span class="o">]</span> <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5656ee7e9bbdaa59e1e8137f4fcf0843"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3db04307083393974416b811842b8d97"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -651,12 +1357,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b0eed1fc549f214af5c3c33e2f999cd9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule update --recursive --remote --merge</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bda54e95930504c4013f7205b48cfbbd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule update --recursive --remote --merge</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b0eed1fc549f214af5c3c33e2f999cd9"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bda54e95930504c4013f7205b48cfbbd"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -678,7 +1384,7 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c908144df1b12a60d60c4682491dd9f4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule deinit -f <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-69eb7f053547ce89a44ac5f8bb5accea"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule deinit -f <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> git rm -r --cached <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> rm -rf .git/modules/<span class="o">[</span>MODULE<span class="o">]</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> rm -rf <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
@@ -686,7 +1392,7 @@
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c908144df1b12a60d60c4682491dd9f4"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-69eb7f053547ce89a44ac5f8bb5accea"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -710,12 +1416,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2e8c18199d159b5c16d8d2f659547412"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote -v</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e0f802608192ed6bda9ce32a1759c73d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote -v</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2e8c18199d159b5c16d8d2f659547412"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e0f802608192ed6bda9ce32a1759c73d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -737,12 +1443,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b026276e6adf780d1079971f96867129"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote set-url origin <span class="s1">&#39;[URL]&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b92f227f4d9b743a6b05173698d42f4a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote set-url origin <span class="s1">&#39;[URL]&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b026276e6adf780d1079971f96867129"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b92f227f4d9b743a6b05173698d42f4a"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -776,7 +1482,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-87386c107e4be5caa23a2b0db534fe47"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-19213dfa1840c397c2a714541016735d"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -785,7 +1491,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-87386c107e4be5caa23a2b0db534fe47"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">dnf install dnf-plugin-system-upgrade</code></pre></div>
+    <div class="card-body p-0" id="clipboard-19213dfa1840c397c2a714541016735d"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">dnf install dnf-plugin-system-upgrade</code></pre></div>
   </div>
 </div>
 <ol start="2">
@@ -813,7 +1519,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-326bc484f6ad8a1245ed4dbca7aa1e2b"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6a1c23cc1b7a112b7b6b54be0d470309"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -822,7 +1528,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-326bc484f6ad8a1245ed4dbca7aa1e2b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">dnf system-upgrade download --releasever=34</code></pre></div>
+    <div class="card-body p-0" id="clipboard-6a1c23cc1b7a112b7b6b54be0d470309"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">dnf system-upgrade download --releasever=34</code></pre></div>
   </div>
 </div>
 <ul>
@@ -853,7 +1559,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-296001a35261e6b8349ce0ed4c4b3744"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cd65365d5cfa4b4321b474e71d1e03a8"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -862,7 +1568,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-296001a35261e6b8349ce0ed4c4b3744"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">dnf system-upgrade reboot</code></pre></div>
+    <div class="card-body p-0" id="clipboard-cd65365d5cfa4b4321b474e71d1e03a8"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">dnf system-upgrade reboot</code></pre></div>
   </div>
 </div>
 <p>Вот и всё. Система обновит пакетную базу и перезагрузится.</p>]]></content:encoded><turbo:source/><turbo:topic>Обновление Fedora Linux до актуальной версии</turbo:topic><turbo:content><![CDATA[<p>Новые версии Fedora публикуются каждые 6-8 месяцев. В этой статье я опишу шаги по обновлению дистрибутива между версиями.</p>
@@ -891,7 +1597,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-87386c107e4be5caa23a2b0db534fe47"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-19213dfa1840c397c2a714541016735d"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -900,7 +1606,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-87386c107e4be5caa23a2b0db534fe47"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">dnf install dnf-plugin-system-upgrade</code></pre></div>
+    <div class="card-body p-0" id="clipboard-19213dfa1840c397c2a714541016735d"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">dnf install dnf-plugin-system-upgrade</code></pre></div>
   </div>
 </div>
 <ol start="2">
@@ -928,7 +1634,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-326bc484f6ad8a1245ed4dbca7aa1e2b"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6a1c23cc1b7a112b7b6b54be0d470309"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -937,7 +1643,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-326bc484f6ad8a1245ed4dbca7aa1e2b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">dnf system-upgrade download --releasever=34</code></pre></div>
+    <div class="card-body p-0" id="clipboard-6a1c23cc1b7a112b7b6b54be0d470309"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">dnf system-upgrade download --releasever=34</code></pre></div>
   </div>
 </div>
 <ul>
@@ -968,7 +1674,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-296001a35261e6b8349ce0ed4c4b3744"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cd65365d5cfa4b4321b474e71d1e03a8"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -977,7 +1683,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-296001a35261e6b8349ce0ed4c4b3744"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">dnf system-upgrade reboot</code></pre></div>
+    <div class="card-body p-0" id="clipboard-cd65365d5cfa4b4321b474e71d1e03a8"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">dnf system-upgrade reboot</code></pre></div>
   </div>
 </div>
 <p>Вот и всё. Система обновит пакетную базу и перезагрузится.</p>]]></turbo:content><pubDate>Sat, 15 May 2021 20:29:16 +0000</pubDate><category>Терминал</category><category>Linux</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Настройка статического IP адреса</title><link>https://lib.onl/ru/posts/2021/05/ee559a6c-5cde-5166-9d2d-3ceb55878eb8/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/ee559a6c-5cde-5166-9d2d-3ceb55878eb8/</guid><description>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</description><media:content medium="image" url="https://images.unsplash.com/photo-1544197150-b99a580bb7a8" width="1600" height="900"/><content:encoded><![CDATA[<p>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</p>
@@ -1006,7 +1712,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8a3bd2fed29d2ffae8f7e49798b85cd5"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c3cbf7b07456991f6a8138f3e1cf6e49"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1015,7 +1721,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-8a3bd2fed29d2ffae8f7e49798b85cd5"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
+    <div class="card-body p-0" id="clipboard-c3cbf7b07456991f6a8138f3e1cf6e49"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
 
 1: lo: &lt;loopback,up,lower_up&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
   link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -1050,7 +1756,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cf7aab9b59c7ef3225df91d3c9168c35"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5bb4d9b523a510109d4f07c9b2872584"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1059,7 +1765,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-cf7aab9b59c7ef3225df91d3c9168c35"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
+    <div class="card-body p-0" id="clipboard-5bb4d9b523a510109d4f07c9b2872584"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
 
 TYPE=&#34;Ethernet&#34;
 PROXY_METHOD=&#34;none&#34;
@@ -1102,7 +1808,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-81c163cbeb9a222edfa2bcafaa2285fb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c4398ad7148789b8a503c7a9bd32729a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">PROXY_METHOD</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BROWSER_ONLY</span><span class="o">=</span><span class="s">&#34;no&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BOOTPROTO</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
@@ -1126,7 +1832,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-81c163cbeb9a222edfa2bcafaa2285fb"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c4398ad7148789b8a503c7a9bd32729a"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1160,7 +1866,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6f4b23ff004b813ba6388daaef0375a6"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-46ad62a5379918743bc9d93c0d677f9d"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1169,7 +1875,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-6f4b23ff004b813ba6388daaef0375a6"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-46ad62a5379918743bc9d93c0d677f9d"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>
 <h2 id="настройка-ip-при-помощи-network-manager-cli-nmcli">
@@ -1197,7 +1903,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d3e5de47a5dc9196b40c7de01f289b4f"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b52443858784abe9b50bf012bcdeaca2"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1206,7 +1912,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-d3e5de47a5dc9196b40c7de01f289b4f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-b52443858784abe9b50bf012bcdeaca2"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка шлюза:</p>
@@ -1232,7 +1938,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-48e8b5282bd4b9ae7533e045e52daeb2"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7988a9f756f52f20b63b65fb805169ff"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1241,7 +1947,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-48e8b5282bd4b9ae7533e045e52daeb2"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-7988a9f756f52f20b63b65fb805169ff"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка DNS:</p>
@@ -1267,7 +1973,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-540a6390784d8d51b34e067369adf512"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1c93afded662a22fd9e751ddf78d5fea"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1276,7 +1982,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-540a6390784d8d51b34e067369adf512"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-1c93afded662a22fd9e751ddf78d5fea"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка <strong>BOOTPROTO</strong> в <code>none</code>:</p>
@@ -1302,7 +2008,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2e98e3b23de114ab8285b36208e1985a"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5319381f01c84a21eeb496d2180b9ec1"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1311,7 +2017,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-2e98e3b23de114ab8285b36208e1985a"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-5319381f01c84a21eeb496d2180b9ec1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
   </div>
 </div>
 <p>Перезапуск интерфейса:</p>
@@ -1337,7 +2043,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f1d96143ff71366bbb55245a99e05a90"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f605eff517da1fb505e2d2b2702b0de8"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1346,7 +2052,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-f1d96143ff71366bbb55245a99e05a90"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-f605eff517da1fb505e2d2b2702b0de8"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>]]></content:encoded><turbo:source/><turbo:topic>Настройка статического IP адреса</turbo:topic><turbo:content><![CDATA[<p>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</p>
 <h2 id="подготовка">
@@ -1374,7 +2080,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8a3bd2fed29d2ffae8f7e49798b85cd5"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c3cbf7b07456991f6a8138f3e1cf6e49"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1383,7 +2089,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-8a3bd2fed29d2ffae8f7e49798b85cd5"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
+    <div class="card-body p-0" id="clipboard-c3cbf7b07456991f6a8138f3e1cf6e49"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
 
 1: lo: &lt;loopback,up,lower_up&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
   link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -1418,7 +2124,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cf7aab9b59c7ef3225df91d3c9168c35"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5bb4d9b523a510109d4f07c9b2872584"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1427,7 +2133,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-cf7aab9b59c7ef3225df91d3c9168c35"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
+    <div class="card-body p-0" id="clipboard-5bb4d9b523a510109d4f07c9b2872584"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
 
 TYPE=&#34;Ethernet&#34;
 PROXY_METHOD=&#34;none&#34;
@@ -1470,7 +2176,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-81c163cbeb9a222edfa2bcafaa2285fb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c4398ad7148789b8a503c7a9bd32729a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">PROXY_METHOD</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BROWSER_ONLY</span><span class="o">=</span><span class="s">&#34;no&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BOOTPROTO</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
@@ -1494,7 +2200,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-81c163cbeb9a222edfa2bcafaa2285fb"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c4398ad7148789b8a503c7a9bd32729a"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1528,7 +2234,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6f4b23ff004b813ba6388daaef0375a6"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-46ad62a5379918743bc9d93c0d677f9d"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1537,7 +2243,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-6f4b23ff004b813ba6388daaef0375a6"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-46ad62a5379918743bc9d93c0d677f9d"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>
 <h2 id="настройка-ip-при-помощи-network-manager-cli-nmcli">
@@ -1565,7 +2271,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d3e5de47a5dc9196b40c7de01f289b4f"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b52443858784abe9b50bf012bcdeaca2"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1574,7 +2280,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-d3e5de47a5dc9196b40c7de01f289b4f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-b52443858784abe9b50bf012bcdeaca2"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка шлюза:</p>
@@ -1600,7 +2306,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-48e8b5282bd4b9ae7533e045e52daeb2"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7988a9f756f52f20b63b65fb805169ff"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1609,7 +2315,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-48e8b5282bd4b9ae7533e045e52daeb2"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-7988a9f756f52f20b63b65fb805169ff"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка DNS:</p>
@@ -1635,7 +2341,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-540a6390784d8d51b34e067369adf512"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1c93afded662a22fd9e751ddf78d5fea"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1644,7 +2350,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-540a6390784d8d51b34e067369adf512"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-1c93afded662a22fd9e751ddf78d5fea"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка <strong>BOOTPROTO</strong> в <code>none</code>:</p>
@@ -1670,7 +2376,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2e98e3b23de114ab8285b36208e1985a"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5319381f01c84a21eeb496d2180b9ec1"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1679,7 +2385,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-2e98e3b23de114ab8285b36208e1985a"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-5319381f01c84a21eeb496d2180b9ec1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
   </div>
 </div>
 <p>Перезапуск интерфейса:</p>
@@ -1705,7 +2411,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f1d96143ff71366bbb55245a99e05a90"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f605eff517da1fb505e2d2b2702b0de8"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1714,7 +2420,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-f1d96143ff71366bbb55245a99e05a90"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-f605eff517da1fb505e2d2b2702b0de8"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>]]></turbo:content><pubDate>Sat, 15 May 2021 17:08:30 +0000</pubDate><category>Терминал</category><category>Linux</category><category>Сеть</category><category>В доработке</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Перезагрузка и выключение Linux</title><link>https://lib.onl/ru/posts/2021/05/86db7f3a-17ce-502b-b21d-337c3bba5d58/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/86db7f3a-17ce-502b-b21d-337c3bba5d58/</guid><description>Нередко приходится завершать работу системы через терминал, например, когда компьютер является удалённой рабочей станцией или сервером и вся работа происходит через терминал. В этой статье я постараюсь привести информацию о командах, позволяющих удалённо завершить работу системы.</description><media:content medium="image" url="https://images.unsplash.com/photo-1611780427130-996d9882dc41" width="1600" height="900"/><content:encoded><![CDATA[<p>Нередко приходится завершать работу системы через терминал, например, когда компьютер является удалённой рабочей станцией или сервером и вся работа происходит через терминал. В этой статье я постараюсь привести информацию о командах, позволяющих удалённо завершить работу системы.</p>
 <h2 id="halt--poweroff--reboot">
@@ -1752,14 +2458,14 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fe26afd2ff7816b81fd5b1ef0bef8e78"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">halt [OPTION]
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-de1935226ac89c3027436a38d188913e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">halt [OPTION]
 </span></span><span class="line"><span class="cl">poweroff [OPTION]
 </span></span><span class="line"><span class="cl">reboot [OPTION]</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fe26afd2ff7816b81fd5b1ef0bef8e78"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-de1935226ac89c3027436a38d188913e"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1808,7 +2514,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-529223237a00f46a88be5bcc855dc4ed"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5009ac026cf7d7ab0539d8592ab7b7a7"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1817,7 +2523,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-529223237a00f46a88be5bcc855dc4ed"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r</code></pre></div>
+    <div class="card-body p-0" id="clipboard-5009ac026cf7d7ab0539d8592ab7b7a7"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r</code></pre></div>
   </div>
 </div>
 <p>Команда <code>shutdown</code> поддерживает указание времени, когда ПК должен быть перезагружен или выключен. К примеру, перезагрузить через 5 минут:</p>
@@ -1843,7 +2549,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6d80b5eae4b47096d6054cf878bb7394"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9eb159894b38310974557ec6a6dcbee5"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1852,7 +2558,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-6d80b5eae4b47096d6054cf878bb7394"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r +5</code></pre></div>
+    <div class="card-body p-0" id="clipboard-9eb159894b38310974557ec6a6dcbee5"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r +5</code></pre></div>
   </div>
 </div>
 <p>Также можно указать конкретное время для перезагрузки. Например, перезагрузить ПК в 18:30:</p>
@@ -1878,7 +2584,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e3a62ecc2e5ab9c3b423af05a12d574e"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5421f99e51fb36d510947a7e92aea767"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1887,7 +2593,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-e3a62ecc2e5ab9c3b423af05a12d574e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r 18:30</code></pre></div>
+    <div class="card-body p-0" id="clipboard-5421f99e51fb36d510947a7e92aea767"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r 18:30</code></pre></div>
   </div>
 </div>
 <p>Если перезагрузка или выключение уже запланированы, их можно отменить опцией <code>-c</code>:</p>
@@ -1913,7 +2619,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-711183e25c03c72d66b4544d7847ea4e"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1cef4ff454b70af7b8585a1c82585755"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1922,7 +2628,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-711183e25c03c72d66b4544d7847ea4e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -c</code></pre></div>
+    <div class="card-body p-0" id="clipboard-1cef4ff454b70af7b8585a1c82585755"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -c</code></pre></div>
   </div>
 </div>
 <p>Для немедленной перезагрузки ПК, вместо времени можно ввести <code>now</code>:</p>
@@ -1948,7 +2654,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c4bc9ccf2269c8b2477ea5a980d7755f"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e995bb02c7052e3580afc0f4156be3dc"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1957,7 +2663,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-c4bc9ccf2269c8b2477ea5a980d7755f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r now</code></pre></div>
+    <div class="card-body p-0" id="clipboard-e995bb02c7052e3580afc0f4156be3dc"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r now</code></pre></div>
   </div>
 </div>
 <p>Чтобы выключить ПК через 1 минуту, используется опция <code>-h</code>:</p>
@@ -1983,7 +2689,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-67fb9525ed136d0b61e1899121f2f712"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3cc9bd73ca506e27d9d3618301ee2b2b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1992,7 +2698,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-67fb9525ed136d0b61e1899121f2f712"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -h</code></pre></div>
+    <div class="card-body p-0" id="clipboard-3cc9bd73ca506e27d9d3618301ee2b2b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -h</code></pre></div>
   </div>
 </div>
 <p>На этом всё, ничего сложного нет. 😄</p>]]></content:encoded><turbo:source/><turbo:topic>Перезагрузка и выключение Linux</turbo:topic><turbo:content><![CDATA[<p>Нередко приходится завершать работу системы через терминал, например, когда компьютер является удалённой рабочей станцией или сервером и вся работа происходит через терминал. В этой статье я постараюсь привести информацию о командах, позволяющих удалённо завершить работу системы.</p>
@@ -2031,14 +2737,14 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fe26afd2ff7816b81fd5b1ef0bef8e78"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">halt [OPTION]
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-de1935226ac89c3027436a38d188913e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">halt [OPTION]
 </span></span><span class="line"><span class="cl">poweroff [OPTION]
 </span></span><span class="line"><span class="cl">reboot [OPTION]</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fe26afd2ff7816b81fd5b1ef0bef8e78"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-de1935226ac89c3027436a38d188913e"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2087,7 +2793,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-529223237a00f46a88be5bcc855dc4ed"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5009ac026cf7d7ab0539d8592ab7b7a7"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2096,7 +2802,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-529223237a00f46a88be5bcc855dc4ed"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r</code></pre></div>
+    <div class="card-body p-0" id="clipboard-5009ac026cf7d7ab0539d8592ab7b7a7"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r</code></pre></div>
   </div>
 </div>
 <p>Команда <code>shutdown</code> поддерживает указание времени, когда ПК должен быть перезагружен или выключен. К примеру, перезагрузить через 5 минут:</p>
@@ -2122,7 +2828,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6d80b5eae4b47096d6054cf878bb7394"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9eb159894b38310974557ec6a6dcbee5"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2131,7 +2837,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-6d80b5eae4b47096d6054cf878bb7394"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r +5</code></pre></div>
+    <div class="card-body p-0" id="clipboard-9eb159894b38310974557ec6a6dcbee5"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r +5</code></pre></div>
   </div>
 </div>
 <p>Также можно указать конкретное время для перезагрузки. Например, перезагрузить ПК в 18:30:</p>
@@ -2157,7 +2863,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e3a62ecc2e5ab9c3b423af05a12d574e"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5421f99e51fb36d510947a7e92aea767"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2166,7 +2872,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-e3a62ecc2e5ab9c3b423af05a12d574e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r 18:30</code></pre></div>
+    <div class="card-body p-0" id="clipboard-5421f99e51fb36d510947a7e92aea767"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r 18:30</code></pre></div>
   </div>
 </div>
 <p>Если перезагрузка или выключение уже запланированы, их можно отменить опцией <code>-c</code>:</p>
@@ -2192,7 +2898,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-711183e25c03c72d66b4544d7847ea4e"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1cef4ff454b70af7b8585a1c82585755"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2201,7 +2907,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-711183e25c03c72d66b4544d7847ea4e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -c</code></pre></div>
+    <div class="card-body p-0" id="clipboard-1cef4ff454b70af7b8585a1c82585755"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -c</code></pre></div>
   </div>
 </div>
 <p>Для немедленной перезагрузки ПК, вместо времени можно ввести <code>now</code>:</p>
@@ -2227,7 +2933,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c4bc9ccf2269c8b2477ea5a980d7755f"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e995bb02c7052e3580afc0f4156be3dc"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2236,7 +2942,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-c4bc9ccf2269c8b2477ea5a980d7755f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r now</code></pre></div>
+    <div class="card-body p-0" id="clipboard-e995bb02c7052e3580afc0f4156be3dc"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -r now</code></pre></div>
   </div>
 </div>
 <p>Чтобы выключить ПК через 1 минуту, используется опция <code>-h</code>:</p>
@@ -2262,7 +2968,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-67fb9525ed136d0b61e1899121f2f712"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3cc9bd73ca506e27d9d3618301ee2b2b"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2271,7 +2977,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-67fb9525ed136d0b61e1899121f2f712"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -h</code></pre></div>
+    <div class="card-body p-0" id="clipboard-3cc9bd73ca506e27d9d3618301ee2b2b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">shutdown -h</code></pre></div>
   </div>
 </div>
 <p>На этом всё, ничего сложного нет. 😄</p>]]></turbo:content><pubDate>Wed, 12 May 2021 14:20:47 +0000</pubDate><category>Терминал</category><category>Linux</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Рекурсивное изменение прав доступа на файлы и директории</title><link>https://lib.onl/ru/posts/2021/05/4a3b0a31-0d3d-5a9b-8c07-7e3b4f80669e/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/4a3b0a31-0d3d-5a9b-8c07-7e3b4f80669e/</guid><description>Права доступа к файлам и директориям является неотъемлемой частью любой операционной системы. И в этой статье описаны возможности по рекурсивной настройке этих прав доступа.</description><media:content medium="image" url="https://images.unsplash.com/photo-1569235186275-626cb53b83ce" width="1600" height="900"/><content:encoded><![CDATA[<p>Права доступа к файлам и директориям является неотъемлемой частью любой операционной системы. И в этой статье описаны возможности по рекурсивной настройке этих прав доступа.</p>
@@ -2286,12 +2992,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fc2c0874b3cc101963d1960f8b1704b7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chmod -R MODE DIR</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8d924d6c9e5f5a14687117a57dede1a9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chmod -R MODE DIR</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fc2c0874b3cc101963d1960f8b1704b7"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8d924d6c9e5f5a14687117a57dede1a9"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2318,12 +3024,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-50878343959a9157b928c2c5aa6417d0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chmod -R <span class="m">755</span> /var/www/html</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-16fc28489ee6a7e0a9fd442f8c70909d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chmod -R <span class="m">755</span> /var/www/html</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-50878343959a9157b928c2c5aa6417d0"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-16fc28489ee6a7e0a9fd442f8c70909d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2345,12 +3051,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2e15b69ad503d8feb6b2441ad504e295"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type d -exec chmod <span class="m">755</span> <span class="o">{}</span> <span class="se">\;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c2bc7c532aa78ab7300e3ebe77f8d91f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type d -exec chmod <span class="m">755</span> <span class="o">{}</span> <span class="se">\;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2e15b69ad503d8feb6b2441ad504e295"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c2bc7c532aa78ab7300e3ebe77f8d91f"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2371,12 +3077,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8632a4ec93178419f5dcdf247ff11e01"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type f -exec chmod <span class="m">644</span> <span class="o">{}</span> <span class="se">\;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-16519a7525280da098e82c49d6ee235e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type f -exec chmod <span class="m">644</span> <span class="o">{}</span> <span class="se">\;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8632a4ec93178419f5dcdf247ff11e01"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-16519a7525280da098e82c49d6ee235e"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2398,12 +3104,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9780876a1e04193ba5609234241235a7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type d -print0 <span class="p">|</span> xargs -0 chmod <span class="m">755</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-17b12831e261a4d7be9098a3c58b900e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type d -print0 <span class="p">|</span> xargs -0 chmod <span class="m">755</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9780876a1e04193ba5609234241235a7"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-17b12831e261a4d7be9098a3c58b900e"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2424,12 +3130,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-728b176671ac8cde95468ace21102f77"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type f -print0 <span class="p">|</span> xargs -0 chmod <span class="m">644</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3312fa29007c3a90c9724c83617201a2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type f -print0 <span class="p">|</span> xargs -0 chmod <span class="m">644</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-728b176671ac8cde95468ace21102f77"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3312fa29007c3a90c9724c83617201a2"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2472,12 +3178,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2e9838f18fe8e24d864a23d3982a10f9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find . -type d -print0 <span class="p">|</span> xargs -0 chmod <span class="m">755</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5d5a369e3518a6c826ed075a5226d7f8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find . -type d -print0 <span class="p">|</span> xargs -0 chmod <span class="m">755</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2e9838f18fe8e24d864a23d3982a10f9"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5d5a369e3518a6c826ed075a5226d7f8"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2498,12 +3204,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1bf26de263997c6fb0287e7762932bb2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find . -type f -print0 <span class="p">|</span> xargs -0 chmod <span class="m">644</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-39c180d19f3b25d0131ca7a3b0ff2fe4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find . -type f -print0 <span class="p">|</span> xargs -0 chmod <span class="m">644</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1bf26de263997c6fb0287e7762932bb2"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-39c180d19f3b25d0131ca7a3b0ff2fe4"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2523,12 +3229,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fc2c0874b3cc101963d1960f8b1704b7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chmod -R MODE DIR</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8d924d6c9e5f5a14687117a57dede1a9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chmod -R MODE DIR</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fc2c0874b3cc101963d1960f8b1704b7"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8d924d6c9e5f5a14687117a57dede1a9"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2555,12 +3261,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-50878343959a9157b928c2c5aa6417d0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chmod -R <span class="m">755</span> /var/www/html</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-16fc28489ee6a7e0a9fd442f8c70909d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chmod -R <span class="m">755</span> /var/www/html</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-50878343959a9157b928c2c5aa6417d0"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-16fc28489ee6a7e0a9fd442f8c70909d"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2582,12 +3288,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2e15b69ad503d8feb6b2441ad504e295"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type d -exec chmod <span class="m">755</span> <span class="o">{}</span> <span class="se">\;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c2bc7c532aa78ab7300e3ebe77f8d91f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type d -exec chmod <span class="m">755</span> <span class="o">{}</span> <span class="se">\;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2e15b69ad503d8feb6b2441ad504e295"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c2bc7c532aa78ab7300e3ebe77f8d91f"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2608,12 +3314,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8632a4ec93178419f5dcdf247ff11e01"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type f -exec chmod <span class="m">644</span> <span class="o">{}</span> <span class="se">\;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-16519a7525280da098e82c49d6ee235e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type f -exec chmod <span class="m">644</span> <span class="o">{}</span> <span class="se">\;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8632a4ec93178419f5dcdf247ff11e01"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-16519a7525280da098e82c49d6ee235e"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2635,12 +3341,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9780876a1e04193ba5609234241235a7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type d -print0 <span class="p">|</span> xargs -0 chmod <span class="m">755</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-17b12831e261a4d7be9098a3c58b900e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type d -print0 <span class="p">|</span> xargs -0 chmod <span class="m">755</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9780876a1e04193ba5609234241235a7"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-17b12831e261a4d7be9098a3c58b900e"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2661,12 +3367,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-728b176671ac8cde95468ace21102f77"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type f -print0 <span class="p">|</span> xargs -0 chmod <span class="m">644</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3312fa29007c3a90c9724c83617201a2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find /var/www/html -type f -print0 <span class="p">|</span> xargs -0 chmod <span class="m">644</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-728b176671ac8cde95468ace21102f77"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3312fa29007c3a90c9724c83617201a2"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2709,12 +3415,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2e9838f18fe8e24d864a23d3982a10f9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find . -type d -print0 <span class="p">|</span> xargs -0 chmod <span class="m">755</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5d5a369e3518a6c826ed075a5226d7f8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find . -type d -print0 <span class="p">|</span> xargs -0 chmod <span class="m">755</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2e9838f18fe8e24d864a23d3982a10f9"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5d5a369e3518a6c826ed075a5226d7f8"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2735,12 +3441,12 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1bf26de263997c6fb0287e7762932bb2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find . -type f -print0 <span class="p">|</span> xargs -0 chmod <span class="m">644</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-39c180d19f3b25d0131ca7a3b0ff2fe4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find . -type f -print0 <span class="p">|</span> xargs -0 chmod <span class="m">644</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1bf26de263997c6fb0287e7762932bb2"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-39c180d19f3b25d0131ca7a3b0ff2fe4"
                role="button">
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2796,7 +3502,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-336a338e4144b942174f637fc10bd34b"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-332833ec98dd6fd2d756f1e3c0b70a60"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2805,7 +3511,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-336a338e4144b942174f637fc10bd34b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lscpu
+    <div class="card-body p-0" id="clipboard-332833ec98dd6fd2d756f1e3c0b70a60"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lscpu
 
 Architecture:                    x86_64
 CPU op-mode(s):                  32-bit, 64-bit
@@ -2859,7 +3565,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b91869bb44d4bde57ffcb250031645e3"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b93273161a339ce0a517f4d4e990927d"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2868,7 +3574,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-b91869bb44d4bde57ffcb250031645e3"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lspci
+    <div class="card-body p-0" id="clipboard-b93273161a339ce0a517f4d4e990927d"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lspci
 
 00:00.0 Host bridge: Intel Corporation Comet Lake-S 6c Host Bridge/DRAM Controller (rev 05)
 00:01.0 PCI bridge: Intel Corporation 6th-10th Gen Core Processor PCIe Controller (x16) (rev 05)
@@ -2916,7 +3622,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4391c48e17b0ed21f9b53be13bbdc3cb"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-394d2a9c461ccd45d9acc1c8a259e19e"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2925,7 +3631,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-4391c48e17b0ed21f9b53be13bbdc3cb"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsblk
+    <div class="card-body p-0" id="clipboard-394d2a9c461ccd45d9acc1c8a259e19e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsblk
 
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 sda      8:0    0 232.9G  0 disk
@@ -2972,7 +3678,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-172d7c825ab8f43320545ea04f6d1177"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b4aead190c4fd53ce960fe04ef85bdc"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2981,7 +3687,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-172d7c825ab8f43320545ea04f6d1177"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsmod
+    <div class="card-body p-0" id="clipboard-4b4aead190c4fd53ce960fe04ef85bdc"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsmod
 
 Module                  Size  Used by
 exfat                  81920  1
@@ -3053,7 +3759,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-336a338e4144b942174f637fc10bd34b"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-332833ec98dd6fd2d756f1e3c0b70a60"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -3062,7 +3768,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-336a338e4144b942174f637fc10bd34b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lscpu
+    <div class="card-body p-0" id="clipboard-332833ec98dd6fd2d756f1e3c0b70a60"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lscpu
 
 Architecture:                    x86_64
 CPU op-mode(s):                  32-bit, 64-bit
@@ -3116,7 +3822,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b91869bb44d4bde57ffcb250031645e3"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b93273161a339ce0a517f4d4e990927d"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -3125,7 +3831,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-b91869bb44d4bde57ffcb250031645e3"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lspci
+    <div class="card-body p-0" id="clipboard-b93273161a339ce0a517f4d4e990927d"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lspci
 
 00:00.0 Host bridge: Intel Corporation Comet Lake-S 6c Host Bridge/DRAM Controller (rev 05)
 00:01.0 PCI bridge: Intel Corporation 6th-10th Gen Core Processor PCIe Controller (x16) (rev 05)
@@ -3173,7 +3879,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4391c48e17b0ed21f9b53be13bbdc3cb"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-394d2a9c461ccd45d9acc1c8a259e19e"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -3182,7 +3888,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-4391c48e17b0ed21f9b53be13bbdc3cb"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsblk
+    <div class="card-body p-0" id="clipboard-394d2a9c461ccd45d9acc1c8a259e19e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsblk
 
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 sda      8:0    0 232.9G  0 disk
@@ -3229,7 +3935,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-172d7c825ab8f43320545ea04f6d1177"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b4aead190c4fd53ce960fe04ef85bdc"
                  role="button">
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -3238,7 +3944,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-172d7c825ab8f43320545ea04f6d1177"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsmod
+    <div class="card-body p-0" id="clipboard-4b4aead190c4fd53ce960fe04ef85bdc"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">lsmod
 
 Module                  Size  Used by
 exfat                  81920  1

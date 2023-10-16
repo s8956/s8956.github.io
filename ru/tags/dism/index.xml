@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>dism / Library Online</title><link>https://lib.onl/ru/tags/dism/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/dism/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>dism / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Mon, 09 May 2022 12:39:47 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/dism/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Интеграция обновлений в дистрибутив ОС MS Windows</title><link>https://lib.onl/ru/posts/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/</guid><description>Microsoft каждый месяц выпускает новые версии дистрибутивов с уже интегрированными обновлениями. Но есть редакции ОС, например LTSC, для которых Microsoft не выполняет подобные действия. Приходится делать самому&amp;hellip;</description><media:content medium="image" url="https://images.unsplash.com/photo-1620843002805-05a08cb72f57" width="1600" height="900"/><content:encoded><![CDATA[<p>Microsoft каждый месяц выпускает новые версии дистрибутивов с уже интегрированными обновлениями. Но есть редакции ОС, например LTSC, для которых Microsoft не выполняет подобные действия. Приходится делать самому&hellip;</p>
+<h2 id="подготовка">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
+</h2><p>Для интеграции обновлений в дистрибутив ОС, потребуется:</p>
+<ul>
+<li>Дистрибутив операционной системы в файле <code>.iso</code>.</li>
+<li>Доступ в интернет для скачивания необходимых инструментов и обновлений.</li>
+<li>Рекомендуется <strong>SSD</strong>. Все ниже приведённые этапы требуют активной работы с файлами. Поэтому, существенное ускорение можно получить выполняя все задачи на SSD.</li>
+</ul>
+<h3 id="структура-директорий">
+  <a class="link-body-emphasis" href="#%d1%81%d1%82%d1%80%d1%83%d0%ba%d1%82%d1%83%d1%80%d0%b0-%d0%b4%d0%b8%d1%80%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b8%d0%b9">Структура директорий</a>
+</h3><p>Для начала необходимо создать структуру директорий, которая послужит базисом для процесса интеграции обновлений:</p>
+<ul>
+<li><code>C:\BuildFarm</code> - корневая директория для работы.
+<ul>
+<li><code>\MNT</code> - директория, в которую будет монтироваться образ WIM.</li>
+<li><code>\UPD</code> - директория для хранения скаченных обновлений.</li>
+<li><code>\WIM</code> - директория для хранения образа WIM.</li>
+</ul>
+</li>
+</ul>
+<h3 id="ms-dism">
+  <a class="link-body-emphasis" href="#ms-dism">MS DISM</a>
+</h3><p>Для интеграции обновлений потребуется инструмент <strong>Deployment Image Servicing and Management (DISM)</strong> (<code>DISM.exe</code>), который входит в комплект <a title="" href="https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install" target="_blank" rel="noopener noreferrer nofollow">Windows Assessment and Deployment Kit (Windows ADK)</a>. Обычно, DISM уже поставляется с операционной системой, но я рекомендую <a title="" href="https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install#other-adk-downloads" target="_blank" rel="noopener noreferrer nofollow">скачивать</a> последнюю версию с сайта Microsoft и устанавливать вручную.</p>
+<p>Когда Windows ADK установлен, DISM можно найти в меню <strong>&ldquo;Пуск&rdquo;</strong> вместе с остальными программам. Запускать DISM необходимо под администратором. Все команды, приведённые ниже, должны будут выполняться только через установленный вручную DISM. Использовать DISM, поставляемый с операционной системой нет необходимости.</p>
+<h2 id="интеграция-обновлений">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9">Интеграция обновлений</a>
+</h2><p>Обновления можно скачивать с сайта-каталога <a title="" href="https://www.catalog.update.microsoft.com/" target="_blank" rel="noopener noreferrer nofollow">Microsoft Update Catalog</a>. Я беру так называемые &ldquo;кумулятивные (накопительные) обновления&rdquo; (cumulative updates), содержащие в себе сразу множество пакетов с исправлениями и обновлениями функций. <a title="" href="https://www.catalog.update.microsoft.com/Search.aspx?q=cumulative%20update" target="_blank" rel="noopener noreferrer nofollow">Найти</a> такие крупные обновления можно в каталоге при помощи поискового запроса <code>cumulative update</code>.</p>
+<p>Скачиваемые обновления помещаются в директорию <code>C:\BuildFarm\UPD</code> для дальнейшей интеграции в дистрибутив ОС.</p>
+<h3 id="извлечение-файла-wim-из-дистрибутива-ms-windows">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%b7%d0%b2%d0%bb%d0%b5%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-%d1%84%d0%b0%d0%b9%d0%bb%d0%b0-wim-%d0%b8%d0%b7-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0-ms-windows">Извлечение файла WIM из дистрибутива MS Windows</a>
+</h3><p>Образ ОС находится в специальном файле <code>sources\install.wim</code>. Его необходимо извлечь при помощи программ для работы с файлами <code>.iso</code> (подойдёт <a title="" href="https://www.ultraiso.com" target="_blank" rel="noopener noreferrer nofollow">UltraISO</a> или <a title="" href="https://www.poweriso.com" target="_blank" rel="noopener noreferrer nofollow">PowerISO</a>) в директорию <code>C:\BuildFarm\WIM</code>.</p>
+<h3 id="получение-информации-из-wim-образа">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%bb%d1%83%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b8%d0%bd%d1%84%d0%be%d1%80%d0%bc%d0%b0%d1%86%d0%b8%d0%b8-%d0%b8%d0%b7-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b0">Получение информации из WIM-образа</a>
+</h3><p>Файл <code>install.wim</code> может содержать несколько редакций ОС. Каждая редакция ОС имеет свой индекс. Для того, чтобы увидеть эти индексы, нужно ввести команду:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-71f0893dd0d73cf518e95ffe67adbb5f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-71f0893dd0d73cf518e95ffe67adbb5f"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Get-ImageInfo</code> - получить информацию о версиях операционной системы, находящихся в WIM-образ.</li>
+<li><code>/ImageFile</code> - путь к WIM-образу.</li>
+</ul>
+<p>Введённая команда предоставит примерно такой выхлоп:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-windows
+shortcode-codeblock-terminal-windows-root">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 text-danger">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-762b13165fa4f0aa9c6c683e7a4b924f"
+                 role="button">
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-762b13165fa4f0aa9c6c683e7a4b924f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
+
+Details for image : C:\BuildFarm\WIM\install.wim
+
+Index : 1
+Name : Windows 10 Education
+Description : Windows 10 Education
+Size : 15,643,499,526 bytes
+
+Index : 2
+Name : Windows 10 Education N
+Description : Windows 10 Education N
+Size : 14,878,972,660 bytes
+
+Index : 3
+Name : Windows 10 Enterprise
+Description : Windows 10 Enterprise
+Size : 15,643,653,521 bytes
+
+Index : 4
+Name : Windows 10 Enterprise N
+Description : Windows 10 Enterprise N
+Size : 14,878,878,937 bytes
+
+Index : 5
+Name : Windows 10 Pro
+Description : Windows 10 Pro
+Size : 15,658,943,281 bytes
+
+&lt;...&gt;
+Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre></div>
+  </div>
+</div>
+<h3 id="монтирование-wim-образа">
+  <a class="link-body-emphasis" href="#%d0%bc%d0%be%d0%bd%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b0">Монтирование WIM-образа</a>
+</h3><p>Индексы получены. Теперь необходимо примонтировать редакцию ОС из конкретного индекса. Выбор индекса зависит от вас: выбираете индекс той редакции ОС, которая вам необходима. Я выбрал редакцию <strong>Windows 10 Pro</strong> с индексом <code>5</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1c0c51b469a28cfb339c3ec8b0b3a5e1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1c0c51b469a28cfb339c3ec8b0b3a5e1"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Mount-Image</code> - команда на монтирование WIM-образа.</li>
+<li><code>/MountDir</code> - путь к директории, в которую необходимо поместить содержимое монтируемого WIM-образа.</li>
+<li><code>/index:5</code> - номер версии дистрибутива ОС. Номер можно узнать командой <code>/Get-ImageInfo</code>.</li>
+</ul>
+<h3 id="интеграция-обновлений-в-wim-образ">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9-%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7">Интеграция обновлений в WIM-образ</a>
+</h3><p>После монтирования редакции ОС с конкретным индексом, можно начинать процесс интеграции обновлений:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c9dc41023bdc6dbf94253d567dadb716"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c9dc41023bdc6dbf94253d567dadb716"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Add-Package</code> - команда на добавление пакетов (обновлений) в WIM-образ.
+<ul>
+<li><code>/PackagePath</code> - путь к директории, в которой находятся пакеты (обновления) для интеграции в WIM-образ.</li>
+</ul>
+</li>
+</ul>
+<h3 id="проверка-корректности-интеграции-обновлений-опционально">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%be%d0%b2%d0%b5%d1%80%d0%ba%d0%b0-%d0%ba%d0%be%d1%80%d1%80%d0%b5%d0%ba%d1%82%d0%bd%d0%be%d1%81%d1%82%d0%b8-%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d0%b8-%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9-%d0%be%d0%bf%d1%86%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d0%be">Проверка корректности интеграции обновлений (опционально)</a>
+</h3><p>По окончании процесса интеграции, можно проверить корректность выполненной задачи. Команда ниже покажет список пакетов, установленных в примонтированной редакции ОС. В этом списке пакетов будут интегрированные обновления.</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5bfe9f6cd26d23a7aaea1e344e10711d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5bfe9f6cd26d23a7aaea1e344e10711d"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Get-Packages</code> - команда для получения информации о интегрированных пакетах примонтированного WIM-образа.</li>
+</ul>
+<h3 id="очистка-хранилища-компонентов-wim-образ-опционально">
+  <a class="link-body-emphasis" href="#%d0%be%d1%87%d0%b8%d1%81%d1%82%d0%ba%d0%b0-%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b0-%d0%ba%d0%be%d0%bc%d0%bf%d0%be%d0%bd%d0%b5%d0%bd%d1%82%d0%be%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7-%d0%be%d0%bf%d1%86%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d0%be">Очистка хранилища компонентов WIM-образ (опционально)</a>
+</h3><p>Для уменьшения размера дистрибутива можно запустить процедуру удаления предыдущих версий компонентов, которые были изменены (заменены) установленными обновлениями:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c47896efb0a8dc0782aa643f80095a0a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c47896efb0a8dc0782aa643f80095a0a"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Cleanup-Image</code> - очистка и восстановление образа.
+<ul>
+<li><code>/StartComponentCleanup</code> - удаляет заменённые компоненты и уменьшает размер хранилища компонентов.
+<ul>
+<li><code>/ResetBase</code> - сброс базы заменяемых компонентов.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="проверка-хранилища-компонентов-wim-образа-опционально">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%be%d0%b2%d0%b5%d1%80%d0%ba%d0%b0-%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b0-%d0%ba%d0%be%d0%bc%d0%bf%d0%be%d0%bd%d0%b5%d0%bd%d1%82%d0%be%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b0-%d0%be%d0%bf%d1%86%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d0%be">Проверка хранилища компонентов WIM-образа (опционально)</a>
+</h3><p>Опциональный шаг перед заключительным этапом - проверить системные компоненты и файлы на повреждения:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3a26a13e22ea3bd5031aab2c0fa773cd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3a26a13e22ea3bd5031aab2c0fa773cd"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Cleanup-Image</code> - очистка и восстановление образа.
+<ul>
+<li><code>/ScanHealth</code> - сканирование образа на наличие повреждений хранилища компонентов.</li>
+</ul>
+</li>
+</ul>
+<h3 id="сохранение-изменений-в-wim-образе">
+  <a class="link-body-emphasis" href="#%d1%81%d0%be%d1%85%d1%80%d0%b0%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b9-%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b5">Сохранение изменений в WIM-образе</a>
+</h3><p>После выполнения всех действий, необходимо отмонтировать редакцию ОС с сохранением изменений. Делается это командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-513bec2e2a8a2f9c51a45c8ff0c2eae9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-513bec2e2a8a2f9c51a45c8ff0c2eae9"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Unmount-Image</code> - команда для отмонтирования WIM-образа.</li>
+<li><code>/MountDir</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Commit</code> - сохранение совершённых изменений в WIM-образе.</li>
+</ul>
+<p>Всё. Мы получили файл <code>install.wim</code> с интегрированными обновлениями. Теперь этот файл <code>install.wim</code> необходимо обратно упаковать в образ ISO с заменой старого.</p>]]></content:encoded><turbo:source/><turbo:topic>Интеграция обновлений в дистрибутив ОС MS Windows</turbo:topic><turbo:content><![CDATA[<p>Microsoft каждый месяц выпускает новые версии дистрибутивов с уже интегрированными обновлениями. Но есть редакции ОС, например LTSC, для которых Microsoft не выполняет подобные действия. Приходится делать самому&hellip;</p>
+<h2 id="подготовка">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
+</h2><p>Для интеграции обновлений в дистрибутив ОС, потребуется:</p>
+<ul>
+<li>Дистрибутив операционной системы в файле <code>.iso</code>.</li>
+<li>Доступ в интернет для скачивания необходимых инструментов и обновлений.</li>
+<li>Рекомендуется <strong>SSD</strong>. Все ниже приведённые этапы требуют активной работы с файлами. Поэтому, существенное ускорение можно получить выполняя все задачи на SSD.</li>
+</ul>
+<h3 id="структура-директорий">
+  <a class="link-body-emphasis" href="#%d1%81%d1%82%d1%80%d1%83%d0%ba%d1%82%d1%83%d1%80%d0%b0-%d0%b4%d0%b8%d1%80%d0%b5%d0%ba%d1%82%d0%be%d1%80%d0%b8%d0%b9">Структура директорий</a>
+</h3><p>Для начала необходимо создать структуру директорий, которая послужит базисом для процесса интеграции обновлений:</p>
+<ul>
+<li><code>C:\BuildFarm</code> - корневая директория для работы.
+<ul>
+<li><code>\MNT</code> - директория, в которую будет монтироваться образ WIM.</li>
+<li><code>\UPD</code> - директория для хранения скаченных обновлений.</li>
+<li><code>\WIM</code> - директория для хранения образа WIM.</li>
+</ul>
+</li>
+</ul>
+<h3 id="ms-dism">
+  <a class="link-body-emphasis" href="#ms-dism">MS DISM</a>
+</h3><p>Для интеграции обновлений потребуется инструмент <strong>Deployment Image Servicing and Management (DISM)</strong> (<code>DISM.exe</code>), который входит в комплект <a title="" href="https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install" target="_blank" rel="noopener noreferrer nofollow">Windows Assessment and Deployment Kit (Windows ADK)</a>. Обычно, DISM уже поставляется с операционной системой, но я рекомендую <a title="" href="https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install#other-adk-downloads" target="_blank" rel="noopener noreferrer nofollow">скачивать</a> последнюю версию с сайта Microsoft и устанавливать вручную.</p>
+<p>Когда Windows ADK установлен, DISM можно найти в меню <strong>&ldquo;Пуск&rdquo;</strong> вместе с остальными программам. Запускать DISM необходимо под администратором. Все команды, приведённые ниже, должны будут выполняться только через установленный вручную DISM. Использовать DISM, поставляемый с операционной системой нет необходимости.</p>
+<h2 id="интеграция-обновлений">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9">Интеграция обновлений</a>
+</h2><p>Обновления можно скачивать с сайта-каталога <a title="" href="https://www.catalog.update.microsoft.com/" target="_blank" rel="noopener noreferrer nofollow">Microsoft Update Catalog</a>. Я беру так называемые &ldquo;кумулятивные (накопительные) обновления&rdquo; (cumulative updates), содержащие в себе сразу множество пакетов с исправлениями и обновлениями функций. <a title="" href="https://www.catalog.update.microsoft.com/Search.aspx?q=cumulative%20update" target="_blank" rel="noopener noreferrer nofollow">Найти</a> такие крупные обновления можно в каталоге при помощи поискового запроса <code>cumulative update</code>.</p>
+<p>Скачиваемые обновления помещаются в директорию <code>C:\BuildFarm\UPD</code> для дальнейшей интеграции в дистрибутив ОС.</p>
+<h3 id="извлечение-файла-wim-из-дистрибутива-ms-windows">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%b7%d0%b2%d0%bb%d0%b5%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-%d1%84%d0%b0%d0%b9%d0%bb%d0%b0-wim-%d0%b8%d0%b7-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d0%b0-ms-windows">Извлечение файла WIM из дистрибутива MS Windows</a>
+</h3><p>Образ ОС находится в специальном файле <code>sources\install.wim</code>. Его необходимо извлечь при помощи программ для работы с файлами <code>.iso</code> (подойдёт <a title="" href="https://www.ultraiso.com" target="_blank" rel="noopener noreferrer nofollow">UltraISO</a> или <a title="" href="https://www.poweriso.com" target="_blank" rel="noopener noreferrer nofollow">PowerISO</a>) в директорию <code>C:\BuildFarm\WIM</code>.</p>
+<h3 id="получение-информации-из-wim-образа">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%bb%d1%83%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b8%d0%bd%d1%84%d0%be%d1%80%d0%bc%d0%b0%d1%86%d0%b8%d0%b8-%d0%b8%d0%b7-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b0">Получение информации из WIM-образа</a>
+</h3><p>Файл <code>install.wim</code> может содержать несколько редакций ОС. Каждая редакция ОС имеет свой индекс. Для того, чтобы увидеть эти индексы, нужно ввести команду:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-71f0893dd0d73cf518e95ffe67adbb5f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-71f0893dd0d73cf518e95ffe67adbb5f"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Get-ImageInfo</code> - получить информацию о версиях операционной системы, находящихся в WIM-образ.</li>
+<li><code>/ImageFile</code> - путь к WIM-образу.</li>
+</ul>
+<p>Введённая команда предоставит примерно такой выхлоп:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-windows
+shortcode-codeblock-terminal-windows-root">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 text-danger">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-762b13165fa4f0aa9c6c683e7a4b924f"
+                 role="button">
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-762b13165fa4f0aa9c6c683e7a4b924f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
+
+Details for image : C:\BuildFarm\WIM\install.wim
+
+Index : 1
+Name : Windows 10 Education
+Description : Windows 10 Education
+Size : 15,643,499,526 bytes
+
+Index : 2
+Name : Windows 10 Education N
+Description : Windows 10 Education N
+Size : 14,878,972,660 bytes
+
+Index : 3
+Name : Windows 10 Enterprise
+Description : Windows 10 Enterprise
+Size : 15,643,653,521 bytes
+
+Index : 4
+Name : Windows 10 Enterprise N
+Description : Windows 10 Enterprise N
+Size : 14,878,878,937 bytes
+
+Index : 5
+Name : Windows 10 Pro
+Description : Windows 10 Pro
+Size : 15,658,943,281 bytes
+
+&lt;...&gt;
+Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre></div>
+  </div>
+</div>
+<h3 id="монтирование-wim-образа">
+  <a class="link-body-emphasis" href="#%d0%bc%d0%be%d0%bd%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b0">Монтирование WIM-образа</a>
+</h3><p>Индексы получены. Теперь необходимо примонтировать редакцию ОС из конкретного индекса. Выбор индекса зависит от вас: выбираете индекс той редакции ОС, которая вам необходима. Я выбрал редакцию <strong>Windows 10 Pro</strong> с индексом <code>5</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1c0c51b469a28cfb339c3ec8b0b3a5e1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1c0c51b469a28cfb339c3ec8b0b3a5e1"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Mount-Image</code> - команда на монтирование WIM-образа.</li>
+<li><code>/MountDir</code> - путь к директории, в которую необходимо поместить содержимое монтируемого WIM-образа.</li>
+<li><code>/index:5</code> - номер версии дистрибутива ОС. Номер можно узнать командой <code>/Get-ImageInfo</code>.</li>
+</ul>
+<h3 id="интеграция-обновлений-в-wim-образ">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9-%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7">Интеграция обновлений в WIM-образ</a>
+</h3><p>После монтирования редакции ОС с конкретным индексом, можно начинать процесс интеграции обновлений:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c9dc41023bdc6dbf94253d567dadb716"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c9dc41023bdc6dbf94253d567dadb716"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Add-Package</code> - команда на добавление пакетов (обновлений) в WIM-образ.
+<ul>
+<li><code>/PackagePath</code> - путь к директории, в которой находятся пакеты (обновления) для интеграции в WIM-образ.</li>
+</ul>
+</li>
+</ul>
+<h3 id="проверка-корректности-интеграции-обновлений-опционально">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%be%d0%b2%d0%b5%d1%80%d0%ba%d0%b0-%d0%ba%d0%be%d1%80%d1%80%d0%b5%d0%ba%d1%82%d0%bd%d0%be%d1%81%d1%82%d0%b8-%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d0%b8-%d0%be%d0%b1%d0%bd%d0%be%d0%b2%d0%bb%d0%b5%d0%bd%d0%b8%d0%b9-%d0%be%d0%bf%d1%86%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d0%be">Проверка корректности интеграции обновлений (опционально)</a>
+</h3><p>По окончании процесса интеграции, можно проверить корректность выполненной задачи. Команда ниже покажет список пакетов, установленных в примонтированной редакции ОС. В этом списке пакетов будут интегрированные обновления.</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5bfe9f6cd26d23a7aaea1e344e10711d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5bfe9f6cd26d23a7aaea1e344e10711d"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Get-Packages</code> - команда для получения информации о интегрированных пакетах примонтированного WIM-образа.</li>
+</ul>
+<h3 id="очистка-хранилища-компонентов-wim-образ-опционально">
+  <a class="link-body-emphasis" href="#%d0%be%d1%87%d0%b8%d1%81%d1%82%d0%ba%d0%b0-%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b0-%d0%ba%d0%be%d0%bc%d0%bf%d0%be%d0%bd%d0%b5%d0%bd%d1%82%d0%be%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7-%d0%be%d0%bf%d1%86%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d0%be">Очистка хранилища компонентов WIM-образ (опционально)</a>
+</h3><p>Для уменьшения размера дистрибутива можно запустить процедуру удаления предыдущих версий компонентов, которые были изменены (заменены) установленными обновлениями:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c47896efb0a8dc0782aa643f80095a0a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c47896efb0a8dc0782aa643f80095a0a"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Cleanup-Image</code> - очистка и восстановление образа.
+<ul>
+<li><code>/StartComponentCleanup</code> - удаляет заменённые компоненты и уменьшает размер хранилища компонентов.
+<ul>
+<li><code>/ResetBase</code> - сброс базы заменяемых компонентов.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="проверка-хранилища-компонентов-wim-образа-опционально">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%be%d0%b2%d0%b5%d1%80%d0%ba%d0%b0-%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b0-%d0%ba%d0%be%d0%bc%d0%bf%d0%be%d0%bd%d0%b5%d0%bd%d1%82%d0%be%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b0-%d0%be%d0%bf%d1%86%d0%b8%d0%be%d0%bd%d0%b0%d0%bb%d1%8c%d0%bd%d0%be">Проверка хранилища компонентов WIM-образа (опционально)</a>
+</h3><p>Опциональный шаг перед заключительным этапом - проверить системные компоненты и файлы на повреждения:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3a26a13e22ea3bd5031aab2c0fa773cd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3a26a13e22ea3bd5031aab2c0fa773cd"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Image</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Cleanup-Image</code> - очистка и восстановление образа.
+<ul>
+<li><code>/ScanHealth</code> - сканирование образа на наличие повреждений хранилища компонентов.</li>
+</ul>
+</li>
+</ul>
+<h3 id="сохранение-изменений-в-wim-образе">
+  <a class="link-body-emphasis" href="#%d1%81%d0%be%d1%85%d1%80%d0%b0%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b9-%d0%b2-wim-%d0%be%d0%b1%d1%80%d0%b0%d0%b7%d0%b5">Сохранение изменений в WIM-образе</a>
+</h3><p>После выполнения всех действий, необходимо отмонтировать редакцию ОС с сохранением изменений. Делается это командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-513bec2e2a8a2f9c51a45c8ff0c2eae9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-513bec2e2a8a2f9c51a45c8ff0c2eae9"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/Unmount-Image</code> - команда для отмонтирования WIM-образа.</li>
+<li><code>/MountDir</code> - путь к директории, в которой находится содержимое примонтированного WIM-образа.</li>
+<li><code>/Commit</code> - сохранение совершённых изменений в WIM-образе.</li>
+</ul>
+<p>Всё. Мы получили файл <code>install.wim</code> с интегрированными обновлениями. Теперь этот файл <code>install.wim</code> необходимо обратно упаковать в образ ISO с заменой старого.</p>]]></turbo:content><pubDate>Mon, 09 May 2022 12:39:47 +0000</pubDate><category>MS Windows</category><category>Терминал</category></item></channel></rss>
