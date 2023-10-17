@@ -1,0 +1,3399 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>forum / Library Online</title><link>https://lib.onl/ru/tags/forum/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/forum/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>forum / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Mon, 16 Oct 2023 23:59:21 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/forum/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>SQL запросы IP.Board 2.3</title><link>https://lib.onl/ru/posts/2023/10/54d4e488-9a8f-55ed-8fea-c77d4dba0720/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/54d4e488-9a8f-55ed-8fea-c77d4dba0720/</guid><description>Запросы для базы дынных IP.Board 2.3. Информация со старых проектов. Пригодится.</description><media:content medium="image" url="https://images.unsplash.com/photo-1662026911591-335639b11db6" width="1600" height="900"/><content:encoded><![CDATA[<p>Запросы для базы дынных <strong>IP.Board 2.3</strong>. Информация со старых проектов. Пригодится.</p>
+<h2 id="sql-запросы">
+  <a class="link-body-emphasis" href="#sql-%d0%b7%d0%b0%d0%bf%d1%80%d0%be%d1%81%d1%8b">SQL запросы</a>
+</h2><ol>
+<li>Заменить определённый текст во всех сообщениях на форуме.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-94dcd0cec3eeb39915188c51ee0cb4df"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_posts</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">post</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">REPLACE</span><span class="p">(</span><span class="n">post</span><span class="p">,</span><span class="s1">&#39;старый текст&#39;</span><span class="p">,</span><span class="s1">&#39;новый текст&#39;</span><span class="p">);</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-94dcd0cec3eeb39915188c51ee0cb4df"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Заменить текст во всех описаниях форумов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-354390260478862bc509404fcda7b78b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_forums</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">REPLACE</span><span class="p">(</span><span class="n">description</span><span class="p">,</span><span class="s1">&#39;старый текст&#39;</span><span class="p">,</span><span class="s1">&#39;новый текст&#39;</span><span class="p">);</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-354390260478862bc509404fcda7b78b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Очистка журнала предупреждений конкретного пользователя, где X — вставить id пользователя, чей журнал вы хотите очистить.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ca07dfe46eab6ee733eaf315d37a8930"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_warn_logs</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">wlog_mid</span><span class="o">=</span><span class="n">X</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ca07dfe46eab6ee733eaf315d37a8930"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Удалить подписи у всех пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1ebea1ce84000ec85491a7286386e95e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_member_extra</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">signature</span><span class="o">=</span><span class="s1">&#39;Ваша подпись удалена&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1ebea1ce84000ec85491a7286386e95e"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="5">
+<li>Удаление модераторов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d53c29839ea05b787f967668247b61fd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_moderators</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d53c29839ea05b787f967668247b61fd"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="6">
+<li>Удаление модератора из всех форумов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b48c9b536a12dc7d917a59050ad4e1b9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_moderators</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">member_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">XX</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b48c9b536a12dc7d917a59050ad4e1b9"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="7">
+<li>Удаление модератора из определённых форумов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-21d497f74bd435a3b94c891c166a8609"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_moderators</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">member_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">XX</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">forum_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p">);</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-21d497f74bd435a3b94c891c166a8609"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="8">
+<li>Удаление аватаров у всех пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-37a7ed546697b95c1f22e53932cdd778"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_member_extra</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">avatar_location</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">avatar_size</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-37a7ed546697b95c1f22e53932cdd778"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="9">
+<li>Если не работает, то выполните следующие два запроса:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-295b0efd94ae321e8184bd9c041e8653"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_member_extra</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">avatar_location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-295b0efd94ae321e8184bd9c041e8653"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e1bf6c178e298a6a9aeae47fbc1ed45c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_member_extra</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">avatar_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e1bf6c178e298a6a9aeae47fbc1ed45c"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="10">
+<li>Массовый перенос пользователей c определённым количеством сообщений из одной группы в другую.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0432fefe4f9dd9c6dc900aa4b257eb7b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_members</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">mgroup</span><span class="o">=</span><span class="err">Б</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">mgroup</span><span class="o">=</span><span class="err">А</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0432fefe4f9dd9c6dc900aa4b257eb7b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="11">
+<li>Удалить пользователей определенной группы, где b меняете на номер группы.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-34a8fc03d6e6002f09326c73c793afab"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_members</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">mgroup</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-34a8fc03d6e6002f09326c73c793afab"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="12">
+<li>Удалить все ICQ номера пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-62d7cd5e39f8c4624f4c1dc1630f84db"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_member_extra</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">icq_number</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-62d7cd5e39f8c4624f4c1dc1630f84db"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="13">
+<li>Удалить ссылки на сайт у всех пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-59eeb30663dee3169a8f89e802977faa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_member_extra</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">website</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-59eeb30663dee3169a8f89e802977faa"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="14">
+<li>Снятие обязательного подтверждения модератором.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a7d084c485bc26658aea3d6c1837409a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_members</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">mod_posts</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a7d084c485bc26658aea3d6c1837409a"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="15">
+<li>Снятие только чтение/read_only.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-64a318f82061b284d9023fc2a5e7af47"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_members</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">restrict_post</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-64a318f82061b284d9023fc2a5e7af47"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="16">
+<li>Очистка журнала.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-12466550a0c0c4916303ee3285360dbe"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_warn_logs</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">wlog_mid</span><span class="o">=</span><span class="n">id_пользователя</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-12466550a0c0c4916303ee3285360dbe"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="17">
+<li>Удаление всех установленных смайликов, то есть они переходят в список неустановленных смайликов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-208ab72caa756270378ebdbe3e1b0e97"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_emoticons</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-208ab72caa756270378ebdbe3e1b0e97"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="18">
+<li>Установка кодировки и сравнения БД по умолчанию.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-516a3cff4c7bd3a2c888fa9b0d1febdc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">`</span><span class="err">название</span><span class="n">_бд</span><span class="o">`</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">cp1251</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">cp1251_general_ci</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-516a3cff4c7bd3a2c888fa9b0d1febdc"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="19">
+<li>Аннулируем счётчик сообщений у всех пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-913ba46d81dc838be0a257f946780e02"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_members</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">posts</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-913ba46d81dc838be0a257f946780e02"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="20">
+<li>Аннулируем счётчик сообщений у определённых групп.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d6c4141ddc637835f77a94e186f1e99b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_members</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">posts</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">mgroup</span><span class="o">=</span><span class="s1">&#39;номер_группы&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d6c4141ddc637835f77a94e186f1e99b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="21">
+<li>Удаление всех сообщений оставленных гостями.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-dbba6948a646f533d2c643a0c35a826b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_posts</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">author_id</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-dbba6948a646f533d2c643a0c35a826b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="22">
+<li>Заменить текст во всех описаниях тем.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-db6b3bf3ab0558fb471cb7bc3f8afe5a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_topics</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">REPLACE</span><span class="p">(</span><span class="n">description</span><span class="p">,</span><span class="s1">&#39;старый текст&#39;</span><span class="p">,</span><span class="s1">&#39;новый текст&#39;</span><span class="p">);</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-db6b3bf3ab0558fb471cb7bc3f8afe5a"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="благодарности">
+  <a class="link-body-emphasis" href="#%d0%b1%d0%bb%d0%b0%d0%b3%d0%be%d0%b4%d0%b0%d1%80%d0%bd%d0%be%d1%81%d1%82%d0%b8">Благодарности</a>
+</h2><p>В составлении запросов благодарим следующих участников конференции:</p>
+<ul>
+<li>Mazafuka</li>
+<li>КиКиМоРа</li>
+<li>a_aqua</li>
+<li>Ritsuka</li>
+<li>Security</li>
+<li>truth</li>
+</ul>]]></content:encoded><turbo:source/><turbo:topic>SQL запросы IP.Board 2.3</turbo:topic><turbo:content><![CDATA[<p>Запросы для базы дынных <strong>IP.Board 2.3</strong>. Информация со старых проектов. Пригодится.</p>
+<h2 id="sql-запросы">
+  <a class="link-body-emphasis" href="#sql-%d0%b7%d0%b0%d0%bf%d1%80%d0%be%d1%81%d1%8b">SQL запросы</a>
+</h2><ol>
+<li>Заменить определённый текст во всех сообщениях на форуме.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-94dcd0cec3eeb39915188c51ee0cb4df"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_posts</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">post</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">REPLACE</span><span class="p">(</span><span class="n">post</span><span class="p">,</span><span class="s1">&#39;старый текст&#39;</span><span class="p">,</span><span class="s1">&#39;новый текст&#39;</span><span class="p">);</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-94dcd0cec3eeb39915188c51ee0cb4df"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Заменить текст во всех описаниях форумов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-354390260478862bc509404fcda7b78b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_forums</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">REPLACE</span><span class="p">(</span><span class="n">description</span><span class="p">,</span><span class="s1">&#39;старый текст&#39;</span><span class="p">,</span><span class="s1">&#39;новый текст&#39;</span><span class="p">);</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-354390260478862bc509404fcda7b78b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Очистка журнала предупреждений конкретного пользователя, где X — вставить id пользователя, чей журнал вы хотите очистить.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ca07dfe46eab6ee733eaf315d37a8930"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_warn_logs</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">wlog_mid</span><span class="o">=</span><span class="n">X</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ca07dfe46eab6ee733eaf315d37a8930"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Удалить подписи у всех пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1ebea1ce84000ec85491a7286386e95e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_member_extra</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">signature</span><span class="o">=</span><span class="s1">&#39;Ваша подпись удалена&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1ebea1ce84000ec85491a7286386e95e"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="5">
+<li>Удаление модераторов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d53c29839ea05b787f967668247b61fd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_moderators</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d53c29839ea05b787f967668247b61fd"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="6">
+<li>Удаление модератора из всех форумов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b48c9b536a12dc7d917a59050ad4e1b9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_moderators</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">member_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">XX</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b48c9b536a12dc7d917a59050ad4e1b9"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="7">
+<li>Удаление модератора из определённых форумов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-21d497f74bd435a3b94c891c166a8609"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_moderators</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">member_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">XX</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">forum_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p">);</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-21d497f74bd435a3b94c891c166a8609"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="8">
+<li>Удаление аватаров у всех пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-37a7ed546697b95c1f22e53932cdd778"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_member_extra</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">avatar_location</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">avatar_size</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-37a7ed546697b95c1f22e53932cdd778"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="9">
+<li>Если не работает, то выполните следующие два запроса:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-295b0efd94ae321e8184bd9c041e8653"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_member_extra</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">avatar_location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-295b0efd94ae321e8184bd9c041e8653"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e1bf6c178e298a6a9aeae47fbc1ed45c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_member_extra</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">avatar_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e1bf6c178e298a6a9aeae47fbc1ed45c"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="10">
+<li>Массовый перенос пользователей c определённым количеством сообщений из одной группы в другую.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0432fefe4f9dd9c6dc900aa4b257eb7b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_members</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">mgroup</span><span class="o">=</span><span class="err">Б</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">mgroup</span><span class="o">=</span><span class="err">А</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0432fefe4f9dd9c6dc900aa4b257eb7b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="11">
+<li>Удалить пользователей определенной группы, где b меняете на номер группы.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-34a8fc03d6e6002f09326c73c793afab"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_members</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">mgroup</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-34a8fc03d6e6002f09326c73c793afab"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="12">
+<li>Удалить все ICQ номера пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-62d7cd5e39f8c4624f4c1dc1630f84db"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_member_extra</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">icq_number</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-62d7cd5e39f8c4624f4c1dc1630f84db"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="13">
+<li>Удалить ссылки на сайт у всех пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-59eeb30663dee3169a8f89e802977faa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_member_extra</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">website</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-59eeb30663dee3169a8f89e802977faa"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="14">
+<li>Снятие обязательного подтверждения модератором.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a7d084c485bc26658aea3d6c1837409a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_members</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">mod_posts</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a7d084c485bc26658aea3d6c1837409a"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="15">
+<li>Снятие только чтение/read_only.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-64a318f82061b284d9023fc2a5e7af47"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_members</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">restrict_post</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-64a318f82061b284d9023fc2a5e7af47"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="16">
+<li>Очистка журнала.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-12466550a0c0c4916303ee3285360dbe"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_warn_logs</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">wlog_mid</span><span class="o">=</span><span class="n">id_пользователя</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-12466550a0c0c4916303ee3285360dbe"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="17">
+<li>Удаление всех установленных смайликов, то есть они переходят в список неустановленных смайликов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-208ab72caa756270378ebdbe3e1b0e97"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_emoticons</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-208ab72caa756270378ebdbe3e1b0e97"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="18">
+<li>Установка кодировки и сравнения БД по умолчанию.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-516a3cff4c7bd3a2c888fa9b0d1febdc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">`</span><span class="err">название</span><span class="n">_бд</span><span class="o">`</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">cp1251</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">cp1251_general_ci</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-516a3cff4c7bd3a2c888fa9b0d1febdc"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="19">
+<li>Аннулируем счётчик сообщений у всех пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-913ba46d81dc838be0a257f946780e02"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_members</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">posts</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-913ba46d81dc838be0a257f946780e02"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="20">
+<li>Аннулируем счётчик сообщений у определённых групп.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d6c4141ddc637835f77a94e186f1e99b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_members</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">posts</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">mgroup</span><span class="o">=</span><span class="s1">&#39;номер_группы&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d6c4141ddc637835f77a94e186f1e99b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="21">
+<li>Удаление всех сообщений оставленных гостями.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-dbba6948a646f533d2c643a0c35a826b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_posts</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">author_id</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-dbba6948a646f533d2c643a0c35a826b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="22">
+<li>Заменить текст во всех описаниях тем.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-db6b3bf3ab0558fb471cb7bc3f8afe5a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_topics</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">REPLACE</span><span class="p">(</span><span class="n">description</span><span class="p">,</span><span class="s1">&#39;старый текст&#39;</span><span class="p">,</span><span class="s1">&#39;новый текст&#39;</span><span class="p">);</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-db6b3bf3ab0558fb471cb7bc3f8afe5a"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="благодарности">
+  <a class="link-body-emphasis" href="#%d0%b1%d0%bb%d0%b0%d0%b3%d0%be%d0%b4%d0%b0%d1%80%d0%bd%d0%be%d1%81%d1%82%d0%b8">Благодарности</a>
+</h2><p>В составлении запросов благодарим следующих участников конференции:</p>
+<ul>
+<li>Mazafuka</li>
+<li>КиКиМоРа</li>
+<li>a_aqua</li>
+<li>Ritsuka</li>
+<li>Security</li>
+<li>truth</li>
+</ul>]]></turbo:content><pubDate>Mon, 16 Oct 2023 23:59:21 +0000</pubDate><category>CMF</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>SQL запросы IP.Board 3</title><link>https://lib.onl/ru/posts/2023/10/06c9d359-31f0-5862-a342-62a21d4eb032/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/06c9d359-31f0-5862-a342-62a21d4eb032/</guid><description>Запросы для базы дынных IP.Board 3. Информация со старых проектов. Пригодится.</description><media:content medium="image" url="https://images.unsplash.com/photo-1662026911591-335639b11db6" width="1600" height="900"/><content:encoded><![CDATA[<p>Запросы для базы дынных <strong>IP.Board 3</strong>. Информация со старых проектов. Пригодится.</p>
+<h2 id="sql-запросы">
+  <a class="link-body-emphasis" href="#sql-%d0%b7%d0%b0%d0%bf%d1%80%d0%be%d1%81%d1%8b">SQL запросы</a>
+</h2><ol>
+<li>Удалить всех модераторов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-897309c26c80fff18980cfcf0cb86318"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">moderators</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-897309c26c80fff18980cfcf0cb86318"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Удалить все подписи.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7f1b9cda3f1587f14e8a394d60e1af40"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">content_cache_sigs</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7f1b9cda3f1587f14e8a394d60e1af40"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cff1703e454e67cb98b0ce91a4bf0efc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">profile_portal</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">signature</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cff1703e454e67cb98b0ce91a4bf0efc"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Массовый перенос пользователей c определённым количеством сообщений из одной группы в другую.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-aabbddd9a565a4c86e82a9d35d97ef1b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">members</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">member_group_id</span><span class="o">=</span><span class="err">Б</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">member_group_id</span><span class="o">=</span><span class="err">А</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aabbddd9a565a4c86e82a9d35d97ef1b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Полный пересчет репутации сообщений и пользователей после ручной правки <code>ibf_reputation_index</code>.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1aa096e0cf0b264e05b7fba49d641015"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">TRUNCATE</span><span class="w"> </span><span class="n">ibf_reputation_cache</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1aa096e0cf0b264e05b7fba49d641015"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d9bb8bca7db2981b3ae10fcad617a1db"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">ibf_reputation_cache</span><span class="w"> </span><span class="p">(</span><span class="n">app</span><span class="p">,</span><span class="w"> </span><span class="k">type</span><span class="p">,</span><span class="w"> </span><span class="n">type_id</span><span class="p">,</span><span class="w"> </span><span class="n">rep_points</span><span class="p">)</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">app</span><span class="p">,</span><span class="w"> </span><span class="k">type</span><span class="p">,</span><span class="w"> </span><span class="n">type_id</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">rep_rating</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_reputation_index</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">type_id</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d9bb8bca7db2981b3ae10fcad617a1db"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1b3a2e13a4ee71d9f10f6709cb88df26"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_profile_portal</span><span class="w"> </span><span class="n">pp</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">pp</span><span class="p">.</span><span class="n">pp_reputation_points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">rep_points</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_posts</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">ibf_reputation_cache</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">type_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">pid</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">author_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pp</span><span class="p">.</span><span class="n">pp_member_id</span><span class="p">);</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1b3a2e13a4ee71d9f10f6709cb88df26"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></content:encoded><turbo:source/><turbo:topic>SQL запросы IP.Board 3</turbo:topic><turbo:content><![CDATA[<p>Запросы для базы дынных <strong>IP.Board 3</strong>. Информация со старых проектов. Пригодится.</p>
+<h2 id="sql-запросы">
+  <a class="link-body-emphasis" href="#sql-%d0%b7%d0%b0%d0%bf%d1%80%d0%be%d1%81%d1%8b">SQL запросы</a>
+</h2><ol>
+<li>Удалить всех модераторов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-897309c26c80fff18980cfcf0cb86318"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">moderators</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-897309c26c80fff18980cfcf0cb86318"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Удалить все подписи.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7f1b9cda3f1587f14e8a394d60e1af40"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">content_cache_sigs</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7f1b9cda3f1587f14e8a394d60e1af40"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cff1703e454e67cb98b0ce91a4bf0efc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">profile_portal</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">signature</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cff1703e454e67cb98b0ce91a4bf0efc"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Массовый перенос пользователей c определённым количеством сообщений из одной группы в другую.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-aabbddd9a565a4c86e82a9d35d97ef1b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">members</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">member_group_id</span><span class="o">=</span><span class="err">Б</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">member_group_id</span><span class="o">=</span><span class="err">А</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aabbddd9a565a4c86e82a9d35d97ef1b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Полный пересчет репутации сообщений и пользователей после ручной правки <code>ibf_reputation_index</code>.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1aa096e0cf0b264e05b7fba49d641015"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">TRUNCATE</span><span class="w"> </span><span class="n">ibf_reputation_cache</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1aa096e0cf0b264e05b7fba49d641015"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d9bb8bca7db2981b3ae10fcad617a1db"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">ibf_reputation_cache</span><span class="w"> </span><span class="p">(</span><span class="n">app</span><span class="p">,</span><span class="w"> </span><span class="k">type</span><span class="p">,</span><span class="w"> </span><span class="n">type_id</span><span class="p">,</span><span class="w"> </span><span class="n">rep_points</span><span class="p">)</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">app</span><span class="p">,</span><span class="w"> </span><span class="k">type</span><span class="p">,</span><span class="w"> </span><span class="n">type_id</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">rep_rating</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_reputation_index</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">type_id</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d9bb8bca7db2981b3ae10fcad617a1db"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sql">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1b3a2e13a4ee71d9f10f6709cb88df26"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">ibf_profile_portal</span><span class="w"> </span><span class="n">pp</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">pp</span><span class="p">.</span><span class="n">pp_reputation_points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">rep_points</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ibf_posts</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">ibf_reputation_cache</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">type_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">pid</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">author_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pp</span><span class="p">.</span><span class="n">pp_member_id</span><span class="p">);</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1b3a2e13a4ee71d9f10f6709cb88df26"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></turbo:content><pubDate>Mon, 16 Oct 2023 23:55:00 +0000</pubDate><category>CMF</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Условия в файлах IP.Board 2.3</title><link>https://lib.onl/ru/posts/2023/10/0743e73e-7c4c-5ab8-bba3-ba70bdb5cdfd/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/0743e73e-7c4c-5ab8-bba3-ba70bdb5cdfd/</guid><description>Условия в файлах для IP.Board 2.3. Версия 2.3 ужа давно не актуальна, но информация пусть будет.</description><media:content medium="image" url="https://images.unsplash.com/photo-1535551951406-a19828b0a76b" width="1600" height="900"/><content:encoded><![CDATA[<p>Условия в файлах для <strong>IP.Board 2.3</strong>. Версия <strong>2.3</strong> ужа давно не актуальна, но информация пусть будет.</p>
+<h2 id="условия-в-файлах">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d0%bb%d0%be%d0%b2%d0%b8%d1%8f-%d0%b2-%d1%84%d0%b0%d0%b9%d0%bb%d0%b0%d1%85">Условия в файлах</a>
+</h2><ol>
+<li>Показать информацию только для пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2d9063da7d264c82effddc8e82897b6b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">member</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только для пользователей */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2d9063da7d264c82effddc8e82897b6b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Показать информацию только супер-модераторам.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-6f067d55cee6b76b587c500da285fa80"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">member</span><span class="p">[</span><span class="s1">&#39;g_is_supmod&#39;</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только для супермодераторов */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6f067d55cee6b76b587c500da285fa80"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Показать информацию только администраторам.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fc87300102a0da72dccaa6806c06aaba"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">member</span><span class="p">[</span><span class="s1">&#39;mgroup&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">vars</span><span class="p">[</span><span class="s1">&#39;admin_group&#39;</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только для администраторов */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fc87300102a0da72dccaa6806c06aaba"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Показать информацию только модераторам.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-46b2a0b2f53136dfde30585c33a917db"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">member</span><span class="p">[</span><span class="s1">&#39;_moderator&#39;</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только для модераторов */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-46b2a0b2f53136dfde30585c33a917db"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="5">
+<li>Показать информацию в определённом форуме.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-80ab401695c4600833fa2fc52bfc8b0c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">input</span><span class="p">[</span><span class="s1">&#39;f&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">35</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только в опеределённом форуме с ID = 35 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-80ab401695c4600833fa2fc52bfc8b0c"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="6">
+<li>Показать информацию на определённой странице.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b4304f99c8e89a28dbf984fc3b830547"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$ipsclass</span><span class="o">-&gt;</span><span class="na">input</span><span class="p">[</span><span class="s1">&#39;_low_act&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;home&#39;</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только на определённой странице (в данном случае - home) */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b4304f99c8e89a28dbf984fc3b830547"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="7">
+<li>Пример сложной конструкции с применением <code>&lt;или&gt;</code>.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-000ce7b999090e98b9918ca41c1a522e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">member</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только для пользователей */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только для гостей */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-000ce7b999090e98b9918ca41c1a522e"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></content:encoded><turbo:source/><turbo:topic>Условия в файлах IP.Board 2.3</turbo:topic><turbo:content><![CDATA[<p>Условия в файлах для <strong>IP.Board 2.3</strong>. Версия <strong>2.3</strong> ужа давно не актуальна, но информация пусть будет.</p>
+<h2 id="условия-в-файлах">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d0%bb%d0%be%d0%b2%d0%b8%d1%8f-%d0%b2-%d1%84%d0%b0%d0%b9%d0%bb%d0%b0%d1%85">Условия в файлах</a>
+</h2><ol>
+<li>Показать информацию только для пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2d9063da7d264c82effddc8e82897b6b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">member</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только для пользователей */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2d9063da7d264c82effddc8e82897b6b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Показать информацию только супер-модераторам.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-6f067d55cee6b76b587c500da285fa80"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">member</span><span class="p">[</span><span class="s1">&#39;g_is_supmod&#39;</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только для супермодераторов */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6f067d55cee6b76b587c500da285fa80"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Показать информацию только администраторам.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fc87300102a0da72dccaa6806c06aaba"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">member</span><span class="p">[</span><span class="s1">&#39;mgroup&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">vars</span><span class="p">[</span><span class="s1">&#39;admin_group&#39;</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только для администраторов */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fc87300102a0da72dccaa6806c06aaba"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Показать информацию только модераторам.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-46b2a0b2f53136dfde30585c33a917db"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">member</span><span class="p">[</span><span class="s1">&#39;_moderator&#39;</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только для модераторов */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-46b2a0b2f53136dfde30585c33a917db"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="5">
+<li>Показать информацию в определённом форуме.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-80ab401695c4600833fa2fc52bfc8b0c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">input</span><span class="p">[</span><span class="s1">&#39;f&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">35</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только в опеределённом форуме с ID = 35 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-80ab401695c4600833fa2fc52bfc8b0c"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="6">
+<li>Показать информацию на определённой странице.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b4304f99c8e89a28dbf984fc3b830547"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$ipsclass</span><span class="o">-&gt;</span><span class="na">input</span><span class="p">[</span><span class="s1">&#39;_low_act&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;home&#39;</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только на определённой странице (в данном случае - home) */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b4304f99c8e89a28dbf984fc3b830547"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="7">
+<li>Пример сложной конструкции с применением <code>&lt;или&gt;</code>.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-php">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-000ce7b999090e98b9918ca41c1a522e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ipsclass</span><span class="o">-&gt;</span><span class="na">member</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только для пользователей */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* информация только для гостей */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-000ce7b999090e98b9918ca41c1a522e"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></turbo:content><pubDate>Mon, 16 Oct 2023 23:49:40 +0000</pubDate><category>CMF</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Условия в шаблонах IP.Board 2.3</title><link>https://lib.onl/ru/posts/2023/10/d310a44c-4259-5bef-a7c2-d3d09a5c69f4/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/d310a44c-4259-5bef-a7c2-d3d09a5c69f4/</guid><description>Список условий, которые можно использовать в шаблонах IP.Board 2.3. Версия 2.3 уже давно не актуальна, но я всё же решил сохранить информацию в своей библиотеке.</description><media:content medium="image" url="https://images.unsplash.com/photo-1537884944318-390069bb8665" width="1600" height="900"/><content:encoded><![CDATA[<p>Список условий, которые можно использовать в шаблонах <strong>IP.Board 2.3</strong>. Версия <strong>2.3</strong> уже давно не актуальна, но я всё же решил сохранить информацию в своей библиотеке.</p>
+<h2 id="условия-в-шаблонах">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d0%bb%d0%be%d0%b2%d0%b8%d1%8f-%d0%b2-%d1%88%d0%b0%d0%b1%d0%bb%d0%be%d0%bd%d0%b0%d1%85">Условия в шаблонах</a>
+</h2><ol>
+<li>Показать информацию только для пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-52f046f9bae82c4ab9c8d80a1978ded8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="p">&gt;</span> 0&#34;&gt;
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-52f046f9bae82c4ab9c8d80a1978ded8"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Показать информацию только для гостей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f4e8f38ee0c8f17a9f290b88cf4b9f1a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="err">&lt;=</span> <span class="na">0</span><span class="err">&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для гостей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f4e8f38ee0c8f17a9f290b88cf4b9f1a"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Показать информацию только для группы администраторов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e78296ea606cd35642bba1e86a8f80cc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">mgroup</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="na">ipb</span><span class="err">.</span><span class="na">vars</span><span class="err">[&#39;</span><span class="na">admin_group</span><span class="err">&#39;]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для группы администраторов --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e78296ea606cd35642bba1e86a8f80cc"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Показать информацию только для администрации форума.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f814124c7bd4644e696b926a1caffedf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">mgroup</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="na">ipb</span><span class="err">.</span><span class="na">vars</span><span class="err">[&#39;</span><span class="na">admin_group</span><span class="err">&#39;]</span> <span class="err">||</span> <span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">is_mod</span><span class="err">&#39;]</span> <span class="err">||</span> <span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">g_is_supmod</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="na">1</span><span class="err">&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для администрации (различные группы) --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f814124c7bd4644e696b926a1caffedf"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="5">
+<li>Показать информацию только для определённого пользователя (<code>{id}</code> = ID пользователя).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-eaa84ae91739c61a5415c5eb3b1eb01b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">id</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователя с определённым {id} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-eaa84ae91739c61a5415c5eb3b1eb01b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="6">
+<li>Показать информацию только для определённых пользователей (<code>{id}</code> = ID пользователя).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-58a8fa9771866c33d49a6a4830b45ae5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">id1</span><span class="err">}</span> <span class="err">||</span> <span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">id2</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователя с {id1} и {id2} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-58a8fa9771866c33d49a6a4830b45ae5"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="7">
+<li>Показать информацию только для определённой группы (<code>{gid}</code> = ID группы).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e6c59a759bd8f3bbdb9086c888ce14e9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">mgroup</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">gid</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для определённой группы с {gid} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e6c59a759bd8f3bbdb9086c888ce14e9"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="8">
+<li>Показать информацию тольк для двух определённых групп (<code>{gid}</code> = ID группы).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1f7c5e3cbd31f7d30d8468007cab604e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">mgroup</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">gid1</span><span class="err">}</span> <span class="err">||</span> <span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">mgroup</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">gid2</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для группы с {gid1} и {gid2} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1f7c5e3cbd31f7d30d8468007cab604e"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="9">
+<li>Показать информацию только на определённой странице форума (<code>idx</code> = страница).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a72081814be4cc9b8cdf6581ffdb778f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">input</span><span class="err">[&#39;</span><span class="na">_low_act</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">&#39;</span><span class="na">idx</span><span class="err">&#39;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для определённой страницы форума (index.php?act=idx) --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a72081814be4cc9b8cdf6581ffdb778f"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="10">
+<li>Показать информацию только в определённом форуме (<code>{fid}</code> = ID форума).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c0358489d81b4beaac457f3af21bc8aa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">input</span><span class="err">[&#39;</span><span class="na">showforum</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">fid</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для определённого форума с {fid} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c0358489d81b4beaac457f3af21bc8aa"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="11">
+<li>Показать информацию только в определённой теме (<code>{tid}</code> = ID темы).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-01a7d4eb0486756b5499f6376f10733c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">input</span><span class="err">[&#39;</span><span class="na">showtopic</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">tid</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для определённой темы с {tid} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-01a7d4eb0486756b5499f6376f10733c"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="12">
+<li>Показать информацию только в определённом сообщении (<code>{pnid}</code> = номер сообщения).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4181e0d175d40b047ababc9c1ce8336e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;$</span><span class="na">post</span><span class="err">[&#39;</span><span class="na">post_count</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">pnid</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только в сообщении с номером {pnid} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4181e0d175d40b047ababc9c1ce8336e"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="13">
+<li>Показать информацию во всех, кроме определённого сообщения (<code>{pnid}</code> = номер сообщения).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f78956ae1d7882d69668f915a2083a2e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;$</span><span class="na">post</span><span class="err">[&#39;</span><span class="na">post_count</span><span class="err">&#39;]</span> <span class="err">!=</span> <span class="err">{</span><span class="na">pnid</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация во всех сообщениях, кроме сообщения с номером {pnid} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f78956ae1d7882d69668f915a2083a2e"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="14">
+<li>Показать информацию в определённых сообщениях (<code>1,5,10</code> = номера сообщений).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-59116efac22fe6e3e19006477290cf42"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">in_array</span><span class="err">($</span><span class="na">post</span><span class="err">[&#39;</span><span class="na">post_count</span><span class="err">&#39;],</span> <span class="na">array</span><span class="err">(</span><span class="na">1</span><span class="err">,</span><span class="na">5</span><span class="err">,</span><span class="na">10</span><span class="err">))&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- отображение информации в сообщениях 1, 5 и 10 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-59116efac22fe6e3e19006477290cf42"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="15">
+<li>Показать информацию только в определённом сообщении пользователя (<code>{id}</code> = ID пользователя).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ae5dcdcc1e03482373837db81f8ac55b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;$</span><span class="na">author</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">id</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только в определённом сообщении пользователя с ID = {id} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ae5dcdcc1e03482373837db81f8ac55b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="16">
+<li>Пример сложной конструкции с применением <code>&lt;или&gt;</code>.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4c409a92f35015175ac7e59bb23a3d1c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="p">&gt;</span> 0&#34;&gt;
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">else</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для гостей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4c409a92f35015175ac7e59bb23a3d1c"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></content:encoded><turbo:source/><turbo:topic>Условия в шаблонах IP.Board 2.3</turbo:topic><turbo:content><![CDATA[<p>Список условий, которые можно использовать в шаблонах <strong>IP.Board 2.3</strong>. Версия <strong>2.3</strong> уже давно не актуальна, но я всё же решил сохранить информацию в своей библиотеке.</p>
+<h2 id="условия-в-шаблонах">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d0%bb%d0%be%d0%b2%d0%b8%d1%8f-%d0%b2-%d1%88%d0%b0%d0%b1%d0%bb%d0%be%d0%bd%d0%b0%d1%85">Условия в шаблонах</a>
+</h2><ol>
+<li>Показать информацию только для пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-52f046f9bae82c4ab9c8d80a1978ded8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="p">&gt;</span> 0&#34;&gt;
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-52f046f9bae82c4ab9c8d80a1978ded8"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Показать информацию только для гостей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f4e8f38ee0c8f17a9f290b88cf4b9f1a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="err">&lt;=</span> <span class="na">0</span><span class="err">&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для гостей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f4e8f38ee0c8f17a9f290b88cf4b9f1a"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Показать информацию только для группы администраторов.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e78296ea606cd35642bba1e86a8f80cc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">mgroup</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="na">ipb</span><span class="err">.</span><span class="na">vars</span><span class="err">[&#39;</span><span class="na">admin_group</span><span class="err">&#39;]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для группы администраторов --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e78296ea606cd35642bba1e86a8f80cc"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Показать информацию только для администрации форума.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f814124c7bd4644e696b926a1caffedf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">mgroup</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="na">ipb</span><span class="err">.</span><span class="na">vars</span><span class="err">[&#39;</span><span class="na">admin_group</span><span class="err">&#39;]</span> <span class="err">||</span> <span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">is_mod</span><span class="err">&#39;]</span> <span class="err">||</span> <span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">g_is_supmod</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="na">1</span><span class="err">&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для администрации (различные группы) --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f814124c7bd4644e696b926a1caffedf"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="5">
+<li>Показать информацию только для определённого пользователя (<code>{id}</code> = ID пользователя).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-eaa84ae91739c61a5415c5eb3b1eb01b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">id</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователя с определённым {id} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-eaa84ae91739c61a5415c5eb3b1eb01b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="6">
+<li>Показать информацию только для определённых пользователей (<code>{id}</code> = ID пользователя).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-58a8fa9771866c33d49a6a4830b45ae5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">id1</span><span class="err">}</span> <span class="err">||</span> <span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">id2</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователя с {id1} и {id2} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-58a8fa9771866c33d49a6a4830b45ae5"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="7">
+<li>Показать информацию только для определённой группы (<code>{gid}</code> = ID группы).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e6c59a759bd8f3bbdb9086c888ce14e9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">mgroup</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">gid</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для определённой группы с {gid} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e6c59a759bd8f3bbdb9086c888ce14e9"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="8">
+<li>Показать информацию тольк для двух определённых групп (<code>{gid}</code> = ID группы).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1f7c5e3cbd31f7d30d8468007cab604e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">mgroup</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">gid1</span><span class="err">}</span> <span class="err">||</span> <span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">mgroup</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">gid2</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для группы с {gid1} и {gid2} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1f7c5e3cbd31f7d30d8468007cab604e"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="9">
+<li>Показать информацию только на определённой странице форума (<code>idx</code> = страница).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a72081814be4cc9b8cdf6581ffdb778f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">input</span><span class="err">[&#39;</span><span class="na">_low_act</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">&#39;</span><span class="na">idx</span><span class="err">&#39;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для определённой страницы форума (index.php?act=idx) --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a72081814be4cc9b8cdf6581ffdb778f"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="10">
+<li>Показать информацию только в определённом форуме (<code>{fid}</code> = ID форума).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c0358489d81b4beaac457f3af21bc8aa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">input</span><span class="err">[&#39;</span><span class="na">showforum</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">fid</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для определённого форума с {fid} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c0358489d81b4beaac457f3af21bc8aa"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="11">
+<li>Показать информацию только в определённой теме (<code>{tid}</code> = ID темы).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-01a7d4eb0486756b5499f6376f10733c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">input</span><span class="err">[&#39;</span><span class="na">showtopic</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">tid</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для определённой темы с {tid} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-01a7d4eb0486756b5499f6376f10733c"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="12">
+<li>Показать информацию только в определённом сообщении (<code>{pnid}</code> = номер сообщения).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4181e0d175d40b047ababc9c1ce8336e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;$</span><span class="na">post</span><span class="err">[&#39;</span><span class="na">post_count</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">pnid</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только в сообщении с номером {pnid} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4181e0d175d40b047ababc9c1ce8336e"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="13">
+<li>Показать информацию во всех, кроме определённого сообщения (<code>{pnid}</code> = номер сообщения).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f78956ae1d7882d69668f915a2083a2e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;$</span><span class="na">post</span><span class="err">[&#39;</span><span class="na">post_count</span><span class="err">&#39;]</span> <span class="err">!=</span> <span class="err">{</span><span class="na">pnid</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация во всех сообщениях, кроме сообщения с номером {pnid} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f78956ae1d7882d69668f915a2083a2e"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="14">
+<li>Показать информацию в определённых сообщениях (<code>1,5,10</code> = номера сообщений).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-59116efac22fe6e3e19006477290cf42"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">in_array</span><span class="err">($</span><span class="na">post</span><span class="err">[&#39;</span><span class="na">post_count</span><span class="err">&#39;],</span> <span class="na">array</span><span class="err">(</span><span class="na">1</span><span class="err">,</span><span class="na">5</span><span class="err">,</span><span class="na">10</span><span class="err">))&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- отображение информации в сообщениях 1, 5 и 10 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-59116efac22fe6e3e19006477290cf42"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="15">
+<li>Показать информацию только в определённом сообщении пользователя (<code>{id}</code> = ID пользователя).</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ae5dcdcc1e03482373837db81f8ac55b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;$</span><span class="na">author</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="err">==</span> <span class="err">{</span><span class="na">id</span><span class="err">}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только в определённом сообщении пользователя с ID = {id} --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ae5dcdcc1e03482373837db81f8ac55b"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="16">
+<li>Пример сложной конструкции с применением <code>&lt;или&gt;</code>.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4c409a92f35015175ac7e59bb23a3d1c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span><span class="err">=&#34;</span><span class="na">ipb</span><span class="err">.</span><span class="na">member</span><span class="err">[&#39;</span><span class="na">id</span><span class="err">&#39;]</span> <span class="p">&gt;</span> 0&#34;&gt;
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">else</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для гостей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4c409a92f35015175ac7e59bb23a3d1c"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></turbo:content><pubDate>Mon, 16 Oct 2023 23:11:29 +0000</pubDate><category>CMF</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Условия в шаблонах IP.Board 3.x</title><link>https://lib.onl/ru/posts/2023/10/a7405294-9f0c-52c1-a70e-ce4990079dc7/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/a7405294-9f0c-52c1-a70e-ce4990079dc7/</guid><description>Список условий, которые можно использовать в шаблонах IP.Board 3.x.</description><media:content medium="image" url="https://images.unsplash.com/photo-1515879218367-8466d910aaa4" width="1600" height="900"/><content:encoded><![CDATA[<p>Список условий, которые можно использовать в шаблонах <strong>IP.Board 3.x</strong>.</p>
+<p>Продолжаю находить и публиковать старые заметки со своих давно закрытых ресурсов.</p>
+<h2 id="условия-в-шаблонах">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d0%bb%d0%be%d0%b2%d0%b8%d1%8f-%d0%b2-%d1%88%d0%b0%d0%b1%d0%bb%d0%be%d0%bd%d0%b0%d1%85">Условия в шаблонах</a>
+</h2><ol>
+<li>Отображение информации в определённом сообщении.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0e1c4233c327dbef6ef4a0b8aa7dabd6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">test</span><span class="o">=</span><span class="s">&#34;$post[&#39;post&#39;][&#39;post_count&#39;] == X&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только в сообщении X --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0e1c4233c327dbef6ef4a0b8aa7dabd6"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>X</code> - номер сообщения в теме.</li>
+</ul>
+<ol start="2">
+<li>Отображение информации для определённых групп.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3263752f2be5917be97a3d8b573beb17"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">test</span><span class="o">=</span><span class="s">&#34;in_array($this-&gt;memberData[&#39;member_group_id&#39;], array( 4,5,6 ) )&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для групп ID = 4, 5 и 6 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">else</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация для всех остальных --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3263752f2be5917be97a3d8b573beb17"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Пример сложной конструкции с применением <code>&lt;или&gt;</code>.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ad554db353c56c95814bf3d8e3c53901"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">test</span><span class="o">=</span><span class="s">&#34;memberbox:|:$this-&gt;memberData[&#39;member_id&#39;]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">else</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для гостей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ad554db353c56c95814bf3d8e3c53901"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></content:encoded><turbo:source/><turbo:topic>Условия в шаблонах IP.Board 3.x</turbo:topic><turbo:content><![CDATA[<p>Список условий, которые можно использовать в шаблонах <strong>IP.Board 3.x</strong>.</p>
+<p>Продолжаю находить и публиковать старые заметки со своих давно закрытых ресурсов.</p>
+<h2 id="условия-в-шаблонах">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d0%bb%d0%be%d0%b2%d0%b8%d1%8f-%d0%b2-%d1%88%d0%b0%d0%b1%d0%bb%d0%be%d0%bd%d0%b0%d1%85">Условия в шаблонах</a>
+</h2><ol>
+<li>Отображение информации в определённом сообщении.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0e1c4233c327dbef6ef4a0b8aa7dabd6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">test</span><span class="o">=</span><span class="s">&#34;$post[&#39;post&#39;][&#39;post_count&#39;] == X&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только в сообщении X --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0e1c4233c327dbef6ef4a0b8aa7dabd6"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>X</code> - номер сообщения в теме.</li>
+</ul>
+<ol start="2">
+<li>Отображение информации для определённых групп.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3263752f2be5917be97a3d8b573beb17"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">test</span><span class="o">=</span><span class="s">&#34;in_array($this-&gt;memberData[&#39;member_group_id&#39;], array( 4,5,6 ) )&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для групп ID = 4, 5 и 6 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">else</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация для всех остальных --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3263752f2be5917be97a3d8b573beb17"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Пример сложной конструкции с применением <code>&lt;или&gt;</code>.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ad554db353c56c95814bf3d8e3c53901"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">test</span><span class="o">=</span><span class="s">&#34;memberbox:|:$this-&gt;memberData[&#39;member_id&#39;]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">else</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для гостей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ad554db353c56c95814bf3d8e3c53901"
+               role="button">
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></turbo:content><pubDate>Mon, 16 Oct 2023 23:07:22 +0000</pubDate><category>CMF</category></item></channel></rss>
