@@ -21,7 +21,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0eaf8fccc4b2b415c4dadb97c241354c"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4ff4b816312fb25ec8addcf0fdb780bd"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -46,7 +46,7 @@
           
               
           
-        <div class="card-body" id="clipboard-0eaf8fccc4b2b415c4dadb97c241354c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Repository Mirror&#34;</span><span class="w">
+        <div class="card-body" id="clipboard-4ff4b816312fb25ec8addcf0fdb780bd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Repository Mirror&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">push</span><span class="w">
@@ -98,7 +98,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0eaf8fccc4b2b415c4dadb97c241354c"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4ff4b816312fb25ec8addcf0fdb780bd"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -123,7 +123,7 @@
           
               
           
-        <div class="card-body" id="clipboard-0eaf8fccc4b2b415c4dadb97c241354c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Repository Mirror&#34;</span><span class="w">
+        <div class="card-body" id="clipboard-4ff4b816312fb25ec8addcf0fdb780bd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Repository Mirror&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">push</span><span class="w">
@@ -152,7 +152,7 @@
 <li><code>dsc_user</code> - <strong>пользователь</strong> зеркального репозитория.</li>
 <li><code>dsc_token</code> - <strong>токен пользователя</strong> зеркального репозитория.</li>
 </ul>
-<p>В этом коде стоит обратить внимание на параметр <code>target_repo</code>. GitLab позволяет автоматически создавать репозиторий при зеркалировании, а так как у меня адреса репозиториев совпадают между GitHub и GitLab, мне гораздо проще выстроить конструкцию <code>https://gitlab.com/${{ github.repository }}.git</code>. Переменная <code>${{ github.repository }}</code> содержит имя пользователя / организации и название репозитория, и, при настройке зеркалирования репозитория на GitHub&rsquo;е, зеркало репозитория автоматически создаётся на GitLab&rsquo;е.</p>]]></turbo:content><pubDate>Tue, 06 Jul 2021 17:40:43 +0000</pubDate><category>Разработка</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Синхронизация репозитория от GitHub к GitLab</title><link>https://lib.onl/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/</guid><description>Понадобилось мне на днях синхронизировать некоторые свои репозитории между GitHub и GitLab. Сам GitLab имеет встроенные средства зеркалирования репозиториев от себя к другому git-хранилищу. GitHub же не обладает такой функцией. Но эту функцию можно воссоздать при помощи GitHub Actions.</description><media:content medium="image" url="https://images.unsplash.com/photo-1531030874896-fdef6826f2f7" width="1600" height="900"/><content:encoded><![CDATA[<p>Понадобилось мне на днях синхронизировать некоторые свои репозитории между GitHub и GitLab. Сам GitLab имеет встроенные средства зеркалирования репозиториев от себя к другому git-хранилищу. GitHub же не обладает такой функцией. Но эту функцию можно воссоздать при помощи GitHub Actions.</p>
+<p>В этом коде стоит обратить внимание на параметр <code>target_repo</code>. GitLab позволяет автоматически создавать репозиторий при зеркалировании, а так как у меня адреса репозиториев совпадают между GitHub и GitLab, мне гораздо проще выстроить конструкцию <code>https://gitlab.com/${{ github.repository }}.git</code>. Переменная <code>${{ github.repository }}</code> содержит имя пользователя / организации и название репозитория, и, при настройке зеркалирования репозитория на GitHub&rsquo;е, зеркало репозитория автоматически создаётся на GitLab&rsquo;е.</p>]]></turbo:content><pubDate>Tue, 06 Jul 2021 17:40:43 +0000</pubDate><category>Разработка</category><category>Скрипты</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Синхронизация репозитория от GitHub к GitLab</title><link>https://lib.onl/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/</guid><description>Понадобилось мне на днях синхронизировать некоторые свои репозитории между GitHub и GitLab. Сам GitLab имеет встроенные средства зеркалирования репозиториев от себя к другому git-хранилищу. GitHub же не обладает такой функцией. Но эту функцию можно воссоздать при помощи GitHub Actions.</description><media:content medium="image" url="https://images.unsplash.com/photo-1531030874896-fdef6826f2f7" width="1600" height="900"/><content:encoded><![CDATA[<p>Понадобилось мне на днях синхронизировать некоторые свои репозитории между GitHub и GitLab. Сам GitLab имеет встроенные средства зеркалирования репозиториев от себя к другому git-хранилищу. GitHub же не обладает такой функцией. Но эту функцию можно воссоздать при помощи GitHub Actions.</p>
 <p>Для начала необходимо создать &ldquo;секреты&rdquo; с такими переменными:</p>
 <ul>
 <li><code>GITLAB_SYNC_REPO_URL</code> - ссылка на пустой репозиторий GitLab.</li>
@@ -179,7 +179,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6632abee45fd36a53016945650e7701e"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f0ac97de55a3bece6ec13932e51bac24"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -204,7 +204,7 @@
           
               
           
-        <div class="card-body" id="clipboard-6632abee45fd36a53016945650e7701e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">GitLab Sync</span><span class="w">
+        <div class="card-body" id="clipboard-f0ac97de55a3bece6ec13932e51bac24"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">GitLab Sync</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">push</span><span class="w">
@@ -256,7 +256,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6632abee45fd36a53016945650e7701e"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f0ac97de55a3bece6ec13932e51bac24"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -281,7 +281,7 @@
           
               
           
-        <div class="card-body" id="clipboard-6632abee45fd36a53016945650e7701e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">GitLab Sync</span><span class="w">
+        <div class="card-body" id="clipboard-f0ac97de55a3bece6ec13932e51bac24"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">GitLab Sync</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">push</span><span class="w">
@@ -306,4 +306,4 @@
 </span></span></span></code></pre></div></div>
       </div>
     </div>
-<p>На этом всё. Теперь при коммите в репозиторий, GutHub будет запускать Action и автоматически синхронизировать изменения с репозиторием на GitLab.</p>]]></turbo:content><pubDate>Sat, 08 May 2021 21:06:18 +0000</pubDate><category>Разработка</category></item></channel></rss>
+<p>На этом всё. Теперь при коммите в репозиторий, GutHub будет запускать Action и автоматически синхронизировать изменения с репозиторием на GitLab.</p>]]></turbo:content><pubDate>Sat, 08 May 2021 21:06:18 +0000</pubDate><category>Разработка</category><category>Скрипты</category></item></channel></rss>

@@ -44,12 +44,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7447eec70e3ee678b077af90dbc86ef0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a1815c04284c411a15f01a718f009285"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7447eec70e3ee678b077af90dbc86ef0"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a1815c04284c411a15f01a718f009285"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -96,12 +96,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f7f9631f393d72ea0ca03f45bd438d13"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4e09b0710568ee7bab27bc7de4241fbe"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f7f9631f393d72ea0ca03f45bd438d13"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4e09b0710568ee7bab27bc7de4241fbe"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -124,12 +124,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ec6493f84e2f7635bfd97315f9c76e0e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-44ba1dcc5feebda0a6b04dc982e330bb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ec6493f84e2f7635bfd97315f9c76e0e"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-44ba1dcc5feebda0a6b04dc982e330bb"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -183,12 +183,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7447eec70e3ee678b077af90dbc86ef0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a1815c04284c411a15f01a718f009285"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7447eec70e3ee678b077af90dbc86ef0"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a1815c04284c411a15f01a718f009285"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -235,12 +235,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f7f9631f393d72ea0ca03f45bd438d13"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4e09b0710568ee7bab27bc7de4241fbe"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f7f9631f393d72ea0ca03f45bd438d13"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4e09b0710568ee7bab27bc7de4241fbe"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -263,12 +263,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ec6493f84e2f7635bfd97315f9c76e0e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-44ba1dcc5feebda0a6b04dc982e330bb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ec6493f84e2f7635bfd97315f9c76e0e"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-44ba1dcc5feebda0a6b04dc982e330bb"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -276,7 +276,647 @@
         </ul>
       </div>
     </div>
-  </div>]]></turbo:content><pubDate>Fri, 06 Oct 2023 11:42:15 +0000</pubDate><category>Linux</category><category>MS Windows</category><category>Security</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Интеграция обновлений в дистрибутив ОС MS Windows</title><link>https://lib.onl/ru/posts/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/</guid><description>Microsoft каждый месяц выпускает новые версии дистрибутивов с уже интегрированными обновлениями. Но есть редакции ОС, например LTSC, для которых Microsoft не выполняет подобные действия. Приходится делать самому&amp;hellip;</description><media:content medium="image" url="https://images.unsplash.com/photo-1620843002805-05a08cb72f57" width="1600" height="900"/><content:encoded><![CDATA[<p>Microsoft каждый месяц выпускает новые версии дистрибутивов с уже интегрированными обновлениями. Но есть редакции ОС, например LTSC, для которых Microsoft не выполняет подобные действия. Приходится делать самому&hellip;</p>
+  </div>]]></turbo:content><pubDate>Fri, 06 Oct 2023 11:42:15 +0000</pubDate><category>Linux</category><category>MS Windows</category><category>security</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Получение и установка MS Office 2021 LTSC</title><link>https://lib.onl/ru/posts/2023/09/dd5a3e1a-596b-50d5-b070-b2a065f99f32/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/09/dd5a3e1a-596b-50d5-b070-b2a065f99f32/</guid><description>MS Office является самым популярным набором приложений для офисной работы. На момент написания этой статьи, актуальной версией MS Office является 2021. Её можно купить в магазине. Но здесь я расскажу как получить актуальную версию MS Office 2021 LTSC с серверов Microsoft.</description><media:content medium="image" url="https://images.unsplash.com/photo-1649433391420-542fcd3835ea" width="1600" height="900"/><content:encoded><![CDATA[<p>MS Office является самым популярным набором приложений для офисной работы. На момент написания этой статьи, актуальной версией MS Office является 2021. Её можно купить в магазине. Но здесь я расскажу как получить актуальную версию MS Office 2021 LTSC с серверов Microsoft.</p>
+<p>MS Office 2021 LTSC просто так не купить, это программное обеспечение распространяется для организаций по соглашению о корпоративном лицензировании. MS Office 2021 LTSC поддерживает устройства только с операционными системами <strong>MS Windows 10</strong> или <strong>MS Windows 11</strong>.</p>
+<h2 id="получение-ms-office-2021-ltsc">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%bb%d1%83%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-ms-office-2021-ltsc">Получение MS Office 2021 LTSC</a>
+</h2><p>Для получения установочного дистрибутива необходимо выполнить подготовительные шаги:</p>
+<ol>
+<li>Скачать и запустить <a title="" href="https://www.microsoft.com/download/details.aspx?id=49117" target="_blank" rel="noopener noreferrer nofollow">Office Deployment Tool</a>.</li>
+<li>Во время установки, выбрать директорию для распаковки <strong>Office Deployment Tool</strong>. В эту директорию будет в дальнейшем загружен установочный дистрибутив MS Office 2021 LTSC.</li>
+<li>После завершения процесса установки, открыть консоль и перейти в директорию (<code>cd &lt;path&gt;</code>), куда был установлен Office Deployment Tool.</li>
+<li>В корне директории Office Deployment Tool создать файл <code>office.2021.xml</code> следующего содержания:</li>
+</ol>
+
+    
+
+    
+
+    <div class="shortcode shortcode-file mb-3">
+      <div class="card overflow-hidden">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="far fa-file-code fa-fw"></i>
+            </div>
+            <div class="flex-grow-1 mx-2">
+              <code>office.2021.xml</code>
+            </div>
+            <div class="flex-shrink-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+                  <a class="text-body" href="#"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-caf1803da35078de57dbb787d9ea2c92"
+                     role="button" aria-label='Копировать'>
+                    <i class="fas fa-copy fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="office.2021.xml" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="office.2021.xml" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+          
+              
+          
+        <div class="card-body" id="clipboard-caf1803da35078de57dbb787d9ea2c92"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Add</span> <span class="na">OfficeClientEdition=</span><span class="s">&#34;64&#34;</span> <span class="na">Channel=</span><span class="s">&#34;PerpetualVL2021&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProPlus2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;VisioPro2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;KNH8D-FGHT4-T8RK3-CTDYJ-K2HT4&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProjectPro2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;FTNWT-C6WBT-8HMGF-K9PRX-QV9H8&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;LanguagePack&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProofingTools&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/Add&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;SharedComputerLicensing&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;FORCEAPPSHUTDOWN&#34;</span> <span class="na">Value=</span><span class="s">&#34;FALSE&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;DeviceBasedLicensing&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;SCLCacheOverride&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;AUTOACTIVATE&#34;</span> <span class="na">Value=</span><span class="s">&#34;1&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Updates</span> <span class="na">Enabled=</span><span class="s">&#34;TRUE&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;RemoveMSI</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Configuration&gt;</span>
+</span></span></code></pre></div></div>
+      </div>
+    </div>
+<p>Далее, в консоли выполните команду <code>setup.exe /download office.2021.xml</code>. Команда запускает формирование и скачивание установочного дистрибутива MS Office 2021 LTCS с серверов Microsoft. Команда может не отображать процесс своей работы. После завершения команды, консоль вернёт управление пользователю, тем самым можно контролировать завершение получения установочного дистрибутива.</p>
+<h2 id="установка-полной-версии-ms-office-2021-ltsc">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%bf%d0%be%d0%bb%d0%bd%d0%be%d0%b9-%d0%b2%d0%b5%d1%80%d1%81%d0%b8%d0%b8-ms-office-2021-ltsc">Установка полной версии MS Office 2021 LTSC</a>
+</h2><p>После получения установочного дистрибутива MS Office 2021 LTCS, в той же консоли необходимо выполнить команду <code>setup.exe /configure office.2021.xml</code>. Эта команда запускает процесс установки <strong>полной версии</strong> MS Office 2021 LTCS на компьютер пользователя со всеми дополнительными модулями.</p>
+<h2 id="установка-минимальной-версии-ms-office-2021-ltsc">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%bc%d0%b8%d0%bd%d0%b8%d0%bc%d0%b0%d0%bb%d1%8c%d0%bd%d0%be%d0%b9-%d0%b2%d0%b5%d1%80%d1%81%d0%b8%d0%b8-ms-office-2021-ltsc">Установка минимальной версии MS Office 2021 LTSC</a>
+</h2><p>Для администраторов, которые хотят установить на компьютер пользователя только самые необходимые компоненты (Access, Excel, Outlook, PowerPoint и World), предлагаю следующий конфигурационный файл:</p>
+
+    
+
+    
+
+    <div class="shortcode shortcode-file mb-3">
+      <div class="card overflow-hidden">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="far fa-file-code fa-fw"></i>
+            </div>
+            <div class="flex-grow-1 mx-2">
+              <code>office.2021.minimal.xml</code>
+            </div>
+            <div class="flex-shrink-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+                  <a class="text-body" href="#"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f3e39d82e1a2b2b24d4590ac967d55d0"
+                     role="button" aria-label='Копировать'>
+                    <i class="fas fa-copy fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="office.2021.minimal.xml" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="office.2021.minimal.xml" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+          
+              
+          
+        <div class="card-body" id="clipboard-f3e39d82e1a2b2b24d4590ac967d55d0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Add</span> <span class="na">OfficeClientEdition=</span><span class="s">&#34;64&#34;</span> <span class="na">Channel=</span><span class="s">&#34;PerpetualVL2021&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProPlus2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;Lync&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;OneDrive&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;OneNote&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;Publisher&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;Teams&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;LanguagePack&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProofingTools&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/Add&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;SharedComputerLicensing&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;FORCEAPPSHUTDOWN&#34;</span> <span class="na">Value=</span><span class="s">&#34;FALSE&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;DeviceBasedLicensing&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;SCLCacheOverride&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;AUTOACTIVATE&#34;</span> <span class="na">Value=</span><span class="s">&#34;1&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Updates</span> <span class="na">Enabled=</span><span class="s">&#34;TRUE&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;RemoveMSI</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Configuration&gt;</span>
+</span></span></code></pre></div></div>
+      </div>
+    </div>
+<p>Сохраните его под названием <code>office.2021.minimal.xml</code> и запустите процесс установки при помощи команды <code>setup.exe /configure office.2021.minimal.xml</code>.</p>
+<h2 id="создание-собственных-конфигураций">
+  <a class="link-body-emphasis" href="#%d1%81%d0%be%d0%b7%d0%b4%d0%b0%d0%bd%d0%b8%d0%b5-%d1%81%d0%be%d0%b1%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%bd%d1%8b%d1%85-%d0%ba%d0%be%d0%bd%d1%84%d0%b8%d0%b3%d1%83%d1%80%d0%b0%d1%86%d0%b8%d0%b9">Создание собственных конфигураций</a>
+</h2><p>Приведённые выше XML-файлы это файлы конфигураций. Их можно создавать самому при помощи веб-инструмента <a title="" href="https://config.office.com/deploymentsettings" target="_blank" rel="noopener noreferrer nofollow">Office Deployment Center</a>. На странице создания конфигураций укажите необходимые параметры и настройки, и нажмите кнопку <span class="shortcode shortcode-key"><kbd>Импорт</kbd></span>.</p>
+<p>Полученный XML-файл можно указывать в командах <code>setup.exe /download &lt;XML_FILE&gt;</code> и <code>setup.exe /configure &lt;XML_FILE&gt;</code> для конфигурирования установочного дистрибутива.</p>
+<h2 id="активация-при-помощи-kms-сервера">
+  <a class="link-body-emphasis" href="#%d0%b0%d0%ba%d1%82%d0%b8%d0%b2%d0%b0%d1%86%d0%b8%d1%8f-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-kms-%d1%81%d0%b5%d1%80%d0%b2%d0%b5%d1%80%d0%b0">Активация при помощи KMS-сервера</a>
+</h2><p>Если в сети вашей организации присутствует KMS-сервер, установленный MS Office 2021 можно активировать при помощи этого сервера.</p>
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-success d-flex" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-lightbulb fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3">
+        <p>Подобным способом активируются следующие версии MS Office:</p>
+<ul>
+<li>Microsoft Office 2016 Volume License Pack.</li>
+<li>Microsoft Office 2019 Volume License Pack.</li>
+<li>Microsoft Office LTSC 2021 Volume License Pack.</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+
+<p>Для активации MS Office при помощи KMS-сервера, необходимо открыть консоль и перейти в директорию с файлом <code>ospp.vbs</code>. Обычно, этот файл находится в директории <code>\Program Files\Microsoft Office\Office16</code>. После того, как консоль будет находится в необходимой директории с файлом <code>ospp.vbs</code>, можно выполнять следующие команды в зависимости от задачи.</p>
+<ol>
+<li>Указать адрес KMS-сервера для клиента MS Office:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f842930c0c0cc7831ebe9cbf9bb462e8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /sethst:kms.example.com</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f842930c0c0cc7831ebe9cbf9bb462e8"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Указать нестандартный порт (<code>1689</code>) KMS-сервера:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f371b0f216bd65aae745b8cd92a527fe"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /setprt:1689</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f371b0f216bd65aae745b8cd92a527fe"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Выполнить активацию MS Office на KMS-сервере:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e4fc4c0f70ec7dd027f3e87cf1c0b44d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /act</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e4fc4c0f70ec7dd027f3e87cf1c0b44d"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Узнать текущий статус активации MS Office:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8c841bca8982983402c9bba991b6a1f0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /dstatusall</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8c841bca8982983402c9bba991b6a1f0"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>В интернете можно найти открытые KMS-серверы для нелегальной активации MS Office. Но подобные действия имеют противоправный характер. <span class="shortcode shortcode-emoji">😜</span></p>]]></content:encoded><turbo:source/><turbo:topic>Получение и установка MS Office 2021 LTSC</turbo:topic><turbo:content><![CDATA[<p>MS Office является самым популярным набором приложений для офисной работы. На момент написания этой статьи, актуальной версией MS Office является 2021. Её можно купить в магазине. Но здесь я расскажу как получить актуальную версию MS Office 2021 LTSC с серверов Microsoft.</p>
+<p>MS Office 2021 LTSC просто так не купить, это программное обеспечение распространяется для организаций по соглашению о корпоративном лицензировании. MS Office 2021 LTSC поддерживает устройства только с операционными системами <strong>MS Windows 10</strong> или <strong>MS Windows 11</strong>.</p>
+<h2 id="получение-ms-office-2021-ltsc">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%bb%d1%83%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-ms-office-2021-ltsc">Получение MS Office 2021 LTSC</a>
+</h2><p>Для получения установочного дистрибутива необходимо выполнить подготовительные шаги:</p>
+<ol>
+<li>Скачать и запустить <a title="" href="https://www.microsoft.com/download/details.aspx?id=49117" target="_blank" rel="noopener noreferrer nofollow">Office Deployment Tool</a>.</li>
+<li>Во время установки, выбрать директорию для распаковки <strong>Office Deployment Tool</strong>. В эту директорию будет в дальнейшем загружен установочный дистрибутив MS Office 2021 LTSC.</li>
+<li>После завершения процесса установки, открыть консоль и перейти в директорию (<code>cd &lt;path&gt;</code>), куда был установлен Office Deployment Tool.</li>
+<li>В корне директории Office Deployment Tool создать файл <code>office.2021.xml</code> следующего содержания:</li>
+</ol>
+
+    
+
+    
+
+    <div class="shortcode shortcode-file mb-3">
+      <div class="card overflow-hidden">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="far fa-file-code fa-fw"></i>
+            </div>
+            <div class="flex-grow-1 mx-2">
+              <code>office.2021.xml</code>
+            </div>
+            <div class="flex-shrink-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+                  <a class="text-body" href="#"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-caf1803da35078de57dbb787d9ea2c92"
+                     role="button" aria-label='Копировать'>
+                    <i class="fas fa-copy fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="office.2021.xml" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="office.2021.xml" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+          
+              
+          
+        <div class="card-body" id="clipboard-caf1803da35078de57dbb787d9ea2c92"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Add</span> <span class="na">OfficeClientEdition=</span><span class="s">&#34;64&#34;</span> <span class="na">Channel=</span><span class="s">&#34;PerpetualVL2021&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProPlus2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;VisioPro2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;KNH8D-FGHT4-T8RK3-CTDYJ-K2HT4&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProjectPro2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;FTNWT-C6WBT-8HMGF-K9PRX-QV9H8&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;LanguagePack&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProofingTools&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/Add&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;SharedComputerLicensing&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;FORCEAPPSHUTDOWN&#34;</span> <span class="na">Value=</span><span class="s">&#34;FALSE&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;DeviceBasedLicensing&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;SCLCacheOverride&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;AUTOACTIVATE&#34;</span> <span class="na">Value=</span><span class="s">&#34;1&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Updates</span> <span class="na">Enabled=</span><span class="s">&#34;TRUE&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;RemoveMSI</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Configuration&gt;</span>
+</span></span></code></pre></div></div>
+      </div>
+    </div>
+<p>Далее, в консоли выполните команду <code>setup.exe /download office.2021.xml</code>. Команда запускает формирование и скачивание установочного дистрибутива MS Office 2021 LTCS с серверов Microsoft. Команда может не отображать процесс своей работы. После завершения команды, консоль вернёт управление пользователю, тем самым можно контролировать завершение получения установочного дистрибутива.</p>
+<h2 id="установка-полной-версии-ms-office-2021-ltsc">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%bf%d0%be%d0%bb%d0%bd%d0%be%d0%b9-%d0%b2%d0%b5%d1%80%d1%81%d0%b8%d0%b8-ms-office-2021-ltsc">Установка полной версии MS Office 2021 LTSC</a>
+</h2><p>После получения установочного дистрибутива MS Office 2021 LTCS, в той же консоли необходимо выполнить команду <code>setup.exe /configure office.2021.xml</code>. Эта команда запускает процесс установки <strong>полной версии</strong> MS Office 2021 LTCS на компьютер пользователя со всеми дополнительными модулями.</p>
+<h2 id="установка-минимальной-версии-ms-office-2021-ltsc">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%bc%d0%b8%d0%bd%d0%b8%d0%bc%d0%b0%d0%bb%d1%8c%d0%bd%d0%be%d0%b9-%d0%b2%d0%b5%d1%80%d1%81%d0%b8%d0%b8-ms-office-2021-ltsc">Установка минимальной версии MS Office 2021 LTSC</a>
+</h2><p>Для администраторов, которые хотят установить на компьютер пользователя только самые необходимые компоненты (Access, Excel, Outlook, PowerPoint и World), предлагаю следующий конфигурационный файл:</p>
+
+    
+
+    
+
+    <div class="shortcode shortcode-file mb-3">
+      <div class="card overflow-hidden">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="far fa-file-code fa-fw"></i>
+            </div>
+            <div class="flex-grow-1 mx-2">
+              <code>office.2021.minimal.xml</code>
+            </div>
+            <div class="flex-shrink-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+                  <a class="text-body" href="#"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f3e39d82e1a2b2b24d4590ac967d55d0"
+                     role="button" aria-label='Копировать'>
+                    <i class="fas fa-copy fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="office.2021.minimal.xml" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="office.2021.minimal.xml" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+          
+              
+          
+        <div class="card-body" id="clipboard-f3e39d82e1a2b2b24d4590ac967d55d0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Add</span> <span class="na">OfficeClientEdition=</span><span class="s">&#34;64&#34;</span> <span class="na">Channel=</span><span class="s">&#34;PerpetualVL2021&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProPlus2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;Lync&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;OneDrive&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;OneNote&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;Publisher&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;ExcludeApp</span> <span class="na">ID=</span><span class="s">&#34;Teams&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;LanguagePack&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProofingTools&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;ru-ru&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Product&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/Add&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;SharedComputerLicensing&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;FORCEAPPSHUTDOWN&#34;</span> <span class="na">Value=</span><span class="s">&#34;FALSE&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;DeviceBasedLicensing&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;SCLCacheOverride&#34;</span> <span class="na">Value=</span><span class="s">&#34;0&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Property</span> <span class="na">Name=</span><span class="s">&#34;AUTOACTIVATE&#34;</span> <span class="na">Value=</span><span class="s">&#34;1&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;Updates</span> <span class="na">Enabled=</span><span class="s">&#34;TRUE&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;RemoveMSI</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Configuration&gt;</span>
+</span></span></code></pre></div></div>
+      </div>
+    </div>
+<p>Сохраните его под названием <code>office.2021.minimal.xml</code> и запустите процесс установки при помощи команды <code>setup.exe /configure office.2021.minimal.xml</code>.</p>
+<h2 id="создание-собственных-конфигураций">
+  <a class="link-body-emphasis" href="#%d1%81%d0%be%d0%b7%d0%b4%d0%b0%d0%bd%d0%b8%d0%b5-%d1%81%d0%be%d0%b1%d1%81%d1%82%d0%b2%d0%b5%d0%bd%d0%bd%d1%8b%d1%85-%d0%ba%d0%be%d0%bd%d1%84%d0%b8%d0%b3%d1%83%d1%80%d0%b0%d1%86%d0%b8%d0%b9">Создание собственных конфигураций</a>
+</h2><p>Приведённые выше XML-файлы это файлы конфигураций. Их можно создавать самому при помощи веб-инструмента <a title="" href="https://config.office.com/deploymentsettings" target="_blank" rel="noopener noreferrer nofollow">Office Deployment Center</a>. На странице создания конфигураций укажите необходимые параметры и настройки, и нажмите кнопку <span class="shortcode shortcode-key"><kbd>Импорт</kbd></span>.</p>
+<p>Полученный XML-файл можно указывать в командах <code>setup.exe /download &lt;XML_FILE&gt;</code> и <code>setup.exe /configure &lt;XML_FILE&gt;</code> для конфигурирования установочного дистрибутива.</p>
+<h2 id="активация-при-помощи-kms-сервера">
+  <a class="link-body-emphasis" href="#%d0%b0%d0%ba%d1%82%d0%b8%d0%b2%d0%b0%d1%86%d0%b8%d1%8f-%d0%bf%d1%80%d0%b8-%d0%bf%d0%be%d0%bc%d0%be%d1%89%d0%b8-kms-%d1%81%d0%b5%d1%80%d0%b2%d0%b5%d1%80%d0%b0">Активация при помощи KMS-сервера</a>
+</h2><p>Если в сети вашей организации присутствует KMS-сервер, установленный MS Office 2021 можно активировать при помощи этого сервера.</p>
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-success d-flex" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-lightbulb fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3">
+        <p>Подобным способом активируются следующие версии MS Office:</p>
+<ul>
+<li>Microsoft Office 2016 Volume License Pack.</li>
+<li>Microsoft Office 2019 Volume License Pack.</li>
+<li>Microsoft Office LTSC 2021 Volume License Pack.</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+
+<p>Для активации MS Office при помощи KMS-сервера, необходимо открыть консоль и перейти в директорию с файлом <code>ospp.vbs</code>. Обычно, этот файл находится в директории <code>\Program Files\Microsoft Office\Office16</code>. После того, как консоль будет находится в необходимой директории с файлом <code>ospp.vbs</code>, можно выполнять следующие команды в зависимости от задачи.</p>
+<ol>
+<li>Указать адрес KMS-сервера для клиента MS Office:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f842930c0c0cc7831ebe9cbf9bb462e8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /sethst:kms.example.com</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f842930c0c0cc7831ebe9cbf9bb462e8"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Указать нестандартный порт (<code>1689</code>) KMS-сервера:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f371b0f216bd65aae745b8cd92a527fe"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /setprt:1689</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f371b0f216bd65aae745b8cd92a527fe"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Выполнить активацию MS Office на KMS-сервере:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e4fc4c0f70ec7dd027f3e87cf1c0b44d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /act</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e4fc4c0f70ec7dd027f3e87cf1c0b44d"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Узнать текущий статус активации MS Office:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8c841bca8982983402c9bba991b6a1f0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /dstatusall</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8c841bca8982983402c9bba991b6a1f0"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>В интернете можно найти открытые KMS-серверы для нелегальной активации MS Office. Но подобные действия имеют противоправный характер. <span class="shortcode shortcode-emoji">😜</span></p>]]></turbo:content><pubDate>Tue, 26 Sep 2023 17:17:18 +0000</pubDate><category>MS Windows</category><category>Скрипты</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Интеграция обновлений в дистрибутив ОС MS Windows</title><link>https://lib.onl/ru/posts/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/</guid><description>Microsoft каждый месяц выпускает новые версии дистрибутивов с уже интегрированными обновлениями. Но есть редакции ОС, например LTSC, для которых Microsoft не выполняет подобные действия. Приходится делать самому&amp;hellip;</description><media:content medium="image" url="https://images.unsplash.com/photo-1620843002805-05a08cb72f57" width="1600" height="900"/><content:encoded><![CDATA[<p>Microsoft каждый месяц выпускает новые версии дистрибутивов с уже интегрированными обновлениями. Но есть редакции ОС, например LTSC, для которых Microsoft не выполняет подобные действия. Приходится делать самому&hellip;</p>
 <h2 id="подготовка">
   <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%b4%d0%b3%d0%be%d1%82%d0%be%d0%b2%d0%ba%d0%b0">Подготовка</a>
 </h2><p>Для интеграции обновлений в дистрибутив ОС, потребуется:</p>
@@ -340,12 +980,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e340d3ff6306c5958a9e930b29f87030"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7b6537e85871f5e82234e75b6d384dcf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e340d3ff6306c5958a9e930b29f87030"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7b6537e85871f5e82234e75b6d384dcf"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -384,7 +1024,7 @@ shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fb29b97f2fc37532a1c6f391cafd1d97"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2e8bd003dba9037fed6dc765ab6e9179"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -393,7 +1033,7 @@ shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-fb29b97f2fc37532a1c6f391cafd1d97"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
+    <div class="card-body p-0" id="clipboard-2e8bd003dba9037fed6dc765ab6e9179"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
 
 Details for image : C:\BuildFarm\WIM\install.wim
 
@@ -439,12 +1079,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2933638e651fd907d03e1403b3ff4658"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8bd643ae5d5e65c0a9187948db724299"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2933638e651fd907d03e1403b3ff4658"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8bd643ae5d5e65c0a9187948db724299"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -485,12 +1125,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5e326f14b9daae31aeca24a885c5c3d0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Discard</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b17d86faaba4a4430babb71c65449340"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Discard</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5e326f14b9daae31aeca24a885c5c3d0"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b17d86faaba4a4430babb71c65449340"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -512,12 +1152,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-69018e77197217560b4d8276c7e81790"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-MountedImageInfo</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b1236971fa999268931fb5686ea4846b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-MountedImageInfo</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-69018e77197217560b4d8276c7e81790"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b1236971fa999268931fb5686ea4846b"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -539,12 +1179,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ba7c73bb536ea184ad0674aae6368f1e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Cleanup-Mountpoints</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2e88ab3e3ccf6b7f0c444471a4cfce41"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Cleanup-Mountpoints</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ba7c73bb536ea184ad0674aae6368f1e"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2e88ab3e3ccf6b7f0c444471a4cfce41"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -574,12 +1214,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5826227751411af1b3b6e8cf85a2bdde"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-6087785c77e1fe640d68a9a82bea972f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5826227751411af1b3b6e8cf85a2bdde"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6087785c77e1fe640d68a9a82bea972f"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -612,12 +1252,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e89f46aeed793afa946167ac361733ab"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1c386cd91b2e012e550776e95990727d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e89f46aeed793afa946167ac361733ab"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1c386cd91b2e012e550776e95990727d"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -646,12 +1286,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5c9ecafd984e8b9ff562462c4aedf484"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-78e7d6d1ebc8815b6ec3f3384671c665"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5c9ecafd984e8b9ff562462c4aedf484"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-78e7d6d1ebc8815b6ec3f3384671c665"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -688,12 +1328,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b5d4e0193f2a0ea07fc4933051fd861e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bcf7c4c86106cff5be25f19ebead392c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b5d4e0193f2a0ea07fc4933051fd861e"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bcf7c4c86106cff5be25f19ebead392c"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -726,12 +1366,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5f752dc7ae93bbc00094f87bf6d23533"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4e99594213e6cbd67ed8440fb4fc77ed"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5f752dc7ae93bbc00094f87bf6d23533"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4e99594213e6cbd67ed8440fb4fc77ed"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -771,7 +1411,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5e7f13c39c60d320cad339434e8d7ce5"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-39b6f99616b7fdf87a017e9dcfa7a961"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -796,7 +1436,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
           
               
           
-        <div class="card-body" id="clipboard-5e7f13c39c60d320cad339434e8d7ce5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic integration of updates into DISM.</span>
+        <div class="card-body" id="clipboard-39b6f99616b7fdf87a017e9dcfa7a961"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic integration of updates into DISM.</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">:</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @package   CMD</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @author    Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
@@ -867,7 +1507,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-325f2af7ea32813061311f9326e2d1f2"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1d6df0a6a4148f49ab2e105d87b8c32a"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -892,7 +1532,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
           
               
           
-        <div class="card-body" id="clipboard-325f2af7ea32813061311f9326e2d1f2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic unmounting WIM images into DISM.</span>
+        <div class="card-body" id="clipboard-1d6df0a6a4148f49ab2e105d87b8c32a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic unmounting WIM images into DISM.</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">:</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @package   CMD</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @author    Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
@@ -982,12 +1622,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e340d3ff6306c5958a9e930b29f87030"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7b6537e85871f5e82234e75b6d384dcf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e340d3ff6306c5958a9e930b29f87030"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7b6537e85871f5e82234e75b6d384dcf"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1026,7 +1666,7 @@ shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fb29b97f2fc37532a1c6f391cafd1d97"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2e8bd003dba9037fed6dc765ab6e9179"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1035,7 +1675,7 @@ shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-fb29b97f2fc37532a1c6f391cafd1d97"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
+    <div class="card-body p-0" id="clipboard-2e8bd003dba9037fed6dc765ab6e9179"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
 
 Details for image : C:\BuildFarm\WIM\install.wim
 
@@ -1081,12 +1721,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2933638e651fd907d03e1403b3ff4658"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8bd643ae5d5e65c0a9187948db724299"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2933638e651fd907d03e1403b3ff4658"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8bd643ae5d5e65c0a9187948db724299"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1127,12 +1767,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5e326f14b9daae31aeca24a885c5c3d0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Discard</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b17d86faaba4a4430babb71c65449340"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Discard</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5e326f14b9daae31aeca24a885c5c3d0"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b17d86faaba4a4430babb71c65449340"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1154,12 +1794,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-69018e77197217560b4d8276c7e81790"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-MountedImageInfo</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b1236971fa999268931fb5686ea4846b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-MountedImageInfo</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-69018e77197217560b4d8276c7e81790"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b1236971fa999268931fb5686ea4846b"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1181,12 +1821,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ba7c73bb536ea184ad0674aae6368f1e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Cleanup-Mountpoints</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2e88ab3e3ccf6b7f0c444471a4cfce41"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Cleanup-Mountpoints</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ba7c73bb536ea184ad0674aae6368f1e"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2e88ab3e3ccf6b7f0c444471a4cfce41"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1216,12 +1856,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5826227751411af1b3b6e8cf85a2bdde"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-6087785c77e1fe640d68a9a82bea972f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5826227751411af1b3b6e8cf85a2bdde"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6087785c77e1fe640d68a9a82bea972f"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1254,12 +1894,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e89f46aeed793afa946167ac361733ab"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1c386cd91b2e012e550776e95990727d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e89f46aeed793afa946167ac361733ab"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1c386cd91b2e012e550776e95990727d"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1288,12 +1928,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5c9ecafd984e8b9ff562462c4aedf484"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-78e7d6d1ebc8815b6ec3f3384671c665"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5c9ecafd984e8b9ff562462c4aedf484"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-78e7d6d1ebc8815b6ec3f3384671c665"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1330,12 +1970,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b5d4e0193f2a0ea07fc4933051fd861e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bcf7c4c86106cff5be25f19ebead392c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b5d4e0193f2a0ea07fc4933051fd861e"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bcf7c4c86106cff5be25f19ebead392c"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1368,12 +2008,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5f752dc7ae93bbc00094f87bf6d23533"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4e99594213e6cbd67ed8440fb4fc77ed"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5f752dc7ae93bbc00094f87bf6d23533"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4e99594213e6cbd67ed8440fb4fc77ed"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1413,7 +2053,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5e7f13c39c60d320cad339434e8d7ce5"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-39b6f99616b7fdf87a017e9dcfa7a961"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -1438,7 +2078,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
           
               
           
-        <div class="card-body" id="clipboard-5e7f13c39c60d320cad339434e8d7ce5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic integration of updates into DISM.</span>
+        <div class="card-body" id="clipboard-39b6f99616b7fdf87a017e9dcfa7a961"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic integration of updates into DISM.</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">:</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @package   CMD</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @author    Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
@@ -1509,7 +2149,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-325f2af7ea32813061311f9326e2d1f2"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1d6df0a6a4148f49ab2e105d87b8c32a"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -1534,7 +2174,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
           
               
           
-        <div class="card-body" id="clipboard-325f2af7ea32813061311f9326e2d1f2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic unmounting WIM images into DISM.</span>
+        <div class="card-body" id="clipboard-1d6df0a6a4148f49ab2e105d87b8c32a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic unmounting WIM images into DISM.</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">:</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @package   CMD</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @author    Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
@@ -1560,7 +2200,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 </span></span><span class="line"><span class="cl"><span class="k">exit</span> /b 0
 </span></span></code></pre></div></div>
       </div>
-    </div>]]></turbo:content><pubDate>Mon, 09 May 2022 12:39:47 +0000</pubDate><category>MS Windows</category><category>Терминал</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Windows Server 2022 для рабочей станции</title><link>https://lib.onl/ru/posts/2022/05/36058650-3f35-5ed5-9565-0aa7d8800c28/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/05/36058650-3f35-5ed5-9565-0aa7d8800c28/</guid><description>В этой небольшой заметке я расскажу, как перенастроить серверную версию ОС Windows для работы на обычном стационарном ПК.</description><media:content medium="image" url="https://images.unsplash.com/photo-1640086940714-65501b9214f2" width="1600" height="900"/><content:encoded><![CDATA[<p>В этой небольшой заметке я расскажу, как перенастроить серверную версию ОС Windows для работы на обычном стационарном ПК.</p>
+    </div>]]></turbo:content><pubDate>Mon, 09 May 2022 12:39:47 +0000</pubDate><category>MS Windows</category><category>Терминал</category><category>Скрипты</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Windows Server 2022 для рабочей станции</title><link>https://lib.onl/ru/posts/2022/05/36058650-3f35-5ed5-9565-0aa7d8800c28/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/05/36058650-3f35-5ed5-9565-0aa7d8800c28/</guid><description>В этой небольшой заметке я расскажу, как перенастроить серверную версию ОС Windows для работы на обычном стационарном ПК.</description><media:content medium="image" url="https://images.unsplash.com/photo-1640086940714-65501b9214f2" width="1600" height="900"/><content:encoded><![CDATA[<p>В этой небольшой заметке я расскажу, как перенастроить серверную версию ОС Windows для работы на обычном стационарном ПК.</p>
 <h2 id="настройка-служб">
   <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d1%81%d0%bb%d1%83%d0%b6%d0%b1">Настройка служб</a>
 </h2><p>На сервере нет необходимости использовать поисковые механизмы и вывод звука, поэтому они отключены. Но на рабочей станции эти параметры необходимы. Для включения звука и поискового механизма, необходимо настроить запуск соответствующих служб.</p>
@@ -1666,12 +2306,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c533a13f20bafbf28deed2deb4c18dfe"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c0161b054401bb95657ccb51339eaabb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c533a13f20bafbf28deed2deb4c18dfe"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c0161b054401bb95657ccb51339eaabb"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1785,12 +2425,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c533a13f20bafbf28deed2deb4c18dfe"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c0161b054401bb95657ccb51339eaabb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c533a13f20bafbf28deed2deb4c18dfe"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c0161b054401bb95657ccb51339eaabb"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
