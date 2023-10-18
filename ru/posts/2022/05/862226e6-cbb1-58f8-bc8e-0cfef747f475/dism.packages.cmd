@@ -10,9 +10,13 @@
 
 @echo off
 
-if exist "%~dp0WIM\install.wim" (
+f_wim="%~dp0WIM\install.wim"
+d_mnt="%~dp0MNT"
+d_upd="%~dp0UPD"
+
+if exist "%f_wim%" (
   echo Getting Windows Image Info...
-  Dism /Get-ImageInfo /ImageFile:"%~dp0WIM\install.wim"
+  Dism /Get-ImageInfo /ImageFile:"%f_wim%"
 ) else (
   echo 'install.wim' not found! & echo.Failed with error #%errorlevel%.
   goto :error
@@ -21,22 +25,22 @@ if exist "%~dp0WIM\install.wim" (
 set /p index="Enter INDEX: "
 
 echo Mounting Windows image...
-Dism /Mount-Image /ImageFile:"%~dp0WIM\install.wim" /MountDir:"%~dp0MNT" /index:%index%
+Dism /Mount-Image /ImageFile:"%f_wim%" /MountDir:"%d_mnt%" /index:%index%
 
 echo Adding Windows packages...
-Dism /Image:"%~dp0MNT" /Add-Package /PackagePath:"%~dp0UPD"
+Dism /Image:"%d_mnt%" /Add-Package /PackagePath:"%d_upd%"
 
 echo Getting Windows packages...
-Dism /Image:"%~dp0MNT" /Get-Packages
+Dism /Image:"%d_mnt%" /Get-Packages
 
 echo Reseting Windows image...
-Dism /Image:"%~dp0MNT" /Cleanup-Image /StartComponentCleanup /ResetBase
+Dism /Image:"%d_mnt%" /Cleanup-Image /StartComponentCleanup /ResetBase
 
 echo Scaning health Windows image...
-Dism /Image:"%~dp0MNT" /Cleanup-Image /ScanHealth
+Dism /Image:"%d_mnt%" /Cleanup-Image /ScanHealth
 
 echo Saving Windows image...
-Dism /Unmount-Image /MountDir:"%~dp0MNT" /Commit
+Dism /Unmount-Image /MountDir:"%d_mnt%" /Commit
 
 exit /b 0
 
