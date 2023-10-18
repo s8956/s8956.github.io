@@ -44,12 +44,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-160ad0dc7c9049155c354ce92ee977e1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-08befa8097815dbb3035abe90322a13b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-160ad0dc7c9049155c354ce92ee977e1"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-08befa8097815dbb3035abe90322a13b"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -96,12 +96,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cc146de7b7ff861727b6ac81d516249f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-84dec5cd5b6696103075ddfc59764d95"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cc146de7b7ff861727b6ac81d516249f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-84dec5cd5b6696103075ddfc59764d95"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -124,12 +124,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c913a983a34debfc044379b002068eaa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bb76d049eacf7d09fe39e40ffc405116"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c913a983a34debfc044379b002068eaa"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb76d049eacf7d09fe39e40ffc405116"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -183,12 +183,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-160ad0dc7c9049155c354ce92ee977e1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-08befa8097815dbb3035abe90322a13b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-160ad0dc7c9049155c354ce92ee977e1"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-08befa8097815dbb3035abe90322a13b"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -235,12 +235,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cc146de7b7ff861727b6ac81d516249f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-84dec5cd5b6696103075ddfc59764d95"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cc146de7b7ff861727b6ac81d516249f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-84dec5cd5b6696103075ddfc59764d95"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -263,12 +263,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c913a983a34debfc044379b002068eaa"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bb76d049eacf7d09fe39e40ffc405116"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c913a983a34debfc044379b002068eaa"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb76d049eacf7d09fe39e40ffc405116"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -321,12 +321,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-31e616b8b9aed3d5f9714555523f6bb5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0ae42a2187e32accd7fb60ca3419988b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-31e616b8b9aed3d5f9714555523f6bb5"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0ae42a2187e32accd7fb60ca3419988b"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -365,7 +365,7 @@ shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ed69a7fe71d0063eef5bfc2fd4b37d08"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fa70f3aeea85a259cecafa7bfad436af"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -374,7 +374,7 @@ shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-ed69a7fe71d0063eef5bfc2fd4b37d08"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
+    <div class="card-body p-0" id="clipboard-fa70f3aeea85a259cecafa7bfad436af"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
 
 Details for image : C:\BuildFarm\WIM\install.wim
 
@@ -420,12 +420,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-20d0bc7d4d6a0828f82aa622668dede1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e8591e8ff910ca6d0992f26394210b1d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-20d0bc7d4d6a0828f82aa622668dede1"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e8591e8ff910ca6d0992f26394210b1d"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -455,12 +455,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9fe557c108baf7ad49fec11278e43bad"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cb144790e04c6dff40a380be7a341a78"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9fe557c108baf7ad49fec11278e43bad"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cb144790e04c6dff40a380be7a341a78"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -493,12 +493,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-88fae5fd18fd9099a88232c55a167234"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f6677f4350196e972ce78ec39aff8cd6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-88fae5fd18fd9099a88232c55a167234"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f6677f4350196e972ce78ec39aff8cd6"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -527,12 +527,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1ee587b9b766b87334054dac8efdcc43"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f49b0e0189283bb09806f4968a1be115"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1ee587b9b766b87334054dac8efdcc43"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f49b0e0189283bb09806f4968a1be115"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -569,12 +569,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4d9916a5e5a3c1c74cf69b36e614edc8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-789d8c7b1dd37e5d1764e633091f6bfb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4d9916a5e5a3c1c74cf69b36e614edc8"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-789d8c7b1dd37e5d1764e633091f6bfb"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -607,12 +607,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9fc51111b90e0a35cd11f36430a98524"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3f1588fb6bd426b93370c9103f1c3168"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9fc51111b90e0a35cd11f36430a98524"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3f1588fb6bd426b93370c9103f1c3168"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -674,12 +674,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-31e616b8b9aed3d5f9714555523f6bb5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0ae42a2187e32accd7fb60ca3419988b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-31e616b8b9aed3d5f9714555523f6bb5"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0ae42a2187e32accd7fb60ca3419988b"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -718,7 +718,7 @@ shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ed69a7fe71d0063eef5bfc2fd4b37d08"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fa70f3aeea85a259cecafa7bfad436af"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -727,7 +727,7 @@ shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-ed69a7fe71d0063eef5bfc2fd4b37d08"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
+    <div class="card-body p-0" id="clipboard-fa70f3aeea85a259cecafa7bfad436af"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
 
 Details for image : C:\BuildFarm\WIM\install.wim
 
@@ -773,12 +773,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-20d0bc7d4d6a0828f82aa622668dede1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e8591e8ff910ca6d0992f26394210b1d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-20d0bc7d4d6a0828f82aa622668dede1"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e8591e8ff910ca6d0992f26394210b1d"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -808,12 +808,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9fe557c108baf7ad49fec11278e43bad"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cb144790e04c6dff40a380be7a341a78"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9fe557c108baf7ad49fec11278e43bad"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cb144790e04c6dff40a380be7a341a78"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -846,12 +846,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-88fae5fd18fd9099a88232c55a167234"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f6677f4350196e972ce78ec39aff8cd6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-88fae5fd18fd9099a88232c55a167234"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f6677f4350196e972ce78ec39aff8cd6"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -880,12 +880,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1ee587b9b766b87334054dac8efdcc43"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f49b0e0189283bb09806f4968a1be115"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1ee587b9b766b87334054dac8efdcc43"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f49b0e0189283bb09806f4968a1be115"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -922,12 +922,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4d9916a5e5a3c1c74cf69b36e614edc8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-789d8c7b1dd37e5d1764e633091f6bfb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4d9916a5e5a3c1c74cf69b36e614edc8"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-789d8c7b1dd37e5d1764e633091f6bfb"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -960,12 +960,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9fc51111b90e0a35cd11f36430a98524"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3f1588fb6bd426b93370c9103f1c3168"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9fc51111b90e0a35cd11f36430a98524"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3f1588fb6bd426b93370c9103f1c3168"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1088,12 +1088,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0d855a58c537161d8cddf5e3c59b8d7a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8f6859f7553b6901f260f8ce225d38e1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0d855a58c537161d8cddf5e3c59b8d7a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8f6859f7553b6901f260f8ce225d38e1"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1207,12 +1207,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0d855a58c537161d8cddf5e3c59b8d7a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8f6859f7553b6901f260f8ce225d38e1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0d855a58c537161d8cddf5e3c59b8d7a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8f6859f7553b6901f260f8ce225d38e1"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1224,8 +1224,8 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 <p>Сразу скажу, что мне нравится английский текст в интерфейсах. Поэтому все ОС у меня с интерфейсом в английской локализации, но я постараюсь максимально подробно описывать приведённые здесь групповые политики. Я использую Windows 10 в версии Enterprise, и не стоит забывать, что политики могут отличаться между различными версиями ОС.</p>
 <p>Как открыть редактор групповых политик? Очень просто: необходимо нажать сочетание клавиш <span class="shortcode shortcode-key"><kbd>WIN + R</kbd></span>, откроется окно команды &ldquo;Выполнить&rdquo; и в текстовом поле набрать gpedit.msc и нажать <span class="shortcode shortcode-key"><kbd>OK</kbd></span>.</p>
 <ul>
-<li>✅ - включить (разрешить).</li>
-<li>⛔ - отключить (запретить).</li>
+<li>:white_check_mark: - включить (разрешить).</li>
+<li>:no_entry: - отключить (запретить).</li>
 </ul>
 <h2 id="computer-details">
   <a class="link-body-emphasis" href="#computer-details">Computer Details</a>
@@ -1233,9 +1233,9 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 <h3 id="systemdevice-installation">
   <a class="link-body-emphasis" href="#systemdevice-installation">System/Device Installation</a>
 </h3><ul>
-<li>✅ <strong>Prevent device metadata retrieval from the Internet</strong><br>
+<li>:white_check_mark: <strong>Prevent device metadata retrieval from the Internet</strong><br>
 Запретить использование мета-информации для подключённых устройств из Интернета. Политика отвечает за отображение индивидуальных значков принтеров, сканеров и такое прочее. Для отображения подобных значков, Windows лезет в Интернет и загружает мета-данные. Мне подобное не нужно, поэтому я включаю политику (включить = запретить).</li>
-<li>✅ <strong>Specify search order for device driver source locations</strong><br>
+<li>:white_check_mark: <strong>Specify search order for device driver source locations</strong><br>
 Специальный порядок источников для поиска драйверов в них. А вот эта политика отвечает за автоматическую установку драйверов на видеокарты, звуковые карты, различную периферию и прочее. Здесь можно указать ОС в каких источниках искать драйвера, приложения и прочее. Меня всегда раздражало, когда Windows при подключении к Интернету устанавливает устаревшие драйвера, например, на видеокарту. Зачем, когда я могу скачать свежие версии с сайта производителя? Включаю политику и выбираю опцию, указанную ниже.
 <ul>
 <li><em>Do not search Windows Update</em><br>
@@ -1246,7 +1246,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 <h3 id="windows-componentsautoplay-policies">
   <a class="link-body-emphasis" href="#windows-componentsautoplay-policies">Windows Components/AutoPlay Policies</a>
 </h3><ul>
-<li>✅ <em>Turn off Autoplay</em><br>
+<li>:white_check_mark: <em>Turn off Autoplay</em><br>
 Отключить автоматический запуск. Политика позволяет отключить запуск подходящего приложения при втыкании, например, флешки с музыкой или картинками. Ранее (да и сейчас, наверно) таким способом любили запускаться злые вирусы. Включаю политику и выбираю опцию, указанную ниже.
 <ul>
 <li>All drives<br>
@@ -1257,15 +1257,15 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 <h3 id="windows-componentscloud-content">
   <a class="link-body-emphasis" href="#windows-componentscloud-content">Windows Components/Cloud Content</a>
 </h3><ul>
-<li>✅ <strong>Do not show Windows tips</strong><br>
+<li>:white_check_mark: <strong>Do not show Windows tips</strong><br>
 Не показывать подсказки Windows. Лично мне подсказки ОС не нужны. Я как нибудь без них обойдусь. Включаю политику.</li>
-<li>✅ <strong>Turn off Microsoft consumer experiences</strong><br>
+<li>:white_check_mark: <strong>Turn off Microsoft consumer experiences</strong><br>
 Выключить Microsoft Consumer Experience. Компания Microsoft своими рекомендациями навязывает установку таких приложений, как Candy Crush Soda Saga, FarmVille 2, Flipboard, Twitter, Photoshop Express, Minecraft и т.д. Мне они не нужны да и мне чуждо такое навязывание. Неприятно. Включаю политику, тем самым отключая подобную рекламу.</li>
 </ul>
 <h3 id="windows-componentsdata-collection-and-preview-builds">
   <a class="link-body-emphasis" href="#windows-componentsdata-collection-and-preview-builds">Windows Components/Data Collection and Preview Builds</a>
 </h3><ul>
-<li>✅ <strong>Allow Telemetry</strong><br>
+<li>:white_check_mark: <strong>Allow Telemetry</strong><br>
 Разрешить телеметрию. Полностью телеметрию отключить всё равно не получится, что бы там не писали в Интернете. Поэтому, я включаю телеметрию и устанавливаю уровень сбора информации.
 <ul>
 <li><em>0 - Security [Enterprise Only]</em><br>
@@ -1276,64 +1276,64 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 <h3 id="windows-componentsdesktop-gadgets">
   <a class="link-body-emphasis" href="#windows-componentsdesktop-gadgets">Windows Components/Desktop Gadgets</a>
 </h3><ul>
-<li>✅ <strong>Turn off desktop gadgets</strong><br>
+<li>:white_check_mark: <strong>Turn off desktop gadgets</strong><br>
 Выключить гаджеты рабочего стола. Актуально для Windows Vista / 7. В Windows 10 гаджетов не видел. Может потому что не использовал их никогда. Но политику включаю.</li>
 </ul>
 <h3 id="windows-componentsmicrosoft-defender-antivirus">
   <a class="link-body-emphasis" href="#windows-componentsmicrosoft-defender-antivirus">Windows Components/Microsoft Defender Antivirus</a>
 </h3><ul>
-<li>✅ <strong>Turn off Microsoft Defender Antivirus</strong><br>
+<li>:white_check_mark: <strong>Turn off Microsoft Defender Antivirus</strong><br>
 Отключить Microsoft Defender Antivirus. Я отключаю себе антивирус. Головы хватает, чтобы не подхватить вирусы. Использую только ограниченный проверенный набор программ. При этом, если необходимо запустить что-то экзотическое, у меня всегда развёрнута виртуальная машина в Hyper-V.</li>
 </ul>
 <h3 id="windows-componentsonedrive">
   <a class="link-body-emphasis" href="#windows-componentsonedrive">Windows Components/OneDrive</a>
 </h3><ul>
-<li>✅ <strong>Prevent the usage of OneDrive for file storage</strong><br>
+<li>:white_check_mark: <strong>Prevent the usage of OneDrive for file storage</strong><br>
 Запретить использование OneDrive как файловое хранилище. Мне не нужен OneDrive. Поэтому я запрещаю использование OneDrive в качестве хранилища файлов.</li>
 </ul>
 <h3 id="windows-componentssearch">
   <a class="link-body-emphasis" href="#windows-componentssearch">Windows Components/Search</a>
 </h3><ul>
-<li>⛔ <strong>Allow Cloud Search</strong><br>
+<li>:no_entry: <strong>Allow Cloud Search</strong><br>
 Разрешить использование облачного поиска. Мне не нужен в ОС поиск, который будет искать по различным сайтам. Только локальный поиск. Поэтому, я запрещаю политику.</li>
-<li>⛔ <strong>Allow Cortana</strong><br>
+<li>:no_entry: <strong>Allow Cortana</strong><br>
 Разрешить Cortana. Cortana мне тоже не нужна. Мне не о чём с ней поговорить. Поэтому, я запрещаю Cortana.</li>
 </ul>
 <h3 id="windows-componentsstore">
   <a class="link-body-emphasis" href="#windows-componentsstore">Windows Components/Store</a>
 </h3><ul>
-<li>✅ <strong>Disable all apps from Microsoft Store</strong><br>
+<li>:white_check_mark: <strong>Disable all apps from Microsoft Store</strong><br>
 Отключить все приложения из Microsoft Store. Для выпиливания приложений, установленных из Microsoft Store в Интернете гуляет скрипт на PowerShell. Но мне лень его использовать, да и мало ли что&hellip; Поэтому, я просто отключаю подобные приложения через групповые политики. Они остаются в меню Start, но не используются.</li>
-<li>✅ <strong>Turn off the Store application</strong><br>
+<li>:white_check_mark: <strong>Turn off the Store application</strong><br>
 Подобно представленной выше политике, эта отключает магазин приложений. Согласно описанию и Интернету, эта политика важнее предыдущей, и включение её отключает не только сам магазин, но и приложения из него.</li>
 </ul>
 <h3 id="windows-componentssync-your-settings">
   <a class="link-body-emphasis" href="#windows-componentssync-your-settings">Windows Components/Sync your settings</a>
 </h3><ul>
-<li>✅ <strong>Do not sync</strong><br>
+<li>:white_check_mark: <strong>Do not sync</strong><br>
 Не синхронизировать настройки пользователя. Синхронизация настроек между устройствами мне не нужна. Я включаю политику, тем самым отключаю синхронизацию.</li>
 </ul>
 <h3 id="windows-componentswindows-game-recording-and-broadcasting">
   <a class="link-body-emphasis" href="#windows-componentswindows-game-recording-and-broadcasting">Windows Components/Windows Game Recording and Broadcasting</a>
 </h3><ul>
-<li>⛔ <strong>Enables or disables Windows Game Recording and Broadcasting</strong><br>
+<li>:no_entry: <strong>Enables or disables Windows Game Recording and Broadcasting</strong><br>
 Включение или отключение функций Windows Game Recording и Broadcasting. Так как я не играю в игры, для меня подобная функциональность ОС избыточна. Отключаю политику.</li>
 </ul>
 <h3 id="windows-componentswindows-update">
   <a class="link-body-emphasis" href="#windows-componentswindows-update">Windows Components/Windows Update</a>
 </h3><ul>
-<li>✅ <strong>Configure Automatic Updates</strong><br>
+<li>:white_check_mark: <strong>Configure Automatic Updates</strong><br>
 Конфигурация автоматического обновления. Ох, сколько в Интернете страданий по поводу обновлений Windows 10. При включении этой политике, я указываю опции, которые помогут избавится от ряда проблем с автоматическим обновлением.
 <ul>
 <li><strong>Configure automatic updating:</strong> <em>2 - Notify for download and auto install</em><br>
 Я выбираю опцию #2, которая гласит как &ldquo;Информировать о выпуске новых обновлений&rdquo;.</li>
-<li>✅ <em>Install updates for other Microsoft products</em><br>
+<li>:white_check_mark: <em>Install updates for other Microsoft products</em><br>
 Также отмечаю галочкой опцию &ldquo;Устанавливать обновления для других продуктов Microsoft&rdquo;. Таким образом, более-менее свежие версии, например, Microsoft Office будут обновляться через Windows Update вместе с ОС.</li>
 </ul>
 </li>
-<li>✅ <strong>Do not include drivers with Windows Updates</strong><br>
+<li>:white_check_mark: <strong>Do not include drivers with Windows Updates</strong><br>
 Не использовать драйвера в Windows Updates. Вот эта опция странная. Может я её не так понимаю, но при включении, Windows Updates всё равно ставит драйвера на устройства. А мне подобное обслуживание не надо.</li>
-<li>✅ <strong>No auto-restart with logged on users for scheduled automatic updates installations</strong><br>
+<li>:white_check_mark: <strong>No auto-restart with logged on users for scheduled automatic updates installations</strong><br>
 Не использовать автоматическую перезагрузку при вошедшем в систему пользователе, когда обновления установились. Вот эта та самая автоматическая перезагрузка, которая попортила нервишки многим пользователям. Например, когда ты днём много работаешь, а на ночь ставишь компьютер считать различные данные, утром можно обнаружить окно готовности войти в систему. Да, установились обновления и компьютер перезагрузился. Включаем политику, тем самым отключая автоматическую перезагрузку.</li>
 </ul>
 <h2 id="user-details">
@@ -1342,21 +1342,21 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 <h3 id="windows-componentsattachment-manager">
   <a class="link-body-emphasis" href="#windows-componentsattachment-manager">Windows Components/Attachment Manager</a>
 </h3><ul>
-<li>✅ <strong>Do not preserve zone information in file attachments</strong><br>
+<li>:white_check_mark: <strong>Do not preserve zone information in file attachments</strong><br>
 Не сохранять информацию о зоне в файлах. Суть этой политики такова, что если я скачаю из Интернета, например, какой-нибудь EXE-файл, то файловая система пометит его как небезопасный. Лично мне в этом нет необходимости. Включаю политику.</li>
 </ul>
 <h3 id="windows-componentscloud-content-1">
   <a class="link-body-emphasis" href="#windows-componentscloud-content-1">Windows Components/Cloud Content</a>
 </h3><ul>
-<li>✅ <strong>Turn off all Windows spotlight features</strong><br>
+<li>:white_check_mark: <strong>Turn off all Windows spotlight features</strong><br>
 Отключить все возможности Windows Spotlight. Windows Spotlight эта функция ОС, которая позволяет отображать на экране входа в систему различную интерактивную информацию, например, сменяющиеся фоновые изображения, различные предложения (рекламные / не рекламные - не знаю, не видел ни разу). Мне это не надо, поэтому я включаю политику, запрещая использование Windows Spotlight.</li>
 </ul>
 <p>На этом всё. Возможно, некоторые параметры групповых политик покажутся спорными, а некоторые вообще странными и ненужными, но мне так удобно работать. Список будет дорабатываться, если найду что-нибудь ещё интересное.</p>]]></content:encoded><turbo:source/><turbo:topic>Windows 10: Настройка через групповые политики</turbo:topic><turbo:content><![CDATA[<p>Windows 10 до сих пор вызывает противоречивые чувства: иногда её поведение предсказуемо, иногда какое-нибудь обновление ломает систему, удаляя данные пользователя. И чтобы как-то улучшить положение дел и усмирить некоторые функции, я использую групповые политики в настройке операционной системы (ОС).</p>
 <p>Сразу скажу, что мне нравится английский текст в интерфейсах. Поэтому все ОС у меня с интерфейсом в английской локализации, но я постараюсь максимально подробно описывать приведённые здесь групповые политики. Я использую Windows 10 в версии Enterprise, и не стоит забывать, что политики могут отличаться между различными версиями ОС.</p>
 <p>Как открыть редактор групповых политик? Очень просто: необходимо нажать сочетание клавиш <span class="shortcode shortcode-key"><kbd>WIN + R</kbd></span>, откроется окно команды &ldquo;Выполнить&rdquo; и в текстовом поле набрать gpedit.msc и нажать <span class="shortcode shortcode-key"><kbd>OK</kbd></span>.</p>
 <ul>
-<li>✅ - включить (разрешить).</li>
-<li>⛔ - отключить (запретить).</li>
+<li>:white_check_mark: - включить (разрешить).</li>
+<li>:no_entry: - отключить (запретить).</li>
 </ul>
 <h2 id="computer-details">
   <a class="link-body-emphasis" href="#computer-details">Computer Details</a>
@@ -1364,9 +1364,9 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 <h3 id="systemdevice-installation">
   <a class="link-body-emphasis" href="#systemdevice-installation">System/Device Installation</a>
 </h3><ul>
-<li>✅ <strong>Prevent device metadata retrieval from the Internet</strong><br>
+<li>:white_check_mark: <strong>Prevent device metadata retrieval from the Internet</strong><br>
 Запретить использование мета-информации для подключённых устройств из Интернета. Политика отвечает за отображение индивидуальных значков принтеров, сканеров и такое прочее. Для отображения подобных значков, Windows лезет в Интернет и загружает мета-данные. Мне подобное не нужно, поэтому я включаю политику (включить = запретить).</li>
-<li>✅ <strong>Specify search order for device driver source locations</strong><br>
+<li>:white_check_mark: <strong>Specify search order for device driver source locations</strong><br>
 Специальный порядок источников для поиска драйверов в них. А вот эта политика отвечает за автоматическую установку драйверов на видеокарты, звуковые карты, различную периферию и прочее. Здесь можно указать ОС в каких источниках искать драйвера, приложения и прочее. Меня всегда раздражало, когда Windows при подключении к Интернету устанавливает устаревшие драйвера, например, на видеокарту. Зачем, когда я могу скачать свежие версии с сайта производителя? Включаю политику и выбираю опцию, указанную ниже.
 <ul>
 <li><em>Do not search Windows Update</em><br>
@@ -1377,7 +1377,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 <h3 id="windows-componentsautoplay-policies">
   <a class="link-body-emphasis" href="#windows-componentsautoplay-policies">Windows Components/AutoPlay Policies</a>
 </h3><ul>
-<li>✅ <em>Turn off Autoplay</em><br>
+<li>:white_check_mark: <em>Turn off Autoplay</em><br>
 Отключить автоматический запуск. Политика позволяет отключить запуск подходящего приложения при втыкании, например, флешки с музыкой или картинками. Ранее (да и сейчас, наверно) таким способом любили запускаться злые вирусы. Включаю политику и выбираю опцию, указанную ниже.
 <ul>
 <li>All drives<br>
@@ -1388,15 +1388,15 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 <h3 id="windows-componentscloud-content">
   <a class="link-body-emphasis" href="#windows-componentscloud-content">Windows Components/Cloud Content</a>
 </h3><ul>
-<li>✅ <strong>Do not show Windows tips</strong><br>
+<li>:white_check_mark: <strong>Do not show Windows tips</strong><br>
 Не показывать подсказки Windows. Лично мне подсказки ОС не нужны. Я как нибудь без них обойдусь. Включаю политику.</li>
-<li>✅ <strong>Turn off Microsoft consumer experiences</strong><br>
+<li>:white_check_mark: <strong>Turn off Microsoft consumer experiences</strong><br>
 Выключить Microsoft Consumer Experience. Компания Microsoft своими рекомендациями навязывает установку таких приложений, как Candy Crush Soda Saga, FarmVille 2, Flipboard, Twitter, Photoshop Express, Minecraft и т.д. Мне они не нужны да и мне чуждо такое навязывание. Неприятно. Включаю политику, тем самым отключая подобную рекламу.</li>
 </ul>
 <h3 id="windows-componentsdata-collection-and-preview-builds">
   <a class="link-body-emphasis" href="#windows-componentsdata-collection-and-preview-builds">Windows Components/Data Collection and Preview Builds</a>
 </h3><ul>
-<li>✅ <strong>Allow Telemetry</strong><br>
+<li>:white_check_mark: <strong>Allow Telemetry</strong><br>
 Разрешить телеметрию. Полностью телеметрию отключить всё равно не получится, что бы там не писали в Интернете. Поэтому, я включаю телеметрию и устанавливаю уровень сбора информации.
 <ul>
 <li><em>0 - Security [Enterprise Only]</em><br>
@@ -1407,64 +1407,64 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 <h3 id="windows-componentsdesktop-gadgets">
   <a class="link-body-emphasis" href="#windows-componentsdesktop-gadgets">Windows Components/Desktop Gadgets</a>
 </h3><ul>
-<li>✅ <strong>Turn off desktop gadgets</strong><br>
+<li>:white_check_mark: <strong>Turn off desktop gadgets</strong><br>
 Выключить гаджеты рабочего стола. Актуально для Windows Vista / 7. В Windows 10 гаджетов не видел. Может потому что не использовал их никогда. Но политику включаю.</li>
 </ul>
 <h3 id="windows-componentsmicrosoft-defender-antivirus">
   <a class="link-body-emphasis" href="#windows-componentsmicrosoft-defender-antivirus">Windows Components/Microsoft Defender Antivirus</a>
 </h3><ul>
-<li>✅ <strong>Turn off Microsoft Defender Antivirus</strong><br>
+<li>:white_check_mark: <strong>Turn off Microsoft Defender Antivirus</strong><br>
 Отключить Microsoft Defender Antivirus. Я отключаю себе антивирус. Головы хватает, чтобы не подхватить вирусы. Использую только ограниченный проверенный набор программ. При этом, если необходимо запустить что-то экзотическое, у меня всегда развёрнута виртуальная машина в Hyper-V.</li>
 </ul>
 <h3 id="windows-componentsonedrive">
   <a class="link-body-emphasis" href="#windows-componentsonedrive">Windows Components/OneDrive</a>
 </h3><ul>
-<li>✅ <strong>Prevent the usage of OneDrive for file storage</strong><br>
+<li>:white_check_mark: <strong>Prevent the usage of OneDrive for file storage</strong><br>
 Запретить использование OneDrive как файловое хранилище. Мне не нужен OneDrive. Поэтому я запрещаю использование OneDrive в качестве хранилища файлов.</li>
 </ul>
 <h3 id="windows-componentssearch">
   <a class="link-body-emphasis" href="#windows-componentssearch">Windows Components/Search</a>
 </h3><ul>
-<li>⛔ <strong>Allow Cloud Search</strong><br>
+<li>:no_entry: <strong>Allow Cloud Search</strong><br>
 Разрешить использование облачного поиска. Мне не нужен в ОС поиск, который будет искать по различным сайтам. Только локальный поиск. Поэтому, я запрещаю политику.</li>
-<li>⛔ <strong>Allow Cortana</strong><br>
+<li>:no_entry: <strong>Allow Cortana</strong><br>
 Разрешить Cortana. Cortana мне тоже не нужна. Мне не о чём с ней поговорить. Поэтому, я запрещаю Cortana.</li>
 </ul>
 <h3 id="windows-componentsstore">
   <a class="link-body-emphasis" href="#windows-componentsstore">Windows Components/Store</a>
 </h3><ul>
-<li>✅ <strong>Disable all apps from Microsoft Store</strong><br>
+<li>:white_check_mark: <strong>Disable all apps from Microsoft Store</strong><br>
 Отключить все приложения из Microsoft Store. Для выпиливания приложений, установленных из Microsoft Store в Интернете гуляет скрипт на PowerShell. Но мне лень его использовать, да и мало ли что&hellip; Поэтому, я просто отключаю подобные приложения через групповые политики. Они остаются в меню Start, но не используются.</li>
-<li>✅ <strong>Turn off the Store application</strong><br>
+<li>:white_check_mark: <strong>Turn off the Store application</strong><br>
 Подобно представленной выше политике, эта отключает магазин приложений. Согласно описанию и Интернету, эта политика важнее предыдущей, и включение её отключает не только сам магазин, но и приложения из него.</li>
 </ul>
 <h3 id="windows-componentssync-your-settings">
   <a class="link-body-emphasis" href="#windows-componentssync-your-settings">Windows Components/Sync your settings</a>
 </h3><ul>
-<li>✅ <strong>Do not sync</strong><br>
+<li>:white_check_mark: <strong>Do not sync</strong><br>
 Не синхронизировать настройки пользователя. Синхронизация настроек между устройствами мне не нужна. Я включаю политику, тем самым отключаю синхронизацию.</li>
 </ul>
 <h3 id="windows-componentswindows-game-recording-and-broadcasting">
   <a class="link-body-emphasis" href="#windows-componentswindows-game-recording-and-broadcasting">Windows Components/Windows Game Recording and Broadcasting</a>
 </h3><ul>
-<li>⛔ <strong>Enables or disables Windows Game Recording and Broadcasting</strong><br>
+<li>:no_entry: <strong>Enables or disables Windows Game Recording and Broadcasting</strong><br>
 Включение или отключение функций Windows Game Recording и Broadcasting. Так как я не играю в игры, для меня подобная функциональность ОС избыточна. Отключаю политику.</li>
 </ul>
 <h3 id="windows-componentswindows-update">
   <a class="link-body-emphasis" href="#windows-componentswindows-update">Windows Components/Windows Update</a>
 </h3><ul>
-<li>✅ <strong>Configure Automatic Updates</strong><br>
+<li>:white_check_mark: <strong>Configure Automatic Updates</strong><br>
 Конфигурация автоматического обновления. Ох, сколько в Интернете страданий по поводу обновлений Windows 10. При включении этой политике, я указываю опции, которые помогут избавится от ряда проблем с автоматическим обновлением.
 <ul>
 <li><strong>Configure automatic updating:</strong> <em>2 - Notify for download and auto install</em><br>
 Я выбираю опцию #2, которая гласит как &ldquo;Информировать о выпуске новых обновлений&rdquo;.</li>
-<li>✅ <em>Install updates for other Microsoft products</em><br>
+<li>:white_check_mark: <em>Install updates for other Microsoft products</em><br>
 Также отмечаю галочкой опцию &ldquo;Устанавливать обновления для других продуктов Microsoft&rdquo;. Таким образом, более-менее свежие версии, например, Microsoft Office будут обновляться через Windows Update вместе с ОС.</li>
 </ul>
 </li>
-<li>✅ <strong>Do not include drivers with Windows Updates</strong><br>
+<li>:white_check_mark: <strong>Do not include drivers with Windows Updates</strong><br>
 Не использовать драйвера в Windows Updates. Вот эта опция странная. Может я её не так понимаю, но при включении, Windows Updates всё равно ставит драйвера на устройства. А мне подобное обслуживание не надо.</li>
-<li>✅ <strong>No auto-restart with logged on users for scheduled automatic updates installations</strong><br>
+<li>:white_check_mark: <strong>No auto-restart with logged on users for scheduled automatic updates installations</strong><br>
 Не использовать автоматическую перезагрузку при вошедшем в систему пользователе, когда обновления установились. Вот эта та самая автоматическая перезагрузка, которая попортила нервишки многим пользователям. Например, когда ты днём много работаешь, а на ночь ставишь компьютер считать различные данные, утром можно обнаружить окно готовности войти в систему. Да, установились обновления и компьютер перезагрузился. Включаем политику, тем самым отключая автоматическую перезагрузку.</li>
 </ul>
 <h2 id="user-details">
@@ -1473,13 +1473,13 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 <h3 id="windows-componentsattachment-manager">
   <a class="link-body-emphasis" href="#windows-componentsattachment-manager">Windows Components/Attachment Manager</a>
 </h3><ul>
-<li>✅ <strong>Do not preserve zone information in file attachments</strong><br>
+<li>:white_check_mark: <strong>Do not preserve zone information in file attachments</strong><br>
 Не сохранять информацию о зоне в файлах. Суть этой политики такова, что если я скачаю из Интернета, например, какой-нибудь EXE-файл, то файловая система пометит его как небезопасный. Лично мне в этом нет необходимости. Включаю политику.</li>
 </ul>
 <h3 id="windows-componentscloud-content-1">
   <a class="link-body-emphasis" href="#windows-componentscloud-content-1">Windows Components/Cloud Content</a>
 </h3><ul>
-<li>✅ <strong>Turn off all Windows spotlight features</strong><br>
+<li>:white_check_mark: <strong>Turn off all Windows spotlight features</strong><br>
 Отключить все возможности Windows Spotlight. Windows Spotlight эта функция ОС, которая позволяет отображать на экране входа в систему различную интерактивную информацию, например, сменяющиеся фоновые изображения, различные предложения (рекламные / не рекламные - не знаю, не видел ни разу). Мне это не надо, поэтому я включаю политику, запрещая использование Windows Spotlight.</li>
 </ul>
 <p>На этом всё. Возможно, некоторые параметры групповых политик покажутся спорными, а некоторые вообще странными и ненужными, но мне так удобно работать. Список будет дорабатываться, если найду что-нибудь ещё интересное.</p>]]></turbo:content><pubDate>Tue, 21 Jul 2020 21:15:37 +0000</pubDate><category>MS Windows</category></item></channel></rss>
