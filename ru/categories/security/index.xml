@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>Безопасность / Library Online</title><link>https://lib.onl/ru/categories/security/</link><description>Информационная безопасность, протоколы, шифрование.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/categories/security/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>Безопасность / Library Online</title><description>Информационная безопасность, протоколы, шифрование.</description></image><lastBuildDate>Thu, 19 Oct 2023 08:56:43 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/categories/security/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Добавление корневых сертификатов в MikroTik RouterOS</title><link>https://lib.onl/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/</guid><description>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</description><media:content medium="image" url="https://images.unsplash.com/photo-1554098415-4052459dc340" width="1600" height="900"/><content:encoded><![CDATA[<p>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</p>
-<p>Если репозиторий заполнен корневыми сертификатами центров сертификации, RouterOS сможет проверять подлинность выданных этими центрами сертификатов, работать с DNS over HTTPS (DoH) и делать другу работу, связанную с шифрованием данных.</p>
+<p>Если репозиторий заполнен корневыми сертификатами центров сертификации, RouterOS сможет проверять подлинность выданных этими центрами сертификатов, работать с DNS over HTTPS (DoH) и делать другую работу, связанную с шифрованием данных.</p>
 <h2 id="загрузка-базы-сертификатов">
   <a class="link-body-emphasis" href="#%d0%b7%d0%b0%d0%b3%d1%80%d1%83%d0%b7%d0%ba%d0%b0-%d0%b1%d0%b0%d0%b7%d1%8b-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%be%d0%b2">Загрузка базы сертификатов</a>
 </h2><p>Файл <a title="" href="https://curl.se/docs/caextract.html" target="_blank" rel="noopener noreferrer nofollow">cacert.pem</a> с сайта <a title="" href="https://curl.se/" target="_blank" rel="noopener noreferrer nofollow">curl.se</a> переодически обновляется и содержит в себе корневые сертификаты центров сертификации. Откроем терминал в RouterOS и скачаем сразу на роутер командой:</p>
@@ -13,12 +13,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-aa5f0c92a0dff7408f1b21bd1bad44c8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4b48c154cb6271d26b66c9b2406f3214"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aa5f0c92a0dff7408f1b21bd1bad44c8"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b48c154cb6271d26b66c9b2406f3214"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -47,12 +47,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-18ba41424c9c82856e3a1d43a48a5bd6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-09daba599cd1c42e2a952b424495a831"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-18ba41424c9c82856e3a1d43a48a5bd6"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-09daba599cd1c42e2a952b424495a831"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -95,7 +95,7 @@
     </div>
   </div>
 </div>]]></content:encoded><turbo:source/><turbo:topic>Добавление корневых сертификатов в MikroTik RouterOS</turbo:topic><turbo:content><![CDATA[<p>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</p>
-<p>Если репозиторий заполнен корневыми сертификатами центров сертификации, RouterOS сможет проверять подлинность выданных этими центрами сертификатов, работать с DNS over HTTPS (DoH) и делать другу работу, связанную с шифрованием данных.</p>
+<p>Если репозиторий заполнен корневыми сертификатами центров сертификации, RouterOS сможет проверять подлинность выданных этими центрами сертификатов, работать с DNS over HTTPS (DoH) и делать другую работу, связанную с шифрованием данных.</p>
 <h2 id="загрузка-базы-сертификатов">
   <a class="link-body-emphasis" href="#%d0%b7%d0%b0%d0%b3%d1%80%d1%83%d0%b7%d0%ba%d0%b0-%d0%b1%d0%b0%d0%b7%d1%8b-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%be%d0%b2">Загрузка базы сертификатов</a>
 </h2><p>Файл <a title="" href="https://curl.se/docs/caextract.html" target="_blank" rel="noopener noreferrer nofollow">cacert.pem</a> с сайта <a title="" href="https://curl.se/" target="_blank" rel="noopener noreferrer nofollow">curl.se</a> переодически обновляется и содержит в себе корневые сертификаты центров сертификации. Откроем терминал в RouterOS и скачаем сразу на роутер командой:</p>
@@ -109,12 +109,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-aa5f0c92a0dff7408f1b21bd1bad44c8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4b48c154cb6271d26b66c9b2406f3214"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aa5f0c92a0dff7408f1b21bd1bad44c8"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b48c154cb6271d26b66c9b2406f3214"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -143,12 +143,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-18ba41424c9c82856e3a1d43a48a5bd6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-09daba599cd1c42e2a952b424495a831"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-18ba41424c9c82856e3a1d43a48a5bd6"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-09daba599cd1c42e2a952b424495a831"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -236,12 +236,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5691b7a80db357c46c3db41365a514be"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-02d93232ae4ead2ed18900788c57680d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5691b7a80db357c46c3db41365a514be"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-02d93232ae4ead2ed18900788c57680d"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -288,12 +288,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-11b91769fc630d4368afe8436c574ef4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5a41d7f8bee4708d60b06f34ef6d56af"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-11b91769fc630d4368afe8436c574ef4"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5a41d7f8bee4708d60b06f34ef6d56af"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -316,12 +316,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a977b87c67eb152f6d56b0344d1dfc8d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c1a10a702709effe6be9c39c9ebe9da9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a977b87c67eb152f6d56b0344d1dfc8d"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c1a10a702709effe6be9c39c9ebe9da9"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -375,12 +375,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5691b7a80db357c46c3db41365a514be"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-02d93232ae4ead2ed18900788c57680d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5691b7a80db357c46c3db41365a514be"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-02d93232ae4ead2ed18900788c57680d"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -427,12 +427,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-11b91769fc630d4368afe8436c574ef4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5a41d7f8bee4708d60b06f34ef6d56af"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-11b91769fc630d4368afe8436c574ef4"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5a41d7f8bee4708d60b06f34ef6d56af"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -455,12 +455,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a977b87c67eb152f6d56b0344d1dfc8d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c1a10a702709effe6be9c39c9ebe9da9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a977b87c67eb152f6d56b0344d1dfc8d"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c1a10a702709effe6be9c39c9ebe9da9"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -486,12 +486,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7447392829cc1b1005f6b6bae88f2ece"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dnf install gnupg</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c3214544d09e8232f9180a7105aabc84"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dnf install gnupg</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7447392829cc1b1005f6b6bae88f2ece"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c3214544d09e8232f9180a7105aabc84"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -515,12 +515,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7e4c0f5703d2f9046fe1987cef5ffc22"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install gnupg</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-60af47fd97621756776407e19a3a74a4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install gnupg</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7e4c0f5703d2f9046fe1987cef5ffc22"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-60af47fd97621756776407e19a3a74a4"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -542,12 +542,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b5d636da634441af80700b3271752c59"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --expert --full-gen-key</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a7c6223c7561b27e08de464a98320433"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --expert --full-gen-key</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b5d636da634441af80700b3271752c59"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a7c6223c7561b27e08de464a98320433"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -581,7 +581,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-571e079c9c4fd1221a4cba876e376389"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8deb7875032fb4e107b3643f548d483d"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -590,7 +590,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-571e079c9c4fd1221a4cba876e376389"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
+    <div class="card-body p-0" id="clipboard-8deb7875032fb4e107b3643f548d483d"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
 
 gpg (GnuPG) 2.2.20; Copyright (C) 2020 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
@@ -634,7 +634,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-231b3bccbc61fb1974df04c113c1cc4b"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d865fcc9ac1be1c176da2f3ca7fe38c6"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -643,7 +643,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-231b3bccbc61fb1974df04c113c1cc4b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
+    <div class="card-body p-0" id="clipboard-d865fcc9ac1be1c176da2f3ca7fe38c6"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
 
 Please select which elliptic curve you want:
    (1) Curve 25519
@@ -677,7 +677,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9cd8e53358b23ea76146848b65db9e6a"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0e064e5869d41b5732b221b0d4fd46d5"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -686,7 +686,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-9cd8e53358b23ea76146848b65db9e6a"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
+    <div class="card-body p-0" id="clipboard-0e064e5869d41b5732b221b0d4fd46d5"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
 
 Please specify how long the key should be valid.
          0 = key does not expire
@@ -712,12 +712,12 @@ Key is valid for? (0)</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-801f7e63193d3a91db97ec6d39804635"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-keys --keyid-format LONG --with-fingerprint</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-af625cd24080751d0af0686d3962b4e3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-keys --keyid-format LONG --with-fingerprint</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-801f7e63193d3a91db97ec6d39804635"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-af625cd24080751d0af0686d3962b4e3"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -757,7 +757,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-09601f9b667037a230bed7eb42cf6dc0"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6e452388a88d07a09a34605a26f1f645"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -766,7 +766,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-09601f9b667037a230bed7eb42cf6dc0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --list-keys --keyid-format LONG --with-fingerprint
+    <div class="card-body p-0" id="clipboard-6e452388a88d07a09a34605a26f1f645"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --list-keys --keyid-format LONG --with-fingerprint
 
 pub   ed25519/JTM4BAVLPI8F0XHR 2020-02-17 [SC]
       Key fingerprint = XXXX XXXX XXXX XXXX XXXX  XXXX XXXX XXXX XXXX XXXX
@@ -795,7 +795,7 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-31bc1120c4df5dbd87736ea58291f82a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Export: PUBLIC.</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e49ab809796cf890eaed1d43892f4209"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Export: PUBLIC.</span>
 </span></span><span class="line"><span class="cl">gpg --armor --output JohnDoe.public.asc --export JTM4BAVLPI8F0XHR
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Export: PRIVATE.</span>
@@ -804,7 +804,7 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-31bc1120c4df5dbd87736ea58291f82a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e49ab809796cf890eaed1d43892f4209"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -833,7 +833,7 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-24c641746a1e7b9d3c1fd8ec33f4412b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Import: PUBLIC.</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9f6ac8cdcdba988c23e229ecfe5125f7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Import: PUBLIC.</span>
 </span></span><span class="line"><span class="cl">gpg --import JohnDoe.public.asc
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Import: PRIVATE.</span>
@@ -842,7 +842,7 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-24c641746a1e7b9d3c1fd8ec33f4412b"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9f6ac8cdcdba988c23e229ecfe5125f7"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -867,12 +867,12 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c5ea28f241a92274d497ec75d492fdbd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --edit-key JTM4BAVLPI8F0XHR</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b19e6e7a99d00df569a38516bfb14ab7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --edit-key JTM4BAVLPI8F0XHR</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c5ea28f241a92274d497ec75d492fdbd"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b19e6e7a99d00df569a38516bfb14ab7"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -910,12 +910,12 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7447392829cc1b1005f6b6bae88f2ece"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dnf install gnupg</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c3214544d09e8232f9180a7105aabc84"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dnf install gnupg</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7447392829cc1b1005f6b6bae88f2ece"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c3214544d09e8232f9180a7105aabc84"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -939,12 +939,12 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7e4c0f5703d2f9046fe1987cef5ffc22"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install gnupg</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-60af47fd97621756776407e19a3a74a4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install gnupg</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7e4c0f5703d2f9046fe1987cef5ffc22"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-60af47fd97621756776407e19a3a74a4"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -966,12 +966,12 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b5d636da634441af80700b3271752c59"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --expert --full-gen-key</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a7c6223c7561b27e08de464a98320433"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --expert --full-gen-key</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b5d636da634441af80700b3271752c59"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a7c6223c7561b27e08de464a98320433"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1005,7 +1005,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-571e079c9c4fd1221a4cba876e376389"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8deb7875032fb4e107b3643f548d483d"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1014,7 +1014,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-571e079c9c4fd1221a4cba876e376389"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
+    <div class="card-body p-0" id="clipboard-8deb7875032fb4e107b3643f548d483d"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
 
 gpg (GnuPG) 2.2.20; Copyright (C) 2020 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
@@ -1058,7 +1058,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-231b3bccbc61fb1974df04c113c1cc4b"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d865fcc9ac1be1c176da2f3ca7fe38c6"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1067,7 +1067,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-231b3bccbc61fb1974df04c113c1cc4b"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
+    <div class="card-body p-0" id="clipboard-d865fcc9ac1be1c176da2f3ca7fe38c6"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
 
 Please select which elliptic curve you want:
    (1) Curve 25519
@@ -1101,7 +1101,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9cd8e53358b23ea76146848b65db9e6a"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0e064e5869d41b5732b221b0d4fd46d5"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1110,7 +1110,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-9cd8e53358b23ea76146848b65db9e6a"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
+    <div class="card-body p-0" id="clipboard-0e064e5869d41b5732b221b0d4fd46d5"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
 
 Please specify how long the key should be valid.
          0 = key does not expire
@@ -1136,12 +1136,12 @@ Key is valid for? (0)</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-801f7e63193d3a91db97ec6d39804635"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-keys --keyid-format LONG --with-fingerprint</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-af625cd24080751d0af0686d3962b4e3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-keys --keyid-format LONG --with-fingerprint</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-801f7e63193d3a91db97ec6d39804635"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-af625cd24080751d0af0686d3962b4e3"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1181,7 +1181,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-09601f9b667037a230bed7eb42cf6dc0"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6e452388a88d07a09a34605a26f1f645"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1190,7 +1190,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-09601f9b667037a230bed7eb42cf6dc0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --list-keys --keyid-format LONG --with-fingerprint
+    <div class="card-body p-0" id="clipboard-6e452388a88d07a09a34605a26f1f645"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --list-keys --keyid-format LONG --with-fingerprint
 
 pub   ed25519/JTM4BAVLPI8F0XHR 2020-02-17 [SC]
       Key fingerprint = XXXX XXXX XXXX XXXX XXXX  XXXX XXXX XXXX XXXX XXXX
@@ -1219,7 +1219,7 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-31bc1120c4df5dbd87736ea58291f82a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Export: PUBLIC.</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e49ab809796cf890eaed1d43892f4209"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Export: PUBLIC.</span>
 </span></span><span class="line"><span class="cl">gpg --armor --output JohnDoe.public.asc --export JTM4BAVLPI8F0XHR
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Export: PRIVATE.</span>
@@ -1228,7 +1228,7 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-31bc1120c4df5dbd87736ea58291f82a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e49ab809796cf890eaed1d43892f4209"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1257,7 +1257,7 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-24c641746a1e7b9d3c1fd8ec33f4412b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Import: PUBLIC.</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9f6ac8cdcdba988c23e229ecfe5125f7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Import: PUBLIC.</span>
 </span></span><span class="line"><span class="cl">gpg --import JohnDoe.public.asc
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Import: PRIVATE.</span>
@@ -1266,7 +1266,7 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-24c641746a1e7b9d3c1fd8ec33f4412b"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9f6ac8cdcdba988c23e229ecfe5125f7"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1291,12 +1291,12 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c5ea28f241a92274d497ec75d492fdbd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --edit-key JTM4BAVLPI8F0XHR</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b19e6e7a99d00df569a38516bfb14ab7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --edit-key JTM4BAVLPI8F0XHR</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c5ea28f241a92274d497ec75d492fdbd"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b19e6e7a99d00df569a38516bfb14ab7"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>

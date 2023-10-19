@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>Сеть / Library Online</title><link>https://lib.onl/ru/categories/network/</link><description>Работа с сетью. Статьи и инструкции по сетевому администрированию.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/categories/network/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>Сеть / Library Online</title><description>Работа с сетью. Статьи и инструкции по сетевому администрированию.</description></image><lastBuildDate>Thu, 19 Oct 2023 08:56:43 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/categories/network/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Добавление корневых сертификатов в MikroTik RouterOS</title><link>https://lib.onl/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/</guid><description>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</description><media:content medium="image" url="https://images.unsplash.com/photo-1554098415-4052459dc340" width="1600" height="900"/><content:encoded><![CDATA[<p>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</p>
-<p>Если репозиторий заполнен корневыми сертификатами центров сертификации, RouterOS сможет проверять подлинность выданных этими центрами сертификатов, работать с DNS over HTTPS (DoH) и делать другу работу, связанную с шифрованием данных.</p>
+<p>Если репозиторий заполнен корневыми сертификатами центров сертификации, RouterOS сможет проверять подлинность выданных этими центрами сертификатов, работать с DNS over HTTPS (DoH) и делать другую работу, связанную с шифрованием данных.</p>
 <h2 id="загрузка-базы-сертификатов">
   <a class="link-body-emphasis" href="#%d0%b7%d0%b0%d0%b3%d1%80%d1%83%d0%b7%d0%ba%d0%b0-%d0%b1%d0%b0%d0%b7%d1%8b-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%be%d0%b2">Загрузка базы сертификатов</a>
 </h2><p>Файл <a title="" href="https://curl.se/docs/caextract.html" target="_blank" rel="noopener noreferrer nofollow">cacert.pem</a> с сайта <a title="" href="https://curl.se/" target="_blank" rel="noopener noreferrer nofollow">curl.se</a> переодически обновляется и содержит в себе корневые сертификаты центров сертификации. Откроем терминал в RouterOS и скачаем сразу на роутер командой:</p>
@@ -13,12 +13,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-aa5f0c92a0dff7408f1b21bd1bad44c8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4b48c154cb6271d26b66c9b2406f3214"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aa5f0c92a0dff7408f1b21bd1bad44c8"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b48c154cb6271d26b66c9b2406f3214"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -47,12 +47,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-18ba41424c9c82856e3a1d43a48a5bd6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-09daba599cd1c42e2a952b424495a831"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-18ba41424c9c82856e3a1d43a48a5bd6"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-09daba599cd1c42e2a952b424495a831"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -95,7 +95,7 @@
     </div>
   </div>
 </div>]]></content:encoded><turbo:source/><turbo:topic>Добавление корневых сертификатов в MikroTik RouterOS</turbo:topic><turbo:content><![CDATA[<p>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</p>
-<p>Если репозиторий заполнен корневыми сертификатами центров сертификации, RouterOS сможет проверять подлинность выданных этими центрами сертификатов, работать с DNS over HTTPS (DoH) и делать другу работу, связанную с шифрованием данных.</p>
+<p>Если репозиторий заполнен корневыми сертификатами центров сертификации, RouterOS сможет проверять подлинность выданных этими центрами сертификатов, работать с DNS over HTTPS (DoH) и делать другую работу, связанную с шифрованием данных.</p>
 <h2 id="загрузка-базы-сертификатов">
   <a class="link-body-emphasis" href="#%d0%b7%d0%b0%d0%b3%d1%80%d1%83%d0%b7%d0%ba%d0%b0-%d0%b1%d0%b0%d0%b7%d1%8b-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%be%d0%b2">Загрузка базы сертификатов</a>
 </h2><p>Файл <a title="" href="https://curl.se/docs/caextract.html" target="_blank" rel="noopener noreferrer nofollow">cacert.pem</a> с сайта <a title="" href="https://curl.se/" target="_blank" rel="noopener noreferrer nofollow">curl.se</a> переодически обновляется и содержит в себе корневые сертификаты центров сертификации. Откроем терминал в RouterOS и скачаем сразу на роутер командой:</p>
@@ -109,12 +109,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-aa5f0c92a0dff7408f1b21bd1bad44c8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4b48c154cb6271d26b66c9b2406f3214"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aa5f0c92a0dff7408f1b21bd1bad44c8"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b48c154cb6271d26b66c9b2406f3214"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -143,12 +143,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-18ba41424c9c82856e3a1d43a48a5bd6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-09daba599cd1c42e2a952b424495a831"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-18ba41424c9c82856e3a1d43a48a5bd6"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-09daba599cd1c42e2a952b424495a831"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -756,7 +756,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-881e0cdfdac1326352f9771f3bd98461"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7d5ab9e1547e3c2f9d68078a924d6250"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -765,7 +765,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-881e0cdfdac1326352f9771f3bd98461"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
+    <div class="card-body p-0" id="clipboard-7d5ab9e1547e3c2f9d68078a924d6250"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
 
 1: lo: &lt;loopback,up,lower_up&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
   link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -800,7 +800,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b584002f12d060418635c35aff59409a"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e6442ffa62fa5e90f10a2f96f2df36d1"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -809,7 +809,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-b584002f12d060418635c35aff59409a"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
+    <div class="card-body p-0" id="clipboard-e6442ffa62fa5e90f10a2f96f2df36d1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
 
 TYPE=&#34;Ethernet&#34;
 PROXY_METHOD=&#34;none&#34;
@@ -852,7 +852,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-06840e5cbbcdc7def70cf68be23dc515"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fc4eaa92adc9643305130add44a1b2df"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">PROXY_METHOD</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BROWSER_ONLY</span><span class="o">=</span><span class="s">&#34;no&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BOOTPROTO</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
@@ -876,7 +876,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-06840e5cbbcdc7def70cf68be23dc515"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fc4eaa92adc9643305130add44a1b2df"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -910,7 +910,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7a1f9ecea501010ea338e7fe8d2b731a"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-616f3234a8d913893f4d399ba8278c69"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -919,7 +919,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-7a1f9ecea501010ea338e7fe8d2b731a"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-616f3234a8d913893f4d399ba8278c69"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>
 <h2 id="настройка-ip-при-помощи-network-manager-cli-nmcli">
@@ -947,7 +947,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1b9f36981eefe7349641d101d3a093ea"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ee1921ea49c2ac632a509bc8ba528653"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -956,7 +956,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1b9f36981eefe7349641d101d3a093ea"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ee1921ea49c2ac632a509bc8ba528653"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка шлюза:</p>
@@ -982,7 +982,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1ea5d65aa421e9bf5761272c0a1e6bb0"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1e948ad80bcfd4a10c7534756fc4c84e"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -991,7 +991,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1ea5d65aa421e9bf5761272c0a1e6bb0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-1e948ad80bcfd4a10c7534756fc4c84e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка DNS:</p>
@@ -1017,7 +1017,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-87fd8e2e719d81d3c5abf1cbec601f26"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e0b2ed8a4734c4b0c4001331f59bd2e3"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1026,7 +1026,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-87fd8e2e719d81d3c5abf1cbec601f26"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-e0b2ed8a4734c4b0c4001331f59bd2e3"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка <strong>BOOTPROTO</strong> в <code>none</code>:</p>
@@ -1052,7 +1052,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-dc0fe56ae528e2aade16c2e8a1975606"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4c4b5de394a3b1902368ca9e2b17d1aa"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1061,7 +1061,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-dc0fe56ae528e2aade16c2e8a1975606"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-4c4b5de394a3b1902368ca9e2b17d1aa"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
   </div>
 </div>
 <p>Перезапуск интерфейса:</p>
@@ -1087,7 +1087,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e3561f1b14195c7ec36eaebfd188098e"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-831df9a2fb853e6ff02070c6fcaecb4e"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1096,7 +1096,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-e3561f1b14195c7ec36eaebfd188098e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-831df9a2fb853e6ff02070c6fcaecb4e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>]]></content:encoded><turbo:source/><turbo:topic>Настройка статического IP адреса</turbo:topic><turbo:content><![CDATA[<p>Рассмотрим различные способы настройки статического IP адреса в дистрибутивах Linux. Способы различаются в зависимости от пакетной базы дистрибутивов. Например, настройка статического IP в RHEL-based дистрибутиве будет отличаться от настройки в DEB-based дистрибутиве.</p>
 <h2 id="подготовка">
@@ -1124,7 +1124,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-881e0cdfdac1326352f9771f3bd98461"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7d5ab9e1547e3c2f9d68078a924d6250"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1133,7 +1133,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-881e0cdfdac1326352f9771f3bd98461"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
+    <div class="card-body p-0" id="clipboard-7d5ab9e1547e3c2f9d68078a924d6250"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">ip a
 
 1: lo: &lt;loopback,up,lower_up&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
   link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -1168,7 +1168,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b584002f12d060418635c35aff59409a"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e6442ffa62fa5e90f10a2f96f2df36d1"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1177,7 +1177,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-b584002f12d060418635c35aff59409a"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
+    <div class="card-body p-0" id="clipboard-e6442ffa62fa5e90f10a2f96f2df36d1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
 
 TYPE=&#34;Ethernet&#34;
 PROXY_METHOD=&#34;none&#34;
@@ -1220,7 +1220,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-06840e5cbbcdc7def70cf68be23dc515"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fc4eaa92adc9643305130add44a1b2df"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">TYPE</span><span class="o">=</span><span class="s">&#34;Ethernet&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">PROXY_METHOD</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BROWSER_ONLY</span><span class="o">=</span><span class="s">&#34;no&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="na">BOOTPROTO</span><span class="o">=</span><span class="s">&#34;none&#34;</span>
@@ -1244,7 +1244,7 @@ ONBOOT=&#34;yes&#34;</code></pre></div>
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-06840e5cbbcdc7def70cf68be23dc515"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fc4eaa92adc9643305130add44a1b2df"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1278,7 +1278,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7a1f9ecea501010ea338e7fe8d2b731a"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-616f3234a8d913893f4d399ba8278c69"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1287,7 +1287,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-7a1f9ecea501010ea338e7fe8d2b731a"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-616f3234a8d913893f4d399ba8278c69"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>
 <h2 id="настройка-ip-при-помощи-network-manager-cli-nmcli">
@@ -1315,7 +1315,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1b9f36981eefe7349641d101d3a093ea"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ee1921ea49c2ac632a509bc8ba528653"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1324,7 +1324,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1b9f36981eefe7349641d101d3a093ea"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-ee1921ea49c2ac632a509bc8ba528653"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.addresses &#39;192.168.10.55/24&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка шлюза:</p>
@@ -1350,7 +1350,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1ea5d65aa421e9bf5761272c0a1e6bb0"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1e948ad80bcfd4a10c7534756fc4c84e"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1359,7 +1359,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-1ea5d65aa421e9bf5761272c0a1e6bb0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-1e948ad80bcfd4a10c7534756fc4c84e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.gateway &#39;192.168.10.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка DNS:</p>
@@ -1385,7 +1385,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-87fd8e2e719d81d3c5abf1cbec601f26"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e0b2ed8a4734c4b0c4001331f59bd2e3"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1394,7 +1394,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-87fd8e2e719d81d3c5abf1cbec601f26"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-e0b2ed8a4734c4b0c4001331f59bd2e3"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.dns &#39;192.168.11.1&#39;</code></pre></div>
   </div>
 </div>
 <p>Установка <strong>BOOTPROTO</strong> в <code>none</code>:</p>
@@ -1420,7 +1420,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-dc0fe56ae528e2aade16c2e8a1975606"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4c4b5de394a3b1902368ca9e2b17d1aa"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1429,7 +1429,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-dc0fe56ae528e2aade16c2e8a1975606"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-4c4b5de394a3b1902368ca9e2b17d1aa"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con mod enp1s0 ipv4.method &#39;manual&#39;</code></pre></div>
   </div>
 </div>
 <p>Перезапуск интерфейса:</p>
@@ -1455,7 +1455,7 @@ shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e3561f1b14195c7ec36eaebfd188098e"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-831df9a2fb853e6ff02070c6fcaecb4e"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1464,7 +1464,7 @@ shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-e3561f1b14195c7ec36eaebfd188098e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
+    <div class="card-body p-0" id="clipboard-831df9a2fb853e6ff02070c6fcaecb4e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">nmcli con down enp1s0 &amp;&amp; nmcli con up enp1s0</code></pre></div>
   </div>
 </div>]]></turbo:content><pubDate>Sat, 15 May 2021 17:08:30 +0000</pubDate><category>Терминал</category><category>Linux</category><category>Сеть</category><category>В доработке</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>MikroTik и CloudFlare: Динамический IP для домена</title><link>https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</guid><description>Нашёл скрипт реализации динамической смены IP адреса из RouterOS напрямую в панели управления CloudFlare при помощи API. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik.</description><media:content medium="image" url="https://images.unsplash.com/photo-1521542464131-cb30f7398bc6" width="1600" height="900"/><content:encoded><![CDATA[<p>Нашёл скрипт реализации динамической смены IP адреса из RouterOS напрямую в панели управления CloudFlare при помощи API. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik.</p>
 <p>Скрипт я немного переделал, удалил лишние переменные, некоторые переопределил, подправил области видимости переменных, обновил метод авторизации скрипта на серверах CloudFlare. Вроде работает.</p>
@@ -1495,14 +1495,14 @@ shortcode-codeblock-terminal-linux-root">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-650b2570e715702b1e87a448ebfc4802"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34;</span> <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-abcbb4fbd8799edb7dc9060b8cd6ef59"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Authorization: Bearer TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type:application/json&#34;</span> <span class="p">|</span> python3 -mjson.tool</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-650b2570e715702b1e87a448ebfc4802"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-abcbb4fbd8799edb7dc9060b8cd6ef59"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1536,7 +1536,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7105c2243c7c89c2bb4fd97591481c14"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c6399d8136104d30fcf4d98ff73e0ec1"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1545,7 +1545,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-7105c2243c7c89c2bb4fd97591481c14"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
+    <div class="card-body p-0" id="clipboard-c6399d8136104d30fcf4d98ff73e0ec1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
 
 {
     &#34;result&#34;: {
@@ -1578,14 +1578,14 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-25b715edf8cae6711200153ea4d680b8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/ZONE_ID/dns_records&#34;</span> <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4fb08a9f51bc606405e9e8d7095ffd4a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/ZONE_ID/dns_records&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Authorization: Bearer TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python3 -mjson.tool</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-25b715edf8cae6711200153ea4d680b8"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4fb08a9f51bc606405e9e8d7095ffd4a"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1652,7 +1652,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9c7f7463be2282fcf00fc7eb2e24bb61"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b89036238c113704b6ef85ef487ff80"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1661,7 +1661,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-9c7f7463be2282fcf00fc7eb2e24bb61"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/&lt;...&gt;/dns_records&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
+    <div class="card-body p-0" id="clipboard-4b89036238c113704b6ef85ef487ff80"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/&lt;...&gt;/dns_records&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
 {
     &#34;result&#34;: [
         {
@@ -1725,7 +1725,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-acc16d5ac8d032adccc2fb54565f34f6"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b93e005f5815fe71c197e1b7909f6a34"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -1748,7 +1748,7 @@ shortcode-codeblock-terminal-linux">
         </div>
           
           
-        <div class="card-body" id="clipboard-acc16d5ac8d032adccc2fb54565f34f6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mikrotik RouterOS script for CloudFlare DDNS</span>
+        <div class="card-body" id="clipboard-b93e005f5815fe71c197e1b7909f6a34"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mikrotik RouterOS script for CloudFlare DDNS</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @package    RouterOS</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @author     Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
@@ -1894,14 +1894,14 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-650b2570e715702b1e87a448ebfc4802"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34;</span> <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-abcbb4fbd8799edb7dc9060b8cd6ef59"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Authorization: Bearer TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type:application/json&#34;</span> <span class="p">|</span> python3 -mjson.tool</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-650b2570e715702b1e87a448ebfc4802"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-abcbb4fbd8799edb7dc9060b8cd6ef59"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1935,7 +1935,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7105c2243c7c89c2bb4fd97591481c14"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c6399d8136104d30fcf4d98ff73e0ec1"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1944,7 +1944,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-7105c2243c7c89c2bb4fd97591481c14"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
+    <div class="card-body p-0" id="clipboard-c6399d8136104d30fcf4d98ff73e0ec1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
 
 {
     &#34;result&#34;: {
@@ -1977,14 +1977,14 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-25b715edf8cae6711200153ea4d680b8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/ZONE_ID/dns_records&#34;</span> <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4fb08a9f51bc606405e9e8d7095ffd4a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/ZONE_ID/dns_records&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Authorization: Bearer TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python3 -mjson.tool</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-25b715edf8cae6711200153ea4d680b8"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4fb08a9f51bc606405e9e8d7095ffd4a"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2051,7 +2051,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9c7f7463be2282fcf00fc7eb2e24bb61"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b89036238c113704b6ef85ef487ff80"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2060,7 +2060,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-9c7f7463be2282fcf00fc7eb2e24bb61"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/&lt;...&gt;/dns_records&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
+    <div class="card-body p-0" id="clipboard-4b89036238c113704b6ef85ef487ff80"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/&lt;...&gt;/dns_records&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
 {
     &#34;result&#34;: [
         {
@@ -2124,7 +2124,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-acc16d5ac8d032adccc2fb54565f34f6"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b93e005f5815fe71c197e1b7909f6a34"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -2147,7 +2147,7 @@ shortcode-codeblock-terminal-linux">
         </div>
           
           
-        <div class="card-body" id="clipboard-acc16d5ac8d032adccc2fb54565f34f6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mikrotik RouterOS script for CloudFlare DDNS</span>
+        <div class="card-body" id="clipboard-b93e005f5815fe71c197e1b7909f6a34"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mikrotik RouterOS script for CloudFlare DDNS</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @package    RouterOS</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @author     Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
