@@ -44,12 +44,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0c0126884cfb9e66172b5936dcf8d451"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a095193146d829ee8aca1df0085f01dd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0c0126884cfb9e66172b5936dcf8d451"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a095193146d829ee8aca1df0085f01dd"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -96,12 +96,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-426fd487c072f7ef739f2fb00a06aaf5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-03967c0dc79ee19c5f8cbab40eeb53f2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-426fd487c072f7ef739f2fb00a06aaf5"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-03967c0dc79ee19c5f8cbab40eeb53f2"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -124,12 +124,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4bfbc9b88762a2be3a036b358b6dcd86"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-784be7325eaa792fd78309b608048155"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4bfbc9b88762a2be3a036b358b6dcd86"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-784be7325eaa792fd78309b608048155"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -183,12 +183,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0c0126884cfb9e66172b5936dcf8d451"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a095193146d829ee8aca1df0085f01dd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0c0126884cfb9e66172b5936dcf8d451"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a095193146d829ee8aca1df0085f01dd"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -235,12 +235,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-426fd487c072f7ef739f2fb00a06aaf5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-03967c0dc79ee19c5f8cbab40eeb53f2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-426fd487c072f7ef739f2fb00a06aaf5"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-03967c0dc79ee19c5f8cbab40eeb53f2"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -263,12 +263,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4bfbc9b88762a2be3a036b358b6dcd86"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-784be7325eaa792fd78309b608048155"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4bfbc9b88762a2be3a036b358b6dcd86"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-784be7325eaa792fd78309b608048155"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -306,7 +306,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-31c8fdcc39e286bbc5e84b9ad3f1eb13"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0cd1760852ea4f512435d3f5bafc7541"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -331,7 +331,7 @@
           
               
           
-        <div class="card-body" id="clipboard-31c8fdcc39e286bbc5e84b9ad3f1eb13"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
+        <div class="card-body" id="clipboard-0cd1760852ea4f512435d3f5bafc7541"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&lt;Add</span> <span class="na">OfficeClientEdition=</span><span class="s">&#34;64&#34;</span> <span class="na">Channel=</span><span class="s">&#34;PerpetualVL2021&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProPlus2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
@@ -391,7 +391,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7c775ee38705544f8baec5c1d5acaa6e"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-55ff9f51d68dfbcc2eab4e36518ace4a"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -416,7 +416,7 @@
           
               
           
-        <div class="card-body" id="clipboard-7c775ee38705544f8baec5c1d5acaa6e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
+        <div class="card-body" id="clipboard-55ff9f51d68dfbcc2eab4e36518ace4a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&lt;Add</span> <span class="na">OfficeClientEdition=</span><span class="s">&#34;64&#34;</span> <span class="na">Channel=</span><span class="s">&#34;PerpetualVL2021&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProPlus2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
@@ -502,12 +502,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-31619e24671bb97e39d882c33ed4d5f5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /sethst:kms.example.com</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-28da90bbc287e3b1209b919fcc641e53"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /sethst:kms.example.com</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-31619e24671bb97e39d882c33ed4d5f5"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-28da90bbc287e3b1209b919fcc641e53"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -531,12 +531,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-acb4cc41c7bc5e14d1b52ce0c5bdc00f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /setprt:1689</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-84ce8a8de5386201f757460cf0797a77"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /setprt:1689</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-acb4cc41c7bc5e14d1b52ce0c5bdc00f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-84ce8a8de5386201f757460cf0797a77"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -560,12 +560,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-712414d66a20cec7e635bff0a53e223e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /act</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8dfbe0f3fdb3ea6bb10bb8ccfd447f59"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /act</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-712414d66a20cec7e635bff0a53e223e"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8dfbe0f3fdb3ea6bb10bb8ccfd447f59"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -589,12 +589,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b741537c63c2dfad169258d041e0212f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /dstatusall</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-46ee6e4747560d11870f9f76d8385e0a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /dstatusall</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b741537c63c2dfad169258d041e0212f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-46ee6e4747560d11870f9f76d8385e0a"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -635,7 +635,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-31c8fdcc39e286bbc5e84b9ad3f1eb13"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0cd1760852ea4f512435d3f5bafc7541"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -660,7 +660,7 @@
           
               
           
-        <div class="card-body" id="clipboard-31c8fdcc39e286bbc5e84b9ad3f1eb13"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
+        <div class="card-body" id="clipboard-0cd1760852ea4f512435d3f5bafc7541"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&lt;Add</span> <span class="na">OfficeClientEdition=</span><span class="s">&#34;64&#34;</span> <span class="na">Channel=</span><span class="s">&#34;PerpetualVL2021&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProPlus2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
@@ -720,7 +720,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7c775ee38705544f8baec5c1d5acaa6e"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-55ff9f51d68dfbcc2eab4e36518ace4a"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -745,7 +745,7 @@
           
               
           
-        <div class="card-body" id="clipboard-7c775ee38705544f8baec5c1d5acaa6e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
+        <div class="card-body" id="clipboard-55ff9f51d68dfbcc2eab4e36518ace4a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Configuration</span> <span class="na">ID=</span><span class="s">&#34;42865718-c416-4c72-990b-20b6972cb9af&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&lt;Add</span> <span class="na">OfficeClientEdition=</span><span class="s">&#34;64&#34;</span> <span class="na">Channel=</span><span class="s">&#34;PerpetualVL2021&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&lt;Product</span> <span class="na">ID=</span><span class="s">&#34;ProPlus2021Volume&#34;</span> <span class="na">PIDKEY=</span><span class="s">&#34;FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH&#34;</span><span class="nt">&gt;</span>
 </span></span><span class="line"><span class="cl">      <span class="nt">&lt;Language</span> <span class="na">ID=</span><span class="s">&#34;en-us&#34;</span> <span class="nt">/&gt;</span>
@@ -831,12 +831,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-31619e24671bb97e39d882c33ed4d5f5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /sethst:kms.example.com</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-28da90bbc287e3b1209b919fcc641e53"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /sethst:kms.example.com</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-31619e24671bb97e39d882c33ed4d5f5"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-28da90bbc287e3b1209b919fcc641e53"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -860,12 +860,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-acb4cc41c7bc5e14d1b52ce0c5bdc00f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /setprt:1689</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-84ce8a8de5386201f757460cf0797a77"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /setprt:1689</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-acb4cc41c7bc5e14d1b52ce0c5bdc00f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-84ce8a8de5386201f757460cf0797a77"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -889,12 +889,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-712414d66a20cec7e635bff0a53e223e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /act</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8dfbe0f3fdb3ea6bb10bb8ccfd447f59"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /act</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-712414d66a20cec7e635bff0a53e223e"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8dfbe0f3fdb3ea6bb10bb8ccfd447f59"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -918,12 +918,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b741537c63c2dfad169258d041e0212f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /dstatusall</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-46ee6e4747560d11870f9f76d8385e0a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">cscript ospp.vbs /dstatusall</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b741537c63c2dfad169258d041e0212f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-46ee6e4747560d11870f9f76d8385e0a"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1007,12 +1007,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f3746ec3479aef9e26b51075c62f1b24"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3323595922c5d61a1c6beea8b0f14d01"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f3746ec3479aef9e26b51075c62f1b24"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3323595922c5d61a1c6beea8b0f14d01"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1051,7 +1051,7 @@ shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-904d6881a253c9a3eba76557dd9d49cf"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9b840f05173b94ca8c991f917a3f3af0"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1060,7 +1060,7 @@ shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-904d6881a253c9a3eba76557dd9d49cf"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
+    <div class="card-body p-0" id="clipboard-9b840f05173b94ca8c991f917a3f3af0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
 
 Details for image : C:\BuildFarm\WIM\install.wim
 
@@ -1106,12 +1106,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e2640a998d544037561b6a45bfa280c2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0993c218828ee06f24283b9c5b9b3c70"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e2640a998d544037561b6a45bfa280c2"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0993c218828ee06f24283b9c5b9b3c70"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1161,12 +1161,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b3d6771f34ce612976840695d35dafed"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Discard</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5c955bbdbc4649bb52dcdb007e1fc8b5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Discard</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b3d6771f34ce612976840695d35dafed"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5c955bbdbc4649bb52dcdb007e1fc8b5"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1188,12 +1188,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-413c25d2156f86236c0a962b2dae5cf6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-MountedImageInfo</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-235e08d7ea3784f12adaa79d526444f2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-MountedImageInfo</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-413c25d2156f86236c0a962b2dae5cf6"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-235e08d7ea3784f12adaa79d526444f2"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1215,12 +1215,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8e09d9a35c43e4dfced6b0ba2dc478ad"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Cleanup-Mountpoints</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-333638da938798fc7163c7eb504c86bc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Cleanup-Mountpoints</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8e09d9a35c43e4dfced6b0ba2dc478ad"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-333638da938798fc7163c7eb504c86bc"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1250,12 +1250,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f8aadb6fbfd3a5f90a7e7a4366e2b290"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-496f96bbca56cd863745e95f9cce2c1c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f8aadb6fbfd3a5f90a7e7a4366e2b290"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-496f96bbca56cd863745e95f9cce2c1c"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1288,12 +1288,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0390c0d1b85bd1cbf5c927779c2d67bb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2f51b1f88f007c39cc31739bf1b15505"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0390c0d1b85bd1cbf5c927779c2d67bb"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2f51b1f88f007c39cc31739bf1b15505"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1322,12 +1322,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-24a96e3c99cb21f6162a62593faddee0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a0e6a86565fedf77bcc36c84d2844f78"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-24a96e3c99cb21f6162a62593faddee0"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a0e6a86565fedf77bcc36c84d2844f78"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1364,12 +1364,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-047e9dc0f9b61105361d185a30947fcb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-aae7f47d513f85c6855a867a1f3f6845"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-047e9dc0f9b61105361d185a30947fcb"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aae7f47d513f85c6855a867a1f3f6845"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1402,12 +1402,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-afb71db744d3a4e34b6ae115ed193186"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-16462334f6559481a8cd82a83fc6b543"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-afb71db744d3a4e34b6ae115ed193186"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-16462334f6559481a8cd82a83fc6b543"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1447,7 +1447,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2674b69d1adc9c61fddb222e794934da"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a0f287b6cd4e6fc8ead8f32682511ba0"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -1472,7 +1472,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
           
               
           
-        <div class="card-body" id="clipboard-2674b69d1adc9c61fddb222e794934da"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic integration of updates into DISM.</span>
+        <div class="card-body" id="clipboard-a0f287b6cd4e6fc8ead8f32682511ba0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic integration of updates into DISM.</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">:</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @package   CMD</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @author    Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
@@ -1489,11 +1489,14 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 </span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">d_wim</span><span class="p">=</span><span class="s2">&#34;</span><span class="nv">%~dp0</span><span class="s2">WIM&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">f_wim</span><span class="p">=</span><span class="s2">&#34;</span><span class="nv">%d_wim%</span><span class="s2">\install.wim&#34;</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Creating directories.</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">not</span> <span class="k">exist</span> <span class="s2">&#34;</span><span class="nv">%d_mnt%</span><span class="s2">&#34;</span> <span class="k">mkdir</span> <span class="s2">&#34;</span><span class="nv">%d_mnt%</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">not</span> <span class="k">exist</span> <span class="s2">&#34;</span><span class="nv">%d_upd%</span><span class="s2">&#34;</span> <span class="k">mkdir</span> <span class="s2">&#34;</span><span class="nv">%d_upd%</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">not</span> <span class="k">exist</span> <span class="s2">&#34;</span><span class="nv">%d_wim%</span><span class="s2">&#34;</span> <span class="k">mkdir</span> <span class="s2">&#34;</span><span class="nv">%d_wim%</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Checking files.</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">not</span> <span class="k">exist</span> <span class="s2">&#34;</span><span class="nv">%f_wim%</span><span class="s2">&#34;</span> <span class="k">echo</span> Please put <span class="s2">&#34;install.wim&#34;</span> file in <span class="s2">&#34;WIM&#34;</span> directory... <span class="p">&amp;&amp;</span> <span class="k">pause</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">not</span> <span class="k">exist</span> <span class="s2">&#34;</span><span class="nv">%d_upd%</span><span class="s2">/*.msu&#34;</span> <span class="k">echo</span> Please put <span class="s2">&#34;*.msu&#34;</span> files in <span class="s2">&#34;UPD&#34;</span> directory... <span class="p">&amp;&amp;</span> <span class="k">pause</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">exist</span> <span class="s2">&#34;</span><span class="nv">%f_wim%</span><span class="s2">&#34;</span> <span class="p">(</span>
 </span></span><span class="line"><span class="cl">  <span class="k">echo</span> Getting Windows Image Info...
@@ -1550,7 +1553,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1209d9339c4aaf9f2e8efb848572d74d"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e3630829b64d4091cc560bbe76e0cda0"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -1575,7 +1578,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
           
               
           
-        <div class="card-body" id="clipboard-1209d9339c4aaf9f2e8efb848572d74d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic unmounting WIM images into DISM.</span>
+        <div class="card-body" id="clipboard-e3630829b64d4091cc560bbe76e0cda0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic unmounting WIM images into DISM.</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">:</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @package   CMD</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @author    Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
@@ -1674,12 +1677,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f3746ec3479aef9e26b51075c62f1b24"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3323595922c5d61a1c6beea8b0f14d01"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-ImageInfo /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f3746ec3479aef9e26b51075c62f1b24"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3323595922c5d61a1c6beea8b0f14d01"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1718,7 +1721,7 @@ shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-904d6881a253c9a3eba76557dd9d49cf"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9b840f05173b94ca8c991f917a3f3af0"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1727,7 +1730,7 @@ shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-904d6881a253c9a3eba76557dd9d49cf"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
+    <div class="card-body p-0" id="clipboard-9b840f05173b94ca8c991f917a3f3af0"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
 
 Details for image : C:\BuildFarm\WIM\install.wim
 
@@ -1773,12 +1776,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e2640a998d544037561b6a45bfa280c2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0993c218828ee06f24283b9c5b9b3c70"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Mount-Image /ImageFile:<span class="s2">&#34;C:\BuildFarm\WIM\install.wim&#34;</span> /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /index:5</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e2640a998d544037561b6a45bfa280c2"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0993c218828ee06f24283b9c5b9b3c70"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1828,12 +1831,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b3d6771f34ce612976840695d35dafed"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Discard</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5c955bbdbc4649bb52dcdb007e1fc8b5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Discard</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b3d6771f34ce612976840695d35dafed"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5c955bbdbc4649bb52dcdb007e1fc8b5"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1855,12 +1858,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-413c25d2156f86236c0a962b2dae5cf6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-MountedImageInfo</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-235e08d7ea3784f12adaa79d526444f2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Get-MountedImageInfo</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-413c25d2156f86236c0a962b2dae5cf6"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-235e08d7ea3784f12adaa79d526444f2"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1882,12 +1885,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8e09d9a35c43e4dfced6b0ba2dc478ad"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Cleanup-Mountpoints</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-333638da938798fc7163c7eb504c86bc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Cleanup-Mountpoints</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8e09d9a35c43e4dfced6b0ba2dc478ad"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-333638da938798fc7163c7eb504c86bc"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1917,12 +1920,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f8aadb6fbfd3a5f90a7e7a4366e2b290"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-496f96bbca56cd863745e95f9cce2c1c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;C:\BuildFarm\UPD&#34;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f8aadb6fbfd3a5f90a7e7a4366e2b290"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-496f96bbca56cd863745e95f9cce2c1c"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1955,12 +1958,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0390c0d1b85bd1cbf5c927779c2d67bb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2f51b1f88f007c39cc31739bf1b15505"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Get-Packages</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0390c0d1b85bd1cbf5c927779c2d67bb"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2f51b1f88f007c39cc31739bf1b15505"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1989,12 +1992,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-24a96e3c99cb21f6162a62593faddee0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a0e6a86565fedf77bcc36c84d2844f78"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /StartComponentCleanup /ResetBase</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-24a96e3c99cb21f6162a62593faddee0"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a0e6a86565fedf77bcc36c84d2844f78"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2031,12 +2034,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-047e9dc0f9b61105361d185a30947fcb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-aae7f47d513f85c6855a867a1f3f6845"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Image:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Cleanup-Image /ScanHealth</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-047e9dc0f9b61105361d185a30947fcb"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aae7f47d513f85c6855a867a1f3f6845"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2069,12 +2072,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-afb71db744d3a4e34b6ae115ed193186"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-16462334f6559481a8cd82a83fc6b543"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">Dism /Unmount-Image /MountDir:<span class="s2">&#34;C:\BuildFarm\MNT&#34;</span> /Commit</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-afb71db744d3a4e34b6ae115ed193186"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-16462334f6559481a8cd82a83fc6b543"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2114,7 +2117,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2674b69d1adc9c61fddb222e794934da"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a0f287b6cd4e6fc8ead8f32682511ba0"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -2139,7 +2142,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
           
               
           
-        <div class="card-body" id="clipboard-2674b69d1adc9c61fddb222e794934da"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic integration of updates into DISM.</span>
+        <div class="card-body" id="clipboard-a0f287b6cd4e6fc8ead8f32682511ba0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic integration of updates into DISM.</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">:</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @package   CMD</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @author    Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
@@ -2156,11 +2159,14 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 </span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">d_wim</span><span class="p">=</span><span class="s2">&#34;</span><span class="nv">%~dp0</span><span class="s2">WIM&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">f_wim</span><span class="p">=</span><span class="s2">&#34;</span><span class="nv">%d_wim%</span><span class="s2">\install.wim&#34;</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Creating directories.</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">not</span> <span class="k">exist</span> <span class="s2">&#34;</span><span class="nv">%d_mnt%</span><span class="s2">&#34;</span> <span class="k">mkdir</span> <span class="s2">&#34;</span><span class="nv">%d_mnt%</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">not</span> <span class="k">exist</span> <span class="s2">&#34;</span><span class="nv">%d_upd%</span><span class="s2">&#34;</span> <span class="k">mkdir</span> <span class="s2">&#34;</span><span class="nv">%d_upd%</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">not</span> <span class="k">exist</span> <span class="s2">&#34;</span><span class="nv">%d_wim%</span><span class="s2">&#34;</span> <span class="k">mkdir</span> <span class="s2">&#34;</span><span class="nv">%d_wim%</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Checking files.</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">not</span> <span class="k">exist</span> <span class="s2">&#34;</span><span class="nv">%f_wim%</span><span class="s2">&#34;</span> <span class="k">echo</span> Please put <span class="s2">&#34;install.wim&#34;</span> file in <span class="s2">&#34;WIM&#34;</span> directory... <span class="p">&amp;&amp;</span> <span class="k">pause</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">not</span> <span class="k">exist</span> <span class="s2">&#34;</span><span class="nv">%d_upd%</span><span class="s2">/*.msu&#34;</span> <span class="k">echo</span> Please put <span class="s2">&#34;*.msu&#34;</span> files in <span class="s2">&#34;UPD&#34;</span> directory... <span class="p">&amp;&amp;</span> <span class="k">pause</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">exist</span> <span class="s2">&#34;</span><span class="nv">%f_wim%</span><span class="s2">&#34;</span> <span class="p">(</span>
 </span></span><span class="line"><span class="cl">  <span class="k">echo</span> Getting Windows Image Info...
@@ -2217,7 +2223,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1209d9339c4aaf9f2e8efb848572d74d"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e3630829b64d4091cc560bbe76e0cda0"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -2242,7 +2248,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
           
               
           
-        <div class="card-body" id="clipboard-1209d9339c4aaf9f2e8efb848572d74d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic unmounting WIM images into DISM.</span>
+        <div class="card-body" id="clipboard-e3630829b64d4091cc560bbe76e0cda0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: Automatic unmounting WIM images into DISM.</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">:</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @package   CMD</span>
 </span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: @author    Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
@@ -2374,12 +2380,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-215d387d3fe8d39b9c78817016697437"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c8594b2fe04e51ed594a9ba612a8a32b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-215d387d3fe8d39b9c78817016697437"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c8594b2fe04e51ed594a9ba612a8a32b"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2493,12 +2499,12 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-215d387d3fe8d39b9c78817016697437"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c8594b2fe04e51ed594a9ba612a8a32b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-215d387d3fe8d39b9c78817016697437"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c8594b2fe04e51ed594a9ba612a8a32b"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>

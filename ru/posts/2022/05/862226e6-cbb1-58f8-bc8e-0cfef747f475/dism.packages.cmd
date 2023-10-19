@@ -15,11 +15,14 @@ set d_upd="%~dp0UPD"
 set d_wim="%~dp0WIM"
 set f_wim="%d_wim%\install.wim"
 
+:: Creating directories.
 if not exist "%d_mnt%" mkdir "%d_mnt%"
 if not exist "%d_upd%" mkdir "%d_upd%"
 if not exist "%d_wim%" mkdir "%d_wim%"
 
+:: Checking files.
 if not exist "%f_wim%" echo Please put "install.wim" file in "WIM" directory... && pause
+if not exist "%d_upd%/*.msu" echo Please put "*.msu" files in "UPD" directory... && pause
 
 if exist "%f_wim%" (
   echo Getting Windows Image Info...
