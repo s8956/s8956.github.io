@@ -10,15 +10,22 @@
 
 @echo off
 
-set f_wim="%~dp0WIM\install.wim"
 set d_mnt="%~dp0MNT"
 set d_upd="%~dp0UPD"
+set d_wim="%~dp0WIM"
+set f_wim="%d_wim%\install.wim"
+
+if not exist "%d_mnt%" mkdir "%d_mnt%"
+if not exist "%d_upd%" mkdir "%d_upd%"
+if not exist "%d_wim%" mkdir "%d_wim%"
+
+if not exist "%f_wim%" echo Please put "install.wim" file in "WIM" directory... && pause
 
 if exist "%f_wim%" (
   echo Getting Windows Image Info...
   Dism /Get-ImageInfo /ImageFile:"%f_wim%"
 ) else (
-  echo 'install.wim' not found! & echo.Failed with error #%errorlevel%.
+  echo "install.wim" not found! & echo.Failed with error #%errorlevel%.
   goto :error
 )
 
