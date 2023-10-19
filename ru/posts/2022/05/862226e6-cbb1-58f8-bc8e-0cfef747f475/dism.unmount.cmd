@@ -10,7 +10,7 @@
 
 @echo off
 
-d_mnt="%~dp0MNT"
+set d_mnt="%~dp0MNT"
 
 echo Unmounting 'install.wim' and discards changes that were made when image was mounted...
 Dism /Unmount-Image /MountDir:"%d_mnt%" /Discard

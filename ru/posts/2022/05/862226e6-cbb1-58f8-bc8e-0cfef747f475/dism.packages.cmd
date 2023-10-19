@@ -10,9 +10,9 @@
 
 @echo off
 
-f_wim="%~dp0WIM\install.wim"
-d_mnt="%~dp0MNT"
-d_upd="%~dp0UPD"
+set f_wim="%~dp0WIM\install.wim"
+set d_mnt="%~dp0MNT"
+set d_upd="%~dp0UPD"
 
 if exist "%f_wim%" (
   echo Getting Windows Image Info...
