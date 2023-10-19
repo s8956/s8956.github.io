@@ -1,6 +1,22 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>mikrotik / Library Online</title><link>https://lib.onl/ru/tags/mikrotik/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/mikrotik/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>mikrotik / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sun, 12 Jul 2020 15:09:48 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/mikrotik/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>MikroTik и Cloudflare: Динамический IP для домена</title><link>https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</guid><description>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в MikroTik Marketplace. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</description><media:content medium="image" url="https://images.unsplash.com/photo-1521542464131-cb30f7398bc6" width="1600" height="900"/><content:encoded><![CDATA[<p>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в <a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare" target="_blank" rel="noopener noreferrer nofollow">MikroTik Marketplace</a>. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</p>
-<p>Сам скрипт нужно настроить под себя, прописав в нём значения переменных. Значения переменных я указал в <a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare/blob/main/README.md" target="_blank" rel="noopener noreferrer nofollow">README</a> на GitHub’е. Большинство значений можно узнать из панели управления доменом в Cloudflare, но для получения значения переменной <code>cfDNSID</code> необходимо выполнит немного телодвижений.</p>
-<p>Для начала в терминале Linux выполнить следующую команду:</p>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>mikrotik / Library Online</title><link>https://lib.onl/ru/tags/mikrotik/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/mikrotik/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>mikrotik / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sun, 12 Jul 2020 15:09:48 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/mikrotik/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>MikroTik и CloudFlare: Динамический IP для домена</title><link>https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/</guid><description>Нашёл скрипт реализации динамической смены IP адреса из RouterOS напрямую в панели управления CloudFlare при помощи API. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik.</description><media:content medium="image" url="https://images.unsplash.com/photo-1521542464131-cb30f7398bc6" width="1600" height="900"/><content:encoded><![CDATA[<p>Нашёл скрипт реализации динамической смены IP адреса из RouterOS напрямую в панели управления CloudFlare при помощи API. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik.</p>
+<p>Скрипт я немного переделал, удалил лишние переменные, некоторые переопределил, подправил области видимости переменных, обновил метод авторизации скрипта на серверах CloudFlare. Вроде работает.</p>
+<p>Сам скрипт нужно настроить под себя, прописав в нём значения переменных. Некоторые значений можно узнать из панели управления доменом в CloudFlare, но для получения значения переменной <code>cfDnsID</code> необходимо выполнит немного телодвижений. Об этом ниже.</p>
+<h2 id="работа-cloudflare-api">
+  <a class="link-body-emphasis" href="#%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%b0-cloudflare-api">Работа CloudFlare API</a>
+</h2><p>Без токена - никак.</p>
+<h3 id="создание-токена">
+  <a class="link-body-emphasis" href="#%d1%81%d0%be%d0%b7%d0%b4%d0%b0%d0%bd%d0%b8%d0%b5-%d1%82%d0%be%d0%ba%d0%b5%d0%bd%d0%b0">Создание токена</a>
+</h3><p>Для того, чтобы начать работать с CloudFlare API, нам нужно создать специальный токен:</p>
+<ol>
+<li>Зайти в <a title="" href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener noreferrer nofollow">панель управления токенами</a>.</li>
+<li>Нажать кнопку <span class="shortcode shortcode-key"><kbd>Create Token</kbd></span>.</li>
+<li>На странице выбора шаблонов - выбрать шаблон <strong>Edit zone DNS</strong>.</li>
+<li>В разделе <strong>Zone Resources</strong> можно выбрать область доступа токена к зонам (доменам). Можно указать конкретную зону (<em>Specific zone</em>) или выбрать все зоны (<em>All zones</em>).</li>
+<li>Всё, нажимаем кнопку <span class="shortcode shortcode-key"><kbd>Continue to summary</kbd></span> и перемещаемся на следующую станицу&hellip;</li>
+</ol>
+<h3 id="проверка-токена">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%be%d0%b2%d0%b5%d1%80%d0%ba%d0%b0-%d1%82%d0%be%d0%ba%d0%b5%d0%bd%d0%b0">Проверка токена</a>
+</h3><p>По окончании создания токена, CloudFlare переместит нас на страницу проверки токена. На этой странице будут наш созданный токен (его необходимо сохранить) и команда, которой при помощи утилиты <code>curl</code> можно проверить корректность токена:</p>
 
 
 
@@ -11,15 +27,14 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-62514cbbe5ae7fcdd92f0e53803cdf59"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/API_ZONE_ID/dns_records&#34;</span>  <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Email: USER_EMAIL&#34;</span>                                                     <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Key: USER_TOKEN&#34;</span>                                                       <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python -mjson.tool</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-613656af6fec98a236e8a91b05bf60de"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Authorization: Bearer TOKEN&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type:application/json&#34;</span> <span class="p">|</span> python3 -mjson.tool</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-62514cbbe5ae7fcdd92f0e53803cdf59"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-613656af6fec98a236e8a91b05bf60de"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -30,37 +45,7 @@
   </div>
 
 
-<p>&hellip;соответственно, подставив собственные значения, например (значения фальшивые):</p>
-
-
-
-
-
-
-
-
-  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
-    <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9e5d98b14b8cc0b14d48e60aa02efaa6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&#34;</span>   <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Email: user@cloudflare.com&#34;</span>                                                                  <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Key: CcDXmj5lzd9Na3Wi2fQLPvAJIuwUrxF1VnMyS&#34;</span>                                                  <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python -mjson.tool</span></span></code></pre></div></div>
-      <div class="flex-shrink-0">
-        <ul class="list-inline mb-0">
-          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
-            <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9e5d98b14b8cc0b14d48e60aa02efaa6"
-               role="button" aria-label='Копировать'>
-              <i class="fas fa-copy fa-fw"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-
-<p>Команды вернёт результат в формате JSON, к примеру (результаты фальшивые):</p>
+<p>При выполнении, команда вернёт следующий результат:</p>
 
 
 
@@ -83,7 +68,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-64a5b0cd195f9612288acc0291eca2b1"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-268760b5c47e1f2acfc4f3b745a46c04"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -92,12 +77,119 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-64a5b0cd195f9612288acc0291eca2b1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&#34; -H &#34;X-Auth-Email: user@cloudflare.com&#34; -H &#34;X-Auth-Key: CcDXmj5lzd9Na3Wi2fQLPvAJIuwUrxF1VnMyS&#34; -H &#34;Content-Type: application/json&#34; | python -mjson.tool
+    <div class="card-body p-0" id="clipboard-268760b5c47e1f2acfc4f3b745a46c04"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
+
+{
+    &#34;result&#34;: {
+        &#34;id&#34;: &#34;&lt;...&gt;&#34;,
+        &#34;status&#34;: &#34;active&#34;
+    },
+    &#34;success&#34;: true,
+    &#34;errors&#34;: [],
+    &#34;messages&#34;: [
+        {
+            &#34;code&#34;: 10000,
+            &#34;message&#34;: &#34;This API Token is valid and active&#34;,
+            &#34;type&#34;: null
+        }
+    ]
+}</code></pre></div>
+  </div>
+</div>
+<p>По сообщению &ldquo;This API Token is valid and active&rdquo; понятно, что токен корректный и работает.</p>
+<h3 id="получение-id-ресурсной-записи-домена">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%bb%d1%83%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-id-%d1%80%d0%b5%d1%81%d1%83%d1%80%d1%81%d0%bd%d0%be%d0%b9-%d0%b7%d0%b0%d0%bf%d0%b8%d1%81%d0%b8-%d0%b4%d0%be%d0%bc%d0%b5%d0%bd%d0%b0">Получение ID ресурсной записи домена</a>
+</h3><p>Когда у нас есть токен, можно полноценно работать с CloudFlare API. Нам нужно получить ID ресурсной записи домена. Получать будем следующей командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d14dd521371b63f173dfd887fefcdfbc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/ZONE_ID/dns_records&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Authorization: Bearer TOKEN&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python3 -mjson.tool</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d14dd521371b63f173dfd887fefcdfbc"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Обратите внимание на следующие заглушки в команде:</p>
+<ul>
+<li><code>ZONE_ID</code> - ID домена. Находится в панели оправления доменом на главной странице в поле <strong>Zone ID</strong>.</li>
+<li><code>TOKEN</code> - токен для доступа к CloudFlare API.</li>
+</ul>
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-warning d-flex" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-exclamation-triangle fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Вместо этих заглушек необходимо подставить свои значения.</p>
+
+    </div>
+  </div>
+</div>
+
+<p>Сформировав правильную команду с корректными данными и выполнив её, команда вернёт результат в формате <strong>JSON</strong>. Результат будет содержать набор всех ресурсных записей конкретного домена. У меня это выглядит так:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-linux
+shortcode-codeblock-terminal-linux">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-48c89b24102af3d152a768ece1aa856e"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-48c89b24102af3d152a768ece1aa856e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/&lt;...&gt;/dns_records&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
 {
     &#34;result&#34;: [
         {
             &#34;id&#34;: &#34;gJDSG5la4IWNOEVn6K2PHyope8Q9YhzC&#34;,
-            &#34;zone_id&#34;: &#34;Q7dslfag51U2B3jRpmbxMInDTCoSFYyH&#34;,
+            &#34;zone_id&#34;: &#34;&lt;...&gt;&#34;,
             &#34;zone_name&#34;: &#34;example.com&#34;,
             &#34;name&#34;: &#34;example.com&#34;,
             &#34;type&#34;: &#34;A&#34;,
@@ -129,10 +221,192 @@ shortcode-codeblock-terminal-linux">
 }</code></pre></div>
   </div>
 </div>
-<p>Смотрим поле <code>id</code> и значение этого поля вставляем в переменную <code>cfDNSID</code>.</p>
-<p>На этом всё. Не забываем выдать скрипту необходимые права в панели MikroTik, а также прописать автоматический запуск скрипта через <strong>Scheduler</strong>.</p>]]></content:encoded><turbo:source/><turbo:topic>MikroTik и Cloudflare: Динамический IP для домена</turbo:topic><turbo:content><![CDATA[<p>Когда то на просторах интернета нашёл скрипт реализации динамической смены IP из MikroTik напрямую в панели управления Cloudflare при помощи API. Сам скрипт я немного подкорректировал и опубликовал в <a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare" target="_blank" rel="noopener noreferrer nofollow">MikroTik Marketplace</a>. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik. Привожу описание скрипта и переменных.</p>
-<p>Сам скрипт нужно настроить под себя, прописав в нём значения переменных. Значения переменных я указал в <a title="" href="https://github.com/marketplace-mikrotik/mikrotik-ext-cloudflare/blob/main/README.md" target="_blank" rel="noopener noreferrer nofollow">README</a> на GitHub’е. Большинство значений можно узнать из панели управления доменом в Cloudflare, но для получения значения переменной <code>cfDNSID</code> необходимо выполнит немного телодвижений.</p>
-<p>Для начала в терминале Linux выполнить следующую команду:</p>
+<p>Как видим, команда вернула нам результат с массивом <code>result</code>. В этом массиве находятся все ресурсные записи нашего домена. Каждая ресурсная запись содержит поля <code>id</code> и <code>content</code>:</p>
+<ul>
+<li><code>id</code> - ID ресурсной записи. Очень важное поле, как раз его значение необходимо записать в переменную <code>cfDnsID</code> скрипта.</li>
+<li><code>content</code> - содержимое ресурсной записи.</li>
+</ul>
+<p>Нам необходимы только записи с типом <code>A</code>. Обычно в записях с типом <code>A</code> хранятся IP адреса серверов, к которым привязан домен. У записей с типом <code>A</code> в поле <code>content</code> находится IP адрес, который должен изменить наш MikroTik при обращении к CloudFlare API.</p>
+<h2 id="скрипт">
+  <a class="link-body-emphasis" href="#%d1%81%d0%ba%d1%80%d0%b8%d0%bf%d1%82">Скрипт</a>
+</h2>
+    
+
+    
+
+    <div class="shortcode shortcode-file mb-3">
+      <div class="card overflow-hidden">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="far fa-file-code fa-fw"></i>
+            </div>
+            <div class="flex-grow-1 mx-2">
+              <code>cf.ddns.rsc</code>
+            </div>
+            <div class="flex-shrink-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+                  <a class="text-body" href="#"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-902a869ff5e38f22df3a19663fd00ebb"
+                     role="button" aria-label='Копировать'>
+                    <i class="fas fa-copy fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="cf.ddns.rsc" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="cf.ddns.rsc" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+          
+        <div class="card-body" id="clipboard-902a869ff5e38f22df3a19663fd00ebb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mikrotik RouterOS script for CloudFlare DDNS</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @package    RouterOS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @author     Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @copyright  2023 iHub TO</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @license    MIT</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @version    0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @link       https://lib.onl</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># RouterOS: WAN interface name.</span>
+</span></span><span class="line"><span class="cl">:local rosWanInterface <span class="s2">&#34;ether1&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># RouterOS: Enables trust chain validation from local certificate store.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;no&#39;  | Disable certificate check.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;yes&#39; | Enable certificate check.</span>
+</span></span><span class="line"><span class="cl">:local rosCheckCert <span class="s2">&#34;no&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare: API token.</span>
+</span></span><span class="line"><span class="cl">:local cfToken <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare: Domain.</span>
+</span></span><span class="line"><span class="cl">:local cfDomain <span class="s2">&#34;example.com&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare: Zone ID.</span>
+</span></span><span class="line"><span class="cl">:local cfZoneID <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare: DNS ID.</span>
+</span></span><span class="line"><span class="cl">:local cfDnsID <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare: Domain record type.</span>
+</span></span><span class="line"><span class="cl">:local cfRecordType <span class="s2">&#34;A&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare: Debug mode.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 0 | Disable debug mode.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1 | Enable debug mode.</span>
+</span></span><span class="line"><span class="cl">:local cfDebug <span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># IP on WAN interface.</span>
+</span></span><span class="line"><span class="cl">:local srcIP <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># IP on CloudFlare domain.</span>
+</span></span><span class="line"><span class="cl">:local dstIP <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Get RouterOS WAN IP.</span>
+</span></span><span class="line"><span class="cl">:set srcIP <span class="o">[</span>/ip address get <span class="o">[</span>/ip address find <span class="nv">interface</span><span class="o">=</span><span class="nv">$rosWanInterface</span> <span class="o">]</span> address<span class="o">]</span>
+</span></span><span class="line"><span class="cl">:set srcIP <span class="o">[</span>:pick <span class="nv">$srcIP</span> <span class="m">0</span> <span class="o">[</span>:find <span class="nv">$srcIP</span> <span class="s2">&#34;/&#34;</span><span class="o">]]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Get CloudFlare domain IP.</span>
+</span></span><span class="line"><span class="cl">:set dstIP <span class="o">[</span>:resolve <span class="nv">$cfDomain</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Build CloudFlare API (v4).</span>
+</span></span><span class="line"><span class="cl">:local cfAPI <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/&#34;</span>
+</span></span><span class="line"><span class="cl">:set cfAPI <span class="o">(</span><span class="nv">$cfAPI</span> . <span class="s2">&#34;</span><span class="nv">$cfZoneID</span><span class="s2">/dns_records/</span><span class="nv">$cfDnsID</span><span class="s2">&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">:local cfAPIHeader <span class="s2">&#34;Authorization: Bearer </span><span class="nv">$cfToken</span><span class="s2">, Content-Type: application/json&#34;</span>
+</span></span><span class="line"><span class="cl">:local cfAPIData <span class="s2">&#34;{\&#34;type\&#34;:\&#34;</span><span class="nv">$cfRecordType</span><span class="s2">\&#34;,\&#34;name\&#34;:\&#34;</span><span class="nv">$cfDomain</span><span class="s2">\&#34;,\&#34;content\&#34;:\&#34;</span><span class="nv">$srcIP</span><span class="s2">\&#34;}&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Write debug info to log.</span>
+</span></span><span class="line"><span class="cl">:if <span class="o">(</span><span class="nv">$cfDebug</span><span class="o">)</span> <span class="k">do</span><span class="o">={</span>
+</span></span><span class="line"><span class="cl">  :log info <span class="o">(</span><span class="s2">&#34;CloudFlare: Domain = </span><span class="nv">$cfDomain</span><span class="s2">&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  :log info <span class="o">(</span><span class="s2">&#34;CloudFlare: Domain IP (dstIP) = </span><span class="nv">$dstIP</span><span class="s2">&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  :log info <span class="o">(</span><span class="s2">&#34;CloudFlare: WAN IP (srcIP) = </span><span class="nv">$srcIP</span><span class="s2">&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  :log info <span class="o">(</span><span class="s2">&#34;CloudFlare: CloudFlare API (cfAPI) = </span><span class="nv">$cfAPI</span><span class="s2">&amp;content=</span><span class="nv">$srcIP</span><span class="s2">&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Compare and update CF if necessary.</span>
+</span></span><span class="line"><span class="cl">:if <span class="o">(</span><span class="nv">$dstIP</span> !<span class="o">=</span> <span class="nv">$srcIP</span><span class="o">)</span> <span class="k">do</span><span class="o">={</span>
+</span></span><span class="line"><span class="cl">  :log info <span class="o">(</span><span class="s2">&#34;CloudFlare: Updating </span><span class="nv">$cfDomain</span><span class="s2">, setting </span><span class="nv">$srcIP</span><span class="s2"> = </span><span class="nv">$cfDomain</span><span class="s2">&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  /tool fetch <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="nv">mode</span><span class="o">=</span>https <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    http-method<span class="o">=</span>put <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    http-header-field<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$cfAPIHeader</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    http-data<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$cfAPIData</span><span class="s2">&#34;</span> <span class="nv">url</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$cfAPI</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    check-certificate<span class="o">=</span><span class="nv">$rosCheckCert</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="nv">output</span><span class="o">=</span>user as-value
+</span></span><span class="line"><span class="cl">  /ip dns cache flush
+</span></span><span class="line"><span class="cl"><span class="o">}</span> <span class="k">else</span><span class="o">={</span>
+</span></span><span class="line"><span class="cl">  :log info <span class="s2">&#34;CloudFlare: No Update Needed!&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div></div>
+      </div>
+    </div>
+<h3 id="настройка">
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0">Настройка</a>
+</h3><p>Алгоритм настройки довольно прост:</p>
+<ol>
+<li>Получаем токен для работы с CloudFlare API.</li>
+<li>При помощи специальной команды узнаём значение поля <code>id</code> ресурсной записи с типом <code>A</code>.</li>
+<li>Это значение вписываем в переменную <code>cfDnsID</code> скрипта.</li>
+<li>Остальные требуемые значения для переменных уже доступны без каких-либо телодвижений.</li>
+</ol>
+<h3 id="переменные">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b5%d1%80%d0%b5%d0%bc%d0%b5%d0%bd%d0%bd%d1%8b%d0%b5">Переменные</a>
+</h3><p>Опишу переменные и что они из себя представляют:</p>
+<ul>
+<li><code>rosWanInterface</code> - имя интерфейса <strong>WAN</strong> в RouterOS.</li>
+<li><code>rosCheckCert</code> - включение / отключение проверки цепочки сертификации при запросе к CloudFlare API.</li>
+<li><code>cfToken</code> - токен, полученный в <a title="" href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener noreferrer nofollow">панели управления токенами</a>.</li>
+<li><code>cfDomain</code> - название домена, для которого необходимо динамически менять IP адрес.</li>
+<li><code>cfZoneID</code> - ID домена. Находится в панели управления доменом на главной странице в поле <strong>Zone ID</strong>.</li>
+<li><code>cfDnsID</code> - ID ресурсной записи домена. Для получения этой переменной, необходимо выполнить запрос к CloudFlare API.</li>
+<li><code>cfRecordType</code> - тип ресурсной записи домена. Обычно это <code>A</code>. Менять нет необходимости.</li>
+<li><code>cfDebug</code> - включение / отключение отображения технической информации в логе RouterOS.</li>
+</ul>
+<p>Рекомендую настраивать скрипт в редакторе с подсветкой синтаксиса, чтобы не ошибиться и не задеть какую-либо кавычку.</p>
+<h3 id="установка">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0">Установка</a>
+</h3><p>После настройки скрипта, его нужно добавить в репозиторий скриптов RouterOS. Находится репозиторий в <strong>System / Scripts</strong>. При добавлении скрипта, необходимо выбрать политики <code>read</code>, <code>write</code>, <code>test</code>, <code>policy</code>.</p>
+<h3 id="планировщик">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%bb%d0%b0%d0%bd%d0%b8%d1%80%d0%be%d0%b2%d1%89%d0%b8%d0%ba">Планировщик</a>
+</h3><p>Скрипт должен переодически запускаться для проверки и синхронизации IP адресов сервера и домена. В этом поможет планировщик RouterOS. Заходим в <strong>System / Scheduler</strong> и создаём задачу с политиками <code>read</code>, <code>write</code>, <code>test</code>, <code>policy</code>. В поле <strong>On Event</strong> вписываем точное название скрипта, ранее добавленного в репозиторий RouterOS.</p>
+<h3 id="проверка">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%be%d0%b2%d0%b5%d1%80%d0%ba%d0%b0">Проверка</a>
+</h3><p>Проверить работу скрипта можно в репозитории по адресу <strong>System / Scripts</strong>. Выделив скрипт и нажав на кнопку <span class="shortcode shortcode-key"><kbd>Run</kbd></span>, смотрим изменился ли IP адрес у домена в панели управления CloudFlare.</p>]]></content:encoded><turbo:source/><turbo:topic>MikroTik и CloudFlare: Динамический IP для домена</turbo:topic><turbo:content><![CDATA[<p>Нашёл скрипт реализации динамической смены IP адреса из RouterOS напрямую в панели управления CloudFlare при помощи API. Где нашёл скрипт уже не помню, вроде бы на страницах официального форума MikroTik.</p>
+<p>Скрипт я немного переделал, удалил лишние переменные, некоторые переопределил, подправил области видимости переменных, обновил метод авторизации скрипта на серверах CloudFlare. Вроде работает.</p>
+<p>Сам скрипт нужно настроить под себя, прописав в нём значения переменных. Некоторые значений можно узнать из панели управления доменом в CloudFlare, но для получения значения переменной <code>cfDnsID</code> необходимо выполнит немного телодвижений. Об этом ниже.</p>
+<h2 id="работа-cloudflare-api">
+  <a class="link-body-emphasis" href="#%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%b0-cloudflare-api">Работа CloudFlare API</a>
+</h2><p>Без токена - никак.</p>
+<h3 id="создание-токена">
+  <a class="link-body-emphasis" href="#%d1%81%d0%be%d0%b7%d0%b4%d0%b0%d0%bd%d0%b8%d0%b5-%d1%82%d0%be%d0%ba%d0%b5%d0%bd%d0%b0">Создание токена</a>
+</h3><p>Для того, чтобы начать работать с CloudFlare API, нам нужно создать специальный токен:</p>
+<ol>
+<li>Зайти в <a title="" href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener noreferrer nofollow">панель управления токенами</a>.</li>
+<li>Нажать кнопку <span class="shortcode shortcode-key"><kbd>Create Token</kbd></span>.</li>
+<li>На странице выбора шаблонов - выбрать шаблон <strong>Edit zone DNS</strong>.</li>
+<li>В разделе <strong>Zone Resources</strong> можно выбрать область доступа токена к зонам (доменам). Можно указать конкретную зону (<em>Specific zone</em>) или выбрать все зоны (<em>All zones</em>).</li>
+<li>Всё, нажимаем кнопку <span class="shortcode shortcode-key"><kbd>Continue to summary</kbd></span> и перемещаемся на следующую станицу&hellip;</li>
+</ol>
+<h3 id="проверка-токена">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%be%d0%b2%d0%b5%d1%80%d0%ba%d0%b0-%d1%82%d0%be%d0%ba%d0%b5%d0%bd%d0%b0">Проверка токена</a>
+</h3><p>По окончании создания токена, CloudFlare переместит нас на страницу проверки токена. На этой странице будут наш созданный токен (его необходимо сохранить) и команда, которой при помощи утилиты <code>curl</code> можно проверить корректность токена:</p>
 
 
 
@@ -143,15 +417,14 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-62514cbbe5ae7fcdd92f0e53803cdf59"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/API_ZONE_ID/dns_records&#34;</span>  <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Email: USER_EMAIL&#34;</span>                                                     <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Key: USER_TOKEN&#34;</span>                                                       <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python -mjson.tool</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-613656af6fec98a236e8a91b05bf60de"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Authorization: Bearer TOKEN&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type:application/json&#34;</span> <span class="p">|</span> python3 -mjson.tool</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-62514cbbe5ae7fcdd92f0e53803cdf59"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-613656af6fec98a236e8a91b05bf60de"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -162,37 +435,7 @@ shortcode-codeblock-terminal-linux">
   </div>
 
 
-<p>&hellip;соответственно, подставив собственные значения, например (значения фальшивые):</p>
-
-
-
-
-
-
-
-
-  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
-    <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9e5d98b14b8cc0b14d48e60aa02efaa6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&#34;</span>   <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Email: user@cloudflare.com&#34;</span>                                                                  <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;X-Auth-Key: CcDXmj5lzd9Na3Wi2fQLPvAJIuwUrxF1VnMyS&#34;</span>                                                  <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python -mjson.tool</span></span></code></pre></div></div>
-      <div class="flex-shrink-0">
-        <ul class="list-inline mb-0">
-          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
-            <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9e5d98b14b8cc0b14d48e60aa02efaa6"
-               role="button" aria-label='Копировать'>
-              <i class="fas fa-copy fa-fw"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-
-<p>Команды вернёт результат в формате JSON, к примеру (результаты фальшивые):</p>
+<p>При выполнении, команда вернёт следующий результат:</p>
 
 
 
@@ -215,7 +458,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-64a5b0cd195f9612288acc0291eca2b1"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-268760b5c47e1f2acfc4f3b745a46c04"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -224,12 +467,119 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-64a5b0cd195f9612288acc0291eca2b1"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/Q7dslfag51U2B3jRpmbxMInDTCoSFYyH/dns_records&#34; -H &#34;X-Auth-Email: user@cloudflare.com&#34; -H &#34;X-Auth-Key: CcDXmj5lzd9Na3Wi2fQLPvAJIuwUrxF1VnMyS&#34; -H &#34;Content-Type: application/json&#34; | python -mjson.tool
+    <div class="card-body p-0" id="clipboard-268760b5c47e1f2acfc4f3b745a46c04"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
+
+{
+    &#34;result&#34;: {
+        &#34;id&#34;: &#34;&lt;...&gt;&#34;,
+        &#34;status&#34;: &#34;active&#34;
+    },
+    &#34;success&#34;: true,
+    &#34;errors&#34;: [],
+    &#34;messages&#34;: [
+        {
+            &#34;code&#34;: 10000,
+            &#34;message&#34;: &#34;This API Token is valid and active&#34;,
+            &#34;type&#34;: null
+        }
+    ]
+}</code></pre></div>
+  </div>
+</div>
+<p>По сообщению &ldquo;This API Token is valid and active&rdquo; понятно, что токен корректный и работает.</p>
+<h3 id="получение-id-ресурсной-записи-домена">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%be%d0%bb%d1%83%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-id-%d1%80%d0%b5%d1%81%d1%83%d1%80%d1%81%d0%bd%d0%be%d0%b9-%d0%b7%d0%b0%d0%bf%d0%b8%d1%81%d0%b8-%d0%b4%d0%be%d0%bc%d0%b5%d0%bd%d0%b0">Получение ID ресурсной записи домена</a>
+</h3><p>Когда у нас есть токен, можно полноценно работать с CloudFlare API. Нам нужно получить ID ресурсной записи домена. Получать будем следующей командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d14dd521371b63f173dfd887fefcdfbc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/ZONE_ID/dns_records&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Authorization: Bearer TOKEN&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python3 -mjson.tool</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d14dd521371b63f173dfd887fefcdfbc"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Обратите внимание на следующие заглушки в команде:</p>
+<ul>
+<li><code>ZONE_ID</code> - ID домена. Находится в панели оправления доменом на главной странице в поле <strong>Zone ID</strong>.</li>
+<li><code>TOKEN</code> - токен для доступа к CloudFlare API.</li>
+</ul>
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-warning d-flex" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-exclamation-triangle fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Вместо этих заглушек необходимо подставить свои значения.</p>
+
+    </div>
+  </div>
+</div>
+
+<p>Сформировав правильную команду с корректными данными и выполнив её, команда вернёт результат в формате <strong>JSON</strong>. Результат будет содержать набор всех ресурсных записей конкретного домена. У меня это выглядит так:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-linux
+shortcode-codeblock-terminal-linux">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-48c89b24102af3d152a768ece1aa856e"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-48c89b24102af3d152a768ece1aa856e"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/&lt;...&gt;/dns_records&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
 {
     &#34;result&#34;: [
         {
             &#34;id&#34;: &#34;gJDSG5la4IWNOEVn6K2PHyope8Q9YhzC&#34;,
-            &#34;zone_id&#34;: &#34;Q7dslfag51U2B3jRpmbxMInDTCoSFYyH&#34;,
+            &#34;zone_id&#34;: &#34;&lt;...&gt;&#34;,
             &#34;zone_name&#34;: &#34;example.com&#34;,
             &#34;name&#34;: &#34;example.com&#34;,
             &#34;type&#34;: &#34;A&#34;,
@@ -261,5 +611,171 @@ shortcode-codeblock-terminal-linux">
 }</code></pre></div>
   </div>
 </div>
-<p>Смотрим поле <code>id</code> и значение этого поля вставляем в переменную <code>cfDNSID</code>.</p>
-<p>На этом всё. Не забываем выдать скрипту необходимые права в панели MikroTik, а также прописать автоматический запуск скрипта через <strong>Scheduler</strong>.</p>]]></turbo:content><pubDate>Sun, 12 Jul 2020 15:09:48 +0000</pubDate><category>Сеть</category></item></channel></rss>
+<p>Как видим, команда вернула нам результат с массивом <code>result</code>. В этом массиве находятся все ресурсные записи нашего домена. Каждая ресурсная запись содержит поля <code>id</code> и <code>content</code>:</p>
+<ul>
+<li><code>id</code> - ID ресурсной записи. Очень важное поле, как раз его значение необходимо записать в переменную <code>cfDnsID</code> скрипта.</li>
+<li><code>content</code> - содержимое ресурсной записи.</li>
+</ul>
+<p>Нам необходимы только записи с типом <code>A</code>. Обычно в записях с типом <code>A</code> хранятся IP адреса серверов, к которым привязан домен. У записей с типом <code>A</code> в поле <code>content</code> находится IP адрес, который должен изменить наш MikroTik при обращении к CloudFlare API.</p>
+<h2 id="скрипт">
+  <a class="link-body-emphasis" href="#%d1%81%d0%ba%d1%80%d0%b8%d0%bf%d1%82">Скрипт</a>
+</h2>
+    
+
+    
+
+    <div class="shortcode shortcode-file mb-3">
+      <div class="card overflow-hidden">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="far fa-file-code fa-fw"></i>
+            </div>
+            <div class="flex-grow-1 mx-2">
+              <code>cf.ddns.rsc</code>
+            </div>
+            <div class="flex-shrink-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+                  <a class="text-body" href="#"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-902a869ff5e38f22df3a19663fd00ebb"
+                     role="button" aria-label='Копировать'>
+                    <i class="fas fa-copy fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="cf.ddns.rsc" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="cf.ddns.rsc" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+          
+        <div class="card-body" id="clipboard-902a869ff5e38f22df3a19663fd00ebb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mikrotik RouterOS script for CloudFlare DDNS</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @package    RouterOS</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @author     Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @copyright  2023 iHub TO</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @license    MIT</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @version    0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @link       https://lib.onl</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># RouterOS: WAN interface name.</span>
+</span></span><span class="line"><span class="cl">:local rosWanInterface <span class="s2">&#34;ether1&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># RouterOS: Enables trust chain validation from local certificate store.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;no&#39;  | Disable certificate check.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;yes&#39; | Enable certificate check.</span>
+</span></span><span class="line"><span class="cl">:local rosCheckCert <span class="s2">&#34;no&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare: API token.</span>
+</span></span><span class="line"><span class="cl">:local cfToken <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare: Domain.</span>
+</span></span><span class="line"><span class="cl">:local cfDomain <span class="s2">&#34;example.com&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare: Zone ID.</span>
+</span></span><span class="line"><span class="cl">:local cfZoneID <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare: DNS ID.</span>
+</span></span><span class="line"><span class="cl">:local cfDnsID <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare: Domain record type.</span>
+</span></span><span class="line"><span class="cl">:local cfRecordType <span class="s2">&#34;A&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare: Debug mode.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 0 | Disable debug mode.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1 | Enable debug mode.</span>
+</span></span><span class="line"><span class="cl">:local cfDebug <span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># IP on WAN interface.</span>
+</span></span><span class="line"><span class="cl">:local srcIP <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># IP on CloudFlare domain.</span>
+</span></span><span class="line"><span class="cl">:local dstIP <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Get RouterOS WAN IP.</span>
+</span></span><span class="line"><span class="cl">:set srcIP <span class="o">[</span>/ip address get <span class="o">[</span>/ip address find <span class="nv">interface</span><span class="o">=</span><span class="nv">$rosWanInterface</span> <span class="o">]</span> address<span class="o">]</span>
+</span></span><span class="line"><span class="cl">:set srcIP <span class="o">[</span>:pick <span class="nv">$srcIP</span> <span class="m">0</span> <span class="o">[</span>:find <span class="nv">$srcIP</span> <span class="s2">&#34;/&#34;</span><span class="o">]]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Get CloudFlare domain IP.</span>
+</span></span><span class="line"><span class="cl">:set dstIP <span class="o">[</span>:resolve <span class="nv">$cfDomain</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Build CloudFlare API (v4).</span>
+</span></span><span class="line"><span class="cl">:local cfAPI <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/&#34;</span>
+</span></span><span class="line"><span class="cl">:set cfAPI <span class="o">(</span><span class="nv">$cfAPI</span> . <span class="s2">&#34;</span><span class="nv">$cfZoneID</span><span class="s2">/dns_records/</span><span class="nv">$cfDnsID</span><span class="s2">&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">:local cfAPIHeader <span class="s2">&#34;Authorization: Bearer </span><span class="nv">$cfToken</span><span class="s2">, Content-Type: application/json&#34;</span>
+</span></span><span class="line"><span class="cl">:local cfAPIData <span class="s2">&#34;{\&#34;type\&#34;:\&#34;</span><span class="nv">$cfRecordType</span><span class="s2">\&#34;,\&#34;name\&#34;:\&#34;</span><span class="nv">$cfDomain</span><span class="s2">\&#34;,\&#34;content\&#34;:\&#34;</span><span class="nv">$srcIP</span><span class="s2">\&#34;}&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Write debug info to log.</span>
+</span></span><span class="line"><span class="cl">:if <span class="o">(</span><span class="nv">$cfDebug</span><span class="o">)</span> <span class="k">do</span><span class="o">={</span>
+</span></span><span class="line"><span class="cl">  :log info <span class="o">(</span><span class="s2">&#34;CloudFlare: Domain = </span><span class="nv">$cfDomain</span><span class="s2">&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  :log info <span class="o">(</span><span class="s2">&#34;CloudFlare: Domain IP (dstIP) = </span><span class="nv">$dstIP</span><span class="s2">&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  :log info <span class="o">(</span><span class="s2">&#34;CloudFlare: WAN IP (srcIP) = </span><span class="nv">$srcIP</span><span class="s2">&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  :log info <span class="o">(</span><span class="s2">&#34;CloudFlare: CloudFlare API (cfAPI) = </span><span class="nv">$cfAPI</span><span class="s2">&amp;content=</span><span class="nv">$srcIP</span><span class="s2">&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Compare and update CF if necessary.</span>
+</span></span><span class="line"><span class="cl">:if <span class="o">(</span><span class="nv">$dstIP</span> !<span class="o">=</span> <span class="nv">$srcIP</span><span class="o">)</span> <span class="k">do</span><span class="o">={</span>
+</span></span><span class="line"><span class="cl">  :log info <span class="o">(</span><span class="s2">&#34;CloudFlare: Updating </span><span class="nv">$cfDomain</span><span class="s2">, setting </span><span class="nv">$srcIP</span><span class="s2"> = </span><span class="nv">$cfDomain</span><span class="s2">&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  /tool fetch <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="nv">mode</span><span class="o">=</span>https <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    http-method<span class="o">=</span>put <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    http-header-field<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$cfAPIHeader</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    http-data<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$cfAPIData</span><span class="s2">&#34;</span> <span class="nv">url</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$cfAPI</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    check-certificate<span class="o">=</span><span class="nv">$rosCheckCert</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="nv">output</span><span class="o">=</span>user as-value
+</span></span><span class="line"><span class="cl">  /ip dns cache flush
+</span></span><span class="line"><span class="cl"><span class="o">}</span> <span class="k">else</span><span class="o">={</span>
+</span></span><span class="line"><span class="cl">  :log info <span class="s2">&#34;CloudFlare: No Update Needed!&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div></div>
+      </div>
+    </div>
+<h3 id="настройка">
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0">Настройка</a>
+</h3><p>Алгоритм настройки довольно прост:</p>
+<ol>
+<li>Получаем токен для работы с CloudFlare API.</li>
+<li>При помощи специальной команды узнаём значение поля <code>id</code> ресурсной записи с типом <code>A</code>.</li>
+<li>Это значение вписываем в переменную <code>cfDnsID</code> скрипта.</li>
+<li>Остальные требуемые значения для переменных уже доступны без каких-либо телодвижений.</li>
+</ol>
+<h3 id="переменные">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b5%d1%80%d0%b5%d0%bc%d0%b5%d0%bd%d0%bd%d1%8b%d0%b5">Переменные</a>
+</h3><p>Опишу переменные и что они из себя представляют:</p>
+<ul>
+<li><code>rosWanInterface</code> - имя интерфейса <strong>WAN</strong> в RouterOS.</li>
+<li><code>rosCheckCert</code> - включение / отключение проверки цепочки сертификации при запросе к CloudFlare API.</li>
+<li><code>cfToken</code> - токен, полученный в <a title="" href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener noreferrer nofollow">панели управления токенами</a>.</li>
+<li><code>cfDomain</code> - название домена, для которого необходимо динамически менять IP адрес.</li>
+<li><code>cfZoneID</code> - ID домена. Находится в панели управления доменом на главной странице в поле <strong>Zone ID</strong>.</li>
+<li><code>cfDnsID</code> - ID ресурсной записи домена. Для получения этой переменной, необходимо выполнить запрос к CloudFlare API.</li>
+<li><code>cfRecordType</code> - тип ресурсной записи домена. Обычно это <code>A</code>. Менять нет необходимости.</li>
+<li><code>cfDebug</code> - включение / отключение отображения технической информации в логе RouterOS.</li>
+</ul>
+<p>Рекомендую настраивать скрипт в редакторе с подсветкой синтаксиса, чтобы не ошибиться и не задеть какую-либо кавычку.</p>
+<h3 id="установка">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0">Установка</a>
+</h3><p>После настройки скрипта, его нужно добавить в репозиторий скриптов RouterOS. Находится репозиторий в <strong>System / Scripts</strong>. При добавлении скрипта, необходимо выбрать политики <code>read</code>, <code>write</code>, <code>test</code>, <code>policy</code>.</p>
+<h3 id="планировщик">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%bb%d0%b0%d0%bd%d0%b8%d1%80%d0%be%d0%b2%d1%89%d0%b8%d0%ba">Планировщик</a>
+</h3><p>Скрипт должен переодически запускаться для проверки и синхронизации IP адресов сервера и домена. В этом поможет планировщик RouterOS. Заходим в <strong>System / Scheduler</strong> и создаём задачу с политиками <code>read</code>, <code>write</code>, <code>test</code>, <code>policy</code>. В поле <strong>On Event</strong> вписываем точное название скрипта, ранее добавленного в репозиторий RouterOS.</p>
+<h3 id="проверка">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%be%d0%b2%d0%b5%d1%80%d0%ba%d0%b0">Проверка</a>
+</h3><p>Проверить работу скрипта можно в репозитории по адресу <strong>System / Scripts</strong>. Выделив скрипт и нажав на кнопку <span class="shortcode shortcode-key"><kbd>Run</kbd></span>, смотрим изменился ли IP адрес у домена в панели управления CloudFlare.</p>]]></turbo:content><pubDate>Sun, 12 Jul 2020 15:09:48 +0000</pubDate><category>Сеть</category></item></channel></rss>
