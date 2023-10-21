@@ -4,7 +4,7 @@
 :: @author    Kitsune Solar <mail@kitsune.solar>
 :: @copyright 2023 iHub TO
 :: @license   MIT
-:: @version   2023.10.1
+:: @version   2023.1
 :: @link      https://lib.onl
 :: ------------------------------------------------------------------------------------------------------------------ ::
 
