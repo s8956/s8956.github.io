@@ -1,4 +1,350 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>powershell / Library Online</title><link>https://lib.onl/ru/tags/powershell/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/powershell/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>powershell / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Fri, 20 Oct 2023 09:57:21 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/powershell/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>PowerShell Vault</title><link>https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/</guid><description>На работе в локальной сети использовалась задача, которая перемещала старые, по долгу не использовавшиеся, файлы из главного файлового хранилища в резервное. Но так как организация являлась проектной, то старые файлы могли понадобиться в любое время.</description><media:content medium="image" url="https://images.unsplash.com/photo-1609358905581-e5381612486e" width="1600" height="900"/><content:encoded><![CDATA[<p>На работе в локальной сети использовалась задача, которая перемещала старые, по долгу не использовавшиеся, файлы из главного файлового хранилища в резервное. Но так как организация являлась проектной, то старые файлы могли понадобиться в любое время.</p>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>powershell / Library Online</title><link>https://lib.onl/ru/tags/powershell/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/powershell/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>powershell / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Sat, 21 Oct 2023 17:42:05 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/powershell/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Определение разрядности ОС Windows в PowerShell</title><link>https://lib.onl/ru/posts/2023/10/0028821e-c96c-5014-a1dd-8963c161b170/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/0028821e-c96c-5014-a1dd-8963c161b170/</guid><description>Нашёл на Stack Overflow хорошую функцию по определению разрядности ОС и процесса PowerShell. Запишу, обязательно пригодится.</description><media:content medium="image" url="https://images.unsplash.com/photo-1642176849879-92f85770f212" width="1600" height="900"/><content:encoded><![CDATA[<p>Нашёл на Stack Overflow хорошую функцию по определению разрядности ОС и процесса PowerShell. Запишу, обязательно пригодится.</p>
+<h2 id="разрядность-ос">
+  <a class="link-body-emphasis" href="#%d1%80%d0%b0%d0%b7%d1%80%d1%8f%d0%b4%d0%bd%d0%be%d1%81%d1%82%d1%8c-%d0%be%d1%81">Разрядность ОС</a>
+</h2><p>Разрядность ОС можно определить следующей функцией:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ac96d56a648108af7e1d5b34730d40fd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Get-Architecture</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># What bitness does Windows use.</span>
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="p">([</span><span class="no">Environment</span><span class="p">]::</span><span class="n">Is64BitOperatingSystem</span><span class="p">)</span> <span class="p">{</span> <span class="c"># Needs &#39;.NET 4&#39;.</span>
+</span></span><span class="line"><span class="cl">    <span class="vm">$true</span>   <span class="p">{</span> <span class="mf">64</span><span class="p">;</span> <span class="k">break</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="vm">$false</span>  <span class="p">{</span> <span class="mf">32</span><span class="p">;</span> <span class="k">break</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">-Class</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="py">OSArchitecture</span> <span class="o">-replace</span> <span class="s1">&#39;\D&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="c"># Or do any of these:</span>
+</span></span><span class="line"><span class="cl">      <span class="c"># (Get-WmiObject -Class Win32_ComputerSystem).SystemType -replace &#39;\D&#39; -replace &#39;86&#39;, &#39;32&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="c"># (Get-WmiObject -Class Win32_Processor).AddressWidth # This is slow...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ac96d56a648108af7e1d5b34730d40fd"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Можно записать эту функцию в файл и запустить файл в терминале, или же внедрить в крупный проект и вызывать по имени <code>Get-Architecture</code>.</p>
+<h3 id="результат">
+  <a class="link-body-emphasis" href="#%d1%80%d0%b5%d0%b7%d1%83%d0%bb%d1%8c%d1%82%d0%b0%d1%82">Результат</a>
+</h3>
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-windows
+shortcode-codeblock-terminal-windows">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-56d41e4f9f103789bc5b82fac163ca08"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-56d41e4f9f103789bc5b82fac163ca08"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">.\arch.ps1
+64</code></pre></div>
+  </div>
+</div>
+<h2 id="разрядность-ос-и-powershell">
+  <a class="link-body-emphasis" href="#%d1%80%d0%b0%d0%b7%d1%80%d1%8f%d0%b4%d0%bd%d0%be%d1%81%d1%82%d1%8c-%d0%be%d1%81-%d0%b8-powershell">Разрядность ОС и PowerShell</a>
+</h2><p>Расширенная версия, которая позволяет определить разрядность ОС и процесса PowerShell, под которым выполняется функция.</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e7d72b07991025adb675853154872b08"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Get-Architecture</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># What bitness does Windows use.</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$windowsBitness</span> <span class="p">=</span> <span class="k">switch</span> <span class="p">([</span><span class="no">Environment</span><span class="p">]::</span><span class="n">Is64BitOperatingSystem</span><span class="p">)</span> <span class="p">{</span> <span class="c"># Needs &#39;.NET 4&#39;.</span>
+</span></span><span class="line"><span class="cl">    <span class="vm">$true</span>   <span class="p">{</span> <span class="mf">64</span><span class="p">;</span> <span class="k">break</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="vm">$false</span>  <span class="p">{</span> <span class="mf">32</span><span class="p">;</span> <span class="k">break</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">-Class</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="py">OSArchitecture</span> <span class="o">-replace</span> <span class="s1">&#39;\D&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="c"># Or do any of these:</span>
+</span></span><span class="line"><span class="cl">      <span class="c"># (Get-WmiObject -Class Win32_ComputerSystem).SystemType -replace &#39;\D&#39; -replace &#39;86&#39;, &#39;32&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="c"># (Get-WmiObject -Class Win32_Processor).AddressWidth # Slow...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c"># What bitness does this PowerShell process use.</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$processBitness</span> <span class="p">=</span> <span class="p">[</span><span class="no">IntPtr</span><span class="p">]::</span><span class="n">Size</span> <span class="p">*</span> <span class="mf">8</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># Or do any of these:</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># $processBitness = $env:PROCESSOR_ARCHITECTURE -replace &#39;\D&#39; -replace &#39;86|ARM&#39;, &#39;32&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># $processBitness = if ([Environment]::Is64BitProcess) { 64 } else { 32 }</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c"># Return the info as object.</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">PSObject</span> <span class="n">-Property</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ProcessArchitecture&#39;</span> <span class="p">=</span> <span class="s2">&#34;{0} bit&#34;</span> <span class="o">-f</span> <span class="nv">$processBitness</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;WindowsArchitecture&#39;</span> <span class="p">=</span> <span class="s2">&#34;{0} bit&#34;</span> <span class="o">-f</span> <span class="nv">$windowsBitness</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e7d72b07991025adb675853154872b08"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Можно записать эту функцию в файл и запустить файл в терминале, или же внедрить в крупный проект и вызывать по имени <code>Get-Architecture</code>.</p>
+<h3 id="результат-1">
+  <a class="link-body-emphasis" href="#%d1%80%d0%b5%d0%b7%d1%83%d0%bb%d1%8c%d1%82%d0%b0%d1%82-1">Результат</a>
+</h3>
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-windows
+shortcode-codeblock-terminal-windows">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ada8fa9e302005f31cef0091c2331e75"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-ada8fa9e302005f31cef0091c2331e75"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">.\arch.ps1
+
+ProcessArchitecture WindowsArchitecture
+------------------- -------------------
+64 bit              64 bit</code></pre></div>
+  </div>
+</div>]]></content:encoded><turbo:source/><turbo:topic>Определение разрядности ОС Windows в PowerShell</turbo:topic><turbo:content><![CDATA[<p>Нашёл на Stack Overflow хорошую функцию по определению разрядности ОС и процесса PowerShell. Запишу, обязательно пригодится.</p>
+<h2 id="разрядность-ос">
+  <a class="link-body-emphasis" href="#%d1%80%d0%b0%d0%b7%d1%80%d1%8f%d0%b4%d0%bd%d0%be%d1%81%d1%82%d1%8c-%d0%be%d1%81">Разрядность ОС</a>
+</h2><p>Разрядность ОС можно определить следующей функцией:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ac96d56a648108af7e1d5b34730d40fd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Get-Architecture</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># What bitness does Windows use.</span>
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="p">([</span><span class="no">Environment</span><span class="p">]::</span><span class="n">Is64BitOperatingSystem</span><span class="p">)</span> <span class="p">{</span> <span class="c"># Needs &#39;.NET 4&#39;.</span>
+</span></span><span class="line"><span class="cl">    <span class="vm">$true</span>   <span class="p">{</span> <span class="mf">64</span><span class="p">;</span> <span class="k">break</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="vm">$false</span>  <span class="p">{</span> <span class="mf">32</span><span class="p">;</span> <span class="k">break</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">-Class</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="py">OSArchitecture</span> <span class="o">-replace</span> <span class="s1">&#39;\D&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="c"># Or do any of these:</span>
+</span></span><span class="line"><span class="cl">      <span class="c"># (Get-WmiObject -Class Win32_ComputerSystem).SystemType -replace &#39;\D&#39; -replace &#39;86&#39;, &#39;32&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="c"># (Get-WmiObject -Class Win32_Processor).AddressWidth # This is slow...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ac96d56a648108af7e1d5b34730d40fd"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Можно записать эту функцию в файл и запустить файл в терминале, или же внедрить в крупный проект и вызывать по имени <code>Get-Architecture</code>.</p>
+<h3 id="результат">
+  <a class="link-body-emphasis" href="#%d1%80%d0%b5%d0%b7%d1%83%d0%bb%d1%8c%d1%82%d0%b0%d1%82">Результат</a>
+</h3>
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-windows
+shortcode-codeblock-terminal-windows">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-56d41e4f9f103789bc5b82fac163ca08"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-56d41e4f9f103789bc5b82fac163ca08"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">.\arch.ps1
+64</code></pre></div>
+  </div>
+</div>
+<h2 id="разрядность-ос-и-powershell">
+  <a class="link-body-emphasis" href="#%d1%80%d0%b0%d0%b7%d1%80%d1%8f%d0%b4%d0%bd%d0%be%d1%81%d1%82%d1%8c-%d0%be%d1%81-%d0%b8-powershell">Разрядность ОС и PowerShell</a>
+</h2><p>Расширенная версия, которая позволяет определить разрядность ОС и процесса PowerShell, под которым выполняется функция.</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e7d72b07991025adb675853154872b08"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Get-Architecture</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># What bitness does Windows use.</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$windowsBitness</span> <span class="p">=</span> <span class="k">switch</span> <span class="p">([</span><span class="no">Environment</span><span class="p">]::</span><span class="n">Is64BitOperatingSystem</span><span class="p">)</span> <span class="p">{</span> <span class="c"># Needs &#39;.NET 4&#39;.</span>
+</span></span><span class="line"><span class="cl">    <span class="vm">$true</span>   <span class="p">{</span> <span class="mf">64</span><span class="p">;</span> <span class="k">break</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="vm">$false</span>  <span class="p">{</span> <span class="mf">32</span><span class="p">;</span> <span class="k">break</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">-Class</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="py">OSArchitecture</span> <span class="o">-replace</span> <span class="s1">&#39;\D&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="c"># Or do any of these:</span>
+</span></span><span class="line"><span class="cl">      <span class="c"># (Get-WmiObject -Class Win32_ComputerSystem).SystemType -replace &#39;\D&#39; -replace &#39;86&#39;, &#39;32&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="c"># (Get-WmiObject -Class Win32_Processor).AddressWidth # Slow...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c"># What bitness does this PowerShell process use.</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$processBitness</span> <span class="p">=</span> <span class="p">[</span><span class="no">IntPtr</span><span class="p">]::</span><span class="n">Size</span> <span class="p">*</span> <span class="mf">8</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># Or do any of these:</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># $processBitness = $env:PROCESSOR_ARCHITECTURE -replace &#39;\D&#39; -replace &#39;86|ARM&#39;, &#39;32&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># $processBitness = if ([Environment]::Is64BitProcess) { 64 } else { 32 }</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c"># Return the info as object.</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">PSObject</span> <span class="n">-Property</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ProcessArchitecture&#39;</span> <span class="p">=</span> <span class="s2">&#34;{0} bit&#34;</span> <span class="o">-f</span> <span class="nv">$processBitness</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;WindowsArchitecture&#39;</span> <span class="p">=</span> <span class="s2">&#34;{0} bit&#34;</span> <span class="o">-f</span> <span class="nv">$windowsBitness</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e7d72b07991025adb675853154872b08"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Можно записать эту функцию в файл и запустить файл в терминале, или же внедрить в крупный проект и вызывать по имени <code>Get-Architecture</code>.</p>
+<h3 id="результат-1">
+  <a class="link-body-emphasis" href="#%d1%80%d0%b5%d0%b7%d1%83%d0%bb%d1%8c%d1%82%d0%b0%d1%82-1">Результат</a>
+</h3>
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-windows
+shortcode-codeblock-terminal-windows">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ada8fa9e302005f31cef0091c2331e75"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-ada8fa9e302005f31cef0091c2331e75"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">.\arch.ps1
+
+ProcessArchitecture WindowsArchitecture
+------------------- -------------------
+64 bit              64 bit</code></pre></div>
+  </div>
+</div>]]></turbo:content><pubDate>Sat, 21 Oct 2023 17:42:05 +0000</pubDate><category>MS Windows</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>PowerShell Vault</title><link>https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/</guid><description>На работе в локальной сети использовалась задача, которая перемещала старые, по долгу не использовавшиеся, файлы из главного файлового хранилища в резервное. Но так как организация являлась проектной, то старые файлы могли понадобиться в любое время.</description><media:content medium="image" url="https://images.unsplash.com/photo-1609358905581-e5381612486e" width="1600" height="900"/><content:encoded><![CDATA[<p>На работе в локальной сети использовалась задача, которая перемещала старые, по долгу не использовавшиеся, файлы из главного файлового хранилища в резервное. Но так как организация являлась проектной, то старые файлы могли понадобиться в любое время.</p>
 <p>Задача использовала простой скрипт с фильтрацией файлов по параметрам <em>время создания</em> и <em>время изменения</em>. Я чуть доработали скрипт и решил опубликовать его для других администраторов. Вдруг, пригодится. Только перед использованием прошу проверить скрипт в какой-нибудь песочнице.</p>
 
 
@@ -62,12 +408,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c70b576187a0f1878dae726ae24ba6ec"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f0c63b2486013e01e92437452067d004"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c70b576187a0f1878dae726ae24ba6ec"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f0c63b2486013e01e92437452067d004"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -89,12 +435,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7da3dd3202a1a0dbaa1b1967db42b529"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a82f2167162e32a718884fcc8c363fb3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7da3dd3202a1a0dbaa1b1967db42b529"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a82f2167162e32a718884fcc8c363fb3"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -116,12 +462,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-34007be466d42b0ecaae4cbd94051afd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-FS</span> <span class="s1">&#39;32mb&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-379d92bd5ad190ce258b059a1e6e2833"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-FS</span> <span class="s1">&#39;32mb&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-34007be466d42b0ecaae4cbd94051afd"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-379d92bd5ad190ce258b059a1e6e2833"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -143,12 +489,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b20cbca64347cd5f42d76bc453d6adb1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-O</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e187e780499e58a8654be4f37860b44f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-O</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b20cbca64347cd5f42d76bc453d6adb1"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e187e780499e58a8654be4f37860b44f"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -185,7 +531,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-896a82c26059b89356cc18134ea30b85"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-104f1cf300e0dbd517967b6ce95c0771"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -210,7 +556,7 @@
           
               
           
-        <div class="card-body" id="clipboard-896a82c26059b89356cc18134ea30b85"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="cm">&lt;#PSScriptInfo
+        <div class="card-body" id="clipboard-104f1cf300e0dbd517967b6ce95c0771"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="cm">&lt;#PSScriptInfo
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .VERSION      0.1.0
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .GUID         8fd0ce2c-0288-4d9c-805f-703a0c659ade
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .AUTHOR       mail@kitsune.solar
@@ -564,12 +910,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c70b576187a0f1878dae726ae24ba6ec"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f0c63b2486013e01e92437452067d004"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c70b576187a0f1878dae726ae24ba6ec"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f0c63b2486013e01e92437452067d004"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -591,12 +937,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7da3dd3202a1a0dbaa1b1967db42b529"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a82f2167162e32a718884fcc8c363fb3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7da3dd3202a1a0dbaa1b1967db42b529"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a82f2167162e32a718884fcc8c363fb3"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -618,12 +964,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-34007be466d42b0ecaae4cbd94051afd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-FS</span> <span class="s1">&#39;32mb&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-379d92bd5ad190ce258b059a1e6e2833"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-FS</span> <span class="s1">&#39;32mb&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-34007be466d42b0ecaae4cbd94051afd"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-379d92bd5ad190ce258b059a1e6e2833"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -645,12 +991,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b20cbca64347cd5f42d76bc453d6adb1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-O</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e187e780499e58a8654be4f37860b44f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-O</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b20cbca64347cd5f42d76bc453d6adb1"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e187e780499e58a8654be4f37860b44f"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -687,7 +1033,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-896a82c26059b89356cc18134ea30b85"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-104f1cf300e0dbd517967b6ce95c0771"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -712,7 +1058,7 @@
           
               
           
-        <div class="card-body" id="clipboard-896a82c26059b89356cc18134ea30b85"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="cm">&lt;#PSScriptInfo
+        <div class="card-body" id="clipboard-104f1cf300e0dbd517967b6ce95c0771"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="cm">&lt;#PSScriptInfo
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .VERSION      0.1.0
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .GUID         8fd0ce2c-0288-4d9c-805f-703a0c659ade
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .AUTHOR       mail@kitsune.solar
@@ -1054,12 +1400,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-180a0c48a70a26717c4e69b3fb43104f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Analyze</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e8dc2718d334735f4e69d0967c9bfbc5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Analyze</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-180a0c48a70a26717c4e69b3fb43104f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e8dc2718d334735f4e69d0967c9bfbc5"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1087,12 +1433,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-402dafe83636c5c4b58415a931f63183"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Defrag</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-23480e2273481f9ceb60f106cf867222"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Defrag</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-402dafe83636c5c4b58415a931f63183"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-23480e2273481f9ceb60f106cf867222"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1120,12 +1466,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7358f6163e33994f575f58f2e3673fd2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-ReTrim</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b1ac60500de53bcd875929fc772649e3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-ReTrim</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7358f6163e33994f575f58f2e3673fd2"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b1ac60500de53bcd875929fc772649e3"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1202,12 +1548,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7f2ab250e0a30821f2ed8786c858799d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: /u /a</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d30a360b6f1083f321dc9fea39c5832b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: /u /a</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7f2ab250e0a30821f2ed8786c858799d"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d30a360b6f1083f321dc9fea39c5832b"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1237,12 +1583,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1eb7d2f92c93cb9b3fad84ecdbeca4a9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: d: /m</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d0331c020885e9491d650ae90dbebfe2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: d: /m</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1eb7d2f92c93cb9b3fad84ecdbeca4a9"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d0331c020885e9491d650ae90dbebfe2"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1272,12 +1618,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c353bb03ec728f75acacadef0eeca0b6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /h</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4173c98d76ea7cbd418af4e4f0c12467"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /h</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c353bb03ec728f75acacadef0eeca0b6"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4173c98d76ea7cbd418af4e4f0c12467"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1306,12 +1652,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e15ed492aa9a0d60cb28f2e45a87e103"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /l</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3d0ed56efc616bc6f95fd4e545dabb76"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /l</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e15ed492aa9a0d60cb28f2e45a87e103"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3d0ed56efc616bc6f95fd4e545dabb76"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1379,12 +1725,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-180a0c48a70a26717c4e69b3fb43104f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Analyze</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e8dc2718d334735f4e69d0967c9bfbc5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Analyze</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-180a0c48a70a26717c4e69b3fb43104f"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e8dc2718d334735f4e69d0967c9bfbc5"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1412,12 +1758,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-402dafe83636c5c4b58415a931f63183"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Defrag</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-23480e2273481f9ceb60f106cf867222"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Defrag</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-402dafe83636c5c4b58415a931f63183"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-23480e2273481f9ceb60f106cf867222"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1445,12 +1791,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7358f6163e33994f575f58f2e3673fd2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-ReTrim</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b1ac60500de53bcd875929fc772649e3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-ReTrim</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7358f6163e33994f575f58f2e3673fd2"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b1ac60500de53bcd875929fc772649e3"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1527,12 +1873,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7f2ab250e0a30821f2ed8786c858799d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: /u /a</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d30a360b6f1083f321dc9fea39c5832b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: /u /a</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7f2ab250e0a30821f2ed8786c858799d"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d30a360b6f1083f321dc9fea39c5832b"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1562,12 +1908,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1eb7d2f92c93cb9b3fad84ecdbeca4a9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: d: /m</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d0331c020885e9491d650ae90dbebfe2"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: d: /m</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1eb7d2f92c93cb9b3fad84ecdbeca4a9"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d0331c020885e9491d650ae90dbebfe2"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1597,12 +1943,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c353bb03ec728f75acacadef0eeca0b6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /h</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4173c98d76ea7cbd418af4e4f0c12467"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /h</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c353bb03ec728f75acacadef0eeca0b6"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4173c98d76ea7cbd418af4e4f0c12467"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1631,12 +1977,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e15ed492aa9a0d60cb28f2e45a87e103"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /l</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3d0ed56efc616bc6f95fd4e545dabb76"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /l</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e15ed492aa9a0d60cb28f2e45a87e103"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3d0ed56efc616bc6f95fd4e545dabb76"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1698,12 +2044,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-14d7b5f6bdd4e8ca21c57e2afe84fe5a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-13ebb61bd20aa2ffb40ea1254ec4f559"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-14d7b5f6bdd4e8ca21c57e2afe84fe5a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-13ebb61bd20aa2ffb40ea1254ec4f559"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1750,12 +2096,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bd4a0c4d95e855c32dcac6fd57f50df9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fccf46f74fc916b6548cea01df918873"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bd4a0c4d95e855c32dcac6fd57f50df9"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fccf46f74fc916b6548cea01df918873"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1778,12 +2124,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f29c28df261e153055591eaab84f2fcd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7344d628ad0d794a3170cccc439bd1ef"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f29c28df261e153055591eaab84f2fcd"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7344d628ad0d794a3170cccc439bd1ef"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1837,12 +2183,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-14d7b5f6bdd4e8ca21c57e2afe84fe5a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-13ebb61bd20aa2ffb40ea1254ec4f559"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-14d7b5f6bdd4e8ca21c57e2afe84fe5a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-13ebb61bd20aa2ffb40ea1254ec4f559"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1889,12 +2235,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bd4a0c4d95e855c32dcac6fd57f50df9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fccf46f74fc916b6548cea01df918873"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bd4a0c4d95e855c32dcac6fd57f50df9"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fccf46f74fc916b6548cea01df918873"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -1917,12 +2263,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f29c28df261e153055591eaab84f2fcd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7344d628ad0d794a3170cccc439bd1ef"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f29c28df261e153055591eaab84f2fcd"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7344d628ad0d794a3170cccc439bd1ef"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2036,12 +2382,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-50a10d0e61ba9e0555ad52c53d675b72"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-57208c1ea02197028154e2faaf118f51"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-50a10d0e61ba9e0555ad52c53d675b72"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-57208c1ea02197028154e2faaf118f51"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -2155,12 +2501,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-50a10d0e61ba9e0555ad52c53d675b72"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-57208c1ea02197028154e2faaf118f51"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-50a10d0e61ba9e0555ad52c53d675b72"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-57208c1ea02197028154e2faaf118f51"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>

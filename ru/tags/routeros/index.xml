@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>routeros / Library Online</title><link>https://lib.onl/ru/tags/routeros/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/routeros/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>routeros / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 19 Oct 2023 08:56:43 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/routeros/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Добавление корневых сертификатов в MikroTik RouterOS</title><link>https://lib.onl/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/</guid><description>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</description><media:content medium="image" url="https://images.unsplash.com/photo-1554098415-4052459dc340" width="1600" height="900"/><content:encoded><![CDATA[<p>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</p>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>routeros / Library Online</title><link>https://lib.onl/ru/tags/routeros/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/routeros/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>routeros / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 19 Oct 2023 08:56:43 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/routeros/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Добавление корневых сертификатов в RouterOS</title><link>https://lib.onl/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/</guid><description>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</description><media:content medium="image" url="https://images.unsplash.com/photo-1554098415-4052459dc340" width="1600" height="900"/><content:encoded><![CDATA[<p>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</p>
 <p>Если репозиторий заполнен корневыми сертификатами центров сертификации, RouterOS сможет проверять подлинность выданных этими центрами сертификатов, работать с DNS over HTTPS (DoH) и делать другую работу, связанную с шифрованием данных.</p>
 <h2 id="загрузка-базы-сертификатов">
   <a class="link-body-emphasis" href="#%d0%b7%d0%b0%d0%b3%d1%80%d1%83%d0%b7%d0%ba%d0%b0-%d0%b1%d0%b0%d0%b7%d1%8b-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%be%d0%b2">Загрузка базы сертификатов</a>
@@ -13,12 +13,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9cdf59bb2aea7e5c2bd38834b7387401"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9b5e650b3716a1d8d727cec394755add"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9cdf59bb2aea7e5c2bd38834b7387401"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9b5e650b3716a1d8d727cec394755add"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -47,12 +47,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b4a84841eb0cbb415a678fabc9cd53e3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a61a6d00354ef5d970b1fbe20758a2a3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b4a84841eb0cbb415a678fabc9cd53e3"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a61a6d00354ef5d970b1fbe20758a2a3"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -94,7 +94,7 @@
 
     </div>
   </div>
-</div>]]></content:encoded><turbo:source/><turbo:topic>Добавление корневых сертификатов в MikroTik RouterOS</turbo:topic><turbo:content><![CDATA[<p>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</p>
+</div>]]></content:encoded><turbo:source/><turbo:topic>Добавление корневых сертификатов в RouterOS</turbo:topic><turbo:content><![CDATA[<p>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</p>
 <p>Если репозиторий заполнен корневыми сертификатами центров сертификации, RouterOS сможет проверять подлинность выданных этими центрами сертификатов, работать с DNS over HTTPS (DoH) и делать другую работу, связанную с шифрованием данных.</p>
 <h2 id="загрузка-базы-сертификатов">
   <a class="link-body-emphasis" href="#%d0%b7%d0%b0%d0%b3%d1%80%d1%83%d0%b7%d0%ba%d0%b0-%d0%b1%d0%b0%d0%b7%d1%8b-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%be%d0%b2">Загрузка базы сертификатов</a>
@@ -109,12 +109,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9cdf59bb2aea7e5c2bd38834b7387401"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9b5e650b3716a1d8d727cec394755add"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9cdf59bb2aea7e5c2bd38834b7387401"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9b5e650b3716a1d8d727cec394755add"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -143,12 +143,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b4a84841eb0cbb415a678fabc9cd53e3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a61a6d00354ef5d970b1fbe20758a2a3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b4a84841eb0cbb415a678fabc9cd53e3"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a61a6d00354ef5d970b1fbe20758a2a3"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -219,14 +219,14 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c72d072d4685c62b663520db531ff331"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34;</span> <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ada31e5fc80aa89378a24beb89ef0552"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Authorization: Bearer TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type:application/json&#34;</span> <span class="p">|</span> python3 -mjson.tool</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c72d072d4685c62b663520db531ff331"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ada31e5fc80aa89378a24beb89ef0552"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -260,7 +260,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4194b156fd743aa9fee3cef2d09a2c94"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fcdff2da15497795a0645431c65de3e9"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -269,7 +269,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-4194b156fd743aa9fee3cef2d09a2c94"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
+    <div class="card-body p-0" id="clipboard-fcdff2da15497795a0645431c65de3e9"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
 
 {
     &#34;result&#34;: {
@@ -302,14 +302,14 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-38849035b20ac9087888e45ec5dfb84a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/ZONE_ID/dns_records&#34;</span> <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5f86a3d84807f182e0c804678b84c1c9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/ZONE_ID/dns_records&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Authorization: Bearer TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python3 -mjson.tool</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-38849035b20ac9087888e45ec5dfb84a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5f86a3d84807f182e0c804678b84c1c9"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -376,7 +376,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-769ee7b838449ea129e7f8015573ecc4"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9066d3ebbd4f6cfa9895a707a878a331"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -385,7 +385,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-769ee7b838449ea129e7f8015573ecc4"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/&lt;...&gt;/dns_records&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
+    <div class="card-body p-0" id="clipboard-9066d3ebbd4f6cfa9895a707a878a331"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/&lt;...&gt;/dns_records&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
 {
     &#34;result&#34;: [
         {
@@ -449,7 +449,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-24f272464ea6b6065f1b13412ac4c4fd"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-501de880865d4375973e0da13fe7200c"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -472,7 +472,7 @@ shortcode-codeblock-terminal-linux">
         </div>
           
           
-        <div class="card-body" id="clipboard-24f272464ea6b6065f1b13412ac4c4fd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mikrotik RouterOS script for CloudFlare DDNS</span>
+        <div class="card-body" id="clipboard-501de880865d4375973e0da13fe7200c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mikrotik RouterOS script for CloudFlare DDNS</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @package    RouterOS</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @author     Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
@@ -572,7 +572,7 @@ shortcode-codeblock-terminal-linux">
 </h3><p>Опишу переменные и что они из себя представляют:</p>
 <ul>
 <li><code>rosWanInterface</code> - имя интерфейса <strong>WAN</strong> в RouterOS.</li>
-<li><code>rosCheckCert</code> - включение / отключение проверки цепочки сертификации при запросе к CloudFlare API. Для корректной работы этой функции необходимо, чтобы в репозитории сертификатов RouterOS присутствовали корневые сертификаты центров сертификации. Про импортирование сертификатов написано в заметке <span class="shortcode shortcode-uuid"><a href="/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/">Добавление корневых сертификатов в MikroTik RouterOS</a></span>.</li>
+<li><code>rosCheckCert</code> - включение / отключение проверки цепочки сертификации при запросе к CloudFlare API. Для корректной работы этой функции необходимо, чтобы в репозитории сертификатов RouterOS присутствовали корневые сертификаты центров сертификации. Про импортирование сертификатов написано в заметке <span class="shortcode shortcode-uuid"><a href="/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/">Добавление корневых сертификатов в RouterOS</a></span>.</li>
 <li><code>cfToken</code> - токен, полученный в <a title="" href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener noreferrer nofollow">панели управления токенами</a>.</li>
 <li><code>cfDomain</code> - название домена, для которого необходимо динамически менять IP адрес.</li>
 <li><code>cfZoneID</code> - ID домена. Находится в панели управления доменом на главной странице в поле <strong>Zone ID</strong>.</li>
@@ -618,14 +618,14 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c72d072d4685c62b663520db531ff331"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34;</span> <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ada31e5fc80aa89378a24beb89ef0552"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Authorization: Bearer TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type:application/json&#34;</span> <span class="p">|</span> python3 -mjson.tool</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c72d072d4685c62b663520db531ff331"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ada31e5fc80aa89378a24beb89ef0552"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -659,7 +659,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4194b156fd743aa9fee3cef2d09a2c94"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fcdff2da15497795a0645431c65de3e9"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -668,7 +668,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-4194b156fd743aa9fee3cef2d09a2c94"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
+    <div class="card-body p-0" id="clipboard-fcdff2da15497795a0645431c65de3e9"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
 
 {
     &#34;result&#34;: {
@@ -701,14 +701,14 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-38849035b20ac9087888e45ec5dfb84a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/ZONE_ID/dns_records&#34;</span> <span class="se">\
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5f86a3d84807f182e0c804678b84c1c9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https://api.cloudflare.com/client/v4/zones/ZONE_ID/dns_records&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Authorization: Bearer TOKEN&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="p">|</span> python3 -mjson.tool</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-38849035b20ac9087888e45ec5dfb84a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5f86a3d84807f182e0c804678b84c1c9"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -775,7 +775,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-769ee7b838449ea129e7f8015573ecc4"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9066d3ebbd4f6cfa9895a707a878a331"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -784,7 +784,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-769ee7b838449ea129e7f8015573ecc4"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/&lt;...&gt;/dns_records&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
+    <div class="card-body p-0" id="clipboard-9066d3ebbd4f6cfa9895a707a878a331"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/&lt;...&gt;/dns_records&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
 {
     &#34;result&#34;: [
         {
@@ -848,7 +848,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-24f272464ea6b6065f1b13412ac4c4fd"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-501de880865d4375973e0da13fe7200c"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -871,7 +871,7 @@ shortcode-codeblock-terminal-linux">
         </div>
           
           
-        <div class="card-body" id="clipboard-24f272464ea6b6065f1b13412ac4c4fd"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mikrotik RouterOS script for CloudFlare DDNS</span>
+        <div class="card-body" id="clipboard-501de880865d4375973e0da13fe7200c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mikrotik RouterOS script for CloudFlare DDNS</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @package    RouterOS</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @author     Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
@@ -971,7 +971,7 @@ shortcode-codeblock-terminal-linux">
 </h3><p>Опишу переменные и что они из себя представляют:</p>
 <ul>
 <li><code>rosWanInterface</code> - имя интерфейса <strong>WAN</strong> в RouterOS.</li>
-<li><code>rosCheckCert</code> - включение / отключение проверки цепочки сертификации при запросе к CloudFlare API. Для корректной работы этой функции необходимо, чтобы в репозитории сертификатов RouterOS присутствовали корневые сертификаты центров сертификации. Про импортирование сертификатов написано в заметке <span class="shortcode shortcode-uuid"><a href="/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/">Добавление корневых сертификатов в MikroTik RouterOS</a></span>.</li>
+<li><code>rosCheckCert</code> - включение / отключение проверки цепочки сертификации при запросе к CloudFlare API. Для корректной работы этой функции необходимо, чтобы в репозитории сертификатов RouterOS присутствовали корневые сертификаты центров сертификации. Про импортирование сертификатов написано в заметке <span class="shortcode shortcode-uuid"><a href="/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/">Добавление корневых сертификатов в RouterOS</a></span>.</li>
 <li><code>cfToken</code> - токен, полученный в <a title="" href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" rel="noopener noreferrer nofollow">панели управления токенами</a>.</li>
 <li><code>cfDomain</code> - название домена, для которого необходимо динамически менять IP адрес.</li>
 <li><code>cfZoneID</code> - ID домена. Находится в панели управления доменом на главной странице в поле <strong>Zone ID</strong>.</li>
