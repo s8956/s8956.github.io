@@ -1,66 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>inkscape / Library Online</title><link>https://lib.onl/ru/tags/inkscape/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/inkscape/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>inkscape / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Tue, 18 May 2021 07:41:46 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/inkscape/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Генератор иконок для сайта</title><link>https://lib.onl/ru/posts/2021/05/841ba281-a22b-55ee-b97d-251a5dc111d8/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/841ba281-a22b-55ee-b97d-251a5dc111d8/</guid><description>Сделал для сайта автоматизированное создание иконок типа favicon, которыми пользуются браузеры и устройства для своих нужд.</description><media:content medium="image" url="https://images.unsplash.com/photo-1554061523-c90d630a7ac9" width="1600" height="900"/><content:encoded><![CDATA[<p>Сделал для сайта автоматизированное создание иконок типа <code>favicon</code>, которыми пользуются браузеры и устройства для своих нужд.</p>
-<p>Я накидал <a title="" href="https://github.com/pkgstore/bash-tools/blob/main/favicon.sh" target="_blank" rel="noopener noreferrer nofollow">небольшой скрипт</a>, состоящий из двух функций <code>png()</code> и <code>ico()</code>. Функция <code>png()</code> берёт файл <code>favicon.svg</code> и преобразует его в PNG, указанных в массиве <code>size</code>, размеров. Функция <code>ico()</code> также берёт файл <code>favicon.svg</code> и преобразует его в формат ICO, который содержит в себе несколько размеров изображения.</p>
+<p>Я накидал небольшой скрипт, состоящий из двух функций <code>png()</code> и <code>ico()</code>. Функция <code>png()</code> берёт файл <code>favicon.svg</code> и преобразует его в PNG, указанных в массиве <code>size</code>, размеров. Функция <code>ico()</code> также берёт файл <code>favicon.svg</code> и преобразует его в формат ICO, который содержит в себе несколько размеров изображения.</p>
 
-    
-    
-
-    
-    
     
 
     
-    
-    
-    
-    
 
-    <div class="shortcode shortcode-gh-file mb-3">
+    <div class="shortcode shortcode-file mb-3">
       <div class="card overflow-hidden">
         <div class="card-header">
           <div class="d-flex align-items-center">
             <div class="flex-shrink-0">
-              <i class="fab fa-github fa-fw"></i>
+              <i class="far fa-file-code fa-fw"></i>
             </div>
             <div class="flex-grow-1 mx-2">
               <code>favicon.sh</code>
             </div>
             <div class="flex-shrink-0">
               <ul class="list-inline mb-0">
-                  
-                    <li class="list-inline-item">
-                      <code>0.993 kB</code>
-                    </li>
-                  
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c92d32f0e3e46977bf068a6dd98ee5d4"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a64c384757eaac29d75214df261d885f"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
                 </li>
-                  
-                    <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
-                      <a class="text-body" href="https://raw.githubusercontent.com/pkgstore/bash-tools/main/favicon.sh"
-                         target="_blank" rel="noopener nofollow"
-                         role="button" aria-label='Скачать'>
-                        <i class="fas fa-download fa-fw"></i>
-                      </a>
-                    </li>
-                  
-                  
-                    <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
-                      <a class="text-body" href="https://github.com/pkgstore/bash-tools/blob/main/favicon.sh"
-                         target="_blank" rel="noopener nofollow"
-                         role="button" aria-label='Открыть'>
-                        <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
-                      </a>
-                    </li>
-                  
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="favicon.sh" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="favicon.sh" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="card-body" id="clipboard-c92d32f0e3e46977bf068a6dd98ee5d4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/bash -e
+          
+          
+              
+          
+        <div class="card-body" id="clipboard-a64c384757eaac29d75214df261d885f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/bash -e
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">#</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Generating &#39;favicon&#39; file.</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#</span>
@@ -68,7 +52,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># @author     Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @copyright  2023 iHub TO</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @license    MIT</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># @version    0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @version    2023.10.1</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @link       https://github.com/pkgstore</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
 </span></span><span class="line"><span class="cl">
@@ -126,7 +110,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ddf719c05ff5df1c231768b8b6345ceb"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-283ab9ba4bf8fdc564f3a5ba87f4fa58"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -135,7 +119,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-ddf719c05ff5df1c231768b8b6345ceb"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh png</code></pre></div>
+    <div class="card-body p-0" id="clipboard-283ab9ba4bf8fdc564f3a5ba87f4fa58"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh png</code></pre></div>
   </div>
 </div>
 
@@ -160,7 +144,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-501896b49a2a243e5329dfc356a9b00c"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-438d361820766cd65b8198fdb881b461"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -169,72 +153,56 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-501896b49a2a243e5329dfc356a9b00c"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh ico</code></pre></div>
+    <div class="card-body p-0" id="clipboard-438d361820766cd65b8198fdb881b461"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh ico</code></pre></div>
   </div>
 </div>
 <p>Скрипт ищет файл <code>favicon.svg</code> и преобразует его в необходимые изображения.</p>]]></content:encoded><turbo:source/><turbo:topic>Генератор иконок для сайта</turbo:topic><turbo:content><![CDATA[<p>Сделал для сайта автоматизированное создание иконок типа <code>favicon</code>, которыми пользуются браузеры и устройства для своих нужд.</p>
-<p>Я накидал <a title="" href="https://github.com/pkgstore/bash-tools/blob/main/favicon.sh" target="_blank" rel="noopener noreferrer nofollow">небольшой скрипт</a>, состоящий из двух функций <code>png()</code> и <code>ico()</code>. Функция <code>png()</code> берёт файл <code>favicon.svg</code> и преобразует его в PNG, указанных в массиве <code>size</code>, размеров. Функция <code>ico()</code> также берёт файл <code>favicon.svg</code> и преобразует его в формат ICO, который содержит в себе несколько размеров изображения.</p>
+<p>Я накидал небольшой скрипт, состоящий из двух функций <code>png()</code> и <code>ico()</code>. Функция <code>png()</code> берёт файл <code>favicon.svg</code> и преобразует его в PNG, указанных в массиве <code>size</code>, размеров. Функция <code>ico()</code> также берёт файл <code>favicon.svg</code> и преобразует его в формат ICO, который содержит в себе несколько размеров изображения.</p>
 
-    
-    
-
-    
-    
     
 
     
-    
-    
-    
-    
 
-    <div class="shortcode shortcode-gh-file mb-3">
+    <div class="shortcode shortcode-file mb-3">
       <div class="card overflow-hidden">
         <div class="card-header">
           <div class="d-flex align-items-center">
             <div class="flex-shrink-0">
-              <i class="fab fa-github fa-fw"></i>
+              <i class="far fa-file-code fa-fw"></i>
             </div>
             <div class="flex-grow-1 mx-2">
               <code>favicon.sh</code>
             </div>
             <div class="flex-shrink-0">
               <ul class="list-inline mb-0">
-                  
-                    <li class="list-inline-item">
-                      <code>0.993 kB</code>
-                    </li>
-                  
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c92d32f0e3e46977bf068a6dd98ee5d4"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a64c384757eaac29d75214df261d885f"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
                 </li>
-                  
-                    <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
-                      <a class="text-body" href="https://raw.githubusercontent.com/pkgstore/bash-tools/main/favicon.sh"
-                         target="_blank" rel="noopener nofollow"
-                         role="button" aria-label='Скачать'>
-                        <i class="fas fa-download fa-fw"></i>
-                      </a>
-                    </li>
-                  
-                  
-                    <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
-                      <a class="text-body" href="https://github.com/pkgstore/bash-tools/blob/main/favicon.sh"
-                         target="_blank" rel="noopener nofollow"
-                         role="button" aria-label='Открыть'>
-                        <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
-                      </a>
-                    </li>
-                  
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="favicon.sh" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="favicon.sh" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="card-body" id="clipboard-c92d32f0e3e46977bf068a6dd98ee5d4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/bash -e
+          
+          
+              
+          
+        <div class="card-body" id="clipboard-a64c384757eaac29d75214df261d885f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/bash -e
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">#</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Generating &#39;favicon&#39; file.</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#</span>
@@ -242,7 +210,7 @@ shortcode-codeblock-terminal-linux">
 </span></span><span class="line"><span class="cl"><span class="c1"># @author     Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @copyright  2023 iHub TO</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @license    MIT</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># @version    0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @version    2023.10.1</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @link       https://github.com/pkgstore</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
 </span></span><span class="line"><span class="cl">
@@ -300,7 +268,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ddf719c05ff5df1c231768b8b6345ceb"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-283ab9ba4bf8fdc564f3a5ba87f4fa58"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -309,7 +277,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-ddf719c05ff5df1c231768b8b6345ceb"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh png</code></pre></div>
+    <div class="card-body p-0" id="clipboard-283ab9ba4bf8fdc564f3a5ba87f4fa58"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh png</code></pre></div>
   </div>
 </div>
 
@@ -334,7 +302,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-501896b49a2a243e5329dfc356a9b00c"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-438d361820766cd65b8198fdb881b461"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -343,7 +311,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-501896b49a2a243e5329dfc356a9b00c"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh ico</code></pre></div>
+    <div class="card-body p-0" id="clipboard-438d361820766cd65b8198fdb881b461"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh ico</code></pre></div>
   </div>
 </div>
 <p>Скрипт ищет файл <code>favicon.svg</code> и преобразует его в необходимые изображения.</p>]]></turbo:content><pubDate>Tue, 18 May 2021 07:41:46 +0000</pubDate><category>Разработка</category><category>Скрипты</category></item></channel></rss>
