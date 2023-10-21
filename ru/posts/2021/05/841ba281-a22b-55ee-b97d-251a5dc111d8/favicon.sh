@@ -6,7 +6,7 @@
 # @author     Kitsune Solar <mail@kitsune.solar>
 # @copyright  2023 iHub TO
 # @license    MIT
-# @version    2023.1
+# @version    0.1.0
 # @link       https://github.com/pkgstore
 # -------------------------------------------------------------------------------------------------------------------- #
 
