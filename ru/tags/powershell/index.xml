@@ -1,4 +1,1658 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>powershell / Library Online</title><link>https://lib.onl/ru/tags/powershell/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/powershell/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>powershell / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Mon, 09 May 2022 11:53:26 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/powershell/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Windows Server 2022 для рабочей станции</title><link>https://lib.onl/ru/posts/2022/05/36058650-3f35-5ed5-9565-0aa7d8800c28/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/05/36058650-3f35-5ed5-9565-0aa7d8800c28/</guid><description>В этой небольшой заметке я расскажу, как перенастроить серверную версию ОС Windows для работы на обычном стационарном ПК.</description><media:content medium="image" url="https://images.unsplash.com/photo-1640086940714-65501b9214f2" width="1600" height="900"/><content:encoded><![CDATA[<p>В этой небольшой заметке я расскажу, как перенастроить серверную версию ОС Windows для работы на обычном стационарном ПК.</p>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>powershell / Library Online</title><link>https://lib.onl/ru/tags/powershell/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/powershell/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>powershell / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Fri, 20 Oct 2023 09:57:21 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/powershell/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>PowerShell Vault</title><link>https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/</guid><description>На работе в локальной сети использовалась задача, которая перемещала старые, по долгу не использовавшиеся, файлы из главного файлового хранилища в резервное. Но так как организация являлась проектной, то старые файлы могли понадобиться в любое время.</description><media:content medium="image" url="https://images.unsplash.com/photo-1609358905581-e5381612486e" width="1600" height="900"/><content:encoded><![CDATA[<p>На работе в локальной сети использовалась задача, которая перемещала старые, по долгу не использовавшиеся, файлы из главного файлового хранилища в резервное. Но так как организация являлась проектной, то старые файлы могли понадобиться в любое время.</p>
+<p>Задача использовала простой скрипт с фильтрацией файлов по параметрам <em>время создания</em> и <em>время изменения</em>. Я чуть доработали скрипт и решил опубликовать его для других администраторов. Вдруг, пригодится. Только перед использованием прошу проверить скрипт в какой-нибудь песочнице.</p>
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-danger d-flex overflow-hidden" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-circle-radiation fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Есть вероятность, что скрипт удалит все файлы в вашем файловом хранилище, из-за того, что автор может оказаться <em>рукожопом</em>! Поэтому, перед боевой задачей, проверьте скрипт в какой-нибудь песочнице. А кто хорошо разбирается в PowerShell - автор будет благодарен за оптимизацию и корректировку скрипта.</p>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="параметры">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d1%8b">Параметры</a>
+</h2><ul>
+<li><code>-M</code> <code>-Mode</code> - режим работы скрипта. По умолчанию <code>'MV'</code>.
+<ul>
+<li><code>'CP'</code> - копировать файлы из источника в хранилище.</li>
+<li><code>'MV'</code> - перемещать файлы из источника в хранилище.</li>
+<li><code>'RM'</code> - только удалять файлы из источника без копирования или перемещения куда-либо.</li>
+</ul>
+</li>
+<li><code>-SRC</code> <code>-Source</code> - путь к директории откуда перемещать файлы. Например, <code>-SRC 'C:\Data\Source'</code>. По умолчанию <code>${PSScriptRoot}\Source</code>.</li>
+<li><code>-DST</code> <code>-Destination</code> - путь к директории куда перемещать файлы. Например, <code>-DST 'C:\Data\Vault'</code>. По умолчанию <code>${PSScriptRoot}\Vault</code>.</li>
+<li><code>-7z</code> <code>-7zip</code> - путь к директории с файлами <code>7za.*</code>. Например, <code>-7z 'C:\Apps\7z'</code>. По умолчанию <code>${PSScriptRoot}\Apps\7z</code>.</li>
+<li><code>-CT</code> <code>-Create</code> <code>-CreationTime</code> - время создания файла в секундах. Например, <code>-CT 5270400</code>. По умолчанию: 61 день (<code>5270400</code> секунд.).</li>
+<li><code>-WT</code> <code>-Modify</code> <code>-LastWriteTime</code> - время изменения файла в секундах. Например, <code>-WT 5270400</code>. По умолчанию: 61 день (<code>5270400</code> секунд.).</li>
+<li><code>-FS</code> <code>-Size</code> <code>-FileSize</code> - размер файла. Например, <code>-FS '5kb'</code> или <code>-FS '12mb'</code>. По умолчанию: <code>'0kb'</code>.</li>
+<li><code>-E</code> <code>-Exclude</code> - путь к файлу с исключениями. Например, <code>-E 'C:\Data\exclude.txt'</code>. По умолчанию <code>${PSScriptRoot}\vault.exclude.txt</code>.</li>
+<li><code>-L</code> <code>-Logs</code> - путь к директории с журналами работы скрипта. Например, <code>-L 'C:\Data\Logs'</code>. По умолчанию <code>${PSScriptRoot}\Logs</code>.</li>
+<li><code>-RD</code> <code>-RemoveDirs</code> - удалять пустые каталоги.</li>
+<li><code>-O</code> <code>-Overwrite</code> - перезаписать файлы в Vault.</li>
+</ul>
+<h2 id="примеры">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">Примеры</a>
+</h2><p>Запустить перемещение файлов из <code>Source</code> в <code>Vault</code> с сохранением структуры директорий:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4b9eec487a691603a3b79c68c3643bb0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b9eec487a691603a3b79c68c3643bb0"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Запустить перемещение файлов с временем создания и изменения от 10 дней (<code>864000</code>) из <code>Source</code> в <code>Vault</code> с сохранением структуры директорий:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-aa11c33b39d6d0a67b17fdb4fcb58cb4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aa11c33b39d6d0a67b17fdb4fcb58cb4"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Запустить перемещение файлов с временем создания и изменения от 10 дней (<code>864000</code>) и размером более 32 мегабайта (<code>32mb</code>) из <code>Source</code> в <code>Vault</code> с сохранением структуры директорий:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-73b4653e588c98d294418f0d2984655f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-FS</span> <span class="s1">&#39;32mb&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-73b4653e588c98d294418f0d2984655f"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Запустить перемещение файлов с временем создания и изменения от 10 дней (<code>864000</code>), и с перезаписью файлов с одинаковыми названиями (<code>-O</code>) из <code>Source</code> в <code>Vault</code> с сохранением структуры директорий:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-320ce36687fb32076722a3c21924ffef"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-O</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-320ce36687fb32076722a3c21924ffef"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Параметр <code>-O</code> означает, что не нужно архивировать старый файл при перемещении нового с таким же названием. Старый файл в хранилище перезапишется новым.</p>
+<h2 id="принцип-работы">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bd%d1%86%d0%b8%d0%bf-%d1%80%d0%b0%d0%b1%d0%be%d1%82%d1%8b">Принцип работы</a>
+</h2><p>Скрипт создаёт хранилище старых файлов. Это, своего рода, аналог резервного копирования. При перемещении файлов из источника в хранилище, скрипт обрабатывает несколько заданных параметров и фильтров. Всё настроить можно под себя. По умолчанию, скрипт перемещает файлы из источника в хранилище, и если в хранилище уже имеется старый файл с названием кау у нового перемещаемого, то старый файл архивируется с меткой <code>VAULT.yyyy-MM-dd.HH-mm-ss</code>.</p>
+<p>Для работы скрипта необходим архиватор <strong>7-Zip</strong>, а конкретно его облегчённая версия <code>7za.exe</code> с библиотеками из <strong>7-Zip Extra</strong>. Скачать можно с <a title="" href="https://www.7-zip.org/download.html" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>.</p>
+<h2 id="скрипт">
+  <a class="link-body-emphasis" href="#%d1%81%d0%ba%d1%80%d0%b8%d0%bf%d1%82">Скрипт</a>
+</h2>
+    
+
+    
+
+    <div class="shortcode shortcode-file mb-3">
+      <div class="card overflow-hidden">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="far fa-file-code fa-fw"></i>
+            </div>
+            <div class="flex-grow-1 mx-2">
+              <code>vault.ps1</code>
+            </div>
+            <div class="flex-shrink-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+                  <a class="text-body" href="#"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5db89f741caa462307a3ede46174460a"
+                     role="button" aria-label='Копировать'>
+                    <i class="fas fa-copy fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="vault.ps1" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="vault.ps1" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+          
+              
+          
+        <div class="card-body" id="clipboard-5db89f741caa462307a3ede46174460a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="cm">&lt;#PSScriptInfo
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .VERSION      0.1.0
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .GUID         8fd0ce2c-0288-4d9c-805f-703a0c659ade
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .AUTHOR       mail@kitsune.solar
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .COMPANYNAME  iHub TO
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .COPYRIGHT    2023 iHub TO. All rights reserved.
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .LICENSEURI   https://choosealicense.com/licenses/mit/
+</span></span></span><span class="line"><span class="cl"><span class="cm">#&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#</span><span class="k">Requires</span><span class="w"> </span><span class="kd">-Version</span><span class="na"> 7.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">&lt;#
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">SYNOPSIS</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  PowerShell &#34;Vault&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">DESCRIPTION</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  The script moves files to Vault based on various criteria.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Mode
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Script operation mode. Default: &#39;MV&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Source
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Path to the source. E.g.: &#39;C:\Data\Source&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Destination
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Path to the Vault. E.g.: &#39;C:\Data\Vault&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER 7zip
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Path to the directory with the &#39;7za.exe&#39; file.. E.g.: &#39;C:\Apps\7z&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER CreationTime
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Time since file creation (in seconds). E.g.: &#39;5270400&#39;. Default: 61 day (5270400 sec.).
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER LastWriteTime
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Time since file modification (in seconds). E.g.: &#39;5270400&#39;. Default: 61 day (&#39;5270400&#39; sec.).
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER FileSize
+</span></span></span><span class="line"><span class="cl"><span class="cm">  File size check. E.g.: &#39;5kb&#39; / &#39;12mb&#39;. Default: &#39;0kb&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Exclude
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Path to the file with exceptions. E.g.: &#39;C:\Data\exclude.txt&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Logs
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Path to the directory with logs. E.g.: &#39;C:\Data\Logs&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER RemoveDirs
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Removing empty directories.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Overwrite
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Overwrite existing files in Vault.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">EXAMPLE</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .\vault.ps1 -SRC &#39;C:\Data&#39; -DST &#39;C:\Vault&#39;
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">EXAMPLE</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .\vault.ps1 -SRC &#39;C:\Data&#39; -DST &#39;C:\Vault&#39; -CT &#39;864000&#39; -WT &#39;864000&#39;
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">EXAMPLE</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .\vault.ps1 -SRC &#39;C:\Data&#39; -DST &#39;C:\Vault&#39; -CT &#39;864000&#39; -WT &#39;864000&#39; -FS &#39;32mb&#39;
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">LINK</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Library Online: https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
+</span></span></span><span class="line"><span class="cl"><span class="cm">#&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">Param</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Script operation mode. Default: &#39;MV&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">ValidateSet</span><span class="p">(</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="s1">&#39;MV&#39;</span><span class="p">,</span> <span class="s1">&#39;RM&#39;</span><span class="p">)][</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Mode</span> <span class="p">=</span> <span class="s1">&#39;MV&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Path to the source. E.g.: &#39;C:\Data\Source&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;SRC&#39;</span><span class="p">,</span> <span class="s1">&#39;Data&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Source</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">\Source&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Path to the Vault. E.g.: &#39;C:\Data\Vault&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;DST&#39;</span><span class="p">,</span> <span class="s1">&#39;Vault&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Destination</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">\Vault&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Path to the directory with the &#39;7za.exe&#39; file.. E.g.: &#39;C:\Apps\7z&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;7z&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$7zip</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">\Apps\7z&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Time since file creation (in seconds). E.g.: &#39;5270400&#39;. Default: 61 day (5270400 sec.).&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;CT&#39;</span><span class="p">,</span> <span class="s1">&#39;Create&#39;</span><span class="p">)][</span><span class="no">long</span><span class="p">]</span><span class="nv">$CreationTime</span> <span class="p">=</span> <span class="mf">5270400</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Time since file modification (in seconds). E.g.: &#39;5270400&#39;. Default: 61 day (&#39;5270400&#39; sec.).&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;WT&#39;</span><span class="p">,</span> <span class="s1">&#39;Modify&#39;</span><span class="p">)][</span><span class="no">long</span><span class="p">]</span><span class="nv">$LastWriteTime</span> <span class="p">=</span> <span class="mf">5270400</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;File size check. E.g.: &#39;5kb&#39; / &#39;12mb&#39;. Default: &#39;0kb&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;FS&#39;</span><span class="p">,</span> <span class="s1">&#39;Size&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$FileSize</span> <span class="p">=</span> <span class="s1">&#39;0kb&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Path to the file with exceptions. E.g.: &#39;C:\Data\exclude.txt&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Exclude</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">\vault.exclude.txt&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Path to the directory with logs. E.g.: &#39;C:\Data\Logs&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Logs</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">\Logs&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Removing empty directories.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;RD&#39;</span><span class="p">)][</span><span class="no">switch</span><span class="p">]</span><span class="nv">$RemoveDirs</span> <span class="p">=</span> <span class="vm">$false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Overwrite existing files in Vault.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)][</span><span class="no">switch</span><span class="p">]</span><span class="nv">$Overwrite</span> <span class="p">=</span> <span class="vm">$false</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># CONFIGURATION.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Timestamp.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$TS</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="s1">&#39;yyyy-MM-dd.HH-mm-ss&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># New line separator.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$NL</span> <span class="p">=</span> <span class="p">([</span><span class="no">Environment</span><span class="p">]::</span><span class="n">NewLine</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># INITIALIZATION.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-Vault</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-VaultCheck</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-VaultGetFiles</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$RemoveDirs</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Start-VaultRemoveDirs</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># CREATE VAULT DIRECTORIES.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-VaultCheck</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$Dirs</span> <span class="p">=</span> <span class="vm">@</span><span class="p">(</span><span class="s2">&#34;</span><span class="nv">${Source}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${Destination}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${7zip}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$Files</span> <span class="p">=</span> <span class="vm">@</span><span class="p">(</span><span class="s2">&#34;</span><span class="nv">${Exclude}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$7za</span> <span class="p">=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;7za.dll&#39;</span><span class="p">,</span> <span class="s1">&#39;7za.exe&#39;</span><span class="p">,</span> <span class="s1">&#39;7zxa.dll&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">foreach</span> <span class="p">(</span><span class="nv">$Dir</span> <span class="k">in</span> <span class="nv">$Dirs</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="s2">&#34;</span><span class="nv">${Dir}</span><span class="s2">&#34;</span><span class="p">))</span> <span class="p">{</span> <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${Dir}</span><span class="s2">&#34;</span> <span class="n">-ItemType</span> <span class="s1">&#39;Directory&#39;</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">foreach</span> <span class="p">(</span><span class="nv">$File</span> <span class="k">in</span> <span class="nv">$Files</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="s2">&#34;</span><span class="nv">${File}</span><span class="s2">&#34;</span><span class="p">))</span> <span class="p">{</span> <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${File}</span><span class="s2">&#34;</span> <span class="n">-ItemType</span> <span class="s1">&#39;File&#39;</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">foreach</span> <span class="p">(</span><span class="nv">$7za</span> <span class="k">in</span> <span class="nv">$7za</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="s2">&#34;</span><span class="nv">${7zip}</span><span class="s2">\</span><span class="nv">${7za}</span><span class="s2">&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">Write-VaultMsg</span> <span class="n">-T</span> <span class="s1">&#39;W&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">      <span class="n">-M</span> <span class="p">(</span><span class="s2">&#34;&#39;</span><span class="nv">${7za}</span><span class="s2">&#39; not found!</span><span class="nv">${NL}${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;1. Download &#39;7-Zip Extra&#39; from &#39;https://www.7-zip.org/download.html&#39;.</span><span class="nv">${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;2. Extract all contents into a directory &#39;</span><span class="nv">${7zip}</span><span class="s2">&#39;.</span><span class="nv">${NL}${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;Example: &#39;</span><span class="nv">${7zip}</span><span class="s2">\</span><span class="nv">${7za}</span><span class="s2">&#39;&#34;</span><span class="p">)</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">      <span class="n">-A</span> <span class="s1">&#39;Inquire&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># MOVE FILES TO VAULT.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-VaultGetFiles</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-VaultMsg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s1">&#39;Moving files to Vault&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nv">$Items</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${Source}</span><span class="s2">&#34;</span> <span class="n">-Recurse</span> <span class="n">-Exclude</span> <span class="p">(</span><span class="nb">Get-Content</span> <span class="s2">&#34;</span><span class="nv">${Exclude}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">PSIsContainer</span><span class="p">))</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-and</span> <span class="p">((</span><span class="nv">$_</span><span class="p">.</span><span class="n">CreationTime</span><span class="p">)</span> <span class="o">-lt</span> <span class="p">((</span><span class="nb">Get-Date</span><span class="p">).</span><span class="py">AddSeconds</span><span class="p">(-</span><span class="nv">$CreationTime</span><span class="p">)))</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-and</span> <span class="p">((</span><span class="nv">$_</span><span class="p">.</span><span class="n">LastWriteTime</span><span class="p">)</span> <span class="o">-lt</span> <span class="p">((</span><span class="nb">Get-Date</span><span class="p">).</span><span class="py">AddSeconds</span><span class="p">(-</span><span class="nv">$LastWriteTime</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">((</span><span class="nv">$_</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span> <span class="o">-ge</span> <span class="s2">&#34;</span><span class="nv">${FileSize}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$Items</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-VaultMsg</span> <span class="n">-T</span> <span class="s1">&#39;I&#39;</span> <span class="n">-M</span> <span class="s1">&#39;Required files were not found in the source!&#39;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">foreach</span> <span class="p">(</span><span class="nv">$Item</span> <span class="k">in</span> <span class="nv">$Items</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">((</span><span class="nv">$Item</span><span class="p">.</span><span class="py">FullName</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span> <span class="o">-ge</span> <span class="mf">245</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">Write-VaultMsg</span> <span class="n">-T</span> <span class="s1">&#39;W&#39;</span> <span class="n">-M</span> <span class="s2">&#34;&#39;</span><span class="nv">${Item}</span><span class="s2">&#39; has over 250 characters in path! Skip...&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$Dir</span>  <span class="p">=</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$Item</span><span class="p">.</span><span class="py">Directory</span><span class="p">.</span><span class="py">ToString</span><span class="p">())</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$File</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$Item</span><span class="p">.</span><span class="py">FullName</span><span class="p">.</span><span class="py">Remove</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nv">$Source</span><span class="p">.</span><span class="n">Length</span><span class="p">))</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$Path</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">${Destination}${File}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span><span class="nv">$Mode</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;CP&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">New-SimilarDirectory</span> <span class="n">-P</span> <span class="s2">&#34;</span><span class="nv">${Destination}</span><span class="s2">&#34;</span> <span class="n">-N</span> <span class="s2">&#34;</span><span class="nv">${Dir}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Backup-SimilarFile</span> <span class="n">-P</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span> <span class="n">-N</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">.VAULT.</span><span class="nv">${TS}</span><span class="s2">.7z&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">Write-VaultMsg</span> <span class="n">-M</span> <span class="s2">&#34;[CP] &#39;</span><span class="nv">${Item}</span><span class="s2">&#39; -&gt; &#39;</span><span class="nv">${Path}</span><span class="s2">&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Copy-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$Item</span><span class="p">.</span><span class="n">FullName</span><span class="p">)</span><span class="s2">&#34;</span> <span class="n">-Destination</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span> <span class="n">-Force</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;MV&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">New-SimilarDirectory</span> <span class="n">-P</span> <span class="s2">&#34;</span><span class="nv">${Destination}</span><span class="s2">&#34;</span> <span class="n">-N</span> <span class="s2">&#34;</span><span class="nv">${Dir}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Backup-SimilarFile</span> <span class="n">-P</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span> <span class="n">-N</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">.VAULT.</span><span class="nv">${TS}</span><span class="s2">.7z&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">Write-VaultMsg</span> <span class="n">-M</span> <span class="s2">&#34;[MV] &#39;</span><span class="nv">${Item}</span><span class="s2">&#39; -&gt; &#39;</span><span class="nv">${Path}</span><span class="s2">&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Move-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$Item</span><span class="p">.</span><span class="n">FullName</span><span class="p">)</span><span class="s2">&#34;</span> <span class="n">-Destination</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span> <span class="n">-Force</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;RM&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Write-VaultMsg</span> <span class="n">-M</span> <span class="s2">&#34;[RM] &#39;</span><span class="nv">${Item}</span><span class="s2">&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Remove-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$Item</span><span class="p">.</span><span class="n">FullName</span><span class="p">)</span><span class="s2">&#34;</span> <span class="n">-Force</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># REMOVE EMPTY DIRECTORIES.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-VaultRemoveDirs</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-VaultMsg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s1">&#39;Removing empty directories&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nv">$Items</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${Source}</span><span class="s2">&#34;</span> <span class="n">-Recurse</span>
+</span></span><span class="line"><span class="cl">    <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">PSIsContainer</span><span class="p">)</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-and</span> <span class="p">((</span><span class="nv">$_</span><span class="p">.</span><span class="n">CreationTime</span><span class="p">)</span> <span class="o">-lt</span> <span class="p">((</span><span class="nb">Get-Date</span><span class="p">).</span><span class="py">AddSeconds</span><span class="p">(-</span><span class="nv">$CreationTime</span><span class="p">)))</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-and</span> <span class="p">((</span><span class="nv">$_</span><span class="p">.</span><span class="n">LastWriteTime</span><span class="p">)</span> <span class="o">-lt</span> <span class="p">((</span><span class="nb">Get-Date</span><span class="p">).</span><span class="py">AddSeconds</span><span class="p">(-</span><span class="nv">$LastWriteTime</span><span class="p">)))</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$Items</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-VaultMsg</span> <span class="n">-T</span> <span class="s1">&#39;I&#39;</span> <span class="n">-M</span> <span class="s1">&#39;No empty directories were found in the source!&#39;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">foreach</span> <span class="p">(</span><span class="nv">$Item</span> <span class="k">in</span> <span class="nv">$Items</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(((</span><span class="nb">Get-ChildItem</span> <span class="s2">&#34;</span><span class="nv">${Item}</span><span class="s2">&#34;</span> <span class="p">|</span> <span class="nb">Measure-Object</span><span class="p">).</span><span class="n">Count</span><span class="p">)</span> <span class="o">-eq</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">Write-VaultMsg</span> <span class="n">-M</span> <span class="s2">&#34;[RM] &#39;</span><span class="nv">${Item}</span><span class="s2">&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">Remove-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${Item}</span><span class="s2">&#34;</span> <span class="n">-Force</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># CREATE SIMILAR DIRECTORIES.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">New-SimilarDirectory</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">param</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Name</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span> <span class="n">-ItemType</span> <span class="s1">&#39;Directory&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">    <span class="n">-Name</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$Name</span><span class="p">.</span><span class="py">Remove</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nv">$Source</span><span class="p">.</span><span class="n">Length</span><span class="p">))</span><span class="s2">&#34;</span> <span class="n">-ErrorAction</span> <span class="s1">&#39;SilentlyContinue&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># BACKUP SIMILAR FILES.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Backup-SimilarFile</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">param</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Name</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$Overwrite</span> <span class="o">-and</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Compress</span><span class="p">-</span><span class="n">7z</span> <span class="n">-T</span> <span class="s1">&#39;7z&#39;</span> <span class="n">-L</span> <span class="mf">9</span> <span class="n">-I</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span> <span class="n">-O</span> <span class="s2">&#34;</span><span class="nv">${Name}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># MESSAGES.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Write-VaultMsg</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">param</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Message</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Type</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Action</span> <span class="p">=</span> <span class="s1">&#39;Continue&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="p">(</span><span class="nv">$Type</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;HL&#39;</span>    <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">&#34;</span><span class="nv">${NL}</span><span class="s2">--- </span><span class="nv">${Message}</span><span class="s2">&#34;</span><span class="p">.</span><span class="py">ToUpper</span><span class="p">()</span> <span class="n">-ForegroundColor</span> <span class="n">Blue</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;I&#39;</span>     <span class="p">{</span> <span class="nb">Write-Information</span> <span class="n">-MessageData</span> <span class="s2">&#34;</span><span class="nv">${Message}</span><span class="s2">&#34;</span> <span class="n">-InformationAction</span> <span class="s2">&#34;</span><span class="nv">${Action}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;W&#39;</span>     <span class="p">{</span> <span class="nb">Write-Warning</span> <span class="n">-Message</span> <span class="s2">&#34;</span><span class="nv">${Message}</span><span class="s2">&#34;</span> <span class="n">-WarningAction</span> <span class="s2">&#34;</span><span class="nv">${Action}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;E&#39;</span>     <span class="p">{</span> <span class="nb">Write-Error</span> <span class="n">-Message</span> <span class="s2">&#34;</span><span class="nv">${Message}</span><span class="s2">&#34;</span> <span class="n">-ErrorAction</span> <span class="s2">&#34;</span><span class="nv">${Action}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span> <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">&#34;</span><span class="nv">${Message}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># 7Z: COMPRESS.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Compress-7z</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">param</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$In</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">ValidateSet</span><span class="p">(</span><span class="s1">&#39;7z&#39;</span><span class="p">,</span> <span class="s1">&#39;BZIP2&#39;</span><span class="p">,</span> <span class="s1">&#39;GZIP&#39;</span><span class="p">,</span> <span class="s1">&#39;TAR&#39;</span><span class="p">,</span> <span class="s1">&#39;WIM&#39;</span><span class="p">,</span> <span class="s1">&#39;XZ&#39;</span><span class="p">,</span> <span class="s1">&#39;ZIP&#39;</span><span class="p">)][</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Type</span> <span class="p">=</span> <span class="s1">&#39;7z&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">ValidateRange</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">9</span><span class="p">)][</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$Level</span> <span class="p">=</span> <span class="mf">5</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nv">$CMD</span> <span class="p">=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s2">&#34;-t</span><span class="nv">${Type}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;-mx</span><span class="nv">${Level}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${Out}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${In}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&amp;</span> <span class="s2">&#34;</span><span class="nv">${7zip}</span><span class="s2">\7za.exe&#34;</span> <span class="nv">$CMD</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># ------------------------------------------------------&lt; INIT &gt;------------------------------------------------------ #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">Start-Transcript</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${Logs}</span><span class="s2">\</span><span class="p">$((</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Year</span><span class="p">)</span><span class="s2">\</span><span class="p">$((</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Month</span><span class="p">)</span><span class="s2">\</span><span class="nv">${TS}</span><span class="s2">.log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Start-Vault</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Stop-Transcript</span>
+</span></span></code></pre></div></div>
+      </div>
+    </div>]]></content:encoded><turbo:source/><turbo:topic>PowerShell Vault</turbo:topic><turbo:content><![CDATA[<p>На работе в локальной сети использовалась задача, которая перемещала старые, по долгу не использовавшиеся, файлы из главного файлового хранилища в резервное. Но так как организация являлась проектной, то старые файлы могли понадобиться в любое время.</p>
+<p>Задача использовала простой скрипт с фильтрацией файлов по параметрам <em>время создания</em> и <em>время изменения</em>. Я чуть доработали скрипт и решил опубликовать его для других администраторов. Вдруг, пригодится. Только перед использованием прошу проверить скрипт в какой-нибудь песочнице.</p>
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-danger d-flex overflow-hidden" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-circle-radiation fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Есть вероятность, что скрипт удалит все файлы в вашем файловом хранилище, из-за того, что автор может оказаться <em>рукожопом</em>! Поэтому, перед боевой задачей, проверьте скрипт в какой-нибудь песочнице. А кто хорошо разбирается в PowerShell - автор будет благодарен за оптимизацию и корректировку скрипта.</p>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="параметры">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d1%8b">Параметры</a>
+</h2><ul>
+<li><code>-M</code> <code>-Mode</code> - режим работы скрипта. По умолчанию <code>'MV'</code>.
+<ul>
+<li><code>'CP'</code> - копировать файлы из источника в хранилище.</li>
+<li><code>'MV'</code> - перемещать файлы из источника в хранилище.</li>
+<li><code>'RM'</code> - только удалять файлы из источника без копирования или перемещения куда-либо.</li>
+</ul>
+</li>
+<li><code>-SRC</code> <code>-Source</code> - путь к директории откуда перемещать файлы. Например, <code>-SRC 'C:\Data\Source'</code>. По умолчанию <code>${PSScriptRoot}\Source</code>.</li>
+<li><code>-DST</code> <code>-Destination</code> - путь к директории куда перемещать файлы. Например, <code>-DST 'C:\Data\Vault'</code>. По умолчанию <code>${PSScriptRoot}\Vault</code>.</li>
+<li><code>-7z</code> <code>-7zip</code> - путь к директории с файлами <code>7za.*</code>. Например, <code>-7z 'C:\Apps\7z'</code>. По умолчанию <code>${PSScriptRoot}\Apps\7z</code>.</li>
+<li><code>-CT</code> <code>-Create</code> <code>-CreationTime</code> - время создания файла в секундах. Например, <code>-CT 5270400</code>. По умолчанию: 61 день (<code>5270400</code> секунд.).</li>
+<li><code>-WT</code> <code>-Modify</code> <code>-LastWriteTime</code> - время изменения файла в секундах. Например, <code>-WT 5270400</code>. По умолчанию: 61 день (<code>5270400</code> секунд.).</li>
+<li><code>-FS</code> <code>-Size</code> <code>-FileSize</code> - размер файла. Например, <code>-FS '5kb'</code> или <code>-FS '12mb'</code>. По умолчанию: <code>'0kb'</code>.</li>
+<li><code>-E</code> <code>-Exclude</code> - путь к файлу с исключениями. Например, <code>-E 'C:\Data\exclude.txt'</code>. По умолчанию <code>${PSScriptRoot}\vault.exclude.txt</code>.</li>
+<li><code>-L</code> <code>-Logs</code> - путь к директории с журналами работы скрипта. Например, <code>-L 'C:\Data\Logs'</code>. По умолчанию <code>${PSScriptRoot}\Logs</code>.</li>
+<li><code>-RD</code> <code>-RemoveDirs</code> - удалять пустые каталоги.</li>
+<li><code>-O</code> <code>-Overwrite</code> - перезаписать файлы в Vault.</li>
+</ul>
+<h2 id="примеры">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">Примеры</a>
+</h2><p>Запустить перемещение файлов из <code>Source</code> в <code>Vault</code> с сохранением структуры директорий:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4b9eec487a691603a3b79c68c3643bb0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4b9eec487a691603a3b79c68c3643bb0"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Запустить перемещение файлов с временем создания и изменения от 10 дней (<code>864000</code>) из <code>Source</code> в <code>Vault</code> с сохранением структуры директорий:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-aa11c33b39d6d0a67b17fdb4fcb58cb4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aa11c33b39d6d0a67b17fdb4fcb58cb4"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Запустить перемещение файлов с временем создания и изменения от 10 дней (<code>864000</code>) и размером более 32 мегабайта (<code>32mb</code>) из <code>Source</code> в <code>Vault</code> с сохранением структуры директорий:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-73b4653e588c98d294418f0d2984655f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-FS</span> <span class="s1">&#39;32mb&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-73b4653e588c98d294418f0d2984655f"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Запустить перемещение файлов с временем создания и изменения от 10 дней (<code>864000</code>), и с перезаписью файлов с одинаковыми названиями (<code>-O</code>) из <code>Source</code> в <code>Vault</code> с сохранением структуры директорий:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-320ce36687fb32076722a3c21924ffef"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">vault</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-SRC</span> <span class="s1">&#39;C:\Data\Source&#39;</span> <span class="n">-DST</span> <span class="s1">&#39;C:\Data\Vault&#39;</span> <span class="n">-CT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-WT</span> <span class="s1">&#39;864000&#39;</span> <span class="n">-O</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-320ce36687fb32076722a3c21924ffef"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Параметр <code>-O</code> означает, что не нужно архивировать старый файл при перемещении нового с таким же названием. Старый файл в хранилище перезапишется новым.</p>
+<h2 id="принцип-работы">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bd%d1%86%d0%b8%d0%bf-%d1%80%d0%b0%d0%b1%d0%be%d1%82%d1%8b">Принцип работы</a>
+</h2><p>Скрипт создаёт хранилище старых файлов. Это, своего рода, аналог резервного копирования. При перемещении файлов из источника в хранилище, скрипт обрабатывает несколько заданных параметров и фильтров. Всё настроить можно под себя. По умолчанию, скрипт перемещает файлы из источника в хранилище, и если в хранилище уже имеется старый файл с названием кау у нового перемещаемого, то старый файл архивируется с меткой <code>VAULT.yyyy-MM-dd.HH-mm-ss</code>.</p>
+<p>Для работы скрипта необходим архиватор <strong>7-Zip</strong>, а конкретно его облегчённая версия <code>7za.exe</code> с библиотеками из <strong>7-Zip Extra</strong>. Скачать можно с <a title="" href="https://www.7-zip.org/download.html" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>.</p>
+<h2 id="скрипт">
+  <a class="link-body-emphasis" href="#%d1%81%d0%ba%d1%80%d0%b8%d0%bf%d1%82">Скрипт</a>
+</h2>
+    
+
+    
+
+    <div class="shortcode shortcode-file mb-3">
+      <div class="card overflow-hidden">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="far fa-file-code fa-fw"></i>
+            </div>
+            <div class="flex-grow-1 mx-2">
+              <code>vault.ps1</code>
+            </div>
+            <div class="flex-shrink-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+                  <a class="text-body" href="#"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5db89f741caa462307a3ede46174460a"
+                     role="button" aria-label='Копировать'>
+                    <i class="fas fa-copy fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="vault.ps1" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="vault.ps1" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+          
+              
+          
+        <div class="card-body" id="clipboard-5db89f741caa462307a3ede46174460a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="cm">&lt;#PSScriptInfo
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .VERSION      0.1.0
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .GUID         8fd0ce2c-0288-4d9c-805f-703a0c659ade
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .AUTHOR       mail@kitsune.solar
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .COMPANYNAME  iHub TO
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .COPYRIGHT    2023 iHub TO. All rights reserved.
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .LICENSEURI   https://choosealicense.com/licenses/mit/
+</span></span></span><span class="line"><span class="cl"><span class="cm">#&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#</span><span class="k">Requires</span><span class="w"> </span><span class="kd">-Version</span><span class="na"> 7.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">&lt;#
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">SYNOPSIS</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  PowerShell &#34;Vault&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">DESCRIPTION</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  The script moves files to Vault based on various criteria.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Mode
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Script operation mode. Default: &#39;MV&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Source
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Path to the source. E.g.: &#39;C:\Data\Source&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Destination
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Path to the Vault. E.g.: &#39;C:\Data\Vault&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER 7zip
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Path to the directory with the &#39;7za.exe&#39; file.. E.g.: &#39;C:\Apps\7z&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER CreationTime
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Time since file creation (in seconds). E.g.: &#39;5270400&#39;. Default: 61 day (5270400 sec.).
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER LastWriteTime
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Time since file modification (in seconds). E.g.: &#39;5270400&#39;. Default: 61 day (&#39;5270400&#39; sec.).
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER FileSize
+</span></span></span><span class="line"><span class="cl"><span class="cm">  File size check. E.g.: &#39;5kb&#39; / &#39;12mb&#39;. Default: &#39;0kb&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Exclude
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Path to the file with exceptions. E.g.: &#39;C:\Data\exclude.txt&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Logs
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Path to the directory with logs. E.g.: &#39;C:\Data\Logs&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER RemoveDirs
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Removing empty directories.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Overwrite
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Overwrite existing files in Vault.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">EXAMPLE</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .\vault.ps1 -SRC &#39;C:\Data&#39; -DST &#39;C:\Vault&#39;
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">EXAMPLE</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .\vault.ps1 -SRC &#39;C:\Data&#39; -DST &#39;C:\Vault&#39; -CT &#39;864000&#39; -WT &#39;864000&#39;
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">EXAMPLE</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .\vault.ps1 -SRC &#39;C:\Data&#39; -DST &#39;C:\Vault&#39; -CT &#39;864000&#39; -WT &#39;864000&#39; -FS &#39;32mb&#39;
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">LINK</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Library Online: https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
+</span></span></span><span class="line"><span class="cl"><span class="cm">#&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">Param</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Script operation mode. Default: &#39;MV&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">ValidateSet</span><span class="p">(</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="s1">&#39;MV&#39;</span><span class="p">,</span> <span class="s1">&#39;RM&#39;</span><span class="p">)][</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Mode</span> <span class="p">=</span> <span class="s1">&#39;MV&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Path to the source. E.g.: &#39;C:\Data\Source&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;SRC&#39;</span><span class="p">,</span> <span class="s1">&#39;Data&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Source</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">\Source&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Path to the Vault. E.g.: &#39;C:\Data\Vault&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;DST&#39;</span><span class="p">,</span> <span class="s1">&#39;Vault&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Destination</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">\Vault&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Path to the directory with the &#39;7za.exe&#39; file.. E.g.: &#39;C:\Apps\7z&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;7z&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$7zip</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">\Apps\7z&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Time since file creation (in seconds). E.g.: &#39;5270400&#39;. Default: 61 day (5270400 sec.).&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;CT&#39;</span><span class="p">,</span> <span class="s1">&#39;Create&#39;</span><span class="p">)][</span><span class="no">long</span><span class="p">]</span><span class="nv">$CreationTime</span> <span class="p">=</span> <span class="mf">5270400</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Time since file modification (in seconds). E.g.: &#39;5270400&#39;. Default: 61 day (&#39;5270400&#39; sec.).&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;WT&#39;</span><span class="p">,</span> <span class="s1">&#39;Modify&#39;</span><span class="p">)][</span><span class="no">long</span><span class="p">]</span><span class="nv">$LastWriteTime</span> <span class="p">=</span> <span class="mf">5270400</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;File size check. E.g.: &#39;5kb&#39; / &#39;12mb&#39;. Default: &#39;0kb&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;FS&#39;</span><span class="p">,</span> <span class="s1">&#39;Size&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$FileSize</span> <span class="p">=</span> <span class="s1">&#39;0kb&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Path to the file with exceptions. E.g.: &#39;C:\Data\exclude.txt&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Exclude</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">\vault.exclude.txt&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Path to the directory with logs. E.g.: &#39;C:\Data\Logs&#39;.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Logs</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">\Logs&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Removing empty directories.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;RD&#39;</span><span class="p">)][</span><span class="no">switch</span><span class="p">]</span><span class="nv">$RemoveDirs</span> <span class="p">=</span> <span class="vm">$false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Overwrite existing files in Vault.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)][</span><span class="no">switch</span><span class="p">]</span><span class="nv">$Overwrite</span> <span class="p">=</span> <span class="vm">$false</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># CONFIGURATION.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Timestamp.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$TS</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="s1">&#39;yyyy-MM-dd.HH-mm-ss&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># New line separator.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$NL</span> <span class="p">=</span> <span class="p">([</span><span class="no">Environment</span><span class="p">]::</span><span class="n">NewLine</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># INITIALIZATION.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-Vault</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-VaultCheck</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-VaultGetFiles</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$RemoveDirs</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Start-VaultRemoveDirs</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># CREATE VAULT DIRECTORIES.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-VaultCheck</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$Dirs</span> <span class="p">=</span> <span class="vm">@</span><span class="p">(</span><span class="s2">&#34;</span><span class="nv">${Source}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${Destination}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${7zip}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$Files</span> <span class="p">=</span> <span class="vm">@</span><span class="p">(</span><span class="s2">&#34;</span><span class="nv">${Exclude}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$7za</span> <span class="p">=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;7za.dll&#39;</span><span class="p">,</span> <span class="s1">&#39;7za.exe&#39;</span><span class="p">,</span> <span class="s1">&#39;7zxa.dll&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">foreach</span> <span class="p">(</span><span class="nv">$Dir</span> <span class="k">in</span> <span class="nv">$Dirs</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="s2">&#34;</span><span class="nv">${Dir}</span><span class="s2">&#34;</span><span class="p">))</span> <span class="p">{</span> <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${Dir}</span><span class="s2">&#34;</span> <span class="n">-ItemType</span> <span class="s1">&#39;Directory&#39;</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">foreach</span> <span class="p">(</span><span class="nv">$File</span> <span class="k">in</span> <span class="nv">$Files</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="s2">&#34;</span><span class="nv">${File}</span><span class="s2">&#34;</span><span class="p">))</span> <span class="p">{</span> <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${File}</span><span class="s2">&#34;</span> <span class="n">-ItemType</span> <span class="s1">&#39;File&#39;</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">foreach</span> <span class="p">(</span><span class="nv">$7za</span> <span class="k">in</span> <span class="nv">$7za</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="s2">&#34;</span><span class="nv">${7zip}</span><span class="s2">\</span><span class="nv">${7za}</span><span class="s2">&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">Write-VaultMsg</span> <span class="n">-T</span> <span class="s1">&#39;W&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">      <span class="n">-M</span> <span class="p">(</span><span class="s2">&#34;&#39;</span><span class="nv">${7za}</span><span class="s2">&#39; not found!</span><span class="nv">${NL}${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;1. Download &#39;7-Zip Extra&#39; from &#39;https://www.7-zip.org/download.html&#39;.</span><span class="nv">${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;2. Extract all contents into a directory &#39;</span><span class="nv">${7zip}</span><span class="s2">&#39;.</span><span class="nv">${NL}${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;Example: &#39;</span><span class="nv">${7zip}</span><span class="s2">\</span><span class="nv">${7za}</span><span class="s2">&#39;&#34;</span><span class="p">)</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">      <span class="n">-A</span> <span class="s1">&#39;Inquire&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># MOVE FILES TO VAULT.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-VaultGetFiles</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-VaultMsg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s1">&#39;Moving files to Vault&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nv">$Items</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${Source}</span><span class="s2">&#34;</span> <span class="n">-Recurse</span> <span class="n">-Exclude</span> <span class="p">(</span><span class="nb">Get-Content</span> <span class="s2">&#34;</span><span class="nv">${Exclude}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">PSIsContainer</span><span class="p">))</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-and</span> <span class="p">((</span><span class="nv">$_</span><span class="p">.</span><span class="n">CreationTime</span><span class="p">)</span> <span class="o">-lt</span> <span class="p">((</span><span class="nb">Get-Date</span><span class="p">).</span><span class="py">AddSeconds</span><span class="p">(-</span><span class="nv">$CreationTime</span><span class="p">)))</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-and</span> <span class="p">((</span><span class="nv">$_</span><span class="p">.</span><span class="n">LastWriteTime</span><span class="p">)</span> <span class="o">-lt</span> <span class="p">((</span><span class="nb">Get-Date</span><span class="p">).</span><span class="py">AddSeconds</span><span class="p">(-</span><span class="nv">$LastWriteTime</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">((</span><span class="nv">$_</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span> <span class="o">-ge</span> <span class="s2">&#34;</span><span class="nv">${FileSize}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$Items</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-VaultMsg</span> <span class="n">-T</span> <span class="s1">&#39;I&#39;</span> <span class="n">-M</span> <span class="s1">&#39;Required files were not found in the source!&#39;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">foreach</span> <span class="p">(</span><span class="nv">$Item</span> <span class="k">in</span> <span class="nv">$Items</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">((</span><span class="nv">$Item</span><span class="p">.</span><span class="py">FullName</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span> <span class="o">-ge</span> <span class="mf">245</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">Write-VaultMsg</span> <span class="n">-T</span> <span class="s1">&#39;W&#39;</span> <span class="n">-M</span> <span class="s2">&#34;&#39;</span><span class="nv">${Item}</span><span class="s2">&#39; has over 250 characters in path! Skip...&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$Dir</span>  <span class="p">=</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$Item</span><span class="p">.</span><span class="py">Directory</span><span class="p">.</span><span class="py">ToString</span><span class="p">())</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$File</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$Item</span><span class="p">.</span><span class="py">FullName</span><span class="p">.</span><span class="py">Remove</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nv">$Source</span><span class="p">.</span><span class="n">Length</span><span class="p">))</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$Path</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">${Destination}${File}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span><span class="nv">$Mode</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;CP&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">New-SimilarDirectory</span> <span class="n">-P</span> <span class="s2">&#34;</span><span class="nv">${Destination}</span><span class="s2">&#34;</span> <span class="n">-N</span> <span class="s2">&#34;</span><span class="nv">${Dir}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Backup-SimilarFile</span> <span class="n">-P</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span> <span class="n">-N</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">.VAULT.</span><span class="nv">${TS}</span><span class="s2">.7z&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">Write-VaultMsg</span> <span class="n">-M</span> <span class="s2">&#34;[CP] &#39;</span><span class="nv">${Item}</span><span class="s2">&#39; -&gt; &#39;</span><span class="nv">${Path}</span><span class="s2">&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Copy-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$Item</span><span class="p">.</span><span class="n">FullName</span><span class="p">)</span><span class="s2">&#34;</span> <span class="n">-Destination</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span> <span class="n">-Force</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;MV&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">New-SimilarDirectory</span> <span class="n">-P</span> <span class="s2">&#34;</span><span class="nv">${Destination}</span><span class="s2">&#34;</span> <span class="n">-N</span> <span class="s2">&#34;</span><span class="nv">${Dir}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Backup-SimilarFile</span> <span class="n">-P</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span> <span class="n">-N</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">.VAULT.</span><span class="nv">${TS}</span><span class="s2">.7z&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">Write-VaultMsg</span> <span class="n">-M</span> <span class="s2">&#34;[MV] &#39;</span><span class="nv">${Item}</span><span class="s2">&#39; -&gt; &#39;</span><span class="nv">${Path}</span><span class="s2">&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Move-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$Item</span><span class="p">.</span><span class="n">FullName</span><span class="p">)</span><span class="s2">&#34;</span> <span class="n">-Destination</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span> <span class="n">-Force</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;RM&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Write-VaultMsg</span> <span class="n">-M</span> <span class="s2">&#34;[RM] &#39;</span><span class="nv">${Item}</span><span class="s2">&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Remove-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$Item</span><span class="p">.</span><span class="n">FullName</span><span class="p">)</span><span class="s2">&#34;</span> <span class="n">-Force</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># REMOVE EMPTY DIRECTORIES.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-VaultRemoveDirs</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-VaultMsg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s1">&#39;Removing empty directories&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nv">$Items</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${Source}</span><span class="s2">&#34;</span> <span class="n">-Recurse</span>
+</span></span><span class="line"><span class="cl">    <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">PSIsContainer</span><span class="p">)</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-and</span> <span class="p">((</span><span class="nv">$_</span><span class="p">.</span><span class="n">CreationTime</span><span class="p">)</span> <span class="o">-lt</span> <span class="p">((</span><span class="nb">Get-Date</span><span class="p">).</span><span class="py">AddSeconds</span><span class="p">(-</span><span class="nv">$CreationTime</span><span class="p">)))</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-and</span> <span class="p">((</span><span class="nv">$_</span><span class="p">.</span><span class="n">LastWriteTime</span><span class="p">)</span> <span class="o">-lt</span> <span class="p">((</span><span class="nb">Get-Date</span><span class="p">).</span><span class="py">AddSeconds</span><span class="p">(-</span><span class="nv">$LastWriteTime</span><span class="p">)))</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$Items</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-VaultMsg</span> <span class="n">-T</span> <span class="s1">&#39;I&#39;</span> <span class="n">-M</span> <span class="s1">&#39;No empty directories were found in the source!&#39;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">foreach</span> <span class="p">(</span><span class="nv">$Item</span> <span class="k">in</span> <span class="nv">$Items</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(((</span><span class="nb">Get-ChildItem</span> <span class="s2">&#34;</span><span class="nv">${Item}</span><span class="s2">&#34;</span> <span class="p">|</span> <span class="nb">Measure-Object</span><span class="p">).</span><span class="n">Count</span><span class="p">)</span> <span class="o">-eq</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">Write-VaultMsg</span> <span class="n">-M</span> <span class="s2">&#34;[RM] &#39;</span><span class="nv">${Item}</span><span class="s2">&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">Remove-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${Item}</span><span class="s2">&#34;</span> <span class="n">-Force</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># CREATE SIMILAR DIRECTORIES.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">New-SimilarDirectory</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">param</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Name</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span> <span class="n">-ItemType</span> <span class="s1">&#39;Directory&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">    <span class="n">-Name</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$Name</span><span class="p">.</span><span class="py">Remove</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nv">$Source</span><span class="p">.</span><span class="n">Length</span><span class="p">))</span><span class="s2">&#34;</span> <span class="n">-ErrorAction</span> <span class="s1">&#39;SilentlyContinue&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># BACKUP SIMILAR FILES.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Backup-SimilarFile</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">param</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Name</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$Overwrite</span> <span class="o">-and</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Compress</span><span class="p">-</span><span class="n">7z</span> <span class="n">-T</span> <span class="s1">&#39;7z&#39;</span> <span class="n">-L</span> <span class="mf">9</span> <span class="n">-I</span> <span class="s2">&#34;</span><span class="nv">${Path}</span><span class="s2">&#34;</span> <span class="n">-O</span> <span class="s2">&#34;</span><span class="nv">${Name}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># MESSAGES.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Write-VaultMsg</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">param</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Message</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Type</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Action</span> <span class="p">=</span> <span class="s1">&#39;Continue&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="p">(</span><span class="nv">$Type</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;HL&#39;</span>    <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">&#34;</span><span class="nv">${NL}</span><span class="s2">--- </span><span class="nv">${Message}</span><span class="s2">&#34;</span><span class="p">.</span><span class="py">ToUpper</span><span class="p">()</span> <span class="n">-ForegroundColor</span> <span class="n">Blue</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;I&#39;</span>     <span class="p">{</span> <span class="nb">Write-Information</span> <span class="n">-MessageData</span> <span class="s2">&#34;</span><span class="nv">${Message}</span><span class="s2">&#34;</span> <span class="n">-InformationAction</span> <span class="s2">&#34;</span><span class="nv">${Action}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;W&#39;</span>     <span class="p">{</span> <span class="nb">Write-Warning</span> <span class="n">-Message</span> <span class="s2">&#34;</span><span class="nv">${Message}</span><span class="s2">&#34;</span> <span class="n">-WarningAction</span> <span class="s2">&#34;</span><span class="nv">${Action}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;E&#39;</span>     <span class="p">{</span> <span class="nb">Write-Error</span> <span class="n">-Message</span> <span class="s2">&#34;</span><span class="nv">${Message}</span><span class="s2">&#34;</span> <span class="n">-ErrorAction</span> <span class="s2">&#34;</span><span class="nv">${Action}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span> <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">&#34;</span><span class="nv">${Message}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># 7Z: COMPRESS.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Compress-7z</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">param</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$In</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">ValidateSet</span><span class="p">(</span><span class="s1">&#39;7z&#39;</span><span class="p">,</span> <span class="s1">&#39;BZIP2&#39;</span><span class="p">,</span> <span class="s1">&#39;GZIP&#39;</span><span class="p">,</span> <span class="s1">&#39;TAR&#39;</span><span class="p">,</span> <span class="s1">&#39;WIM&#39;</span><span class="p">,</span> <span class="s1">&#39;XZ&#39;</span><span class="p">,</span> <span class="s1">&#39;ZIP&#39;</span><span class="p">)][</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Type</span> <span class="p">=</span> <span class="s1">&#39;7z&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">ValidateRange</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">9</span><span class="p">)][</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$Level</span> <span class="p">=</span> <span class="mf">5</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nv">$CMD</span> <span class="p">=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s2">&#34;-t</span><span class="nv">${Type}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;-mx</span><span class="nv">${Level}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${Out}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${In}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&amp;</span> <span class="s2">&#34;</span><span class="nv">${7zip}</span><span class="s2">\7za.exe&#34;</span> <span class="nv">$CMD</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># ------------------------------------------------------&lt; INIT &gt;------------------------------------------------------ #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">Start-Transcript</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${Logs}</span><span class="s2">\</span><span class="p">$((</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Year</span><span class="p">)</span><span class="s2">\</span><span class="p">$((</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Month</span><span class="p">)</span><span class="s2">\</span><span class="nv">${TS}</span><span class="s2">.log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Start-Vault</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Stop-Transcript</span>
+</span></span></code></pre></div></div>
+      </div>
+    </div>]]></turbo:content><pubDate>Fri, 20 Oct 2023 09:57:21 +0000</pubDate><category>MS Windows</category><category>Скрипты</category><category>Терминал</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Дефрагментация в OS Windows</title><link>https://lib.onl/ru/posts/2023/10/eb39e3f7-b194-53d4-8bad-01edf9fdac47/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/eb39e3f7-b194-53d4-8bad-01edf9fdac47/</guid><description>При работе с оборудованием, мне приходится сталкиваться с довольно старыми устройствами, их их работу нужно как-нибудь оптимизировать. Одним из вариантов оптимизации является дефрагментация HDD.</description><media:content medium="image" url="https://images.unsplash.com/photo-1591913139332-f8172ef511da" width="1600" height="900"/><content:encoded><![CDATA[<p>При работе с оборудованием, мне приходится сталкиваться с довольно старыми устройствами, их их работу нужно как-нибудь оптимизировать. Одним из вариантов оптимизации является дефрагментация HDD.</p>
+<h2 id="powershell">
+  <a class="link-body-emphasis" href="#powershell">PowerShell</a>
+</h2><p>Командлет по дефрагментации для PowerShell называется <code>Optimize-Volume</code> и может принимать следующие параметры:</p>
+<ul>
+<li><code>-Analyze</code> - выполнение анализа указанного тома.</li>
+<li><code>-Defrag</code> - выполнение дефрагментации указанного тома.</li>
+<li><code>-DriveLetter</code> - буква тома.</li>
+<li><code>-NormalPriority</code> - выполнение процесса с нормальным приоритетом (по умолчанию приоритет пониженный).</li>
+<li><code>-ReTrim</code> - выполнение TRIM-операции для SSD.</li>
+</ul>
+<p>Это наиболее востребованные параметры. Остальные параметры можно посмотреть в <a title="" href="https://learn.microsoft.com/en-us/powershell/module/storage/optimize-volume" target="_blank" rel="noopener noreferrer nofollow">официальной документации</a>.</p>
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-success d-flex overflow-hidden" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-lightbulb fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Для всех команд можно добавить параметр <code>-Verbose</code>, который выводит подробную информацию о происходящем процессе.</p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="анализ-тома">
+  <a class="link-body-emphasis" href="#%d0%b0%d0%bd%d0%b0%d0%bb%d0%b8%d0%b7-%d1%82%d0%be%d0%bc%d0%b0">Анализ тома</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fe82c83455b3c9c00c071aaeb73698f0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Analyze</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fe82c83455b3c9c00c071aaeb73698f0"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>-DriveLetter C</code> - буква тома (диск C:).</li>
+<li><code>-Analyze</code> - анализ.</li>
+</ul>
+<h3 id="дефрагментация">
+  <a class="link-body-emphasis" href="#%d0%b4%d0%b5%d1%84%d1%80%d0%b0%d0%b3%d0%bc%d0%b5%d0%bd%d1%82%d0%b0%d1%86%d0%b8%d1%8f">Дефрагментация</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-20a93c1a5b940d88a870586999b7a2de"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Defrag</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-20a93c1a5b940d88a870586999b7a2de"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>-DriveLetter C</code> - буква тома (диск C:).</li>
+<li><code>-Defrag</code> - дефрагментация.</li>
+</ul>
+<h3 id="trim-операция-для-ssd">
+  <a class="link-body-emphasis" href="#trim-%d0%be%d0%bf%d0%b5%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%b4%d0%bb%d1%8f-ssd">TRIM-операция для SSD</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-30dc51478a221d9141036f9ae292e3bf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-ReTrim</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-30dc51478a221d9141036f9ae292e3bf"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>-DriveLetter C</code> - буква тома (диск C:).</li>
+<li><code>-ReTrim</code> - на дисках SSD запускает TRIM-операцию.</li>
+</ul>
+<h2 id="cmd-defrag">
+  <a class="link-body-emphasis" href="#cmd-defrag">CMD Defrag</a>
+</h2><p>Утилита <code>defrag.exe</code> выполняет анализ и оптимизацию томов через командную строку. Утилита может принимать следующие параметры:</p>
+<ul>
+<li>Тома:
+<ul>
+<li><code>/c</code> - выполнение операции на всех томах.</li>
+<li><code>/e</code> - выполнение операции на всех томах, кроме указанных.</li>
+</ul>
+</li>
+<li>Операции:
+<ul>
+<li><code>/a</code> - анализ указанных томов.</li>
+<li><code>/d</code> - выполнение традиционной дефрагментации (по умолчанию). На многоуровневом томе традиционная дефрагментация выполняется только на уровне ёмкости.</li>
+<li><code>/l</code> - выполнение TRIM-операции для SSD.</li>
+<li><code>/o</code> - выполнение правильной оптимизации для каждого типа носителя.</li>
+<li><code>/u</code> - отображение хода операции.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-success d-flex overflow-hidden" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-lightbulb fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Для всех команд можно добавить параметр <code>/v</code>, который выводит подробную информацию о происходящем процессе.</p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="анализ-тома-1">
+  <a class="link-body-emphasis" href="#%d0%b0%d0%bd%d0%b0%d0%bb%d0%b8%d0%b7-%d1%82%d0%be%d0%bc%d0%b0-1">Анализ тома</a>
+</h3><p>Анализ тома, с отображением хода выполнения и выводом результатов в подробном формате:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f3e87ad88e982c14943326705fab31cc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: /u /a</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f3e87ad88e982c14943326705fab31cc"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>c:</code> - буква тома (диск <code>C:</code>).</li>
+<li><code>/u</code> - отображение хода выполнения операции.</li>
+<li><code>/a</code> - анализ.</li>
+</ul>
+<h3 id="параллельная-дефрагментация">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b0%d1%80%d0%b0%d0%bb%d0%bb%d0%b5%d0%bb%d1%8c%d0%bd%d0%b0%d1%8f-%d0%b4%d0%b5%d1%84%d1%80%d0%b0%d0%b3%d0%bc%d0%b5%d0%bd%d1%82%d0%b0%d1%86%d0%b8%d1%8f">Параллельная дефрагментация</a>
+</h3><p>Параллельная дефрагментация томов <code>C:</code> и <code>D:</code> в фоновом режиме:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e5030ced1c8690cdd25437216b334fa6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: d: /m</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e5030ced1c8690cdd25437216b334fa6"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>c:</code> - буква тома (диск <code>C:</code>).</li>
+<li><code>d:</code> - буква тома (диск <code>D:</code>).</li>
+<li><code>/m</code> - выполнение операции с каждым томом параллельно в фоновом режиме.</li>
+</ul>
+<h3 id="дефрагментация-всех-томах">
+  <a class="link-body-emphasis" href="#%d0%b4%d0%b5%d1%84%d1%80%d0%b0%d0%b3%d0%bc%d0%b5%d0%bd%d1%82%d0%b0%d1%86%d0%b8%d1%8f-%d0%b2%d1%81%d0%b5%d1%85-%d1%82%d0%be%d0%bc%d0%b0%d1%85">Дефрагментация всех томах</a>
+</h3><p>Выполнить дефрагментацию на всех локальных томах с нормальным приоритетом:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a0e2902f0bddeced9ea39c8f544b6a0c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /h</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a0e2902f0bddeced9ea39c8f544b6a0c"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/u</code> - отображение хода выполнения операции.</li>
+<li><code>/c</code> - выполнение операции на всех томах.</li>
+<li><code>/h</code> - выполнение операции с нормальным приоритетом (по умолчанию приоритет пониженный).</li>
+</ul>
+<h3 id="trim-операция-для-ssd-1">
+  <a class="link-body-emphasis" href="#trim-%d0%be%d0%bf%d0%b5%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%b4%d0%bb%d1%8f-ssd-1">TRIM-операция для SSD</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a317b1e60efa92b45b4434d1c5f0841b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /l</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a317b1e60efa92b45b4434d1c5f0841b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/u</code> - отображение хода выполнения операции.</li>
+<li><code>/c</code> - выполнение операции на всех томах.</li>
+<li><code>/l</code> или <code>/retrim</code> - на дисках SSD запускает TRIM-операцию.</li>
+</ul>]]></content:encoded><turbo:source/><turbo:topic>Дефрагментация в OS Windows</turbo:topic><turbo:content><![CDATA[<p>При работе с оборудованием, мне приходится сталкиваться с довольно старыми устройствами, их их работу нужно как-нибудь оптимизировать. Одним из вариантов оптимизации является дефрагментация HDD.</p>
+<h2 id="powershell">
+  <a class="link-body-emphasis" href="#powershell">PowerShell</a>
+</h2><p>Командлет по дефрагментации для PowerShell называется <code>Optimize-Volume</code> и может принимать следующие параметры:</p>
+<ul>
+<li><code>-Analyze</code> - выполнение анализа указанного тома.</li>
+<li><code>-Defrag</code> - выполнение дефрагментации указанного тома.</li>
+<li><code>-DriveLetter</code> - буква тома.</li>
+<li><code>-NormalPriority</code> - выполнение процесса с нормальным приоритетом (по умолчанию приоритет пониженный).</li>
+<li><code>-ReTrim</code> - выполнение TRIM-операции для SSD.</li>
+</ul>
+<p>Это наиболее востребованные параметры. Остальные параметры можно посмотреть в <a title="" href="https://learn.microsoft.com/en-us/powershell/module/storage/optimize-volume" target="_blank" rel="noopener noreferrer nofollow">официальной документации</a>.</p>
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-success d-flex overflow-hidden" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-lightbulb fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Для всех команд можно добавить параметр <code>-Verbose</code>, который выводит подробную информацию о происходящем процессе.</p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="анализ-тома">
+  <a class="link-body-emphasis" href="#%d0%b0%d0%bd%d0%b0%d0%bb%d0%b8%d0%b7-%d1%82%d0%be%d0%bc%d0%b0">Анализ тома</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fe82c83455b3c9c00c071aaeb73698f0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Analyze</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fe82c83455b3c9c00c071aaeb73698f0"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>-DriveLetter C</code> - буква тома (диск C:).</li>
+<li><code>-Analyze</code> - анализ.</li>
+</ul>
+<h3 id="дефрагментация">
+  <a class="link-body-emphasis" href="#%d0%b4%d0%b5%d1%84%d1%80%d0%b0%d0%b3%d0%bc%d0%b5%d0%bd%d1%82%d0%b0%d1%86%d0%b8%d1%8f">Дефрагментация</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-20a93c1a5b940d88a870586999b7a2de"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Defrag</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-20a93c1a5b940d88a870586999b7a2de"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>-DriveLetter C</code> - буква тома (диск C:).</li>
+<li><code>-Defrag</code> - дефрагментация.</li>
+</ul>
+<h3 id="trim-операция-для-ssd">
+  <a class="link-body-emphasis" href="#trim-%d0%be%d0%bf%d0%b5%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%b4%d0%bb%d1%8f-ssd">TRIM-операция для SSD</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-30dc51478a221d9141036f9ae292e3bf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-ReTrim</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-30dc51478a221d9141036f9ae292e3bf"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>-DriveLetter C</code> - буква тома (диск C:).</li>
+<li><code>-ReTrim</code> - на дисках SSD запускает TRIM-операцию.</li>
+</ul>
+<h2 id="cmd-defrag">
+  <a class="link-body-emphasis" href="#cmd-defrag">CMD Defrag</a>
+</h2><p>Утилита <code>defrag.exe</code> выполняет анализ и оптимизацию томов через командную строку. Утилита может принимать следующие параметры:</p>
+<ul>
+<li>Тома:
+<ul>
+<li><code>/c</code> - выполнение операции на всех томах.</li>
+<li><code>/e</code> - выполнение операции на всех томах, кроме указанных.</li>
+</ul>
+</li>
+<li>Операции:
+<ul>
+<li><code>/a</code> - анализ указанных томов.</li>
+<li><code>/d</code> - выполнение традиционной дефрагментации (по умолчанию). На многоуровневом томе традиционная дефрагментация выполняется только на уровне ёмкости.</li>
+<li><code>/l</code> - выполнение TRIM-операции для SSD.</li>
+<li><code>/o</code> - выполнение правильной оптимизации для каждого типа носителя.</li>
+<li><code>/u</code> - отображение хода операции.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-success d-flex overflow-hidden" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-lightbulb fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Для всех команд можно добавить параметр <code>/v</code>, который выводит подробную информацию о происходящем процессе.</p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="анализ-тома-1">
+  <a class="link-body-emphasis" href="#%d0%b0%d0%bd%d0%b0%d0%bb%d0%b8%d0%b7-%d1%82%d0%be%d0%bc%d0%b0-1">Анализ тома</a>
+</h3><p>Анализ тома, с отображением хода выполнения и выводом результатов в подробном формате:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f3e87ad88e982c14943326705fab31cc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: /u /a</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f3e87ad88e982c14943326705fab31cc"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>c:</code> - буква тома (диск <code>C:</code>).</li>
+<li><code>/u</code> - отображение хода выполнения операции.</li>
+<li><code>/a</code> - анализ.</li>
+</ul>
+<h3 id="параллельная-дефрагментация">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b0%d1%80%d0%b0%d0%bb%d0%bb%d0%b5%d0%bb%d1%8c%d0%bd%d0%b0%d1%8f-%d0%b4%d0%b5%d1%84%d1%80%d0%b0%d0%b3%d0%bc%d0%b5%d0%bd%d1%82%d0%b0%d1%86%d0%b8%d1%8f">Параллельная дефрагментация</a>
+</h3><p>Параллельная дефрагментация томов <code>C:</code> и <code>D:</code> в фоновом режиме:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e5030ced1c8690cdd25437216b334fa6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: d: /m</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e5030ced1c8690cdd25437216b334fa6"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>c:</code> - буква тома (диск <code>C:</code>).</li>
+<li><code>d:</code> - буква тома (диск <code>D:</code>).</li>
+<li><code>/m</code> - выполнение операции с каждым томом параллельно в фоновом режиме.</li>
+</ul>
+<h3 id="дефрагментация-всех-томах">
+  <a class="link-body-emphasis" href="#%d0%b4%d0%b5%d1%84%d1%80%d0%b0%d0%b3%d0%bc%d0%b5%d0%bd%d1%82%d0%b0%d1%86%d0%b8%d1%8f-%d0%b2%d1%81%d0%b5%d1%85-%d1%82%d0%be%d0%bc%d0%b0%d1%85">Дефрагментация всех томах</a>
+</h3><p>Выполнить дефрагментацию на всех локальных томах с нормальным приоритетом:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a0e2902f0bddeced9ea39c8f544b6a0c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /h</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a0e2902f0bddeced9ea39c8f544b6a0c"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/u</code> - отображение хода выполнения операции.</li>
+<li><code>/c</code> - выполнение операции на всех томах.</li>
+<li><code>/h</code> - выполнение операции с нормальным приоритетом (по умолчанию приоритет пониженный).</li>
+</ul>
+<h3 id="trim-операция-для-ssd-1">
+  <a class="link-body-emphasis" href="#trim-%d0%be%d0%bf%d0%b5%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%b4%d0%bb%d1%8f-ssd-1">TRIM-операция для SSD</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a317b1e60efa92b45b4434d1c5f0841b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /l</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a317b1e60efa92b45b4434d1c5f0841b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/u</code> - отображение хода выполнения операции.</li>
+<li><code>/c</code> - выполнение операции на всех томах.</li>
+<li><code>/l</code> или <code>/retrim</code> - на дисках SSD запускает TRIM-операцию.</li>
+</ul>]]></turbo:content><pubDate>Fri, 20 Oct 2023 00:46:16 +0000</pubDate><category>MS Windows</category><category>Терминал</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Windows Server 2022 для рабочей станции</title><link>https://lib.onl/ru/posts/2022/05/36058650-3f35-5ed5-9565-0aa7d8800c28/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/05/36058650-3f35-5ed5-9565-0aa7d8800c28/</guid><description>В этой небольшой заметке я расскажу, как перенастроить серверную версию ОС Windows для работы на обычном стационарном ПК.</description><media:content medium="image" url="https://images.unsplash.com/photo-1640086940714-65501b9214f2" width="1600" height="900"/><content:encoded><![CDATA[<p>В этой небольшой заметке я расскажу, как перенастроить серверную версию ОС Windows для работы на обычном стационарном ПК.</p>
 <h2 id="настройка-служб">
   <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d1%81%d0%bb%d1%83%d0%b6%d0%b1">Настройка служб</a>
 </h2><p>На сервере нет необходимости использовать поисковые механизмы и вывод звука, поэтому они отключены. Но на рабочей станции эти параметры необходимы. Для включения звука и поискового механизма, необходимо настроить запуск соответствующих служб.</p>
@@ -104,12 +1758,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-342be2cb681e78ff6c967df9e81ae230"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ca216200355fb6237fe694aa1436bf4e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-342be2cb681e78ff6c967df9e81ae230"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ca216200355fb6237fe694aa1436bf4e"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -223,12 +1877,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-342be2cb681e78ff6c967df9e81ae230"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ca216200355fb6237fe694aa1436bf4e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Enable-MMAgent</span> <span class="n">-MemoryCompression</span> <span class="n">-OperationAPI</span> <span class="n">-PageCombining</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-342be2cb681e78ff6c967df9e81ae230"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ca216200355fb6237fe694aa1436bf4e"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>

@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>hdd / Library Online</title><link>https://lib.onl/ru/tags/hdd/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/hdd/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>hdd / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Fri, 20 Oct 2023 00:46:16 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/hdd/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Дефрагментация в OS Windows</title><link>https://lib.onl/ru/posts/2023/10/eb39e3f7-b194-53d4-8bad-01edf9fdac47/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/eb39e3f7-b194-53d4-8bad-01edf9fdac47/</guid><description>При работе с оборудованием, мне приходится сталкиваться с довольно старыми устройствами, их их работу нужно как-нибудь оптимизировать. Одним из вариантов оптимизации является дефрагментация HDD.</description><media:content medium="image" url="https://images.unsplash.com/photo-1591913139332-f8172ef511da" width="1600" height="900"/><content:encoded><![CDATA[<p>При работе с оборудованием, мне приходится сталкиваться с довольно старыми устройствами, их их работу нужно как-нибудь оптимизировать. Одним из вариантов оптимизации является дефрагментация HDD.</p>
+<h2 id="powershell">
+  <a class="link-body-emphasis" href="#powershell">PowerShell</a>
+</h2><p>Командлет по дефрагментации для PowerShell называется <code>Optimize-Volume</code> и может принимать следующие параметры:</p>
+<ul>
+<li><code>-Analyze</code> - выполнение анализа указанного тома.</li>
+<li><code>-Defrag</code> - выполнение дефрагментации указанного тома.</li>
+<li><code>-DriveLetter</code> - буква тома.</li>
+<li><code>-NormalPriority</code> - выполнение процесса с нормальным приоритетом (по умолчанию приоритет пониженный).</li>
+<li><code>-ReTrim</code> - выполнение TRIM-операции для SSD.</li>
+</ul>
+<p>Это наиболее востребованные параметры. Остальные параметры можно посмотреть в <a title="" href="https://learn.microsoft.com/en-us/powershell/module/storage/optimize-volume" target="_blank" rel="noopener noreferrer nofollow">официальной документации</a>.</p>
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-success d-flex overflow-hidden" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-lightbulb fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Для всех команд можно добавить параметр <code>-Verbose</code>, который выводит подробную информацию о происходящем процессе.</p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="анализ-тома">
+  <a class="link-body-emphasis" href="#%d0%b0%d0%bd%d0%b0%d0%bb%d0%b8%d0%b7-%d1%82%d0%be%d0%bc%d0%b0">Анализ тома</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fe82c83455b3c9c00c071aaeb73698f0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Analyze</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fe82c83455b3c9c00c071aaeb73698f0"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>-DriveLetter C</code> - буква тома (диск C:).</li>
+<li><code>-Analyze</code> - анализ.</li>
+</ul>
+<h3 id="дефрагментация">
+  <a class="link-body-emphasis" href="#%d0%b4%d0%b5%d1%84%d1%80%d0%b0%d0%b3%d0%bc%d0%b5%d0%bd%d1%82%d0%b0%d1%86%d0%b8%d1%8f">Дефрагментация</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-20a93c1a5b940d88a870586999b7a2de"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Defrag</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-20a93c1a5b940d88a870586999b7a2de"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>-DriveLetter C</code> - буква тома (диск C:).</li>
+<li><code>-Defrag</code> - дефрагментация.</li>
+</ul>
+<h3 id="trim-операция-для-ssd">
+  <a class="link-body-emphasis" href="#trim-%d0%be%d0%bf%d0%b5%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%b4%d0%bb%d1%8f-ssd">TRIM-операция для SSD</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-30dc51478a221d9141036f9ae292e3bf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-ReTrim</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-30dc51478a221d9141036f9ae292e3bf"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>-DriveLetter C</code> - буква тома (диск C:).</li>
+<li><code>-ReTrim</code> - на дисках SSD запускает TRIM-операцию.</li>
+</ul>
+<h2 id="cmd-defrag">
+  <a class="link-body-emphasis" href="#cmd-defrag">CMD Defrag</a>
+</h2><p>Утилита <code>defrag.exe</code> выполняет анализ и оптимизацию томов через командную строку. Утилита может принимать следующие параметры:</p>
+<ul>
+<li>Тома:
+<ul>
+<li><code>/c</code> - выполнение операции на всех томах.</li>
+<li><code>/e</code> - выполнение операции на всех томах, кроме указанных.</li>
+</ul>
+</li>
+<li>Операции:
+<ul>
+<li><code>/a</code> - анализ указанных томов.</li>
+<li><code>/d</code> - выполнение традиционной дефрагментации (по умолчанию). На многоуровневом томе традиционная дефрагментация выполняется только на уровне ёмкости.</li>
+<li><code>/l</code> - выполнение TRIM-операции для SSD.</li>
+<li><code>/o</code> - выполнение правильной оптимизации для каждого типа носителя.</li>
+<li><code>/u</code> - отображение хода операции.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-success d-flex overflow-hidden" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-lightbulb fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Для всех команд можно добавить параметр <code>/v</code>, который выводит подробную информацию о происходящем процессе.</p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="анализ-тома-1">
+  <a class="link-body-emphasis" href="#%d0%b0%d0%bd%d0%b0%d0%bb%d0%b8%d0%b7-%d1%82%d0%be%d0%bc%d0%b0-1">Анализ тома</a>
+</h3><p>Анализ тома, с отображением хода выполнения и выводом результатов в подробном формате:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f3e87ad88e982c14943326705fab31cc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: /u /a</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f3e87ad88e982c14943326705fab31cc"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>c:</code> - буква тома (диск <code>C:</code>).</li>
+<li><code>/u</code> - отображение хода выполнения операции.</li>
+<li><code>/a</code> - анализ.</li>
+</ul>
+<h3 id="параллельная-дефрагментация">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b0%d1%80%d0%b0%d0%bb%d0%bb%d0%b5%d0%bb%d1%8c%d0%bd%d0%b0%d1%8f-%d0%b4%d0%b5%d1%84%d1%80%d0%b0%d0%b3%d0%bc%d0%b5%d0%bd%d1%82%d0%b0%d1%86%d0%b8%d1%8f">Параллельная дефрагментация</a>
+</h3><p>Параллельная дефрагментация томов <code>C:</code> и <code>D:</code> в фоновом режиме:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e5030ced1c8690cdd25437216b334fa6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: d: /m</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e5030ced1c8690cdd25437216b334fa6"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>c:</code> - буква тома (диск <code>C:</code>).</li>
+<li><code>d:</code> - буква тома (диск <code>D:</code>).</li>
+<li><code>/m</code> - выполнение операции с каждым томом параллельно в фоновом режиме.</li>
+</ul>
+<h3 id="дефрагментация-всех-томах">
+  <a class="link-body-emphasis" href="#%d0%b4%d0%b5%d1%84%d1%80%d0%b0%d0%b3%d0%bc%d0%b5%d0%bd%d1%82%d0%b0%d1%86%d0%b8%d1%8f-%d0%b2%d1%81%d0%b5%d1%85-%d1%82%d0%be%d0%bc%d0%b0%d1%85">Дефрагментация всех томах</a>
+</h3><p>Выполнить дефрагментацию на всех локальных томах с нормальным приоритетом:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a0e2902f0bddeced9ea39c8f544b6a0c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /h</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a0e2902f0bddeced9ea39c8f544b6a0c"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/u</code> - отображение хода выполнения операции.</li>
+<li><code>/c</code> - выполнение операции на всех томах.</li>
+<li><code>/h</code> - выполнение операции с нормальным приоритетом (по умолчанию приоритет пониженный).</li>
+</ul>
+<h3 id="trim-операция-для-ssd-1">
+  <a class="link-body-emphasis" href="#trim-%d0%be%d0%bf%d0%b5%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%b4%d0%bb%d1%8f-ssd-1">TRIM-операция для SSD</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a317b1e60efa92b45b4434d1c5f0841b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /l</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a317b1e60efa92b45b4434d1c5f0841b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/u</code> - отображение хода выполнения операции.</li>
+<li><code>/c</code> - выполнение операции на всех томах.</li>
+<li><code>/l</code> или <code>/retrim</code> - на дисках SSD запускает TRIM-операцию.</li>
+</ul>]]></content:encoded><turbo:source/><turbo:topic>Дефрагментация в OS Windows</turbo:topic><turbo:content><![CDATA[<p>При работе с оборудованием, мне приходится сталкиваться с довольно старыми устройствами, их их работу нужно как-нибудь оптимизировать. Одним из вариантов оптимизации является дефрагментация HDD.</p>
+<h2 id="powershell">
+  <a class="link-body-emphasis" href="#powershell">PowerShell</a>
+</h2><p>Командлет по дефрагментации для PowerShell называется <code>Optimize-Volume</code> и может принимать следующие параметры:</p>
+<ul>
+<li><code>-Analyze</code> - выполнение анализа указанного тома.</li>
+<li><code>-Defrag</code> - выполнение дефрагментации указанного тома.</li>
+<li><code>-DriveLetter</code> - буква тома.</li>
+<li><code>-NormalPriority</code> - выполнение процесса с нормальным приоритетом (по умолчанию приоритет пониженный).</li>
+<li><code>-ReTrim</code> - выполнение TRIM-операции для SSD.</li>
+</ul>
+<p>Это наиболее востребованные параметры. Остальные параметры можно посмотреть в <a title="" href="https://learn.microsoft.com/en-us/powershell/module/storage/optimize-volume" target="_blank" rel="noopener noreferrer nofollow">официальной документации</a>.</p>
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-success d-flex overflow-hidden" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-lightbulb fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Для всех команд можно добавить параметр <code>-Verbose</code>, который выводит подробную информацию о происходящем процессе.</p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="анализ-тома">
+  <a class="link-body-emphasis" href="#%d0%b0%d0%bd%d0%b0%d0%bb%d0%b8%d0%b7-%d1%82%d0%be%d0%bc%d0%b0">Анализ тома</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-fe82c83455b3c9c00c071aaeb73698f0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Analyze</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-fe82c83455b3c9c00c071aaeb73698f0"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>-DriveLetter C</code> - буква тома (диск C:).</li>
+<li><code>-Analyze</code> - анализ.</li>
+</ul>
+<h3 id="дефрагментация">
+  <a class="link-body-emphasis" href="#%d0%b4%d0%b5%d1%84%d1%80%d0%b0%d0%b3%d0%bc%d0%b5%d0%bd%d1%82%d0%b0%d1%86%d0%b8%d1%8f">Дефрагментация</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-20a93c1a5b940d88a870586999b7a2de"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Defrag</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-20a93c1a5b940d88a870586999b7a2de"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>-DriveLetter C</code> - буква тома (диск C:).</li>
+<li><code>-Defrag</code> - дефрагментация.</li>
+</ul>
+<h3 id="trim-операция-для-ssd">
+  <a class="link-body-emphasis" href="#trim-%d0%be%d0%bf%d0%b5%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%b4%d0%bb%d1%8f-ssd">TRIM-операция для SSD</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-30dc51478a221d9141036f9ae292e3bf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-ReTrim</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-30dc51478a221d9141036f9ae292e3bf"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>-DriveLetter C</code> - буква тома (диск C:).</li>
+<li><code>-ReTrim</code> - на дисках SSD запускает TRIM-операцию.</li>
+</ul>
+<h2 id="cmd-defrag">
+  <a class="link-body-emphasis" href="#cmd-defrag">CMD Defrag</a>
+</h2><p>Утилита <code>defrag.exe</code> выполняет анализ и оптимизацию томов через командную строку. Утилита может принимать следующие параметры:</p>
+<ul>
+<li>Тома:
+<ul>
+<li><code>/c</code> - выполнение операции на всех томах.</li>
+<li><code>/e</code> - выполнение операции на всех томах, кроме указанных.</li>
+</ul>
+</li>
+<li>Операции:
+<ul>
+<li><code>/a</code> - анализ указанных томов.</li>
+<li><code>/d</code> - выполнение традиционной дефрагментации (по умолчанию). На многоуровневом томе традиционная дефрагментация выполняется только на уровне ёмкости.</li>
+<li><code>/l</code> - выполнение TRIM-операции для SSD.</li>
+<li><code>/o</code> - выполнение правильной оптимизации для каждого типа носителя.</li>
+<li><code>/u</code> - отображение хода операции.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-success d-flex overflow-hidden" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-lightbulb fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Для всех команд можно добавить параметр <code>/v</code>, который выводит подробную информацию о происходящем процессе.</p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="анализ-тома-1">
+  <a class="link-body-emphasis" href="#%d0%b0%d0%bd%d0%b0%d0%bb%d0%b8%d0%b7-%d1%82%d0%be%d0%bc%d0%b0-1">Анализ тома</a>
+</h3><p>Анализ тома, с отображением хода выполнения и выводом результатов в подробном формате:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f3e87ad88e982c14943326705fab31cc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: /u /a</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f3e87ad88e982c14943326705fab31cc"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>c:</code> - буква тома (диск <code>C:</code>).</li>
+<li><code>/u</code> - отображение хода выполнения операции.</li>
+<li><code>/a</code> - анализ.</li>
+</ul>
+<h3 id="параллельная-дефрагментация">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b0%d1%80%d0%b0%d0%bb%d0%bb%d0%b5%d0%bb%d1%8c%d0%bd%d0%b0%d1%8f-%d0%b4%d0%b5%d1%84%d1%80%d0%b0%d0%b3%d0%bc%d0%b5%d0%bd%d1%82%d0%b0%d1%86%d0%b8%d1%8f">Параллельная дефрагментация</a>
+</h3><p>Параллельная дефрагментация томов <code>C:</code> и <code>D:</code> в фоновом режиме:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e5030ced1c8690cdd25437216b334fa6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: d: /m</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e5030ced1c8690cdd25437216b334fa6"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>c:</code> - буква тома (диск <code>C:</code>).</li>
+<li><code>d:</code> - буква тома (диск <code>D:</code>).</li>
+<li><code>/m</code> - выполнение операции с каждым томом параллельно в фоновом режиме.</li>
+</ul>
+<h3 id="дефрагментация-всех-томах">
+  <a class="link-body-emphasis" href="#%d0%b4%d0%b5%d1%84%d1%80%d0%b0%d0%b3%d0%bc%d0%b5%d0%bd%d1%82%d0%b0%d1%86%d0%b8%d1%8f-%d0%b2%d1%81%d0%b5%d1%85-%d1%82%d0%be%d0%bc%d0%b0%d1%85">Дефрагментация всех томах</a>
+</h3><p>Выполнить дефрагментацию на всех локальных томах с нормальным приоритетом:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a0e2902f0bddeced9ea39c8f544b6a0c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /h</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a0e2902f0bddeced9ea39c8f544b6a0c"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/u</code> - отображение хода выполнения операции.</li>
+<li><code>/c</code> - выполнение операции на всех томах.</li>
+<li><code>/h</code> - выполнение операции с нормальным приоритетом (по умолчанию приоритет пониженный).</li>
+</ul>
+<h3 id="trim-операция-для-ssd-1">
+  <a class="link-body-emphasis" href="#trim-%d0%be%d0%bf%d0%b5%d1%80%d0%b0%d1%86%d0%b8%d1%8f-%d0%b4%d0%bb%d1%8f-ssd-1">TRIM-операция для SSD</a>
+</h3>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a317b1e60efa92b45b4434d1c5f0841b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /l</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a317b1e60efa92b45b4434d1c5f0841b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>/u</code> - отображение хода выполнения операции.</li>
+<li><code>/c</code> - выполнение операции на всех томах.</li>
+<li><code>/l</code> или <code>/retrim</code> - на дисках SSD запускает TRIM-операцию.</li>
+</ul>]]></turbo:content><pubDate>Fri, 20 Oct 2023 00:46:16 +0000</pubDate><category>MS Windows</category><category>Терминал</category></item></channel></rss>
