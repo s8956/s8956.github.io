@@ -126,9 +126,9 @@ function Start-FFmpeg() {
   $Params = @('-hide_banner')
   $Params += @('-i', "${In}")
   $Params += @('-c:v', "${vCodec}")
-  if (${CRF}) { $Params += @('-crf', "${CRF}") }
-  if (${Preset}) { $Params += @('-preset', "${Preset}") }
-  if (${Framerate}) { $Params += @('-r', "${Framerate}") }
+  if ($CRF) { $Params += @('-crf', "${CRF}") }
+  if ($Preset) { $Params += @('-preset', "${Preset}") }
+  if ($Framerate) { $Params += @('-r', "${Framerate}") }
   $Params += @('-c:a', "${aCodec}")
   $Params += @("$($In + '.' + $Extension)")
   & "${FFmpegExe}" $Params
