@@ -1,5 +1,5 @@
 <#PSScriptInfo
-  .VERSION      0.1.0
+  .VERSION      0.1.1
   .GUID         8fd0ce2c-0288-4d9c-805f-703a0c659ade
   .AUTHOR       Kitsune Solar
   .AUTHOREMAIL  mail@kitsune.solar
