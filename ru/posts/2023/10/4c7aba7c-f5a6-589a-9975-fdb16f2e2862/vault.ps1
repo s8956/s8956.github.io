@@ -1,10 +1,12 @@
 <#PSScriptInfo
   .VERSION      0.1.0
   .GUID         8fd0ce2c-0288-4d9c-805f-703a0c659ade
-  .AUTHOR       mail@kitsune.solar
+  .AUTHOR       Kitsune Solar
+  .AUTHOREMAIL  mail@kitsune.solar
   .COMPANYNAME  iHub TO
   .COPYRIGHT    2023 iHub TO. All rights reserved.
   .LICENSEURI   https://choosealicense.com/licenses/mit/
+  .PROJECTURI   https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
 #>
 
 #Requires -Version 7.2
@@ -17,37 +19,44 @@
   The script moves files to Vault based on various criteria.
 
   .PARAMETER Mode
-  Script operation mode. Default: 'MV'.
+  Script operation mode.
+  Default: 'MV'.
 
   .PARAMETER Source
   Path to the source. E.g.: 'C:\Data\Source'.
+  Default: '${PSScriptRoot}\Source'.
 
   .PARAMETER Destination
   Path to the Vault. E.g.: 'C:\Data\Vault'.
-
-  .PARAMETER 7zip
-  Path to the directory with the '7za.exe' file.. E.g.: 'C:\Apps\7z'.
+  Default: '${PSScriptRoot}\Vault'.
 
   .PARAMETER CreationTime
-  Time since file creation (in seconds). E.g.: '5270400'. Default: 61 day (5270400 sec.).
+  Time since file creation (in seconds). E.g.: '5270400'.
+  Default: '5270400' (61 day).
 
   .PARAMETER LastWriteTime
-  Time since file modification (in seconds). E.g.: '5270400'. Default: 61 day ('5270400' sec.).
+  Time since file modification (in seconds). E.g.: '5270400'.
+  Default: '5270400' (61 day).
 
   .PARAMETER FileSize
-  File size check. E.g.: '5kb' / '12mb'. Default: '0kb'.
+  File size check. E.g.: '5kb' / '12mb'.
+  Default: '0kb'.
 
   .PARAMETER Exclude
   Path to the file with exceptions. E.g.: 'C:\Data\exclude.txt'.
+  Default: '${PSScriptRoot}\vault.exclude.txt'.
 
   .PARAMETER Logs
   Path to the directory with logs. E.g.: 'C:\Data\Logs'.
+  Default: '${PSScriptRoot}\Logs'.
 
   .PARAMETER RemoveDirs
   Removing empty directories.
+  Default: 'false'.
 
   .PARAMETER Overwrite
   Overwrite existing files in Vault.
+  Default: 'false'.
 
   .EXAMPLE
   .\vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault'
@@ -59,21 +68,19 @@
   .\vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault' -CT '864000' -WT '864000' -FS '32mb'
 
   .LINK
-  Library Online: https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
+  https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
 #>
 
 Param(
   [Parameter(HelpMessage="Script operation mode. Default: 'MV'.")]
-  [ValidateSet('CP', 'MV', 'RM')][Alias('M')][string]$Mode = 'MV',
+  [ValidateSet('CP', 'MV', 'RM')]
+  [Alias('M')][string]$Mode = 'MV',
 
   [Parameter(HelpMessage="Path to the source. E.g.: 'C:\Data\Source'.")]
   [Alias('SRC', 'Data')][string]$Source = "${PSScriptRoot}\Source",
 
   [Parameter(HelpMessage="Path to the Vault. E.g.: 'C:\Data\Vault'.")]
   [Alias('DST', 'Vault')][string]$Destination = "${PSScriptRoot}\Vault",
-
-  [Parameter(HelpMessage="Path to the directory with the '7za.exe' file.. E.g.: 'C:\Apps\7z'.")]
-  [Alias('7z')][string]$7zip = "${PSScriptRoot}\Apps\7z",
 
   [Parameter(HelpMessage="Time since file creation (in seconds). E.g.: '5270400'. Default: 61 day (5270400 sec.).")]
   [Alias('CT', 'Create')][long]$CreationTime = 5270400,
@@ -111,7 +118,7 @@ $NL = ([Environment]::NewLine)
 # INITIALIZATION.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function Start-Vault() {
+function Start-Script() {
   Start-VaultCheck
   Start-VaultGetFiles
   if ($RemoveDirs) { Start-VaultRemoveDirs }
@@ -122,20 +129,11 @@ function Start-Vault() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-VaultCheck() {
-  $Dirs = @("${Source}", "${Destination}", "${7zip}")
+  $Dirs = @("${Source}", "${Destination}")
   $Files = @("${Exclude}")
-  $7za = @('7za.dll', '7za.exe', '7zxa.dll')
 
   foreach ($Dir in $Dirs) { if (-not (Test-Path "${Dir}")) { New-Item -Path "${Dir}" -ItemType 'Directory' } }
   foreach ($File in $Files) { if (-not (Test-Path "${File}")) { New-Item -Path "${File}" -ItemType 'File' } }
-  foreach ($7za in $7za) { if (-not (Test-Path "${7zip}\${7za}")) {
-    Write-VaultMsg -T 'W' `
-      -M ("'${7za}' not found!${NL}${NL}" +
-      "1. Download '7-Zip Extra' from 'https://www.7-zip.org/download.html'.${NL}" +
-      "2. Extract all contents into a directory '${7zip}'.${NL}${NL}" +
-      "Example: '${7zip}\${7za}'") `
-      -A 'Inquire'
-  } }
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -145,7 +143,7 @@ function Start-VaultCheck() {
 function Start-VaultGetFiles() {
   Write-VaultMsg -T 'HL' -M 'Moving files to Vault'
 
-  $Items = (Get-ChildItem -Path "${Source}" -Recurse -Exclude (Get-Content "${Exclude}")
+  $Items = ((Get-ChildItem -Path "${Source}" -Recurse -Exclude (Get-Content "${Exclude}"))
     | Where-Object {
         (-not ($_.PSIsContainer)) `
         -and (($_.CreationTime) -lt ((Get-Date).AddSeconds(-$CreationTime))) `
@@ -197,7 +195,7 @@ function Start-VaultGetFiles() {
 function Start-VaultRemoveDirs() {
   Write-VaultMsg -T 'HL' -M 'Removing empty directories'
 
-  $Items = (Get-ChildItem -Path "${Source}" -Recurse
+  $Items = ((Get-ChildItem -Path "${Source}" -Recurse)
     | Where-Object {
         ($_.PSIsContainer) `
         -and (($_.CreationTime) -lt ((Get-Date).AddSeconds(-$CreationTime))) `
@@ -239,7 +237,7 @@ function Backup-SimilarFile() {
   )
 
   if (-not $Overwrite -and (Test-Path "${Path}")) {
-    Compress-7z -T '7z' -L 9 -I "${Path}" -O "${Name}"
+    Start-7z -T '7z' -L 9 -I "${Path}" -O "${Name}"
   }
 }
 
@@ -264,10 +262,10 @@ function Write-VaultMsg() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# 7Z: COMPRESS.
+# 7-ZIP.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function Compress-7z() {
+function Start-7z() {
   param (
     [Alias('I')][string]$In,
     [Alias('O')][string]$Out,
@@ -275,14 +273,36 @@ function Compress-7z() {
     [ValidateRange(1,9)][Alias('L')][int]$Level = 5
   )
 
-  $CMD = @('a', "-t${Type}", "-mx${Level}", "${Out}", "${In}")
-  & "${7zip}\7za.exe" $CMD
+  # File list for '7za.exe'.
+  $7z = @('7za.exe', '7za.dll', '7zxa.dll')
+
+  # Search '7za.exe'.
+  $7zExe = ((Get-ChildItem -Path "${PSScriptRoot}" -Filter "$($7z[0])" -Recurse)
+    | Where-Object { !$_PSIsContainer } | Select -First 1)
+
+  # Getting '7za.exe' directory.
+  $7zDir = ($7zExe.Directory)
+
+  # Checking the location of files.
+  foreach ($File in $7z) { if (-not (Test-Path "${7zDir}\${File}")) {
+    Write-VaultMsg -T 'W' `
+      -M ("'${File}' not found!${NL}${NL}" +
+      "1. Download 7-Zip Extra from 'https://www.7-zip.org/download.html'.${NL}" +
+      "2. Extract all contents into a directory '${PSScriptRoot}'.") `
+      -A 'Stop'
+  } }
+
+  # Specifying '7za.exe' parameters.
+  $Params = @('a', "-t${Type}", "-mx${Level}", "${Out}", "${In}")
+
+  # Running '7za.exe'.
+  & "${7zExe}" $Params
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# ------------------------------------------------------< INIT >------------------------------------------------------ #
+# -------------------------------------------------< RUNNING SCRIPT >------------------------------------------------- #
 # -------------------------------------------------------------------------------------------------------------------- #
 
 Start-Transcript -Path "${Logs}\$((Get-Date).Year)\$((Get-Date).Month)\${TS}.log"
-Start-Vault
+Start-Script
 Stop-Transcript
