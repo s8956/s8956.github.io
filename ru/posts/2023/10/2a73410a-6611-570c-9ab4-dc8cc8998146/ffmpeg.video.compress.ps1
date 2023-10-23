@@ -1,5 +1,5 @@
 <#PSScriptInfo
-  .VERSION      0.1.0
+  .VERSION      0.1.1
   .GUID         b95fb1ac-6878-4451-bb49-434d51d9555d
   .AUTHOR       Kitsune Solar
   .AUTHOREMAIL  mail@kitsune.solar
@@ -18,31 +18,31 @@
   .DESCRIPTION
   FFmpeg is a free and open-source software project consisting of a suite of libraries and programs for handling video, audio, and other multimedia files and streams.
 
-  .PARAMETER Files
+  .PARAMETER P_Files
   An array of input files.
 
-  .PARAMETER vCodec
+  .PARAMETER P_vCodec
   The video codec.
   Default: 'libx265'.
 
-  .PARAMETER aCodec
+  .PARAMETER P_aCodec
   The audio codec.
   Default: 'copy'.
 
-  .PARAMETER Framerate
+  .PARAMETER P_Framerate
   FFmpeg can be used to change the frame rate of an existing video, such that the output frame rate is lower or higher than the input frame rate. The output duration of the video will stay the same.
   This is useful when working with, for example, high-framerate input video that needs to be temporally scaled down for devices that do not support high FPS.
   When the frame rate is changed, FFmpeg will drop or duplicate frames as necessary to achieve the targeted output frame rate.
 
-  .PARAMETER CRF
+  .PARAMETER P_CRF
   Constant Rate Factor.
   Use this rate control mode if you want to keep the best quality and care less about the file size. This is the recommended rate control mode for most uses.
   This method allows the encoder to attempt to achieve a certain output quality for the whole file when output file size is of less importance. This provides maximum compression efficiency with a single pass. By adjusting the so-called quantizer for each frame, it gets the bitrate it needs to keep the requested quality level. The downside is that you can't tell it to get a specific filesize or not go over a specific size or bitrate, which means that this method is not recommended for encoding videos for streaming.
 
-  .PARAMETER Preset
+  .PARAMETER P_Preset
   A preset is a collection of options that will provide a certain encoding speed to compression ratio. A slower preset will provide better compression (compression is quality per filesize). This means that, for example, if you target a certain file size or constant bit rate, you will achieve better quality with a slower preset. Similarly, for constant quality encoding, you will simply save bitrate by choosing a slower preset.
 
-  .PARAMETER Extension
+  .PARAMETER P_Extension
   The extension of the resulting files.
   Default: 'mp4'.
 
@@ -58,25 +58,25 @@
 
 Param(
   [Parameter(Mandatory, HelpMessage="An array of input files.")]
-  [Alias('F')][string[]]$Files,
+  [Alias('F')][string[]]$P_Files,
 
   [Parameter(HelpMessage="The video codec.")]
-  [Alias('CV')][string]$vCodec = 'libx265',
+  [Alias('CV')][string]$P_vCodec = 'libx265',
 
   [Parameter(HelpMessage="The audio codec.")]
-  [Alias('CA')][string]$aCodec = 'copy',
+  [Alias('CA')][string]$P_aCodec = 'copy',
 
   [Parameter(HelpMessage="FFmpeg can be used to change the frame rate of an existing video, such that the output frame rate is lower or higher than the input frame rate.")]
-  [Alias('R')][int]$Framerate,
+  [Alias('R')][int]$P_Framerate,
 
   [Parameter(HelpMessage="Constant Rate Factor. Use this rate control mode if you want to keep the best quality and care less about the file size.")]
-  [Alias('C')][int]$CRF,
+  [Alias('C')][int]$P_CRF,
 
   [Parameter(HelpMessage="A preset is a collection of options that will provide a certain encoding speed to compression ratio.")]
-    [Alias('P')][string]$Preset,
+  [Alias('P')][string]$P_Preset,
 
   [Parameter(HelpMessage="The extension of the resulting files.")]
-  [Alias('EXT')][string]$Extension = 'mp4'
+  [Alias('EXT')][string]$P_Extension = 'mp4'
 )
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -99,7 +99,7 @@ function Start-Script() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Compress-Video() {
-  ForEach ($File in (Get-ChildItem $Files)) {
+  ForEach ($File in (Get-ChildItem $P_Files)) {
     Start-FFmpeg -I "${File}"
   }
 }
@@ -110,27 +110,30 @@ function Compress-Video() {
 
 function Start-FFmpeg() {
   param (
-    [Alias('I')][string]$In
+    [Alias('I')][string]$P_In
   )
 
-  $FFmpegExe = ((Get-ChildItem -Path "${PSScriptRoot}" -Filter 'ffmpeg.exe' -Recurse)
-    | Where-Object { !$_PSIsContainer } | Select -First 1)
+  # Search 'ffmpeg.exe'.
+  $FFmpegExe = ((Get-ChildItem -Path "${PSScriptRoot}" -Filter 'ffmpeg.exe' -Recurse -File) | Select-Object -First 1)
 
+  # Checking the location of 'ffmpeg.exe'.
   if (-not (Test-Path -Path "${FFmpegExe}")) {
-    Write-Warning -Message ("'ffmpeg.exe' not found!${NL}${NL}" +
-      "1. Download FFmpeg from 'https://www.gyan.dev/ffmpeg/builds/'.${NL}" +
-      "2. Extract 'ffmpeg.exe' into a directory '${PSScriptRoot}'.") `
-      -WarningAction 'Stop'
+    Write-Warning -WarningAction 'Stop' -Message ("'ffmpeg.exe' not found!${NL}${NL}" +
+    "1. Download FFmpeg from 'https://www.gyan.dev/ffmpeg/builds/'.${NL}" +
+    "2. Extract 'ffmpeg.exe' into a directory '${PSScriptRoot}'.")
   }
 
+  # Specifying 'ffmpeg.exe' parameters.
   $Params = @('-hide_banner')
-  $Params += @('-i', "${In}")
-  $Params += @('-c:v', "${vCodec}")
-  if ($CRF) { $Params += @('-crf', "${CRF}") }
-  if ($Preset) { $Params += @('-preset', "${Preset}") }
-  if ($Framerate) { $Params += @('-r', "${Framerate}") }
-  $Params += @('-c:a', "${aCodec}")
-  $Params += @("$($In + '.' + $Extension)")
+  $Params += @('-i', "${P_In}")
+  $Params += @('-c:v', "${P_vCodec}")
+  if ($P_CRF) { $Params += @('-crf', "${P_CRF}") }
+  if ($P_Preset) { $Params += @('-preset', "${P_Preset}") }
+  if ($P_Framerate) { $Params += @('-r', "${P_Framerate}") }
+  $Params += @('-c:a', "${P_aCodec}")
+  $Params += @("$($P_In + '.' + $P_Extension)")
+
+  # Running 'ffmpeg.exe'.
   & "${FFmpegExe}" $Params
 }
 

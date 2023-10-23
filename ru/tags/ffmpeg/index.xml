@@ -3,8 +3,8 @@
 <h2 id="параметры">
   <a class="link-body-emphasis" href="#%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d1%8b">Параметры</a>
 </h2><ul>
-<li><code>-F</code> <code>-Files</code> - массив входящих файлов.</li>
-<li><code>-CV</code> <code>-vCodec</code> - видео кодек, используемый для конвертации. По умолчанию: <code>libx265</code>. Поддерживаемые кодеки:
+<li><code>-F</code> <code>-P_Files</code> - массив входящих файлов.</li>
+<li><code>-CV</code> <code>-P_vCodec</code> - видео кодек, используемый для конвертации. По умолчанию: <code>libx265</code>. Поддерживаемые кодеки:
 <ul>
 <li><code>libx264</code> - кодек &ldquo;H.264&rdquo;.</li>
 <li><code>libx265</code> - кодек &ldquo;H.265&rdquo;.</li>
@@ -12,17 +12,17 @@
 <li><code>libaom-av1</code> - кодек &ldquo;AV1&rdquo;.</li>
 </ul>
 </li>
-<li><code>-CA</code> <code>-aCodec</code> - аудио кодек, используемый для конвертации. По умолчанию: <code>copy</code>. Поддерживаемые кодеки:
+<li><code>-CA</code> <code>-P_aCodec</code> - аудио кодек, используемый для конвертации. По умолчанию: <code>copy</code>. Поддерживаемые кодеки:
 <ul>
 <li><code>libfdk_aac</code> - кодек &ldquo;Fraunhofer FDK AAC&rdquo;.</li>
 <li><code>aac</code> - кодек &ldquo;FFmpeg AAC&rdquo;.</li>
 <li><code>libmp3lame</code> - кодек &ldquo;FFmpeg MP3&rdquo;.</li>
 </ul>
 </li>
-<li><code>-R</code> <code>-Framerate</code> - частота кадров выходящего файла (FPS). Сжатие кадров с учётом движения, где сцены движения кодируются с меньшим качеством, чем статичные сцены, что субъективно приводит к восприятию, как качественного, ибо визуально человек различает больше деталей в неподвижных объектах, чем в движущихся. Если параметр не указан, то значение берётся из входящего файла.</li>
-<li><code>-C</code> <code>-CRF</code> - постоянный коэффициент потока (Constant Rate Factor). Это режим кодирования для кодеков &ldquo;H.264&rdquo; и &ldquo;H.265&rdquo; с постоянным воспринимаемым качеством, осуществляемый с помощью настройки качества (и управления скоростью). Если параметр не указан, то значение берётся по умолчанию, обычно это <code>28</code> при кодеке <code>libx265</code> и <code>23</code> при <code>libx264</code>.</li>
-<li><code>-P</code> <code>-Preset</code> - пресеты. Это набор параметров, которые обеспечивают определённую скорость кодирования с степень сжатия. У каждого кодека видео свой набор пресетов. Нужно смотреть <a title="" href="https://trac.ffmpeg.org/wiki" target="_blank" rel="noopener noreferrer nofollow">документацию</a>.</li>
-<li><code>-EXT</code> <code>-Extension</code> - расширение выходящих файлов.</li>
+<li><code>-R</code> <code>-P_Framerate</code> - частота кадров выходящего файла (FPS). Сжатие кадров с учётом движения, где сцены движения кодируются с меньшим качеством, чем статичные сцены, что субъективно приводит к восприятию, как качественного, ибо визуально человек различает больше деталей в неподвижных объектах, чем в движущихся. Если параметр не указан, то значение берётся из входящего файла.</li>
+<li><code>-C</code> <code>-P_CRF</code> - постоянный коэффициент потока (Constant Rate Factor). Это режим кодирования для кодеков &ldquo;H.264&rdquo; и &ldquo;H.265&rdquo; с постоянным воспринимаемым качеством, осуществляемый с помощью настройки качества (и управления скоростью). Если параметр не указан, то значение берётся по умолчанию, обычно это <code>28</code> при кодеке <code>libx265</code> и <code>23</code> при <code>libx264</code>.</li>
+<li><code>-P</code> <code>-P_Preset</code> - пресеты. Это набор параметров, которые обеспечивают определённую скорость кодирования с степень сжатия. У каждого кодека видео свой набор пресетов. Нужно смотреть <a title="" href="https://trac.ffmpeg.org/wiki" target="_blank" rel="noopener noreferrer nofollow">документацию</a>.</li>
+<li><code>-EXT</code> <code>-P_Extension</code> - расширение выходящих файлов.</li>
 </ul>
 <h2 id="примеры">
   <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">Примеры</a>
@@ -37,12 +37,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a99e5962d60acf8a3d13efc75b487ab6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">ffmpeg</span><span class="p">.</span><span class="py">video</span><span class="p">.</span><span class="py">compress</span><span class="p">.</span><span class="py">ps1</span> <span class="o">-F</span> <span class="s1">&#39;file_01.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;file_02.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;file_03.mov&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-da9b0b4c7594f2e47f31e4f12fdd812b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">ffmpeg</span><span class="p">.</span><span class="py">video</span><span class="p">.</span><span class="py">compress</span><span class="p">.</span><span class="py">ps1</span> <span class="o">-F</span> <span class="s1">&#39;file_01.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;file_02.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;file_03.mov&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a99e5962d60acf8a3d13efc75b487ab6"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-da9b0b4c7594f2e47f31e4f12fdd812b"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -64,12 +64,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cf6eddf982b327a71461faf02bd6beb0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">ffmpeg</span><span class="p">.</span><span class="py">video</span><span class="p">.</span><span class="py">compress</span><span class="p">.</span><span class="py">ps1</span> <span class="o">-F</span> <span class="s1">&#39;*.mov&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cecf4f4a1a6ba59651376b86d0890d89"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">ffmpeg</span><span class="p">.</span><span class="py">video</span><span class="p">.</span><span class="py">compress</span><span class="p">.</span><span class="py">ps1</span> <span class="o">-F</span> <span class="s1">&#39;*.mov&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cf6eddf982b327a71461faf02bd6beb0"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cecf4f4a1a6ba59651376b86d0890d89"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -132,7 +132,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-975d809b4466e69645d70b9e870bb66f"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-88c601b34e6ddfcd5c7f7c33f4f52fc0"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -157,8 +157,8 @@
           
               
           
-        <div class="card-body" id="clipboard-975d809b4466e69645d70b9e870bb66f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="cm">&lt;#PSScriptInfo
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .VERSION      0.1.0
+        <div class="card-body" id="clipboard-88c601b34e6ddfcd5c7f7c33f4f52fc0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="cm">&lt;#PSScriptInfo
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .VERSION      0.1.1
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .GUID         b95fb1ac-6878-4451-bb49-434d51d9555d
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .AUTHOR       Kitsune Solar
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .AUTHOREMAIL  mail@kitsune.solar
@@ -177,31 +177,31 @@
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">DESCRIPTION</span><span class="cm">
 </span></span></span><span class="line"><span class="cl"><span class="cm">  FFmpeg is a free and open-source software project consisting of a suite of libraries and programs for handling video, audio, and other multimedia files and streams.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Files
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_Files
 </span></span></span><span class="line"><span class="cl"><span class="cm">  An array of input files.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER vCodec
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_vCodec
 </span></span></span><span class="line"><span class="cl"><span class="cm">  The video codec.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  Default: &#39;libx265&#39;.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER aCodec
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_aCodec
 </span></span></span><span class="line"><span class="cl"><span class="cm">  The audio codec.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  Default: &#39;copy&#39;.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Framerate
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_Framerate
 </span></span></span><span class="line"><span class="cl"><span class="cm">  FFmpeg can be used to change the frame rate of an existing video, such that the output frame rate is lower or higher than the input frame rate. The output duration of the video will stay the same.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  This is useful when working with, for example, high-framerate input video that needs to be temporally scaled down for devices that do not support high FPS.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  When the frame rate is changed, FFmpeg will drop or duplicate frames as necessary to achieve the targeted output frame rate.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER CRF
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_CRF
 </span></span></span><span class="line"><span class="cl"><span class="cm">  Constant Rate Factor.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  Use this rate control mode if you want to keep the best quality and care less about the file size. This is the recommended rate control mode for most uses.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  This method allows the encoder to attempt to achieve a certain output quality for the whole file when output file size is of less importance. This provides maximum compression efficiency with a single pass. By adjusting the so-called quantizer for each frame, it gets the bitrate it needs to keep the requested quality level. The downside is that you can&#39;t tell it to get a specific filesize or not go over a specific size or bitrate, which means that this method is not recommended for encoding videos for streaming.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Preset
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_Preset
 </span></span></span><span class="line"><span class="cl"><span class="cm">  A preset is a collection of options that will provide a certain encoding speed to compression ratio. A slower preset will provide better compression (compression is quality per filesize). This means that, for example, if you target a certain file size or constant bit rate, you will achieve better quality with a slower preset. Similarly, for constant quality encoding, you will simply save bitrate by choosing a slower preset.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Extension
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_Extension
 </span></span></span><span class="line"><span class="cl"><span class="cm">  The extension of the resulting files.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  Default: &#39;mp4&#39;.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
@@ -217,25 +217,25 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">Param</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">Mandatory</span><span class="p">,</span> <span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;An array of input files.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">)][</span><span class="no">string[]</span><span class="p">]</span><span class="nv">$Files</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">)][</span><span class="no">string[]</span><span class="p">]</span><span class="nv">$P_Files</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;The video codec.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;CV&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$vCodec</span> <span class="p">=</span> <span class="s1">&#39;libx265&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;CV&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_vCodec</span> <span class="p">=</span> <span class="s1">&#39;libx265&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;The audio codec.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;CA&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$aCodec</span> <span class="p">=</span> <span class="s1">&#39;copy&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;CA&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_aCodec</span> <span class="p">=</span> <span class="s1">&#39;copy&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;FFmpeg can be used to change the frame rate of an existing video, such that the output frame rate is lower or higher than the input frame rate.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$Framerate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$P_Framerate</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Constant Rate Factor. Use this rate control mode if you want to keep the best quality and care less about the file size.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$CRF</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$P_CRF</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;A preset is a collection of options that will provide a certain encoding speed to compression ratio.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Preset</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_Preset</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;The extension of the resulting files.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;EXT&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Extension</span> <span class="p">=</span> <span class="s1">&#39;mp4&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;EXT&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_Extension</span> <span class="p">=</span> <span class="s1">&#39;mp4&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
@@ -258,7 +258,7 @@
 </span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Compress-Video</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">ForEach</span> <span class="p">(</span><span class="nv">$File</span> <span class="k">in</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="nv">$Files</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">ForEach</span> <span class="p">(</span><span class="nv">$File</span> <span class="k">in</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="nv">$P_Files</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">Start-FFmpeg</span> <span class="n">-I</span> <span class="s2">&#34;</span><span class="nv">${File}</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -269,27 +269,30 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-FFmpeg</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">param</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$In</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_In</span>
 </span></span><span class="line"><span class="cl">  <span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nv">$FFmpegExe</span> <span class="p">=</span> <span class="p">((</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">&#34;</span> <span class="n">-Filter</span> <span class="s1">&#39;ffmpeg.exe&#39;</span> <span class="n">-Recurse</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="p">!</span><span class="nv">$_PSIsContainer</span> <span class="p">}</span> <span class="p">|</span> <span class="nb">Select </span><span class="n">-First</span> <span class="mf">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># Search &#39;ffmpeg.exe&#39;.</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$FFmpegExe</span> <span class="p">=</span> <span class="p">((</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">&#34;</span> <span class="n">-Filter</span> <span class="s1">&#39;ffmpeg.exe&#39;</span> <span class="n">-Recurse</span> <span class="o">-File</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-First</span> <span class="mf">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c"># Checking the location of &#39;ffmpeg.exe&#39;.</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${FFmpegExe}</span><span class="s2">&#34;</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">Write-Warning</span> <span class="n">-Message</span> <span class="p">(</span><span class="s2">&#34;&#39;ffmpeg.exe&#39; not found!</span><span class="nv">${NL}${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;1. Download FFmpeg from &#39;https://www.gyan.dev/ffmpeg/builds/&#39;.</span><span class="nv">${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;2. Extract &#39;ffmpeg.exe&#39; into a directory &#39;</span><span class="nv">${PSScriptRoot}</span><span class="s2">&#39;.&#34;</span><span class="p">)</span> <span class="p">`</span>
-</span></span><span class="line"><span class="cl">      <span class="n">-WarningAction</span> <span class="s1">&#39;Stop&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">Write-Warning</span> <span class="n">-WarningAction</span> <span class="s1">&#39;Stop&#39;</span> <span class="n">-Message</span> <span class="p">(</span><span class="s2">&#34;&#39;ffmpeg.exe&#39; not found!</span><span class="nv">${NL}${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;1. Download FFmpeg from &#39;https://www.gyan.dev/ffmpeg/builds/&#39;.</span><span class="nv">${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;2. Extract &#39;ffmpeg.exe&#39; into a directory &#39;</span><span class="nv">${PSScriptRoot}</span><span class="s2">&#39;.&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c"># Specifying &#39;ffmpeg.exe&#39; parameters.</span>
 </span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-hide_banner&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${In}</span><span class="s2">&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-c:v&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${vCodec}</span><span class="s2">&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$CRF</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-crf&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${CRF}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$Preset</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-preset&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${Preset}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$Framerate</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${Framerate}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-c:a&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${aCodec}</span><span class="s2">&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$In</span> <span class="p">+</span> <span class="s1">&#39;.&#39;</span> <span class="p">+</span> <span class="nv">$Extension</span><span class="p">)</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${P_In}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-c:v&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${P_vCodec}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$P_CRF</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-crf&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${P_CRF}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$P_Preset</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-preset&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${P_Preset}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$P_Framerate</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${P_Framerate}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-c:a&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${P_aCodec}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$P_In</span> <span class="p">+</span> <span class="s1">&#39;.&#39;</span> <span class="p">+</span> <span class="nv">$P_Extension</span><span class="p">)</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c"># Running &#39;ffmpeg.exe&#39;.</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&amp;</span> <span class="s2">&#34;</span><span class="nv">${FFmpegExe}</span><span class="s2">&#34;</span> <span class="nv">$Params</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -305,8 +308,8 @@
 <h2 id="параметры">
   <a class="link-body-emphasis" href="#%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d1%8b">Параметры</a>
 </h2><ul>
-<li><code>-F</code> <code>-Files</code> - массив входящих файлов.</li>
-<li><code>-CV</code> <code>-vCodec</code> - видео кодек, используемый для конвертации. По умолчанию: <code>libx265</code>. Поддерживаемые кодеки:
+<li><code>-F</code> <code>-P_Files</code> - массив входящих файлов.</li>
+<li><code>-CV</code> <code>-P_vCodec</code> - видео кодек, используемый для конвертации. По умолчанию: <code>libx265</code>. Поддерживаемые кодеки:
 <ul>
 <li><code>libx264</code> - кодек &ldquo;H.264&rdquo;.</li>
 <li><code>libx265</code> - кодек &ldquo;H.265&rdquo;.</li>
@@ -314,17 +317,17 @@
 <li><code>libaom-av1</code> - кодек &ldquo;AV1&rdquo;.</li>
 </ul>
 </li>
-<li><code>-CA</code> <code>-aCodec</code> - аудио кодек, используемый для конвертации. По умолчанию: <code>copy</code>. Поддерживаемые кодеки:
+<li><code>-CA</code> <code>-P_aCodec</code> - аудио кодек, используемый для конвертации. По умолчанию: <code>copy</code>. Поддерживаемые кодеки:
 <ul>
 <li><code>libfdk_aac</code> - кодек &ldquo;Fraunhofer FDK AAC&rdquo;.</li>
 <li><code>aac</code> - кодек &ldquo;FFmpeg AAC&rdquo;.</li>
 <li><code>libmp3lame</code> - кодек &ldquo;FFmpeg MP3&rdquo;.</li>
 </ul>
 </li>
-<li><code>-R</code> <code>-Framerate</code> - частота кадров выходящего файла (FPS). Сжатие кадров с учётом движения, где сцены движения кодируются с меньшим качеством, чем статичные сцены, что субъективно приводит к восприятию, как качественного, ибо визуально человек различает больше деталей в неподвижных объектах, чем в движущихся. Если параметр не указан, то значение берётся из входящего файла.</li>
-<li><code>-C</code> <code>-CRF</code> - постоянный коэффициент потока (Constant Rate Factor). Это режим кодирования для кодеков &ldquo;H.264&rdquo; и &ldquo;H.265&rdquo; с постоянным воспринимаемым качеством, осуществляемый с помощью настройки качества (и управления скоростью). Если параметр не указан, то значение берётся по умолчанию, обычно это <code>28</code> при кодеке <code>libx265</code> и <code>23</code> при <code>libx264</code>.</li>
-<li><code>-P</code> <code>-Preset</code> - пресеты. Это набор параметров, которые обеспечивают определённую скорость кодирования с степень сжатия. У каждого кодека видео свой набор пресетов. Нужно смотреть <a title="" href="https://trac.ffmpeg.org/wiki" target="_blank" rel="noopener noreferrer nofollow">документацию</a>.</li>
-<li><code>-EXT</code> <code>-Extension</code> - расширение выходящих файлов.</li>
+<li><code>-R</code> <code>-P_Framerate</code> - частота кадров выходящего файла (FPS). Сжатие кадров с учётом движения, где сцены движения кодируются с меньшим качеством, чем статичные сцены, что субъективно приводит к восприятию, как качественного, ибо визуально человек различает больше деталей в неподвижных объектах, чем в движущихся. Если параметр не указан, то значение берётся из входящего файла.</li>
+<li><code>-C</code> <code>-P_CRF</code> - постоянный коэффициент потока (Constant Rate Factor). Это режим кодирования для кодеков &ldquo;H.264&rdquo; и &ldquo;H.265&rdquo; с постоянным воспринимаемым качеством, осуществляемый с помощью настройки качества (и управления скоростью). Если параметр не указан, то значение берётся по умолчанию, обычно это <code>28</code> при кодеке <code>libx265</code> и <code>23</code> при <code>libx264</code>.</li>
+<li><code>-P</code> <code>-P_Preset</code> - пресеты. Это набор параметров, которые обеспечивают определённую скорость кодирования с степень сжатия. У каждого кодека видео свой набор пресетов. Нужно смотреть <a title="" href="https://trac.ffmpeg.org/wiki" target="_blank" rel="noopener noreferrer nofollow">документацию</a>.</li>
+<li><code>-EXT</code> <code>-P_Extension</code> - расширение выходящих файлов.</li>
 </ul>
 <h2 id="примеры">
   <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">Примеры</a>
@@ -339,12 +342,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a99e5962d60acf8a3d13efc75b487ab6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">ffmpeg</span><span class="p">.</span><span class="py">video</span><span class="p">.</span><span class="py">compress</span><span class="p">.</span><span class="py">ps1</span> <span class="o">-F</span> <span class="s1">&#39;file_01.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;file_02.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;file_03.mov&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-da9b0b4c7594f2e47f31e4f12fdd812b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">ffmpeg</span><span class="p">.</span><span class="py">video</span><span class="p">.</span><span class="py">compress</span><span class="p">.</span><span class="py">ps1</span> <span class="o">-F</span> <span class="s1">&#39;file_01.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;file_02.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;file_03.mov&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a99e5962d60acf8a3d13efc75b487ab6"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-da9b0b4c7594f2e47f31e4f12fdd812b"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -366,12 +369,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cf6eddf982b327a71461faf02bd6beb0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">ffmpeg</span><span class="p">.</span><span class="py">video</span><span class="p">.</span><span class="py">compress</span><span class="p">.</span><span class="py">ps1</span> <span class="o">-F</span> <span class="s1">&#39;*.mov&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cecf4f4a1a6ba59651376b86d0890d89"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">ffmpeg</span><span class="p">.</span><span class="py">video</span><span class="p">.</span><span class="py">compress</span><span class="p">.</span><span class="py">ps1</span> <span class="o">-F</span> <span class="s1">&#39;*.mov&#39;</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cf6eddf982b327a71461faf02bd6beb0"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cecf4f4a1a6ba59651376b86d0890d89"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -434,7 +437,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-975d809b4466e69645d70b9e870bb66f"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-88c601b34e6ddfcd5c7f7c33f4f52fc0"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -459,8 +462,8 @@
           
               
           
-        <div class="card-body" id="clipboard-975d809b4466e69645d70b9e870bb66f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="cm">&lt;#PSScriptInfo
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .VERSION      0.1.0
+        <div class="card-body" id="clipboard-88c601b34e6ddfcd5c7f7c33f4f52fc0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="cm">&lt;#PSScriptInfo
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .VERSION      0.1.1
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .GUID         b95fb1ac-6878-4451-bb49-434d51d9555d
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .AUTHOR       Kitsune Solar
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .AUTHOREMAIL  mail@kitsune.solar
@@ -479,31 +482,31 @@
 </span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">DESCRIPTION</span><span class="cm">
 </span></span></span><span class="line"><span class="cl"><span class="cm">  FFmpeg is a free and open-source software project consisting of a suite of libraries and programs for handling video, audio, and other multimedia files and streams.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Files
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_Files
 </span></span></span><span class="line"><span class="cl"><span class="cm">  An array of input files.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER vCodec
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_vCodec
 </span></span></span><span class="line"><span class="cl"><span class="cm">  The video codec.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  Default: &#39;libx265&#39;.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER aCodec
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_aCodec
 </span></span></span><span class="line"><span class="cl"><span class="cm">  The audio codec.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  Default: &#39;copy&#39;.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Framerate
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_Framerate
 </span></span></span><span class="line"><span class="cl"><span class="cm">  FFmpeg can be used to change the frame rate of an existing video, such that the output frame rate is lower or higher than the input frame rate. The output duration of the video will stay the same.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  This is useful when working with, for example, high-framerate input video that needs to be temporally scaled down for devices that do not support high FPS.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  When the frame rate is changed, FFmpeg will drop or duplicate frames as necessary to achieve the targeted output frame rate.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER CRF
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_CRF
 </span></span></span><span class="line"><span class="cl"><span class="cm">  Constant Rate Factor.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  Use this rate control mode if you want to keep the best quality and care less about the file size. This is the recommended rate control mode for most uses.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  This method allows the encoder to attempt to achieve a certain output quality for the whole file when output file size is of less importance. This provides maximum compression efficiency with a single pass. By adjusting the so-called quantizer for each frame, it gets the bitrate it needs to keep the requested quality level. The downside is that you can&#39;t tell it to get a specific filesize or not go over a specific size or bitrate, which means that this method is not recommended for encoding videos for streaming.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Preset
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_Preset
 </span></span></span><span class="line"><span class="cl"><span class="cm">  A preset is a collection of options that will provide a certain encoding speed to compression ratio. A slower preset will provide better compression (compression is quality per filesize). This means that, for example, if you target a certain file size or constant bit rate, you will achieve better quality with a slower preset. Similarly, for constant quality encoding, you will simply save bitrate by choosing a slower preset.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER Extension
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_Extension
 </span></span></span><span class="line"><span class="cl"><span class="cm">  The extension of the resulting files.
 </span></span></span><span class="line"><span class="cl"><span class="cm">  Default: &#39;mp4&#39;.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
@@ -519,25 +522,25 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">Param</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">Mandatory</span><span class="p">,</span> <span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;An array of input files.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">)][</span><span class="no">string[]</span><span class="p">]</span><span class="nv">$Files</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">)][</span><span class="no">string[]</span><span class="p">]</span><span class="nv">$P_Files</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;The video codec.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;CV&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$vCodec</span> <span class="p">=</span> <span class="s1">&#39;libx265&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;CV&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_vCodec</span> <span class="p">=</span> <span class="s1">&#39;libx265&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;The audio codec.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;CA&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$aCodec</span> <span class="p">=</span> <span class="s1">&#39;copy&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;CA&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_aCodec</span> <span class="p">=</span> <span class="s1">&#39;copy&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;FFmpeg can be used to change the frame rate of an existing video, such that the output frame rate is lower or higher than the input frame rate.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$Framerate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$P_Framerate</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Constant Rate Factor. Use this rate control mode if you want to keep the best quality and care less about the file size.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$CRF</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$P_CRF</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;A preset is a collection of options that will provide a certain encoding speed to compression ratio.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Preset</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_Preset</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;The extension of the resulting files.&#34;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;EXT&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$Extension</span> <span class="p">=</span> <span class="s1">&#39;mp4&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;EXT&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_Extension</span> <span class="p">=</span> <span class="s1">&#39;mp4&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
@@ -560,7 +563,7 @@
 </span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Compress-Video</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">ForEach</span> <span class="p">(</span><span class="nv">$File</span> <span class="k">in</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="nv">$Files</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">ForEach</span> <span class="p">(</span><span class="nv">$File</span> <span class="k">in</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="nv">$P_Files</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">Start-FFmpeg</span> <span class="n">-I</span> <span class="s2">&#34;</span><span class="nv">${File}</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -571,27 +574,30 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-FFmpeg</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">param</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$In</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_In</span>
 </span></span><span class="line"><span class="cl">  <span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nv">$FFmpegExe</span> <span class="p">=</span> <span class="p">((</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">&#34;</span> <span class="n">-Filter</span> <span class="s1">&#39;ffmpeg.exe&#39;</span> <span class="n">-Recurse</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="p">!</span><span class="nv">$_PSIsContainer</span> <span class="p">}</span> <span class="p">|</span> <span class="nb">Select </span><span class="n">-First</span> <span class="mf">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># Search &#39;ffmpeg.exe&#39;.</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$FFmpegExe</span> <span class="p">=</span> <span class="p">((</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${PSScriptRoot}</span><span class="s2">&#34;</span> <span class="n">-Filter</span> <span class="s1">&#39;ffmpeg.exe&#39;</span> <span class="n">-Recurse</span> <span class="o">-File</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-First</span> <span class="mf">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c"># Checking the location of &#39;ffmpeg.exe&#39;.</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="n">-Path</span> <span class="s2">&#34;</span><span class="nv">${FFmpegExe}</span><span class="s2">&#34;</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">Write-Warning</span> <span class="n">-Message</span> <span class="p">(</span><span class="s2">&#34;&#39;ffmpeg.exe&#39; not found!</span><span class="nv">${NL}${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;1. Download FFmpeg from &#39;https://www.gyan.dev/ffmpeg/builds/&#39;.</span><span class="nv">${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;2. Extract &#39;ffmpeg.exe&#39; into a directory &#39;</span><span class="nv">${PSScriptRoot}</span><span class="s2">&#39;.&#34;</span><span class="p">)</span> <span class="p">`</span>
-</span></span><span class="line"><span class="cl">      <span class="n">-WarningAction</span> <span class="s1">&#39;Stop&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">Write-Warning</span> <span class="n">-WarningAction</span> <span class="s1">&#39;Stop&#39;</span> <span class="n">-Message</span> <span class="p">(</span><span class="s2">&#34;&#39;ffmpeg.exe&#39; not found!</span><span class="nv">${NL}${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;1. Download FFmpeg from &#39;https://www.gyan.dev/ffmpeg/builds/&#39;.</span><span class="nv">${NL}</span><span class="s2">&#34;</span> <span class="p">+</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;2. Extract &#39;ffmpeg.exe&#39; into a directory &#39;</span><span class="nv">${PSScriptRoot}</span><span class="s2">&#39;.&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c"># Specifying &#39;ffmpeg.exe&#39; parameters.</span>
 </span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-hide_banner&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${In}</span><span class="s2">&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-c:v&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${vCodec}</span><span class="s2">&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$CRF</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-crf&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${CRF}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$Preset</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-preset&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${Preset}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$Framerate</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${Framerate}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-c:a&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${aCodec}</span><span class="s2">&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$In</span> <span class="p">+</span> <span class="s1">&#39;.&#39;</span> <span class="p">+</span> <span class="nv">$Extension</span><span class="p">)</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${P_In}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-c:v&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${P_vCodec}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$P_CRF</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-crf&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${P_CRF}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$P_Preset</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-preset&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${P_Preset}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$P_Framerate</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${P_Framerate}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s1">&#39;-c:a&#39;</span><span class="p">,</span> <span class="s2">&#34;</span><span class="nv">${P_aCodec}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$Params</span> <span class="p">+=</span> <span class="vm">@</span><span class="p">(</span><span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$P_In</span> <span class="p">+</span> <span class="s1">&#39;.&#39;</span> <span class="p">+</span> <span class="nv">$P_Extension</span><span class="p">)</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c"># Running &#39;ffmpeg.exe&#39;.</span>
 </span></span><span class="line"><span class="cl">  <span class="p">&amp;</span> <span class="s2">&#34;</span><span class="nv">${FFmpegExe}</span><span class="s2">&#34;</span> <span class="nv">$Params</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
