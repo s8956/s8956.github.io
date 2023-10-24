@@ -43,11 +43,11 @@
 #>
 
 Param(
-  [Parameter(Mandatory, HelpMessage="Specify the disk number.")]
+  [Parameter(HelpMessage="Specify the disk number.")]
   [ValidatePattern('^[0-9]+$')]
   [Alias('DN')][int]$P_DiskNumber,
 
-  [Parameter(Mandatory, HelpMessage="Specify the drive letter to assign to the new partition.")]
+  [Parameter(HelpMessage="Specify the drive letter to assign to the new partition.")]
   [ValidatePattern('^[A-Z]$')]
   [Alias('DL')][string]$P_DriveLetter,
 
@@ -72,18 +72,19 @@ $NL = [Environment]::NewLine
 # Random number.
 $Random = "$(Get-Random -Minimum 1000 -Maximum 9999)"
 
-# Get params.
-if (-not $P_DiskNumber) { $P_DiskNumber = (Read-Host -Prompt 'Disk number') }
-if (-not $P_DriveLetter) { $P_DriveLetter = (Read-Host -Prompt 'Drive letter') }
-if (-not $P_FileSystem) { $P_FileSystem = (Read-Host -Prompt 'File system') }
-if (-not $P_FileSystemLabel) { $P_FileSystemLabel = (Read-Host -Prompt 'New volume label') }
-
 # -------------------------------------------------------------------------------------------------------------------- #
 # INITIALIZATION.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-Script() {
   Start-DPDiskList
+
+  # Get params.
+  if (-not $P_DiskNumber) { $P_DiskNumber = (Read-Host -Prompt 'Disk number') }
+  if (-not $P_DriveLetter) { $P_DriveLetter = (Read-Host -Prompt 'Drive letter') }
+  if (-not $P_FileSystem) { $P_FileSystem = (Read-Host -Prompt 'File system') }
+  if (-not $P_FileSystemLabel) { $P_FileSystemLabel = (Read-Host -Prompt 'New volume label') }
+
   Start-DPDiskClear
   Start-DPDiskInit
   Start-DPDiskPartition
