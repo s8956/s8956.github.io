@@ -163,38 +163,28 @@ function Move-Files() {
       continue
     }
 
-    # Getting information about the file path.
-    # Example:
-    #   Source path: 'C:\Data\Source'.
-    #   Vault path: 'C:\Data\Vault'.
-    #   File path in Source: 'C:\Data\Source\Dir_01\Dir_02\File.txt'.
-    #   Values:
-    #     $Path[0] | Path without Source and file name ('\Dir_01\Dir_02').
-    #     $Path[1] | Path without Source and with file name ('\Dir_01\Dir_02\File.txt').
-
-    $Path = @("$($File.DirectoryName)", "$($File.FullName)").ForEach({ $_.Remove(0, $P_Source.Length) })
-
-    # Joining a Vault path.
-    $Path[1] = (${P_Vault} | Join-Path -ChildPath "$($Path[1])")
+    $PathSRC = @("$($File.FullName)")
+    $PathDST = @("$($File.FullName)", "$($File.DirectoryName)").ForEach({ $_.Remove(0, $P_Source.Length) })
+    $PathDST[0] = (${P_Vault} | Join-Path -ChildPath "$($PathDST[0])")
 
     switch ($P_Mode) {
       'CP' {
-        New-Data -T 'D' -P "${P_Vault}" -N "$($Path[0])"
-        Compress-Data -P "$($Path[1])" -N "$($Path[1]).VAULT.${TS}.7z"
+        New-Data -T 'D' -P "${P_Vault}" -N "$($PathDST[1])" | Out-Null
+        Compress-Data -P "$($PathDST[0])" -N "$($PathDST[0]).VAULT.${TS}.7z"
 
-        Write-Msg -M "[CP] '$($File.FullName)' -> '$($Path[1])'"
-        Copy-Item -LiteralPath "$($File.FullName)" -Destination "$($Path[1])" -Force
+        Write-Msg -M "[CP] '$($PathSRC[0])' -> '$($PathDST[0])'"
+        Copy-Item -LiteralPath "$($PathSRC[0])" -Destination "$($PathDST[0])" -Force
       }
       'MV' {
-        New-Data -T 'D' -P "${P_Vault}" -N "$($Path[0])"
-        Compress-Data -P "$($Path[1])" -N "$($Path[1]).VAULT.${TS}.7z"
+        New-Data -T 'D' -P "${P_Vault}" -N "$($PathDST[1])" | Out-Null
+        Compress-Data -P "$($PathDST[0])" -N "$($PathDST[0]).VAULT.${TS}.7z"
 
-        Write-Msg -M "[MV] '$($File.FullName)' -> '$($Path[1])'"
-        Move-Item -LiteralPath "$($File.FullName)" -Destination "$($Path[1])" -Force
+        Write-Msg -M "[MV] '$($PathSRC[0])' -> '$($PathDST[0])'"
+        Move-Item -LiteralPath "$($PathSRC[0])" -Destination "$($PathDST[0])" -Force
       }
       'RM' {
-        Write-Msg -M "[RM] '$($File.FullName)'"
-        Remove-Item -LiteralPath "$($File.FullName)" -Force
+        Write-Msg -M "[RM] '$($PathSRC[0])'"
+        Remove-Item -LiteralPath "$($PathSRC[0])" -Force
       }
     }
   }
