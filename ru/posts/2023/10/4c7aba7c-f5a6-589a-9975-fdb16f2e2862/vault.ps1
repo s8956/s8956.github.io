@@ -110,10 +110,10 @@ Param(
 
 # Timestamp.
 $TS = "$(Get-Date -Format 'yyyy-MM-dd.HH-mm-ss')"
-$UTS = [DateTimeOffset]::Now.ToUnixTimeSeconds()
+$UTS = "$([DateTimeOffset]::Now.ToUnixTimeSeconds())"
 
 # New line separator.
-$NL = [Environment]::NewLine
+$NL = "$([Environment]::NewLine)"
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # INITIALIZATION.
