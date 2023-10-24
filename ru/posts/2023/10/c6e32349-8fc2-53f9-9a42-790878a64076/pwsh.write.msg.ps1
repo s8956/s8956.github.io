@@ -1,10 +1,10 @@
-function Write-Msg() {
-  param (
-    [Alias('T')][string]$Type,
-    [Alias('M')][string]$Message,
-    [Alias('A')][string]$Action = 'Continue'
-  )
+param (
+  [Alias('T')][string]$Type,
+  [Alias('M')][string]$Message,
+  [Alias('A')][string]$Action = 'Continue'
+)
 
+function Write-Msg() {
   switch ($Type) {
     'HL'    { Write-Host "${NL}--- ${Message}".ToUpper() -ForegroundColor Blue }
     'I'     { Write-Information -MessageData "${Message}" -InformationAction "${Action}" }
@@ -13,3 +13,5 @@ function Write-Msg() {
     default { Write-Host "${Message}" }
   }
 }
+
+Write-Msg # Calling a function.

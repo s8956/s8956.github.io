@@ -1,9 +1,9 @@
-function Test-Data() {
-  param (
-    [Alias('T')][string]$Type,
-    [Alias('P')][string]$Path
-  )
+param (
+  [Alias('T')][string]$Type,
+  [Alias('P')][string]$Path
+)
 
+function Test-Data() {
   switch ($Type) {
     'D' { $Type = 'Container' }
     'F' { $Type = 'Leaf' }
@@ -11,3 +11,5 @@ function Test-Data() {
 
   Test-Path -LiteralPath "${Path}" -PathType "${Type}"
 }
+
+Test-Data # Calling a function.
