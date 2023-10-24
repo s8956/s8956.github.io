@@ -132,8 +132,8 @@ function Test-Vault() {
   $Dirs = @("${P_Source}", "${P_Vault}")
   $Files = @("${P_Exclude}")
 
-  foreach ($Dir in $Dirs) { if (-not (Test-Path "${Dir}")) { New-Item -LiteralPath "${Dir}" -ItemType 'Directory' } }
-  foreach ($File in $Files) { if (-not (Test-Path "${File}")) { New-Item -LiteralPath "${File}" -ItemType 'File' } }
+  foreach ($Dir in $Dirs) { if (-not (Test-Path "${Dir}")) { New-Item -Path "${Dir}" -ItemType 'Directory' } }
+  foreach ($File in $Files) { if (-not (Test-Path "${File}")) { New-Item -Path "${File}" -ItemType 'File' } }
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
