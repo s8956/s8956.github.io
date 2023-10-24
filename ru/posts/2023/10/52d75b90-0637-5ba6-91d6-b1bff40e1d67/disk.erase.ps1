@@ -84,7 +84,7 @@ function Start-Script() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-DPDiskList() {
-  Write-Msg -T 'HL' -M "Disk List"
+  Write-Msg -T 'HL' -M 'Disk List'
   Get-Disk
 }
 
