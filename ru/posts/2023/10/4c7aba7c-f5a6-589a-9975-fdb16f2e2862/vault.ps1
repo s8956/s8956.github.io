@@ -110,7 +110,7 @@ Param(
 
 # Timestamp.
 $TS = "$(Get-Date -Format 'yyyy-MM-dd.HH-mm-ss')"
-$UTS = ([DateTimeOffset]::Now.ToUnixTimeSeconds())
+$UTS = [DateTimeOffset]::Now.ToUnixTimeSeconds()
 
 # New line separator.
 $NL = [Environment]::NewLine
@@ -329,7 +329,7 @@ function Start-7z() {
   $7zExe = ((Get-ChildItem -LiteralPath "${PSScriptRoot}" -Filter "$($7z[0])" -Recurse -File) | Select-Object -First 1)
 
   # Getting '7za.exe' directory.
-  $7zDir = ($7zExe.DirectoryName)
+  $7zDir = "$($7zExe.DirectoryName)"
 
   # Checking the location of files.
   foreach ($File in $7z) {
