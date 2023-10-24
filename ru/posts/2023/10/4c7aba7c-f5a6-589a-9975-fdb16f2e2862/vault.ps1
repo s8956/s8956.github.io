@@ -234,16 +234,16 @@ function Remove-Dirs() {
 
 function Test-Data() {
   param (
-    [Alias('T')][string]$P_Type,
-    [Alias('P')][string]$P_Path
+    [Alias('T')][string]$Type,
+    [Alias('P')][string]$Path
   )
 
-  switch ($P_Type) {
-    'D' { $P_Type = 'Container' }
-    'F' { $P_Type = 'Leaf' }
+  switch ($Type) {
+    'D' { $Type = 'Container' }
+    'F' { $Type = 'Leaf' }
   }
 
-  Test-Path -LiteralPath "${P_Path}" -PathType "${P_Type}"
+  Test-Path -LiteralPath "${Path}" -PathType "${Type}"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -252,18 +252,18 @@ function Test-Data() {
 
 function New-Data() {
   param (
-    [Alias('T')][string]$P_Type,
-    [Alias('P')][string]$P_Path,
-    [Alias('N')][string]$P_Name,
-    [Alias('A')][string]$P_Action = 'SilentlyContinue'
+    [Alias('T')][string]$Type,
+    [Alias('P')][string]$Path,
+    [Alias('N')][string]$Name,
+    [Alias('A')][string]$Action = 'SilentlyContinue'
   )
 
-  switch ($P_Type) {
-    'D' { $P_Type = 'Directory' }
-    'F' { $P_Type = 'File' }
+  switch ($Type) {
+    'D' { $Type = 'Directory' }
+    'F' { $Type = 'File' }
   }
 
-  New-Item -Path "${P_Path}" -Name "${P_Name}" -ItemType "${P_Type}" -ErrorAction "${P_Action}"
+  New-Item -Path "${Path}" -Name "${Name}" -ItemType "${Type}" -ErrorAction "${Action}"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -272,12 +272,12 @@ function New-Data() {
 
 function Compress-Data() {
   param (
-    [Alias('P')][string]$P_Path,
-    [Alias('N')][string]$P_Name
+    [Alias('P')][string]$Path,
+    [Alias('N')][string]$Name
   )
 
-  if (-not $P_Overwrite -and (Test-Data -T 'F' -P "${P_Path}")) {
-    Start-7z -T '7z' -L 9 -I "${P_Path}" -O "${P_Name}"
+  if (-not $P_Overwrite -and (Test-Data -T 'F' -P "${Path}")) {
+    Start-7z -T '7z' -L 9 -I "${Path}" -O "${Name}"
   }
 }
 
@@ -287,17 +287,17 @@ function Compress-Data() {
 
 function Write-Msg() {
   param (
-    [Alias('T')][string]$P_Type,
-    [Alias('M')][string]$P_Message,
-    [Alias('A')][string]$P_Action = 'Continue'
+    [Alias('T')][string]$Type,
+    [Alias('M')][string]$Message,
+    [Alias('A')][string]$Action = 'Continue'
   )
 
-  switch ($P_Type) {
-    'HL'    { Write-Host "${NL}--- ${P_Message}".ToUpper() -ForegroundColor Blue }
-    'I'     { Write-Information -MessageData "${P_Message}" -InformationAction "${P_Action}" }
-    'W'     { Write-Warning -Message "${P_Message}" -WarningAction "${P_Action}" }
-    'E'     { Write-Error -Message "${P_Message}" -ErrorAction "${P_Action}" }
-    default { Write-Host "${P_Message}" }
+  switch ($Type) {
+    'HL'    { Write-Host "${NL}--- ${Message}".ToUpper() -ForegroundColor Blue }
+    'I'     { Write-Information -MessageData "${Message}" -InformationAction "${Action}" }
+    'W'     { Write-Warning -Message "${Message}" -WarningAction "${Action}" }
+    'E'     { Write-Error -Message "${Message}" -ErrorAction "${Action}" }
+    default { Write-Host "${Message}" }
   }
 }
 
@@ -307,10 +307,10 @@ function Write-Msg() {
 
 function Start-7z() {
   param (
-    [Alias('I')][string]$P_In,
-    [Alias('O')][string]$P_Out,
-    [ValidateSet('7z', 'BZIP2', 'GZIP', 'TAR', 'WIM', 'XZ', 'ZIP')][Alias('T')][string]$P_Type = '7z',
-    [ValidateRange(1,9)][Alias('L')][int]$P_Level = 5
+    [Alias('I')][string]$In,
+    [Alias('O')][string]$Out,
+    [ValidateSet('7z', 'BZIP2', 'GZIP', 'TAR', 'WIM', 'XZ', 'ZIP')][Alias('T')][string]$Type = '7z',
+    [ValidateRange(1,9)][Alias('L')][int]$Level = 5
   )
 
   # File list for '7za.exe'.
@@ -332,7 +332,7 @@ function Start-7z() {
   }
 
   # Specifying '7za.exe' parameters.
-  $Params = @('a', "-t${P_Type}", "-mx${P_Level}", "${P_Out}", "${P_In}")
+  $Params = @('a', "-t${Type}", "-mx${Level}", "${Out}", "${In}")
 
   # Running '7za.exe'.
   & "${7zExe}" $Params

@@ -1,12 +1,12 @@
 function Test-Module() {
   Param(
-    [Alias('N')][string[]]$P_Names,
-    [Alias('A')][string]$P_Action = 'Stop'
+    [Alias('N')][string[]]$Names,
+    [Alias('A')][string]$Action = 'Stop'
   )
 
-  ForEach ($Name in $P_Names) {
+  ForEach ($Name in $Names) {
     if (-not (Get-Module -ListAvailable -Name "${Name}")) {
-      Write-Error -Message "Module '${Name}' not installed!" -ErrorAction "${P_Action}"
+      Write-Error -Message "Module '${Name}' not installed!" -ErrorAction "${Action}"
     }
   }
 }

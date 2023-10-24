@@ -118,16 +118,16 @@ function Compress-Video() {
 
 function Test-Data() {
   param (
-    [Alias('T')][string]$P_Type,
-    [Alias('P')][string]$P_Path
+    [Alias('T')][string]$Type,
+    [Alias('P')][string]$Path
   )
 
-  switch ($P_Type) {
-    'D' { $P_Type = 'Container' }
-    'F' { $P_Type = 'Leaf' }
+  switch ($Type) {
+    'D' { $Type = 'Container' }
+    'F' { $Type = 'Leaf' }
   }
 
-  Test-Path -LiteralPath "${P_Path}" -PathType "${P_Type}"
+  Test-Path -LiteralPath "${Path}" -PathType "${Type}"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -136,8 +136,8 @@ function Test-Data() {
 
 function Start-FFmpeg() {
   param (
-    [Alias('I')][string]$P_In,
-    [Alias('O')][string]$P_Out
+    [Alias('I')][string]$In,
+    [Alias('O')][string]$Out
   )
 
   # Search 'ffmpeg.exe'.
@@ -152,13 +152,13 @@ function Start-FFmpeg() {
 
   # Specifying 'ffmpeg.exe' parameters.
   $Params = @('-hide_banner')
-  $Params += @('-i', "${P_In}")
+  $Params += @('-i', "${In}")
   $Params += @('-c:v', "${P_vCodec}")
   if ($P_CRF) { $Params += @('-crf', "${P_CRF}") }
   if ($P_Preset) { $Params += @('-preset', "${P_Preset}") }
   if ($P_Framerate) { $Params += @('-r', "${P_Framerate}") }
   $Params += @('-c:a', "${P_aCodec}")
-  $Params += @("${P_Out}")
+  $Params += @("${Out}")
 
   # Running 'ffmpeg.exe'.
   & "${FFmpegExe}" $Params

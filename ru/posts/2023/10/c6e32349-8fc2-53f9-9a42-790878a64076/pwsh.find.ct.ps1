@@ -1,10 +1,10 @@
 function Find-CreationTime() {
   Param(
-    [Alias('P')][string]$P_Path,
-    [Alias('T')][long]$P_Time
+    [Alias('P')][string]$Path,
+    [Alias('T')][long]$Time
   )
 
-  Get-ChildItem -Path "${P_Path}" -Recurse -File
+  Get-ChildItem -Path "${Path}" -Recurse -File
     | Sort-Object -Property 'LastAccessTime'
-    | Where-Object { ($_.CreationTime -lt (Get-Date).AddSeconds(-$P_Time)) }
+    | Where-Object { ($_.CreationTime -lt (Get-Date).AddSeconds(-$Time)) }
 }
