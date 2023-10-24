@@ -1,4 +1,636 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>ssd / Library Online</title><link>https://lib.onl/ru/tags/ssd/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/ssd/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>ssd / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Fri, 20 Oct 2023 00:46:16 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/ssd/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Дефрагментация в ОС Windows</title><link>https://lib.onl/ru/posts/2023/10/eb39e3f7-b194-53d4-8bad-01edf9fdac47/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/eb39e3f7-b194-53d4-8bad-01edf9fdac47/</guid><description>При работе с оборудованием, мне приходится сталкиваться с довольно старыми устройствами, их их работу нужно как-нибудь оптимизировать. Одним из вариантов оптимизации является дефрагментация HDD.</description><media:content medium="image" url="https://images.unsplash.com/photo-1591913139332-f8172ef511da" width="1600" height="900"/><content:encoded><![CDATA[<p>При работе с оборудованием, мне приходится сталкиваться с довольно старыми устройствами, их их работу нужно как-нибудь оптимизировать. Одним из вариантов оптимизации является дефрагментация HDD.</p>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>ssd / Library Online</title><link>https://lib.onl/ru/tags/ssd/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/ssd/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>ssd / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Mon, 23 Oct 2023 11:03:04 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/ssd/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>PowerShell: Стирание диска</title><link>https://lib.onl/ru/posts/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/</guid><description>Небольшой скрипт, который обнуляет HDD/SSD и создаёт файловую систему заново.</description><media:content medium="image" url="https://images.unsplash.com/photo-1646226343350-1ee5021e342a" width="1600" height="900"/><content:encoded><![CDATA[<p>Небольшой скрипт, который обнуляет HDD/SSD и создаёт файловую систему заново.</p>
+<h2 id="параметры">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d1%8b">Параметры</a>
+</h2><ul>
+<li><code>-DN</code> <code>-P_DiskNumber</code> - номер диска. Можно узнать командой <code>Get-Disk</code>. Но если не ввести номер диска в параметры скрипта при запуске, скрипт сам выведет информацию и спросит номер диска. Обязательный параметр.</li>
+<li><code>-DL</code> <code>-P_DriveLetter</code> - буква будущего тома. При создании тома, ОС должна присвоить ему букву. Обязательный параметр.</li>
+<li><code>-FS</code> <code>-P_FileSystem</code> - файловая система. По умолчанию: <code>NTFS</code>. Может принимать следующие значения:
+<ul>
+<li><code>'FAT'</code> - файловая система FAT.</li>
+<li><code>'FAT32'</code> - файловая система FAT32.</li>
+<li><code>'exFAT'</code> - файловая система exFAT.</li>
+<li><code>'NTFS'</code> - файловая система NTFS.</li>
+<li><code>'ReFS'</code> - новая файловая система ReFS.</li>
+</ul>
+</li>
+<li><code>-FSL</code> <code>-P_FileSystemLabel</code> - метка файловой системы.</li>
+<li><code>-S</code> <code>-P_Sleep</code> - перерыв между командами (в секундах).</li>
+</ul>
+<h2 id="примеры">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">Примеры</a>
+</h2><p>Скрипт, запущенный без параметров, сам спросит необходимые данные:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7d68a818dd324f550c1013f993db81be"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">disk</span><span class="p">.</span><span class="py">erase</span><span class="p">.</span><span class="n">ps1</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7d68a818dd324f550c1013f993db81be"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Обнулить диск <code>3</code>, новому разделу присвоить букву <code>E</code>, форматировать в <code>NTFS</code> и указать метку <code>USB-SSD</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0388818727445442d64a921dbf8d4e2d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">disk</span><span class="p">.</span><span class="py">erase</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-DN</span> <span class="mf">3</span> <span class="n">-DL</span> <span class="s1">&#39;E&#39;</span> <span class="n">-FS</span> <span class="s1">&#39;NTFS&#39;</span> <span class="n">-FSL</span> <span class="s1">&#39;USB-SSD&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0388818727445442d64a921dbf8d4e2d"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="скрипт">
+  <a class="link-body-emphasis" href="#%d1%81%d0%ba%d1%80%d0%b8%d0%bf%d1%82">Скрипт</a>
+</h2>
+    
+
+    
+
+    <div class="shortcode shortcode-file mb-3">
+      <div class="card overflow-hidden">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="far fa-file-code fa-fw"></i>
+            </div>
+            <div class="flex-grow-1 mx-2">
+              <code>disk.erase.ps1</code>
+            </div>
+            <div class="flex-shrink-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+                  <a class="text-body" href="#"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-46933810c2663b1bf916731fd101fc63"
+                     role="button" aria-label='Копировать'>
+                    <i class="fas fa-copy fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="disk.erase.ps1" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="disk.erase.ps1" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+          
+              
+          
+        <div class="card-body" id="clipboard-46933810c2663b1bf916731fd101fc63"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="cm">&lt;#PSScriptInfo
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .VERSION      0.1.0
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .GUID         8d95f4d5-4d14-412c-9fa4-b75ebe79df09
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .AUTHOR       Kitsune Solar
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .AUTHOREMAIL  mail@kitsune.solar
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .COMPANYNAME  iHub TO
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .COPYRIGHT    2023 iHub TO. All rights reserved.
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .LICENSEURI   https://choosealicense.com/licenses/mit/
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PROJECTURI   https://lib.onl/ru/posts/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/
+</span></span></span><span class="line"><span class="cl"><span class="cm">#&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#</span><span class="k">Requires</span><span class="w"> </span><span class="kd">-Version</span><span class="na"> 7.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#</span><span class="k">Requires</span><span class="w"> </span><span class="kd">-RunAsAdministrator</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">&lt;#
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">SYNOPSIS</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Disk erase script.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">DESCRIPTION</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Disk cleanup followed by partition creation.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_DiskNumber
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Specifies the disk number of the disk on which to perform the clear operation. For a list of available disks, see the &#39;Get-Disk&#39; cmdlet.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_DriveLetter
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Specifies the specific drive letter to assign to the new partition.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_FileSystem
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Specifies the file system with which to format the volume.
+</span></span></span><span class="line"><span class="cl"><span class="cm">  The acceptable values for this parameter are: &#39;NTFS&#39;, &#39;ReFS&#39;, &#39;exFAT&#39;, &#39;FAT32&#39; and &#39;FAT&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_FileSystemLabel
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Specifies the label to use for the volume.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_Sleep
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Sleep time (in seconds).
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">EXAMPLE</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .\disk.erase.ps1 -DN 3 -DL &#39;E&#39; -FS &#39;NTFS&#39; -FSL &#39;USB-SSD&#39;
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">LINK</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  https://lib.onl/ru/posts/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/
+</span></span></span><span class="line"><span class="cl"><span class="cm">#&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">Param</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">Mandatory</span><span class="p">,</span> <span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Specify the disk number.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">ValidatePattern</span><span class="p">(</span><span class="s1">&#39;^[0-9]+$&#39;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;DN&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$P_DiskNumber</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">Mandatory</span><span class="p">,</span> <span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Specify the drive letter to assign to the new partition.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">ValidatePattern</span><span class="p">(</span><span class="s1">&#39;^[A-Z]$&#39;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;DL&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_DriveLetter</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Specify the file system to format the volume.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">ValidateSet</span><span class="p">(</span><span class="s1">&#39;FAT&#39;</span><span class="p">,</span> <span class="s1">&#39;FAT32&#39;</span><span class="p">,</span> <span class="s1">&#39;exFAT&#39;</span><span class="p">,</span> <span class="s1">&#39;NTFS&#39;</span><span class="p">,</span> <span class="s1">&#39;ReFS&#39;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;FS&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_FileSystem</span> <span class="p">=</span> <span class="s1">&#39;NTFS&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Specify a new label to use for the volume.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;FSL&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_FileSystemLabel</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Sleep time (in seconds).&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$P_Sleep</span> <span class="p">=</span> <span class="mf">5</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># CONFIGURATION.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># New line separator.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$NL</span> <span class="p">=</span> <span class="p">[</span><span class="no">Environment</span><span class="p">]::</span><span class="n">NewLine</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Random number.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$Random</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="mf">1000</span> <span class="n">-Maximum</span> <span class="mf">9999</span><span class="p">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Get params.</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$P_DiskNumber</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$P_DiskNumber</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Read-Host</span> <span class="n">-Prompt</span> <span class="s1">&#39;Disk number&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$P_DriveLetter</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$P_DriveLetter</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Read-Host</span> <span class="n">-Prompt</span> <span class="s1">&#39;Drive letter&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$P_FileSystem</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$P_FileSystem</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Read-Host</span> <span class="n">-Prompt</span> <span class="s1">&#39;File system&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$P_FileSystemLabel</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$P_FileSystemLabel</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Read-Host</span> <span class="n">-Prompt</span> <span class="s1">&#39;New volume label&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># INITIALIZATION.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-Script</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-DPDiskList</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-DPDiskClear</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-DPDiskInit</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-DPDiskPartition</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-DPDiskFormat</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># DISK LIST.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-DPDiskList</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Show-DPDiskList</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="nv">$P_Sleep</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># CLEAR DISK.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-DPDiskClear</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s2">&#34;[DISK </span><span class="nv">${P_DiskNumber}</span><span class="s2">] Clear Disk...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;W&#39;</span> <span class="n">-A</span> <span class="s1">&#39;Inquire&#39;</span> <span class="n">-M</span> <span class="p">(</span><span class="s2">&#34;You specified drive number &#39;</span><span class="nv">${P_DiskNumber}</span><span class="s2">&#39;.&#34;</span> <span class="p">+</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;All data will be DELETED!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Clear-Disk</span> <span class="n">-Number</span> <span class="nv">$P_DiskNumber</span> <span class="n">-RemoveData</span> <span class="n">-RemoveOEM</span> <span class="n">-Confirm:</span><span class="vm">$false</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Show-DPDiskList</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="nv">$P_Sleep</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># INITIALIZE DISK.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-DPDiskInit</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s2">&#34;[DISK </span><span class="nv">${P_DiskNumber}</span><span class="s2">] Initialize Disk...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Initialize-Disk</span> <span class="n">-Number</span> <span class="nv">$P_DiskNumber</span> <span class="n">-PartitionStyle</span> <span class="s1">&#39;GPT&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Show-DPDiskList</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="nv">$P_Sleep</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># CREATE PARTITION.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-DPDiskPartition</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s2">&#34;[DISK </span><span class="nv">${P_DiskNumber}</span><span class="s2">] Create Partition...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">New-Partition</span> <span class="n">-DiskNumber</span> <span class="nv">$P_DiskNumber</span> <span class="n">-UseMaximumSize</span> <span class="n">-DriveLetter</span> <span class="s2">&#34;</span><span class="nv">${P_DriveLetter}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="nv">$P_Sleep</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># FORMAT DISK VOLUME.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-DPDiskFormat</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s2">&#34;[DISK </span><span class="nv">${P_DiskNumber}</span><span class="s2">] Format Disk Volume (</span><span class="nv">${P_DriveLetter}</span><span class="s2"> / </span><span class="nv">${P_FileSystem}</span><span class="s2">)...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$P_FileSystemLabel</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$P_FileSystemLabel</span> <span class="p">=</span> <span class="s2">&#34;DISK_</span><span class="nv">${Random}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Format-Volume</span> <span class="n">-DriveLetter</span> <span class="s2">&#34;</span><span class="nv">${P_DriveLetter}</span><span class="s2">&#34;</span> <span class="n">-FileSystem</span> <span class="s2">&#34;</span><span class="nv">${P_FileSystem}</span><span class="s2">&#34;</span> <span class="n">-Force</span> <span class="n">-NewFileSystemLabel</span> <span class="s2">&#34;</span><span class="nv">${P_FileSystemLabel}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Show-DPVolumeList</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="nv">$P_Sleep</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># ------------------------------------------------&lt; COMMON FUNCTIONS &gt;------------------------------------------------ #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># SYSTEM MESSAGES.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Write-Msg</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">param</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_Type</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_Message</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_Action</span> <span class="p">=</span> <span class="s1">&#39;Continue&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="p">(</span><span class="nv">$Type</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;HL&#39;</span>    <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">&#34;</span><span class="nv">${NL}</span><span class="s2">--- </span><span class="nv">${P_Message}</span><span class="s2">&#34;</span><span class="p">.</span><span class="py">ToUpper</span><span class="p">()</span> <span class="n">-ForegroundColor</span> <span class="n">Blue</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;I&#39;</span>     <span class="p">{</span> <span class="nb">Write-Information</span> <span class="n">-MessageData</span> <span class="s2">&#34;</span><span class="nv">${P_Message}</span><span class="s2">&#34;</span> <span class="n">-InformationAction</span> <span class="s2">&#34;</span><span class="nv">${P_Action}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;W&#39;</span>     <span class="p">{</span> <span class="nb">Write-Warning</span> <span class="n">-Message</span> <span class="s2">&#34;</span><span class="nv">${P_Message}</span><span class="s2">&#34;</span> <span class="n">-WarningAction</span> <span class="s2">&#34;</span><span class="nv">${P_Action}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;E&#39;</span>     <span class="p">{</span> <span class="nb">Write-Error</span> <span class="n">-Message</span> <span class="s2">&#34;</span><span class="nv">${P_Message}</span><span class="s2">&#34;</span> <span class="n">-ErrorAction</span> <span class="s2">&#34;</span><span class="nv">${P_Action}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span> <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">&#34;</span><span class="nv">${P_Message}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># DISK LIST.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Show-DPDiskList</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s2">&#34;[DISK </span><span class="nv">${P_DiskNumber}</span><span class="s2">] Disk List...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Get-Disk</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># VOLUME LIST.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Show-DPVolumeList</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s2">&#34;[DISK </span><span class="nv">${P_DiskNumber}</span><span class="s2">] Volume List...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Get-Volume</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------&lt; RUNNING SCRIPT &gt;------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">Start-Script</span>
+</span></span></code></pre></div></div>
+      </div>
+    </div>]]></content:encoded><turbo:source/><turbo:topic>PowerShell: Стирание диска</turbo:topic><turbo:content><![CDATA[<p>Небольшой скрипт, который обнуляет HDD/SSD и создаёт файловую систему заново.</p>
+<h2 id="параметры">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d1%8b">Параметры</a>
+</h2><ul>
+<li><code>-DN</code> <code>-P_DiskNumber</code> - номер диска. Можно узнать командой <code>Get-Disk</code>. Но если не ввести номер диска в параметры скрипта при запуске, скрипт сам выведет информацию и спросит номер диска. Обязательный параметр.</li>
+<li><code>-DL</code> <code>-P_DriveLetter</code> - буква будущего тома. При создании тома, ОС должна присвоить ему букву. Обязательный параметр.</li>
+<li><code>-FS</code> <code>-P_FileSystem</code> - файловая система. По умолчанию: <code>NTFS</code>. Может принимать следующие значения:
+<ul>
+<li><code>'FAT'</code> - файловая система FAT.</li>
+<li><code>'FAT32'</code> - файловая система FAT32.</li>
+<li><code>'exFAT'</code> - файловая система exFAT.</li>
+<li><code>'NTFS'</code> - файловая система NTFS.</li>
+<li><code>'ReFS'</code> - новая файловая система ReFS.</li>
+</ul>
+</li>
+<li><code>-FSL</code> <code>-P_FileSystemLabel</code> - метка файловой системы.</li>
+<li><code>-S</code> <code>-P_Sleep</code> - перерыв между командами (в секундах).</li>
+</ul>
+<h2 id="примеры">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">Примеры</a>
+</h2><p>Скрипт, запущенный без параметров, сам спросит необходимые данные:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7d68a818dd324f550c1013f993db81be"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">disk</span><span class="p">.</span><span class="py">erase</span><span class="p">.</span><span class="n">ps1</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7d68a818dd324f550c1013f993db81be"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Обнулить диск <code>3</code>, новому разделу присвоить букву <code>E</code>, форматировать в <code>NTFS</code> и указать метку <code>USB-SSD</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0388818727445442d64a921dbf8d4e2d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">disk</span><span class="p">.</span><span class="py">erase</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-DN</span> <span class="mf">3</span> <span class="n">-DL</span> <span class="s1">&#39;E&#39;</span> <span class="n">-FS</span> <span class="s1">&#39;NTFS&#39;</span> <span class="n">-FSL</span> <span class="s1">&#39;USB-SSD&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0388818727445442d64a921dbf8d4e2d"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="скрипт">
+  <a class="link-body-emphasis" href="#%d1%81%d0%ba%d1%80%d0%b8%d0%bf%d1%82">Скрипт</a>
+</h2>
+    
+
+    
+
+    <div class="shortcode shortcode-file mb-3">
+      <div class="card overflow-hidden">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="far fa-file-code fa-fw"></i>
+            </div>
+            <div class="flex-grow-1 mx-2">
+              <code>disk.erase.ps1</code>
+            </div>
+            <div class="flex-shrink-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+                  <a class="text-body" href="#"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-46933810c2663b1bf916731fd101fc63"
+                     role="button" aria-label='Копировать'>
+                    <i class="fas fa-copy fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="disk.erase.ps1" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="disk.erase.ps1" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+          
+              
+          
+        <div class="card-body" id="clipboard-46933810c2663b1bf916731fd101fc63"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="cm">&lt;#PSScriptInfo
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .VERSION      0.1.0
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .GUID         8d95f4d5-4d14-412c-9fa4-b75ebe79df09
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .AUTHOR       Kitsune Solar
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .AUTHOREMAIL  mail@kitsune.solar
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .COMPANYNAME  iHub TO
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .COPYRIGHT    2023 iHub TO. All rights reserved.
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .LICENSEURI   https://choosealicense.com/licenses/mit/
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PROJECTURI   https://lib.onl/ru/posts/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/
+</span></span></span><span class="line"><span class="cl"><span class="cm">#&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">#</span><span class="k">Requires</span><span class="w"> </span><span class="kd">-Version</span><span class="na"> 7.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#</span><span class="k">Requires</span><span class="w"> </span><span class="kd">-RunAsAdministrator</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">&lt;#
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">SYNOPSIS</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Disk erase script.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">DESCRIPTION</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Disk cleanup followed by partition creation.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_DiskNumber
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Specifies the disk number of the disk on which to perform the clear operation. For a list of available disks, see the &#39;Get-Disk&#39; cmdlet.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_DriveLetter
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Specifies the specific drive letter to assign to the new partition.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_FileSystem
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Specifies the file system with which to format the volume.
+</span></span></span><span class="line"><span class="cl"><span class="cm">  The acceptable values for this parameter are: &#39;NTFS&#39;, &#39;ReFS&#39;, &#39;exFAT&#39;, &#39;FAT32&#39; and &#39;FAT&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_FileSystemLabel
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Specifies the label to use for the volume.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .PARAMETER P_Sleep
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Sleep time (in seconds).
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">EXAMPLE</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .\disk.erase.ps1 -DN 3 -DL &#39;E&#39; -FS &#39;NTFS&#39; -FSL &#39;USB-SSD&#39;
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  .</span><span class="sd">LINK</span><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  https://lib.onl/ru/posts/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/
+</span></span></span><span class="line"><span class="cl"><span class="cm">#&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">Param</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">Mandatory</span><span class="p">,</span> <span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Specify the disk number.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">ValidatePattern</span><span class="p">(</span><span class="s1">&#39;^[0-9]+$&#39;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;DN&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$P_DiskNumber</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">Mandatory</span><span class="p">,</span> <span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Specify the drive letter to assign to the new partition.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">ValidatePattern</span><span class="p">(</span><span class="s1">&#39;^[A-Z]$&#39;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;DL&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_DriveLetter</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Specify the file system to format the volume.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">ValidateSet</span><span class="p">(</span><span class="s1">&#39;FAT&#39;</span><span class="p">,</span> <span class="s1">&#39;FAT32&#39;</span><span class="p">,</span> <span class="s1">&#39;exFAT&#39;</span><span class="p">,</span> <span class="s1">&#39;NTFS&#39;</span><span class="p">,</span> <span class="s1">&#39;ReFS&#39;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;FS&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_FileSystem</span> <span class="p">=</span> <span class="s1">&#39;NTFS&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Specify a new label to use for the volume.&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;FSL&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_FileSystemLabel</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">HelpMessage</span><span class="p">=</span><span class="s2">&#34;Sleep time (in seconds).&#34;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)][</span><span class="no">int</span><span class="p">]</span><span class="nv">$P_Sleep</span> <span class="p">=</span> <span class="mf">5</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># CONFIGURATION.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># New line separator.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$NL</span> <span class="p">=</span> <span class="p">[</span><span class="no">Environment</span><span class="p">]::</span><span class="n">NewLine</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Random number.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$Random</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="mf">1000</span> <span class="n">-Maximum</span> <span class="mf">9999</span><span class="p">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Get params.</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$P_DiskNumber</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$P_DiskNumber</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Read-Host</span> <span class="n">-Prompt</span> <span class="s1">&#39;Disk number&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$P_DriveLetter</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$P_DriveLetter</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Read-Host</span> <span class="n">-Prompt</span> <span class="s1">&#39;Drive letter&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$P_FileSystem</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$P_FileSystem</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Read-Host</span> <span class="n">-Prompt</span> <span class="s1">&#39;File system&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$P_FileSystemLabel</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$P_FileSystemLabel</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Read-Host</span> <span class="n">-Prompt</span> <span class="s1">&#39;New volume label&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># INITIALIZATION.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-Script</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-DPDiskList</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-DPDiskClear</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-DPDiskInit</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-DPDiskPartition</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-DPDiskFormat</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># DISK LIST.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-DPDiskList</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Show-DPDiskList</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="nv">$P_Sleep</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># CLEAR DISK.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-DPDiskClear</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s2">&#34;[DISK </span><span class="nv">${P_DiskNumber}</span><span class="s2">] Clear Disk...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;W&#39;</span> <span class="n">-A</span> <span class="s1">&#39;Inquire&#39;</span> <span class="n">-M</span> <span class="p">(</span><span class="s2">&#34;You specified drive number &#39;</span><span class="nv">${P_DiskNumber}</span><span class="s2">&#39;.&#34;</span> <span class="p">+</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;All data will be DELETED!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Clear-Disk</span> <span class="n">-Number</span> <span class="nv">$P_DiskNumber</span> <span class="n">-RemoveData</span> <span class="n">-RemoveOEM</span> <span class="n">-Confirm:</span><span class="vm">$false</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Show-DPDiskList</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="nv">$P_Sleep</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># INITIALIZE DISK.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-DPDiskInit</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s2">&#34;[DISK </span><span class="nv">${P_DiskNumber}</span><span class="s2">] Initialize Disk...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Initialize-Disk</span> <span class="n">-Number</span> <span class="nv">$P_DiskNumber</span> <span class="n">-PartitionStyle</span> <span class="s1">&#39;GPT&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Show-DPDiskList</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="nv">$P_Sleep</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># CREATE PARTITION.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-DPDiskPartition</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s2">&#34;[DISK </span><span class="nv">${P_DiskNumber}</span><span class="s2">] Create Partition...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">New-Partition</span> <span class="n">-DiskNumber</span> <span class="nv">$P_DiskNumber</span> <span class="n">-UseMaximumSize</span> <span class="n">-DriveLetter</span> <span class="s2">&#34;</span><span class="nv">${P_DriveLetter}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="nv">$P_Sleep</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># FORMAT DISK VOLUME.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Start-DPDiskFormat</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s2">&#34;[DISK </span><span class="nv">${P_DiskNumber}</span><span class="s2">] Format Disk Volume (</span><span class="nv">${P_DriveLetter}</span><span class="s2"> / </span><span class="nv">${P_FileSystem}</span><span class="s2">)...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$P_FileSystemLabel</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$P_FileSystemLabel</span> <span class="p">=</span> <span class="s2">&#34;DISK_</span><span class="nv">${Random}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Format-Volume</span> <span class="n">-DriveLetter</span> <span class="s2">&#34;</span><span class="nv">${P_DriveLetter}</span><span class="s2">&#34;</span> <span class="n">-FileSystem</span> <span class="s2">&#34;</span><span class="nv">${P_FileSystem}</span><span class="s2">&#34;</span> <span class="n">-Force</span> <span class="n">-NewFileSystemLabel</span> <span class="s2">&#34;</span><span class="nv">${P_FileSystemLabel}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Show-DPVolumeList</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="nv">$P_Sleep</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># ------------------------------------------------&lt; COMMON FUNCTIONS &gt;------------------------------------------------ #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># SYSTEM MESSAGES.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Write-Msg</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">param</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_Type</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_Message</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">Alias</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)][</span><span class="no">string</span><span class="p">]</span><span class="nv">$P_Action</span> <span class="p">=</span> <span class="s1">&#39;Continue&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="p">(</span><span class="nv">$Type</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;HL&#39;</span>    <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">&#34;</span><span class="nv">${NL}</span><span class="s2">--- </span><span class="nv">${P_Message}</span><span class="s2">&#34;</span><span class="p">.</span><span class="py">ToUpper</span><span class="p">()</span> <span class="n">-ForegroundColor</span> <span class="n">Blue</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;I&#39;</span>     <span class="p">{</span> <span class="nb">Write-Information</span> <span class="n">-MessageData</span> <span class="s2">&#34;</span><span class="nv">${P_Message}</span><span class="s2">&#34;</span> <span class="n">-InformationAction</span> <span class="s2">&#34;</span><span class="nv">${P_Action}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;W&#39;</span>     <span class="p">{</span> <span class="nb">Write-Warning</span> <span class="n">-Message</span> <span class="s2">&#34;</span><span class="nv">${P_Message}</span><span class="s2">&#34;</span> <span class="n">-WarningAction</span> <span class="s2">&#34;</span><span class="nv">${P_Action}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;E&#39;</span>     <span class="p">{</span> <span class="nb">Write-Error</span> <span class="n">-Message</span> <span class="s2">&#34;</span><span class="nv">${P_Message}</span><span class="s2">&#34;</span> <span class="n">-ErrorAction</span> <span class="s2">&#34;</span><span class="nv">${P_Action}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span> <span class="p">{</span> <span class="nb">Write-Host</span> <span class="s2">&#34;</span><span class="nv">${P_Message}</span><span class="s2">&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># DISK LIST.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Show-DPDiskList</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s2">&#34;[DISK </span><span class="nv">${P_DiskNumber}</span><span class="s2">] Disk List...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Get-Disk</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># VOLUME LIST.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Show-DPVolumeList</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Write-Msg</span> <span class="n">-T</span> <span class="s1">&#39;HL&#39;</span> <span class="n">-M</span> <span class="s2">&#34;[DISK </span><span class="nv">${P_DiskNumber}</span><span class="s2">] Volume List...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">Get-Volume</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------&lt; RUNNING SCRIPT &gt;------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl"><span class="c"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">Start-Script</span>
+</span></span></code></pre></div></div>
+      </div>
+    </div>]]></turbo:content><pubDate>Mon, 23 Oct 2023 11:03:04 +0000</pubDate><category>MS Windows</category><category>Терминал</category><category>Скрипты</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Дефрагментация в ОС Windows</title><link>https://lib.onl/ru/posts/2023/10/eb39e3f7-b194-53d4-8bad-01edf9fdac47/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/eb39e3f7-b194-53d4-8bad-01edf9fdac47/</guid><description>При работе с оборудованием, мне приходится сталкиваться с довольно старыми устройствами, их их работу нужно как-нибудь оптимизировать. Одним из вариантов оптимизации является дефрагментация HDD.</description><media:content medium="image" url="https://images.unsplash.com/photo-1591913139332-f8172ef511da" width="1600" height="900"/><content:encoded><![CDATA[<p>При работе с оборудованием, мне приходится сталкиваться с довольно старыми устройствами, их их работу нужно как-нибудь оптимизировать. Одним из вариантов оптимизации является дефрагментация HDD.</p>
 <h2 id="powershell">
   <a class="link-body-emphasis" href="#powershell">PowerShell</a>
 </h2><p>Командлет по дефрагментации для PowerShell называется <code>Optimize-Volume</code> и может принимать следующие параметры:</p>
@@ -50,12 +682,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3b574988b5d404259551efce6b521ccb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Analyze</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4d7f10aa46167df6debbc24bc7be285e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Analyze</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3b574988b5d404259551efce6b521ccb"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4d7f10aa46167df6debbc24bc7be285e"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -83,12 +715,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c6d7828d3e1a0f74d51d44d4699e5248"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Defrag</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-638b37d84087868fab5a62c671d99546"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Defrag</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c6d7828d3e1a0f74d51d44d4699e5248"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-638b37d84087868fab5a62c671d99546"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -116,12 +748,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1d8bb0e04462f0591fd12f96a0fc5b34"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-ReTrim</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4370aca5fcdffd0387d43a5a2912eecc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-ReTrim</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1d8bb0e04462f0591fd12f96a0fc5b34"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4370aca5fcdffd0387d43a5a2912eecc"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -198,12 +830,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7a4a944c7a1b9039291ac1886cd7c813"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: /u /a</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e22e0ec4573d5dedacb4e6967a42dee4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: /u /a</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7a4a944c7a1b9039291ac1886cd7c813"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e22e0ec4573d5dedacb4e6967a42dee4"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -233,12 +865,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f98411ce0ef8a7b211034bbfbb6cd89a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: d: /m</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-420d33d604fca7c228000598a50fcbde"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: d: /m</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f98411ce0ef8a7b211034bbfbb6cd89a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-420d33d604fca7c228000598a50fcbde"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -268,12 +900,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b8af63d8ce0a0baf0e552af48acba16a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /h</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-6c6c605c60f3306c8c3d9f9b0b24f44e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /h</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b8af63d8ce0a0baf0e552af48acba16a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6c6c605c60f3306c8c3d9f9b0b24f44e"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -302,12 +934,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8307724c635271ae5c43a199474e28ea"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /l</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-838db837bb112b45573ad2fc214b4755"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /l</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8307724c635271ae5c43a199474e28ea"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-838db837bb112b45573ad2fc214b4755"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -375,12 +1007,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3b574988b5d404259551efce6b521ccb"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Analyze</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4d7f10aa46167df6debbc24bc7be285e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Analyze</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3b574988b5d404259551efce6b521ccb"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4d7f10aa46167df6debbc24bc7be285e"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -408,12 +1040,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c6d7828d3e1a0f74d51d44d4699e5248"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Defrag</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-638b37d84087868fab5a62c671d99546"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-Defrag</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c6d7828d3e1a0f74d51d44d4699e5248"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-638b37d84087868fab5a62c671d99546"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -441,12 +1073,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1d8bb0e04462f0591fd12f96a0fc5b34"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-ReTrim</span></span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4370aca5fcdffd0387d43a5a2912eecc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Optimize-Volume</span> <span class="n">-DriveLetter</span> <span class="n">C</span> <span class="n">-ReTrim</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1d8bb0e04462f0591fd12f96a0fc5b34"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4370aca5fcdffd0387d43a5a2912eecc"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -523,12 +1155,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7a4a944c7a1b9039291ac1886cd7c813"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: /u /a</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e22e0ec4573d5dedacb4e6967a42dee4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: /u /a</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7a4a944c7a1b9039291ac1886cd7c813"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e22e0ec4573d5dedacb4e6967a42dee4"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -558,12 +1190,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f98411ce0ef8a7b211034bbfbb6cd89a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: d: /m</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-420d33d604fca7c228000598a50fcbde"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag c: d: /m</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f98411ce0ef8a7b211034bbfbb6cd89a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-420d33d604fca7c228000598a50fcbde"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -593,12 +1225,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b8af63d8ce0a0baf0e552af48acba16a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /h</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-6c6c605c60f3306c8c3d9f9b0b24f44e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /h</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b8af63d8ce0a0baf0e552af48acba16a"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6c6c605c60f3306c8c3d9f9b0b24f44e"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -627,12 +1259,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-cmd">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8307724c635271ae5c43a199474e28ea"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /l</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-838db837bb112b45573ad2fc214b4755"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">defrag /u /c /l</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8307724c635271ae5c43a199474e28ea"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-838db837bb112b45573ad2fc214b4755"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>

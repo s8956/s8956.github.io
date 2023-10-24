@@ -109,10 +109,10 @@ Param(
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # Timestamp.
-$TS = (Get-Date -Format 'yyyy-MM-dd.HH-mm-ss')
+$TS = "$(Get-Date -Format 'yyyy-MM-dd.HH-mm-ss')"
 
 # New line separator.
-$NL = ([Environment]::NewLine)
+$NL = [Environment]::NewLine
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # INITIALIZATION.
