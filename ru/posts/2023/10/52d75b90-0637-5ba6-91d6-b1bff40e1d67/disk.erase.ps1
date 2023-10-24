@@ -53,13 +53,13 @@ Param(
 
   [Parameter(HelpMessage="Specify the file system to format the volume.")]
   [ValidateSet('FAT', 'FAT32', 'exFAT', 'NTFS', 'ReFS')]
-  [Alias('FS')][string]$P_FileSystem = 'NTFS',
+  [Alias('FS')][string]$P_FileSystem,
 
   [Parameter(HelpMessage="Specify a new label to use for the volume.")]
   [Alias('FSL')][string]$P_FileSystemLabel,
 
   [Parameter(HelpMessage="Sleep time (in seconds).")]
-  [Alias('S')][int]$P_Sleep = 5
+  [Alias('S')][int]$P_Sleep = 2
 )
 
 # -------------------------------------------------------------------------------------------------------------------- #
