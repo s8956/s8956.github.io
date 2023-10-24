@@ -1,5 +1,5 @@
 <#PSScriptInfo
-  .VERSION      0.1.1
+  .VERSION      0.1.2
   .GUID         b95fb1ac-6878-4451-bb49-434d51d9555d
   .AUTHOR       Kitsune Solar
   .AUTHOREMAIL  mail@kitsune.solar
@@ -95,7 +95,7 @@ function Start-Script() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# COMPRESS.
+# COMPRESS VIDEO.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Compress-Video() {
@@ -105,7 +105,29 @@ function Compress-Video() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# FFmpeg.
+# ------------------------------------------------< COMMON FUNCTIONS >------------------------------------------------ #
+# -------------------------------------------------------------------------------------------------------------------- #
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# TESTING ELEMENTS.
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function Test-Data() {
+  param (
+    [Alias('T')][string]$P_Type,
+    [Alias('P')][string]$P_Path
+  )
+
+  switch ($P_Type) {
+    'D' { $P_Type = 'Container' }
+    'F' { $P_Type = 'Leaf' }
+  }
+
+  Test-Path -LiteralPath "${P_Path}" -PathType "${P_Type}"
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# APP: FFmpeg.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-FFmpeg() {
@@ -114,10 +136,10 @@ function Start-FFmpeg() {
   )
 
   # Search 'ffmpeg.exe'.
-  $FFmpegExe = ((Get-ChildItem -Path "${PSScriptRoot}" -Filter 'ffmpeg.exe' -Recurse -File) | Select-Object -First 1)
+  $FFmpegExe = ((Get-ChildItem -LiteralPath "${PSScriptRoot}" -Filter 'ffmpeg.exe' -Recurse -File) | Select-Object -First 1)
 
   # Checking the location of 'ffmpeg.exe'.
-  if (-not (Test-Path -Path "${FFmpegExe}")) {
+  if (-not (Test-Data -T 'F' -P "${FFmpegExe}")) {
     Write-Warning -WarningAction 'Stop' -Message ("'ffmpeg.exe' not found!${NL}${NL}" +
     "1. Download FFmpeg from 'https://www.gyan.dev/ffmpeg/builds/'.${NL}" +
     "2. Extract 'ffmpeg.exe' into a directory '${PSScriptRoot}'.")

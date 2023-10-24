@@ -1,5 +1,5 @@
 <#PSScriptInfo
-  .VERSION      0.1.2
+  .VERSION      0.1.3
   .GUID         8fd0ce2c-0288-4d9c-805f-703a0c659ade
   .AUTHOR       Kitsune Solar
   .AUTHOREMAIL  mail@kitsune.solar
@@ -125,36 +125,41 @@ function Start-Script() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CREATE VAULT DIRECTORIES.
+# CREATING VAULT DIRECTORIES.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Test-Vault() {
   $Dirs = @("${P_Source}", "${P_Vault}")
   $Files = @("${P_Exclude}")
 
-  foreach ($Dir in $Dirs) { if (-not (Test-Path "${Dir}")) { New-Item -Path "${Dir}" -ItemType 'Directory' } }
-  foreach ($File in $Files) { if (-not (Test-Path "${File}")) { New-Item -Path "${File}" -ItemType 'File' } }
+  foreach ($Dir in $Dirs) {
+    if (-not (Test-Data -T 'D' -P "${Dir}")) { New-Data -T 'D' -P "${Dir}" }
+  }
+
+  foreach ($File in $Files) {
+    if (-not (Test-Data -T 'F' -P "${File}")) { New-Data -T 'F' -P "${File}" }
+  }
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# MOVE FILES TO VAULT.
+# MOVING FILES TO VAULT.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Move-Files() {
-  Write-VaultMsg -T 'HL' -M 'Moving files to Vault'
+  Write-Msg -T 'HL' -M 'Moving files to Vault'
 
   $Files = ((Get-ChildItem -LiteralPath "${P_Source}" -Recurse -File -Exclude (Get-Content "${P_Exclude}"))
     | Where-Object { (($_.CreationTime) -lt ((Get-Date).AddSeconds(-$P_CreationTime))) `
       -and (($_.LastWriteTime) -lt ((Get-Date).AddSeconds(-$P_LastWriteTime))) }
     | Where-Object { ($_.Length) -ge "${P_FileSize}" })
 
-  if (-not $Files) { Write-VaultMsg -T 'I' -M "Required files were not found in the '${P_Source}'!" }
+  if (-not $Files) { Write-Msg -T 'I' -M "Required files were not found in the '${P_Source}'!" }
 
   $Files | ForEach-Object {
     $File = $_
 
     if (($File.FullName.Length) -ge 245) {
-      Write-VaultMsg -T 'W' -M "Over 250 characters in path! Skip:${NL}'${File}'"
+      Write-Msg -T 'W' -M "Over 250 characters in path! Skip:${NL}'${File}'"
       continue
     }
 
@@ -174,21 +179,21 @@ function Move-Files() {
 
     switch ($P_Mode) {
       'CP' {
-        New-Directory -P "${P_Vault}" -N "$($Path[0])"
-        Compress-File -P "$($Path[1])" -N "$($Path[1]).VAULT.${TS}.7z"
+        New-Data -T 'D' -P "${P_Vault}" -N "$($Path[0])"
+        Compress-Data -P "$($Path[1])" -N "$($Path[1]).VAULT.${TS}.7z"
 
-        Write-VaultMsg -M "[CP] '$($File.FullName)' -> '$($Path[1])'"
+        Write-Msg -M "[CP] '$($File.FullName)' -> '$($Path[1])'"
         Copy-Item -LiteralPath "$($File.FullName)" -Destination "$($Path[1])" -Force
       }
       'MV' {
-        New-Directory -P "${P_Vault}" -N "$($Path[0])"
-        Compress-File -P "$($Path[1])" -N "$($Path[1]).VAULT.${TS}.7z"
+        New-Data -T 'D' -P "${P_Vault}" -N "$($Path[0])"
+        Compress-Data -P "$($Path[1])" -N "$($Path[1]).VAULT.${TS}.7z"
 
-        Write-VaultMsg -M "[MV] '$($File.FullName)' -> '$($Path[1])'"
+        Write-Msg -M "[MV] '$($File.FullName)' -> '$($Path[1])'"
         Move-Item -LiteralPath "$($File.FullName)" -Destination "$($Path[1])" -Force
       }
       'RM' {
-        Write-VaultMsg -M "[RM] '$($File.FullName)'"
+        Write-Msg -M "[RM] '$($File.FullName)'"
         Remove-Item -LiteralPath "$($File.FullName)" -Force
       }
     }
@@ -196,11 +201,11 @@ function Move-Files() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# REMOVE EMPTY DIRECTORIES FROM SOURCE.
+# REMOVING EMPTY DIRECTORIES FROM SOURCE.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Remove-Dirs() {
-  Write-VaultMsg -T 'HL' -M 'Removing empty directories'
+  Write-Msg -T 'HL' -M 'Removing empty directories'
 
   do{
     $Dirs = ((Get-ChildItem -LiteralPath "${P_Source}" -Recurse -Directory)
@@ -209,52 +214,80 @@ function Remove-Dirs() {
       | Where-Object { ((Get-ChildItem $_.FullName -Force).Count) -eq 0 }
       | Select-Object -ExpandProperty 'FullName')
 
-    if (-not $Dirs) { Write-VaultMsg -T 'I' -M "No empty directories were found in the '${P_Source}'!" }
+    if (-not $Dirs) { Write-Msg -T 'I' -M "No empty directories were found in the '${P_Source}'!" }
 
     $Dirs | ForEach-Object {
       $Dir = $_
-      Write-VaultMsg -M "[RM] '${Dir}'"
+      Write-Msg -M "[RM] '${Dir}'"
       Remove-Item -LiteralPath "${Dir}" -Force
     }
   } while ( $Dirs.Count -gt 0 )
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CREATE DIRECTORIES IN VAULT.
+# ------------------------------------------------< COMMON FUNCTIONS >------------------------------------------------ #
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function New-Directory() {
+# -------------------------------------------------------------------------------------------------------------------- #
+# TESTING ELEMENTS.
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function Test-Data() {
   param (
-    [Alias('P')][string]$P_Path,
-    [Alias('N')][string]$P_Name
+    [Alias('T')][string]$P_Type,
+    [Alias('P')][string]$P_Path
   )
 
-  New-Item -Path "${P_Path}" -Name "${P_Name}" -ItemType 'Directory' -ErrorAction 'SilentlyContinue'
+  switch ($P_Type) {
+    'D' { $P_Type = 'Container' }
+    'F' { $P_Type = 'Leaf' }
+  }
+
+  Test-Path -LiteralPath "${P_Path}" -PathType "${P_Type}"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# COMPRESS FILES IN VAULT.
+# CREATING ELEMENTS.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function Compress-File() {
+function New-Data() {
+  param (
+    [Alias('T')][string]$P_Type,
+    [Alias('P')][string]$P_Path,
+    [Alias('N')][string]$P_Name
+  )
+
+  switch ($P_Type) {
+    'D' { $P_Type = 'Directory' }
+    'F' { $P_Type = 'File' }
+  }
+
+  New-Item -Path "${P_Path}" -Name "${P_Name}" -ItemType "${P_Type}" -ErrorAction 'SilentlyContinue'
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# COMPRESSION ELEMENTS.
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function Compress-Data() {
   param (
     [Alias('P')][string]$P_Path,
     [Alias('N')][string]$P_Name
   )
 
-  if (-not $P_Overwrite -and (Test-Path "${P_Path}")) {
+  if (-not $P_Overwrite -and (Test-Data -T 'F' -P "${P_Path}")) {
     Start-7z -T '7z' -L 9 -I "${P_Path}" -O "${P_Name}"
   }
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# MESSAGES.
+# SYSTEM MESSAGES.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function Write-VaultMsg() {
+function Write-Msg() {
   param (
-    [Alias('M')][string]$P_Message,
     [Alias('T')][string]$P_Type,
+    [Alias('M')][string]$P_Message,
     [Alias('A')][string]$P_Action = 'Continue'
   )
 
@@ -268,7 +301,7 @@ function Write-VaultMsg() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# 7-ZIP.
+# APP: 7-ZIP.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-7z() {
@@ -290,8 +323,8 @@ function Start-7z() {
 
   # Checking the location of files.
   foreach ($File in $7z) {
-    if (-not (Test-Path "${7zDir}\${File}")) {
-      Write-VaultMsg -T 'W' -A 'Stop' -M ("'${File}' not found!${NL}${NL}" +
+    if (-not (Test-Data -T 'F' -P "${7zDir}\${File}")) {
+      Write-Msg -T 'W' -A 'Stop' -M ("'${File}' not found!${NL}${NL}" +
       "1. Download 7-Zip Extra from 'https://www.7-zip.org/download.html'.${NL}" +
       "2. Extract all the contents of the archive into a directory '${PSScriptRoot}'.")
     }
