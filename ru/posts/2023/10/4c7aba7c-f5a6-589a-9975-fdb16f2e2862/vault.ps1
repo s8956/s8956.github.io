@@ -207,7 +207,7 @@ function Move-Files() {
 function Remove-Dirs() {
   Write-Msg -T 'HL' -M 'Removing empty directories'
 
-  do{
+  do {
     $Dirs = ((Get-ChildItem -LiteralPath "${P_Source}" -Recurse -Directory)
       | Where-Object { (($_.CreationTime) -lt ((Get-Date).AddSeconds(-$P_CreationTime))) `
         -and (($_.LastWriteTime) -lt ((Get-Date).AddSeconds(-$P_LastWriteTime))) }
@@ -254,7 +254,8 @@ function New-Data() {
   param (
     [Alias('T')][string]$P_Type,
     [Alias('P')][string]$P_Path,
-    [Alias('N')][string]$P_Name
+    [Alias('N')][string]$P_Name,
+    [Alias('A')][string]$P_Action = 'SilentlyContinue'
   )
 
   switch ($P_Type) {
@@ -262,7 +263,7 @@ function New-Data() {
     'F' { $P_Type = 'File' }
   }
 
-  New-Item -Path "${P_Path}" -Name "${P_Name}" -ItemType "${P_Type}" -ErrorAction 'SilentlyContinue'
+  New-Item -Path "${P_Path}" -Name "${P_Name}" -ItemType "${P_Type}" -ErrorAction "${P_Action}"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #

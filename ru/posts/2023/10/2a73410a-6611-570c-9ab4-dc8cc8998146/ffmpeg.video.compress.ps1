@@ -99,8 +99,12 @@ function Start-Script() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Compress-Video() {
-  ForEach ($File in (Get-ChildItem $P_Files)) {
-    Start-FFmpeg -I "${File}"
+  $Files = (Get-ChildItem "${P_Files}" -File)
+
+  $Files | ForEach-Object {
+    $In = "$($_.FullName)"
+    $Out = "$(Join-Path $_.DirectoryName $_.BaseName).${P_Extension}"
+    Start-FFmpeg -I "${In}" -O "${Out}"
   }
 }
 
@@ -132,7 +136,8 @@ function Test-Data() {
 
 function Start-FFmpeg() {
   param (
-    [Alias('I')][string]$P_In
+    [Alias('I')][string]$P_In,
+    [Alias('O')][string]$P_Out
   )
 
   # Search 'ffmpeg.exe'.
@@ -153,7 +158,7 @@ function Start-FFmpeg() {
   if ($P_Preset) { $Params += @('-preset', "${P_Preset}") }
   if ($P_Framerate) { $Params += @('-r', "${P_Framerate}") }
   $Params += @('-c:a', "${P_aCodec}")
-  $Params += @("$($P_In + '.' + $P_Extension)")
+  $Params += @("${P_Out}")
 
   # Running 'ffmpeg.exe'.
   & "${FFmpegExe}" $Params
