@@ -7,4 +7,4 @@ function Find-LastWriteTime() {
   Get-ChildItem -Path "${P_Path}" -Recurse -File
     | Sort-Object -Property 'LastAccessTime'
     | Where-Object { ($_.LastWriteTime -lt (Get-Date).AddSeconds(-$P_Time)) }
-  }
+}
