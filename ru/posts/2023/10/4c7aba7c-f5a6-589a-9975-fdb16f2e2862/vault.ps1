@@ -1,5 +1,5 @@
 <#PSScriptInfo
-  .VERSION      0.1.3
+  .VERSION      0.1.4
   .GUID         8fd0ce2c-0288-4d9c-805f-703a0c659ade
   .AUTHOR       Kitsune Solar
   .AUTHOREMAIL  mail@kitsune.solar
@@ -110,6 +110,7 @@ Param(
 
 # Timestamp.
 $TS = "$(Get-Date -Format 'yyyy-MM-dd.HH-mm-ss')"
+$UTS = ([DateTimeOffset]::Now.ToUnixTimeSeconds())
 
 # New line separator.
 $NL = [Environment]::NewLine
@@ -133,11 +134,11 @@ function Test-Vault() {
   $Files = @("${P_Exclude}")
 
   foreach ($Dir in $Dirs) {
-    if (-not (Test-Data -T 'D' -P "${Dir}")) { New-Data -T 'D' -P "${Dir}" }
+    if (-not (Test-Data -T 'D' -P "${Dir}")) { New-Data -T 'D' -P "${Dir}" | Out-Null }
   }
 
   foreach ($File in $Files) {
-    if (-not (Test-Data -T 'F' -P "${File}")) { New-Data -T 'F' -P "${File}" }
+    if (-not (Test-Data -T 'F' -P "${File}")) { New-Data -T 'F' -P "${File}" | Out-Null }
   }
 }
 
@@ -170,21 +171,21 @@ function Move-Files() {
     switch ($P_Mode) {
       'CP' {
         New-Data -T 'D' -P "${P_Vault}" -N "$($PathDST[1])" | Out-Null
-        Compress-Data -P "$($PathDST[0])" -N "$($PathDST[0]).VAULT.${TS}.7z"
+        Compress-Data -P "$($PathDST[0])" -N "$($PathDST[0]).${UTS}.7z"
 
         Write-Msg -M "[CP] '$($PathSRC[0])' -> '$($PathDST[0])'"
-        Copy-Item -LiteralPath "$($PathSRC[0])" -Destination "$($PathDST[0])" -Force
+        Copy-Data -S "$($PathSRC[0])" -D "$($PathDST[0])"
       }
       'MV' {
         New-Data -T 'D' -P "${P_Vault}" -N "$($PathDST[1])" | Out-Null
-        Compress-Data -P "$($PathDST[0])" -N "$($PathDST[0]).VAULT.${TS}.7z"
+        Compress-Data -P "$($PathDST[0])" -N "$($PathDST[0]).${UTS}.7z"
 
         Write-Msg -M "[MV] '$($PathSRC[0])' -> '$($PathDST[0])'"
-        Move-Item -LiteralPath "$($PathSRC[0])" -Destination "$($PathDST[0])" -Force
+        Move-Data -S "$($PathSRC[0])" -D "$($PathDST[0])"
       }
       'RM' {
         Write-Msg -M "[RM] '$($PathSRC[0])'"
-        Remove-Item -LiteralPath "$($PathSRC[0])" -Force
+        Remove-Data -p "$($PathSRC[0])"
       }
     }
   }
@@ -209,7 +210,7 @@ function Remove-Dirs() {
     $Dirs | ForEach-Object {
       $Dir = $_
       Write-Msg -M "[RM] '${Dir}'"
-      Remove-Item -LiteralPath "${Dir}" -Force
+      Remove-Data -P "${Dir}"
     }
   } while ( $Dirs.Count -gt 0 )
 }
@@ -219,7 +220,7 @@ function Remove-Dirs() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# TESTING ELEMENTS.
+# WORKING WITH ELEMENTS.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Test-Data() {
@@ -235,10 +236,6 @@ function Test-Data() {
 
   Test-Path -LiteralPath "${Path}" -PathType "${Type}"
 }
-
-# -------------------------------------------------------------------------------------------------------------------- #
-# CREATING ELEMENTS.
-# -------------------------------------------------------------------------------------------------------------------- #
 
 function New-Data() {
   param (
@@ -256,9 +253,31 @@ function New-Data() {
   New-Item -Path "${Path}" -Name "${Name}" -ItemType "${Type}" -ErrorAction "${Action}"
 }
 
-# -------------------------------------------------------------------------------------------------------------------- #
-# COMPRESSION ELEMENTS.
-# -------------------------------------------------------------------------------------------------------------------- #
+function Copy-Data() {
+  param (
+    [Alias('S')][string]$Src,
+    [Alias('D')][string]$Dst
+  )
+
+  Copy-Item -LiteralPath "${Src}" -Destination "${Dst}" -Force
+}
+
+function Move-Data() {
+  param (
+    [Alias('S')][string]$Src,
+    [Alias('D')][string]$Dst
+  )
+
+  Move-Item -LiteralPath "${Src}" -Destination "${Dst}" -Force
+}
+
+function Remove-Data() {
+  param (
+    [Alias('P')][string]$Path
+  )
+
+  Remove-Item -LiteralPath "${Path}" -Force
+}
 
 function Compress-Data() {
   param (
