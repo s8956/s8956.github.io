@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>kernel / Library Online</title><link>https://lib.onl/ru/tags/kernel/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/kernel/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>kernel / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 13 Jan 2022 22:44:15 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/kernel/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Установка ядра XanMod в Debian</title><link>https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2022/01/06ef2fab-2ae2-5356-9154-7ca1e486d27d/</guid><description>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра XanMod в Debian.</description><media:content medium="image" url="https://images.unsplash.com/photo-1615485021362-5db597fbab1d" width="1600" height="900"/><content:encoded><![CDATA[<p>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра XanMod в Debian.</p>
+<h2 id="что-такое-ядро-xanmod">
+  <a class="link-body-emphasis" href="#%d1%87%d1%82%d0%be-%d1%82%d0%b0%d0%ba%d0%be%d0%b5-%d1%8f%d0%b4%d1%80%d0%be-xanmod">Что такое ядро XanMod?</a>
+</h2><p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с <a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>:</p>
+<ul>
+<li>Caching, Virtual Memory Manager and CPUFreq Governor improvements.</li>
+<li>Full multi-core block layer runqueue requests for high I/O throughput.</li>
+<li>BBRv2 TCP congestion control + FQ-PIE packet scheduling and AQM algorithm.</li>
+<li>ORC Unwinder for kernel stack traces (debuginfo) implementation.</li>
+<li>High responsiveness multitasking Task Type scheduler (SCHED_NORMAL) build available [5.15-tt].</li>
+<li>Real-time Linux kernel (PREEMPT_RT) build available [5.15-rt] [5.10-rt].</li>
+<li>Third-party patchset available: patches
+<ul>
+<li>le9&rsquo;s file mappings under memory pressure protection.</li>
+<li>Linux Random Number Generator (LRNG) framework.</li>
+<li>TCP performance optimizations backport from linux/net-next [5.16] [5.15].</li>
+<li>AMD&rsquo;s P-state driver for Zen2 and Zen3 processors [5.16] [5.15].</li>
+<li>Futex waitv and legacy WAIT_MULTIPLE implementation for Wine / Proton Fsync support.</li>
+<li>WineSync driver for fast kernel-backed Wine [5.16] [5.15] [as module: winesync].</li>
+<li>Google&rsquo;s Multigenerational LRU framework [5.16] [5.15].</li>
+<li>Google&rsquo;s BBRv2 TCP congestion control.</li>
+<li>Paragon&rsquo;s Software NTFS3 driver [as module: ntfs3].</li>
+<li>PCIe ACS Override for bypassing IOMMU groups support.</li>
+<li>Graysky&rsquo;s additional CPU optimizations for GCC and Clang.</li>
+<li>Clear Linux patchset [partial].</li>
+<li>Android Ashmem and Binder IPC driver as module for Anbox.</li>
+<li>Updated ZSTD library for bug fixes and r/w performance compression improvements on Btrfs, F2FS, SquashFS, pstore, initramfs and vmlinuz.</li>
+</ul>
+</li>
+<li>Generic packages for compatibility with most Debian &amp; Ubuntu based distributions. Builts on the latest LLVM 12.0.1, GCC 11.2 and Binutils 2.37.</li>
+<li>GPLv2 license. Can be built for any distribution or purpose.</li>
+</ul>
+<p>Стоит заметить, что ядро XanMod не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро <a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>, которое занимается практически тем же самым. Но, посмотрев <a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a> на Phoronix&rsquo;е, я сделал выбор в пользу XanMod.</p>
+<h2 id="установка-xanmod">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-xanmod">Установка XanMod</a>
+</h2><p>Однострочная команда по добавлению ядра XanMod в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
+<ol>
+<li>Добавление файла <code>xanmod-kernel.list</code> в директорию <code>/etc/apt/sources.list.d</code>.</li>
+<li>Скачивание файла подписи <code>archive.key</code> и размещение его в директорию <code>/etc/apt/trusted.gpg.d</code> с названием <code>xanmod-kernel.gpg</code>.</li>
+<li>Обновление информации из репозитория при помощи команды <code>apt update</code>.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bf615ca14dc8b7844db365a04514fc6d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;deb [signed-by=/etc/apt/trusted.gpg.d/xanmod-kernel.gpg] http://deb.xanmod.org releases main&#39;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/xanmod-kernel.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://dl.xanmod.org/archive.key&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bf615ca14dc8b7844db365a04514fc6d"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>После выполнения вышеприведённой команды, установка ядра XanMod происходит таким образом:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e5479baa0e4a6026472a436d711cdf1e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-<span class="o">[</span>ABI<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e5479baa0e4a6026472a436d711cdf1e"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>[ABI]</code> - версия архитектуры. Список версий архитектур можно посмотреть ниже.</li>
+</ul>
+<h3 id="примеры">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">Примеры</a>
+</h3><p>Установить ядро XanMod с версией архитектуры <code>x64v1</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9a20bcd9733c5732bf61f0f90b849ede"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v1</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9a20bcd9733c5732bf61f0f90b849ede"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить ядро XanMod с версией архитектуры <code>x64v2</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e71c88dc8c588b2cb3ecc090dc03e23c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v2</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e71c88dc8c588b2cb3ecc090dc03e23c"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить ядро XanMod с версией архитектуры <code>x64v3</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-605da34534874f8f4be2866cf477dfd9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v3</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-605da34534874f8f4be2866cf477dfd9"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить ядро XanMod с версией архитектуры <code>x64v4</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a3084626226f18740dc7b8c623c65be9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v4</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a3084626226f18740dc7b8c623c65be9"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Для установки Mainline-версии ядра команда будет такой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cb5bde6a4965aeecb60dbd7757c8164a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-edge-x64v3</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cb5bde6a4965aeecb60dbd7757c8164a"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="версии-архитектур-xanmod">
+  <a class="link-body-emphasis" href="#%d0%b2%d0%b5%d1%80%d1%81%d0%b8%d0%b8-%d0%b0%d1%80%d1%85%d0%b8%d1%82%d0%b5%d0%ba%d1%82%d1%83%d1%80-xanmod">Версии архитектур XanMod</a>
+</h2><p>Версия архитектуры зависит от ядра процессора и поддерживаемых им инструкций. Версию архитектуры можно узнать из списка ниже.</p>
+<h3 id="x86-64-legacy">
+  <a class="link-body-emphasis" href="#x86-64-legacy">x86-64 (LEGACY)</a>
+</h3><p>Суффикс для установки ядра: <code>x64v1</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD K8-family</li>
+<li>AMD K10-family</li>
+<li>AMD Family 10h (Barcelona)</li>
+<li>Intel Pentium 4 / Xeon (Nocona)</li>
+<li>Intel Core 2 (all variants)</li>
+<li>All x86-64 CPUs</li>
+</ul>
+<h3 id="x86-64-v2">
+  <a class="link-body-emphasis" href="#x86-64-v2">x86-64-v2</a>
+</h3><p>Суффикс для установки ядра: <code>x64v2</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD Family 14h (Bobcat)</li>
+<li>AMD Family 16h (Jaguar)</li>
+<li>AMD Family 15h (Bulldozer)</li>
+<li>AMD Family 15h (Piledriver)</li>
+<li>AMD Family 15h (Steamroller)</li>
+<li>Intel 1st Gen Core (Nehalem)</li>
+<li>Intel 1.5 Gen Core (Westmere)</li>
+<li>Intel 2nd Gen Core (Sandybridge)</li>
+<li>Intel 3rd Gen Core (Ivybridge)</li>
+<li>Intel low-power Silvermont</li>
+<li>Intel Goldmont (Apollo Lake)</li>
+<li>Intel Goldmont (Denverton)</li>
+<li>Intel Goldmont Plus (Gemini Lake)</li>
+</ul>
+<h3 id="x86-64-v3">
+  <a class="link-body-emphasis" href="#x86-64-v3">x86-64-v3</a>
+</h3><p>Суффикс для установки ядра: <code>x64v3</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD Family 15h (Excavator)</li>
+<li>AMD Family 17h (Zen)</li>
+<li>AMD Family 17h (Zen+)</li>
+<li>AMD Family 17h (Zen2)</li>
+<li>AMD Family 19h (Zen3)</li>
+<li>Intel 4th Gen Core (Haswell)</li>
+<li>Intel 5th Gen Core (Broadwell)</li>
+<li>Intel 6th Gen Core (Skylake)</li>
+<li>Intel 7th Gen Core (Kaby Lake)</li>
+<li>Intel 8/9th Gen Core (Coffee Lake)</li>
+<li>Intel 10th Gen Core (Comet Lake)</li>
+<li>Intel 12th Gen (Alder Lake)</li>
+<li>Intel 13th Gen (Raptor Lake)</li>
+<li>Intel 14th Gen (Meteor Lake)</li>
+</ul>
+<h3 id="x86-64-v4-avx-512">
+  <a class="link-body-emphasis" href="#x86-64-v4-avx-512">x86-64-v4 (AVX-512)</a>
+</h3><p>Суффикс для установки ядра: <code>x64v4</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD Family 19h (Zen4)</li>
+<li>Intel 6th Gen Core (Skylake X)</li>
+<li>Intel 8th Gen Core i3 (Cannon Lake)</li>
+<li>Intel Xeon / 10th Gen Core (Ice Lake)</li>
+<li>Intel Xeon (Cascade Lake)</li>
+<li>Intel Xeon (Cooper Lake)</li>
+<li>Intel 3rd Gen 10nm++ (Tiger Lake)</li>
+<li>Intel 4th Gen 10nm++ (Sapphire Rapids)</li>
+<li>Intel 5th Gen 10nm++ (Emerald Rapids)</li>
+<li>Intel 11th Gen (Rocket Lake)</li>
+</ul>]]></content:encoded><turbo:source/><turbo:topic>Установка ядра XanMod в Debian</turbo:topic><turbo:content><![CDATA[<p>Приветствую! В этой небольшой заметке приведу команду, при помощи которой можно добавить репозиторий ядра XanMod в Debian.</p>
+<h2 id="что-такое-ядро-xanmod">
+  <a class="link-body-emphasis" href="#%d1%87%d1%82%d0%be-%d1%82%d0%b0%d0%ba%d0%be%d0%b5-%d1%8f%d0%b4%d1%80%d0%be-xanmod">Что такое ядро XanMod?</a>
+</h2><p>Ядро <strong>XanMod</strong> имеет ряд патчей и оптимизаций. Список изменений по сравнению с ванильным ядром, я взял с <a title="" href="https://xanmod.org" target="_blank" rel="noopener noreferrer nofollow">официального сайта</a>:</p>
+<ul>
+<li>Caching, Virtual Memory Manager and CPUFreq Governor improvements.</li>
+<li>Full multi-core block layer runqueue requests for high I/O throughput.</li>
+<li>BBRv2 TCP congestion control + FQ-PIE packet scheduling and AQM algorithm.</li>
+<li>ORC Unwinder for kernel stack traces (debuginfo) implementation.</li>
+<li>High responsiveness multitasking Task Type scheduler (SCHED_NORMAL) build available [5.15-tt].</li>
+<li>Real-time Linux kernel (PREEMPT_RT) build available [5.15-rt] [5.10-rt].</li>
+<li>Third-party patchset available: patches
+<ul>
+<li>le9&rsquo;s file mappings under memory pressure protection.</li>
+<li>Linux Random Number Generator (LRNG) framework.</li>
+<li>TCP performance optimizations backport from linux/net-next [5.16] [5.15].</li>
+<li>AMD&rsquo;s P-state driver for Zen2 and Zen3 processors [5.16] [5.15].</li>
+<li>Futex waitv and legacy WAIT_MULTIPLE implementation for Wine / Proton Fsync support.</li>
+<li>WineSync driver for fast kernel-backed Wine [5.16] [5.15] [as module: winesync].</li>
+<li>Google&rsquo;s Multigenerational LRU framework [5.16] [5.15].</li>
+<li>Google&rsquo;s BBRv2 TCP congestion control.</li>
+<li>Paragon&rsquo;s Software NTFS3 driver [as module: ntfs3].</li>
+<li>PCIe ACS Override for bypassing IOMMU groups support.</li>
+<li>Graysky&rsquo;s additional CPU optimizations for GCC and Clang.</li>
+<li>Clear Linux patchset [partial].</li>
+<li>Android Ashmem and Binder IPC driver as module for Anbox.</li>
+<li>Updated ZSTD library for bug fixes and r/w performance compression improvements on Btrfs, F2FS, SquashFS, pstore, initramfs and vmlinuz.</li>
+</ul>
+</li>
+<li>Generic packages for compatibility with most Debian &amp; Ubuntu based distributions. Builts on the latest LLVM 12.0.1, GCC 11.2 and Binutils 2.37.</li>
+<li>GPLv2 license. Can be built for any distribution or purpose.</li>
+</ul>
+<p>Стоит заметить, что ядро XanMod не единственное, которое интегрирует в себя оптимизации. Есть ещё ядро <a title="" href="https://liquorix.net" target="_blank" rel="noopener noreferrer nofollow"><strong>Liquorix</strong></a>, которое занимается практически тем же самым. Но, посмотрев <a title="" href="https://www.phoronix.com/scan.php?page=article&amp;item=ryzen5-xanmod-liquorix" target="_blank" rel="noopener noreferrer nofollow">обзор и тесты</a> на Phoronix&rsquo;е, я сделал выбор в пользу XanMod.</p>
+<h2 id="установка-xanmod">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-xanmod">Установка XanMod</a>
+</h2><p>Однострочная команда по добавлению ядра XanMod в репозиторий Debian&rsquo;а приведена ниже. Она дробится на следующие под-команды:</p>
+<ol>
+<li>Добавление файла <code>xanmod-kernel.list</code> в директорию <code>/etc/apt/sources.list.d</code>.</li>
+<li>Скачивание файла подписи <code>archive.key</code> и размещение его в директорию <code>/etc/apt/trusted.gpg.d</code> с названием <code>xanmod-kernel.gpg</code>.</li>
+<li>Обновление информации из репозитория при помощи команды <code>apt update</code>.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bf615ca14dc8b7844db365a04514fc6d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;deb [signed-by=/etc/apt/trusted.gpg.d/xanmod-kernel.gpg] http://deb.xanmod.org releases main&#39;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/xanmod-kernel.list <span class="o">&amp;&amp;</span> curl -fsSL <span class="s1">&#39;https://dl.xanmod.org/archive.key&#39;</span> <span class="p">|</span> gpg --dearmor <span class="p">|</span> tee /etc/apt/trusted.gpg.d/xanmod-kernel.gpg &gt; /dev/null <span class="o">&amp;&amp;</span> apt update</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bf615ca14dc8b7844db365a04514fc6d"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>После выполнения вышеприведённой команды, установка ядра XanMod происходит таким образом:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e5479baa0e4a6026472a436d711cdf1e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-<span class="o">[</span>ABI<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e5479baa0e4a6026472a436d711cdf1e"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>[ABI]</code> - версия архитектуры. Список версий архитектур можно посмотреть ниже.</li>
+</ul>
+<h3 id="примеры">
+  <a class="link-body-emphasis" href="#%d0%bf%d1%80%d0%b8%d0%bc%d0%b5%d1%80%d1%8b">Примеры</a>
+</h3><p>Установить ядро XanMod с версией архитектуры <code>x64v1</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9a20bcd9733c5732bf61f0f90b849ede"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v1</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9a20bcd9733c5732bf61f0f90b849ede"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить ядро XanMod с версией архитектуры <code>x64v2</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e71c88dc8c588b2cb3ecc090dc03e23c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v2</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e71c88dc8c588b2cb3ecc090dc03e23c"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить ядро XanMod с версией архитектуры <code>x64v3</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-605da34534874f8f4be2866cf477dfd9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v3</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-605da34534874f8f4be2866cf477dfd9"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить ядро XanMod с версией архитектуры <code>x64v4</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a3084626226f18740dc7b8c623c65be9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-x64v4</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a3084626226f18740dc7b8c623c65be9"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Для установки Mainline-версии ядра команда будет такой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cb5bde6a4965aeecb60dbd7757c8164a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install linux-xanmod-edge-x64v3</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cb5bde6a4965aeecb60dbd7757c8164a"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="версии-архитектур-xanmod">
+  <a class="link-body-emphasis" href="#%d0%b2%d0%b5%d1%80%d1%81%d0%b8%d0%b8-%d0%b0%d1%80%d1%85%d0%b8%d1%82%d0%b5%d0%ba%d1%82%d1%83%d1%80-xanmod">Версии архитектур XanMod</a>
+</h2><p>Версия архитектуры зависит от ядра процессора и поддерживаемых им инструкций. Версию архитектуры можно узнать из списка ниже.</p>
+<h3 id="x86-64-legacy">
+  <a class="link-body-emphasis" href="#x86-64-legacy">x86-64 (LEGACY)</a>
+</h3><p>Суффикс для установки ядра: <code>x64v1</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD K8-family</li>
+<li>AMD K10-family</li>
+<li>AMD Family 10h (Barcelona)</li>
+<li>Intel Pentium 4 / Xeon (Nocona)</li>
+<li>Intel Core 2 (all variants)</li>
+<li>All x86-64 CPUs</li>
+</ul>
+<h3 id="x86-64-v2">
+  <a class="link-body-emphasis" href="#x86-64-v2">x86-64-v2</a>
+</h3><p>Суффикс для установки ядра: <code>x64v2</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD Family 14h (Bobcat)</li>
+<li>AMD Family 16h (Jaguar)</li>
+<li>AMD Family 15h (Bulldozer)</li>
+<li>AMD Family 15h (Piledriver)</li>
+<li>AMD Family 15h (Steamroller)</li>
+<li>Intel 1st Gen Core (Nehalem)</li>
+<li>Intel 1.5 Gen Core (Westmere)</li>
+<li>Intel 2nd Gen Core (Sandybridge)</li>
+<li>Intel 3rd Gen Core (Ivybridge)</li>
+<li>Intel low-power Silvermont</li>
+<li>Intel Goldmont (Apollo Lake)</li>
+<li>Intel Goldmont (Denverton)</li>
+<li>Intel Goldmont Plus (Gemini Lake)</li>
+</ul>
+<h3 id="x86-64-v3">
+  <a class="link-body-emphasis" href="#x86-64-v3">x86-64-v3</a>
+</h3><p>Суффикс для установки ядра: <code>x64v3</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD Family 15h (Excavator)</li>
+<li>AMD Family 17h (Zen)</li>
+<li>AMD Family 17h (Zen+)</li>
+<li>AMD Family 17h (Zen2)</li>
+<li>AMD Family 19h (Zen3)</li>
+<li>Intel 4th Gen Core (Haswell)</li>
+<li>Intel 5th Gen Core (Broadwell)</li>
+<li>Intel 6th Gen Core (Skylake)</li>
+<li>Intel 7th Gen Core (Kaby Lake)</li>
+<li>Intel 8/9th Gen Core (Coffee Lake)</li>
+<li>Intel 10th Gen Core (Comet Lake)</li>
+<li>Intel 12th Gen (Alder Lake)</li>
+<li>Intel 13th Gen (Raptor Lake)</li>
+<li>Intel 14th Gen (Meteor Lake)</li>
+</ul>
+<h3 id="x86-64-v4-avx-512">
+  <a class="link-body-emphasis" href="#x86-64-v4-avx-512">x86-64-v4 (AVX-512)</a>
+</h3><p>Суффикс для установки ядра: <code>x64v4</code>.</p>
+<p><strong>Поддерживаемые архитектуры:</strong></p>
+<ul>
+<li>AMD Family 19h (Zen4)</li>
+<li>Intel 6th Gen Core (Skylake X)</li>
+<li>Intel 8th Gen Core i3 (Cannon Lake)</li>
+<li>Intel Xeon / 10th Gen Core (Ice Lake)</li>
+<li>Intel Xeon (Cascade Lake)</li>
+<li>Intel Xeon (Cooper Lake)</li>
+<li>Intel 3rd Gen 10nm++ (Tiger Lake)</li>
+<li>Intel 4th Gen 10nm++ (Sapphire Rapids)</li>
+<li>Intel 5th Gen 10nm++ (Emerald Rapids)</li>
+<li>Intel 11th Gen (Rocket Lake)</li>
+</ul>]]></turbo:content><pubDate>Thu, 13 Jan 2022 22:44:15 +0000</pubDate><category>Linux</category></item></channel></rss>

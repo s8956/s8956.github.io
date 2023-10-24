@@ -1,0 +1,1991 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>vbulletin / Library Online</title><link>https://lib.onl/ru/tags/vbulletin/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/vbulletin/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>vbulletin / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Tue, 17 Oct 2023 18:01:38 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/vbulletin/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Дополнительная страница для vBulletin 4</title><link>https://lib.onl/ru/posts/2023/10/382d49d6-8f44-5367-bf24-88890d7c4723/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/382d49d6-8f44-5367-bf24-88890d7c4723/</guid><description>Создание дополнительных страниц для уже устаревшего форумного движка vBulletin 4.</description><media:content medium="image" url="https://images.unsplash.com/photo-1554757387-fa0367573d09" width="1600" height="900"/><content:encoded><![CDATA[<p>Создание дополнительных страниц для уже устаревшего форумного движка <strong>vBulletin 4</strong>.</p>
+<p>Для <strong>vBulletin</strong> версии <strong>4.0</strong> действия практически одни и те же, как в материале <span class="shortcode shortcode-uuid"><a href="/ru/posts/2023/10/01d19479-028f-5b81-9c58-9c99adb08461/">Дополнительная страница для vBulletin 3</a></span>.</p>
+<h2 id="что-такое-дополнительная-страница-или-custom-pages">
+  <a class="link-body-emphasis" href="#%d1%87%d1%82%d0%be-%d1%82%d0%b0%d0%ba%d0%be%d0%b5-%d0%b4%d0%be%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d0%b0%d1%8f-%d1%81%d1%82%d1%80%d0%b0%d0%bd%d0%b8%d1%86%d0%b0-%d0%b8%d0%bb%d0%b8-custom-pages">Что такое дополнительная страница (или Custom Pages)?</a>
+</h2><p>Дополнительная страница (или Custom Pages) - это страница, &ldquo;совмещённая&rdquo; со стилем форума.</p>
+<h2 id="как-сделать-дополнительную-страницу">
+  <a class="link-body-emphasis" href="#%d0%ba%d0%b0%d0%ba-%d1%81%d0%b4%d0%b5%d0%bb%d0%b0%d1%82%d1%8c-%d0%b4%d0%be%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d1%83%d1%8e-%d1%81%d1%82%d1%80%d0%b0%d0%bd%d0%b8%d1%86%d1%83">Как сделать дополнительную страницу?</a>
+</h2><p>Необходимо создать шаблон <code>custom_ШАБЛОН</code>, содержимое которого представляет собой следующий код:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0d99833ca5fd7794e16f12ab2f004722"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{vb:stylevar htmldoctype}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">&#34;http://www.w3.org/1999/xhtml&#34;</span> <span class="na">dir</span><span class="o">=</span><span class="s">&#34;{vb:stylevar textdirection}&#34;</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;{vb:stylevar languagecode}&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;vbulletin_html&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{vb:raw vboptions.bbtitle}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {vb:raw headinclude}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {vb:raw header}
+</span></span><span class="line"><span class="cl">  {vb:raw navbar}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;pagetitle&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>{vb:raw pagetitle}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;blockhead&#34;</span><span class="p">&gt;</span><span class="c">&lt;!-- Заголовок страницы --&gt;</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;blockbody&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;blockrow&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="c">&lt;!-- Текст страницы --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {vb:raw footer}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0d99833ca5fd7794e16f12ab2f004722"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Страница будет располагаться по адресу:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-589d84478d95480c167b6fa32464ed0e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">https://example.com/misc.php?do=page&amp;template=ШАБЛОН</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-589d84478d95480c167b6fa32464ed0e"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></content:encoded><turbo:source/><turbo:topic>Дополнительная страница для vBulletin 4</turbo:topic><turbo:content><![CDATA[<p>Создание дополнительных страниц для уже устаревшего форумного движка <strong>vBulletin 4</strong>.</p>
+<p>Для <strong>vBulletin</strong> версии <strong>4.0</strong> действия практически одни и те же, как в материале <span class="shortcode shortcode-uuid"><a href="/ru/posts/2023/10/01d19479-028f-5b81-9c58-9c99adb08461/">Дополнительная страница для vBulletin 3</a></span>.</p>
+<h2 id="что-такое-дополнительная-страница-или-custom-pages">
+  <a class="link-body-emphasis" href="#%d1%87%d1%82%d0%be-%d1%82%d0%b0%d0%ba%d0%be%d0%b5-%d0%b4%d0%be%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d0%b0%d1%8f-%d1%81%d1%82%d1%80%d0%b0%d0%bd%d0%b8%d1%86%d0%b0-%d0%b8%d0%bb%d0%b8-custom-pages">Что такое дополнительная страница (или Custom Pages)?</a>
+</h2><p>Дополнительная страница (или Custom Pages) - это страница, &ldquo;совмещённая&rdquo; со стилем форума.</p>
+<h2 id="как-сделать-дополнительную-страницу">
+  <a class="link-body-emphasis" href="#%d0%ba%d0%b0%d0%ba-%d1%81%d0%b4%d0%b5%d0%bb%d0%b0%d1%82%d1%8c-%d0%b4%d0%be%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d1%83%d1%8e-%d1%81%d1%82%d1%80%d0%b0%d0%bd%d0%b8%d1%86%d1%83">Как сделать дополнительную страницу?</a>
+</h2><p>Необходимо создать шаблон <code>custom_ШАБЛОН</code>, содержимое которого представляет собой следующий код:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0d99833ca5fd7794e16f12ab2f004722"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{vb:stylevar htmldoctype}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">&#34;http://www.w3.org/1999/xhtml&#34;</span> <span class="na">dir</span><span class="o">=</span><span class="s">&#34;{vb:stylevar textdirection}&#34;</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;{vb:stylevar languagecode}&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;vbulletin_html&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{vb:raw vboptions.bbtitle}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {vb:raw headinclude}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {vb:raw header}
+</span></span><span class="line"><span class="cl">  {vb:raw navbar}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;pagetitle&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>{vb:raw pagetitle}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;blockhead&#34;</span><span class="p">&gt;</span><span class="c">&lt;!-- Заголовок страницы --&gt;</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;blockbody&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;blockrow&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="c">&lt;!-- Текст страницы --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {vb:raw footer}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0d99833ca5fd7794e16f12ab2f004722"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Страница будет располагаться по адресу:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-589d84478d95480c167b6fa32464ed0e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">https://example.com/misc.php?do=page&amp;template=ШАБЛОН</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-589d84478d95480c167b6fa32464ed0e"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></turbo:content><pubDate>Tue, 17 Oct 2023 18:01:38 +0000</pubDate><category>CMF</category><category>В истории</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Дополнительная страница для vBulletin 3</title><link>https://lib.onl/ru/posts/2023/10/01d19479-028f-5b81-9c58-9c99adb08461/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/01d19479-028f-5b81-9c58-9c99adb08461/</guid><description>Материал по созданию дополнительных страниц в vBulletin 3. Возможно, кто-то ещё пользуется этой версией движка&amp;hellip;</description><media:content medium="image" url="https://images.unsplash.com/photo-1573848855919-9abecc93e456" width="1600" height="900"/><content:encoded><![CDATA[<p>Материал по созданию дополнительных страниц в <strong>vBulletin 3</strong>. Возможно, кто-то ещё пользуется этой версией движка&hellip;</p>
+<h2 id="что-такое-дополнительная-страница-или-custom-pages">
+  <a class="link-body-emphasis" href="#%d1%87%d1%82%d0%be-%d1%82%d0%b0%d0%ba%d0%be%d0%b5-%d0%b4%d0%be%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d0%b0%d1%8f-%d1%81%d1%82%d1%80%d0%b0%d0%bd%d0%b8%d1%86%d0%b0-%d0%b8%d0%bb%d0%b8-custom-pages">Что такое дополнительная страница (или Custom Pages)?</a>
+</h2><p>Дополнительная страница (или Custom Pages) - это страница, &ldquo;совмещённая&rdquo; со стилем форума и находится по адресу:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5c63f6816129d5b49f2388e34e181f47"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http://example.com/misc.php?do=page&amp;template=название_страницы</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5c63f6816129d5b49f2388e34e181f47"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="как-сделать-дополнительную-страницу">
+  <a class="link-body-emphasis" href="#%d0%ba%d0%b0%d0%ba-%d1%81%d0%b4%d0%b5%d0%bb%d0%b0%d1%82%d1%8c-%d0%b4%d0%be%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d1%83%d1%8e-%d1%81%d1%82%d1%80%d0%b0%d0%bd%d0%b8%d1%86%d1%83">Как сделать дополнительную страницу?</a>
+</h2><p>Итак, для начала нужно создать дополнительный шаблон того стиля, который вами используется. Этот дополнительный шаблон должен иметь префикс <code>custom_</code>, то есть само название дополнительного шаблона должно выглядеть вот так: <code>custom_ШАБЛОН</code>.</p>
+<p>После этого в тело шаблона вставляем следующий код:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-6a10bb562d05d4a1caae815aeb8cf23f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">$stylevar[htmldoctype]
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">dir</span><span class="o">=</span><span class="s">&#34;$stylevar[textdirection]&#34;</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;$stylevar[languagecode]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    $headinclude
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>$vboptions[bbtitle]<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    $header
+</span></span><span class="line"><span class="cl">    $navbar
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- На этом месте будет находится ваш код страницы. --&gt;</span>
+</span></span><span class="line"><span class="cl">    $footer
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6a10bb562d05d4a1caae815aeb8cf23f"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Вот и всё!</p>]]></content:encoded><turbo:source/><turbo:topic>Дополнительная страница для vBulletin 3</turbo:topic><turbo:content><![CDATA[<p>Материал по созданию дополнительных страниц в <strong>vBulletin 3</strong>. Возможно, кто-то ещё пользуется этой версией движка&hellip;</p>
+<h2 id="что-такое-дополнительная-страница-или-custom-pages">
+  <a class="link-body-emphasis" href="#%d1%87%d1%82%d0%be-%d1%82%d0%b0%d0%ba%d0%be%d0%b5-%d0%b4%d0%be%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d0%b0%d1%8f-%d1%81%d1%82%d1%80%d0%b0%d0%bd%d0%b8%d1%86%d0%b0-%d0%b8%d0%bb%d0%b8-custom-pages">Что такое дополнительная страница (или Custom Pages)?</a>
+</h2><p>Дополнительная страница (или Custom Pages) - это страница, &ldquo;совмещённая&rdquo; со стилем форума и находится по адресу:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5c63f6816129d5b49f2388e34e181f47"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http://example.com/misc.php?do=page&amp;template=название_страницы</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5c63f6816129d5b49f2388e34e181f47"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="как-сделать-дополнительную-страницу">
+  <a class="link-body-emphasis" href="#%d0%ba%d0%b0%d0%ba-%d1%81%d0%b4%d0%b5%d0%bb%d0%b0%d1%82%d1%8c-%d0%b4%d0%be%d0%bf%d0%be%d0%bb%d0%bd%d0%b8%d1%82%d0%b5%d0%bb%d1%8c%d0%bd%d1%83%d1%8e-%d1%81%d1%82%d1%80%d0%b0%d0%bd%d0%b8%d1%86%d1%83">Как сделать дополнительную страницу?</a>
+</h2><p>Итак, для начала нужно создать дополнительный шаблон того стиля, который вами используется. Этот дополнительный шаблон должен иметь префикс <code>custom_</code>, то есть само название дополнительного шаблона должно выглядеть вот так: <code>custom_ШАБЛОН</code>.</p>
+<p>После этого в тело шаблона вставляем следующий код:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-6a10bb562d05d4a1caae815aeb8cf23f"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">$stylevar[htmldoctype]
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">dir</span><span class="o">=</span><span class="s">&#34;$stylevar[textdirection]&#34;</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;$stylevar[languagecode]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    $headinclude
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>$vboptions[bbtitle]<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    $header
+</span></span><span class="line"><span class="cl">    $navbar
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- На этом месте будет находится ваш код страницы. --&gt;</span>
+</span></span><span class="line"><span class="cl">    $footer
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6a10bb562d05d4a1caae815aeb8cf23f"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Вот и всё!</p>]]></turbo:content><pubDate>Tue, 17 Oct 2023 17:39:09 +0000</pubDate><category>CMF</category><category>В истории</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Условия в шаблонах для vBulletin 4</title><link>https://lib.onl/ru/posts/2023/10/c079a268-5fb5-5d0d-8c00-0202630ce13d/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/c079a268-5fb5-5d0d-8c00-0202630ce13d/</guid><description>Набор условий для применения в шаблонах форумного движка vBulletin 4. К сожалению, версия 4 оказалась провальной. Зато, из неё родился всем известный XenForo!</description><media:content medium="image" url="https://images.unsplash.com/photo-1583339793403-3d9b001b6008" width="1600" height="900"/><content:encoded><![CDATA[<p>Набор условий для применения в шаблонах форумного движка <strong>vBulletin 4</strong>. К сожалению, версия 4 оказалась провальной. Зато, из неё родился всем известный <strong>XenForo</strong>!</p>
+<h2 id="обычные-условия">
+  <a class="link-body-emphasis" href="#%d0%be%d0%b1%d1%8b%d1%87%d0%bd%d1%8b%d0%b5-%d1%83%d1%81%d0%bb%d0%be%d0%b2%d0%b8%d1%8f">Обычные условия</a>
+</h2><ol>
+<li>Показать информацию только для пользователей</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-681da660a9991371f33d2ddd42188c40"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$show[&#39;member&#39;]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-681da660a9991371f33d2ddd42188c40"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Показать информацию только для гостей</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-03c90272bd71edffb7da6cf8c893cb65"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$show[&#39;guest&#39;]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для гостей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-03c90272bd71edffb7da6cf8c893cb65"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Показать информацию только для определённой группы.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e24cf465d201ccc9d11268d16234f5ad"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;is_member_of($bbuserinfo, 1,2,3)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для группы с ID = 1, 2 и 3 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e24cf465d201ccc9d11268d16234f5ad"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Показать информацию только для определённой группы в сообщении.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9447fa304c5ec9c8fd82514e9d3e0070"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;is_member_of($post, 1,2,3)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для группы с ID = 1, 2 и 3 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9447fa304c5ec9c8fd82514e9d3e0070"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="5">
+<li>Показать информацию только для определённого пользователя.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d5627ae434b05498c2a9c628f8d10aa8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$bbuserinfo[&#39;userid&#39;] == 318713&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователя с ID = 318713 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d5627ae434b05498c2a9c628f8d10aa8"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="6">
+<li>Показать информацию для всех, кроме определённого пользователя.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c6188ef7d667dccc3748610755a6ba7e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$bbuserinfo[&#39;userid&#39;] != 318713&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация для всех, кроме пользователя с ID = 318713 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c6188ef7d667dccc3748610755a6ba7e"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="7">
+<li>Показать информацию для всех модераторов во всех форумах.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9c81c2b053e952e727d24bd203b0c517"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;can_moderate()&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация для модераторов во всех форумах --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9c81c2b053e952e727d24bd203b0c517"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="8">
+<li>Показать информацию для модератора в определённом форуме.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e7973fa7553a50426bfc0d9e1e52d750"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;can_moderate($forum[&#39;x])&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация для модератора определённого форума с ID = X --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e7973fa7553a50426bfc0d9e1e52d750"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="9">
+<li>Показать информацию во всех форумах, кроме одного.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-38f91a4d179253793a062c16dea3f95b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$forum[forumid] != x&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация во всех форумах, кроме ID = X --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-38f91a4d179253793a062c16dea3f95b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="10">
+<li>Показать информацию в определённых форумах.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-37c09edc2ac47f62f354bc9569001fa3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;in_array($forum[&#39;forumid&#39;], array(1,2,3))&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация для форумов с ID = 1, 2 или 3 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-37c09edc2ac47f62f354bc9569001fa3"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="11">
+<li>Показать информацию только на определённой странице.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bb9d6ff8389281b06ee9f3869dee48c7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;THIS_SCRIPT == &#39;calendar&#39;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- Показать информацию в calendar.php --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb9d6ff8389281b06ee9f3869dee48c7"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="12">
+<li>Показать информацию везде, кроме определённой страницы.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f6b01d11353c5e92311e795b6d55ffd6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;THIS_SCRIPT != &#39;calendar&#39;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация на всех страницах, кроме calendar.php --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f6b01d11353c5e92311e795b6d55ffd6"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="13">
+<li>Показать информацию, если переменная активна.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ddf9d7792e70cce7b3c2fd0cf1cd8cd7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$customvar&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать, если переменная $customvar активна --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ddf9d7792e70cce7b3c2fd0cf1cd8cd7"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="14">
+<li>Показать информацию, если переменная имеет значение.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d9dcdef794e2848353edd94cde83af9b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$customvar == значение&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать, если переменная $customvar имеет значение &#34;значение&#34; --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d9dcdef794e2848353edd94cde83af9b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="15">
+<li>Показать информацию, если переменная НЕ имеет значение.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cca2200396f8028803dc83db659ea344"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$customvar != значение&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать, если переменная $customvar на имеет значение &#34;значение&#34; --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cca2200396f8028803dc83db659ea344"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="16">
+<li>Показать информацию только для пользователя не набравшего определённого количества сообщений.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-80cd164b4a762bedf6ef8d079ec80e6e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$post[posts] &lt; 10&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация для пользователя, не набравшего 10 сообщений --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-80cd164b4a762bedf6ef8d079ec80e6e"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="комбинированные-условия">
+  <a class="link-body-emphasis" href="#%d0%ba%d0%be%d0%bc%d0%b1%d0%b8%d0%bd%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%bd%d1%8b%d0%b5-%d1%83%d1%81%d0%bb%d0%be%d0%b2%d0%b8%d1%8f">Комбинированные условия</a>
+</h2>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-beece870de8f121ef976a159e17c10e7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$show[&#39;guest&#39;]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать только для гостей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:else</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать только зарегистрированным пользователям --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$show[&#39;guest&#39;]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать только для гостей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:elseif</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;is_member_of($bbuserinfo, 5,6)&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать только для групп пользователей с ID = 5 и 6 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:else</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать только зарегистрированным пользователям --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-beece870de8f121ef976a159e17c10e7"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></content:encoded><turbo:source/><turbo:topic>Условия в шаблонах для vBulletin 4</turbo:topic><turbo:content><![CDATA[<p>Набор условий для применения в шаблонах форумного движка <strong>vBulletin 4</strong>. К сожалению, версия 4 оказалась провальной. Зато, из неё родился всем известный <strong>XenForo</strong>!</p>
+<h2 id="обычные-условия">
+  <a class="link-body-emphasis" href="#%d0%be%d0%b1%d1%8b%d1%87%d0%bd%d1%8b%d0%b5-%d1%83%d1%81%d0%bb%d0%be%d0%b2%d0%b8%d1%8f">Обычные условия</a>
+</h2><ol>
+<li>Показать информацию только для пользователей</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-681da660a9991371f33d2ddd42188c40"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$show[&#39;member&#39;]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-681da660a9991371f33d2ddd42188c40"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Показать информацию только для гостей</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-03c90272bd71edffb7da6cf8c893cb65"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$show[&#39;guest&#39;]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для гостей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-03c90272bd71edffb7da6cf8c893cb65"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Показать информацию только для определённой группы.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e24cf465d201ccc9d11268d16234f5ad"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;is_member_of($bbuserinfo, 1,2,3)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для группы с ID = 1, 2 и 3 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e24cf465d201ccc9d11268d16234f5ad"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Показать информацию только для определённой группы в сообщении.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9447fa304c5ec9c8fd82514e9d3e0070"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;is_member_of($post, 1,2,3)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для группы с ID = 1, 2 и 3 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9447fa304c5ec9c8fd82514e9d3e0070"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="5">
+<li>Показать информацию только для определённого пользователя.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d5627ae434b05498c2a9c628f8d10aa8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$bbuserinfo[&#39;userid&#39;] == 318713&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация только для пользователя с ID = 318713 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d5627ae434b05498c2a9c628f8d10aa8"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="6">
+<li>Показать информацию для всех, кроме определённого пользователя.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-c6188ef7d667dccc3748610755a6ba7e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$bbuserinfo[&#39;userid&#39;] != 318713&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация для всех, кроме пользователя с ID = 318713 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-c6188ef7d667dccc3748610755a6ba7e"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="7">
+<li>Показать информацию для всех модераторов во всех форумах.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9c81c2b053e952e727d24bd203b0c517"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;can_moderate()&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация для модераторов во всех форумах --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9c81c2b053e952e727d24bd203b0c517"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="8">
+<li>Показать информацию для модератора в определённом форуме.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e7973fa7553a50426bfc0d9e1e52d750"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;can_moderate($forum[&#39;x])&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация для модератора определённого форума с ID = X --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e7973fa7553a50426bfc0d9e1e52d750"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="9">
+<li>Показать информацию во всех форумах, кроме одного.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-38f91a4d179253793a062c16dea3f95b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$forum[forumid] != x&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация во всех форумах, кроме ID = X --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-38f91a4d179253793a062c16dea3f95b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="10">
+<li>Показать информацию в определённых форумах.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-37c09edc2ac47f62f354bc9569001fa3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;in_array($forum[&#39;forumid&#39;], array(1,2,3))&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация для форумов с ID = 1, 2 или 3 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-37c09edc2ac47f62f354bc9569001fa3"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="11">
+<li>Показать информацию только на определённой странице.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bb9d6ff8389281b06ee9f3869dee48c7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;THIS_SCRIPT == &#39;calendar&#39;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- Показать информацию в calendar.php --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb9d6ff8389281b06ee9f3869dee48c7"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="12">
+<li>Показать информацию везде, кроме определённой страницы.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f6b01d11353c5e92311e795b6d55ffd6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;THIS_SCRIPT != &#39;calendar&#39;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация на всех страницах, кроме calendar.php --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f6b01d11353c5e92311e795b6d55ffd6"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="13">
+<li>Показать информацию, если переменная активна.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ddf9d7792e70cce7b3c2fd0cf1cd8cd7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$customvar&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать, если переменная $customvar активна --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ddf9d7792e70cce7b3c2fd0cf1cd8cd7"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="14">
+<li>Показать информацию, если переменная имеет значение.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d9dcdef794e2848353edd94cde83af9b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$customvar == значение&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать, если переменная $customvar имеет значение &#34;значение&#34; --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d9dcdef794e2848353edd94cde83af9b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="15">
+<li>Показать информацию, если переменная НЕ имеет значение.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cca2200396f8028803dc83db659ea344"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$customvar != значение&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать, если переменная $customvar на имеет значение &#34;значение&#34; --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cca2200396f8028803dc83db659ea344"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="16">
+<li>Показать информацию только для пользователя не набравшего определённого количества сообщений.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-80cd164b4a762bedf6ef8d079ec80e6e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$post[posts] &lt; 10&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация для пользователя, не набравшего 10 сообщений --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-80cd164b4a762bedf6ef8d079ec80e6e"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="комбинированные-условия">
+  <a class="link-body-emphasis" href="#%d0%ba%d0%be%d0%bc%d0%b1%d0%b8%d0%bd%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%bd%d1%8b%d0%b5-%d1%83%d1%81%d0%bb%d0%be%d0%b2%d0%b8%d1%8f">Комбинированные условия</a>
+</h2>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-beece870de8f121ef976a159e17c10e7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$show[&#39;guest&#39;]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать только для гостей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:else</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать только зарегистрированным пользователям --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$show[&#39;guest&#39;]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать только для гостей --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:elseif</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;is_member_of($bbuserinfo, 5,6)&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать только для групп пользователей с ID = 5 и 6 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">vb:else</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- показать только зарегистрированным пользователям --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">vb:if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-beece870de8f121ef976a159e17c10e7"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></turbo:content><pubDate>Tue, 17 Oct 2023 17:20:56 +0000</pubDate><category>CMF</category><category>В истории</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Условия в шаблонах для vBulletin 3</title><link>https://lib.onl/ru/posts/2023/10/f82b1436-6752-5084-ba98-264b264edca7/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/f82b1436-6752-5084-ba98-264b264edca7/</guid><description>Набор условий для применения в шаблонах форумного движка vBulletin 3.</description><media:content medium="image" url="https://images.unsplash.com/photo-1518773553398-650c184e0bb3" width="1600" height="900"/><content:encoded><![CDATA[<p>Набор условий для применения в шаблонах форумного движка <strong>vBulletin 3</strong>.</p>
+<h2 id="условия-в-шаблонах">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d0%bb%d0%be%d0%b2%d0%b8%d1%8f-%d0%b2-%d1%88%d0%b0%d0%b1%d0%bb%d0%be%d0%bd%d0%b0%d1%85">Условия в шаблонах</a>
+</h2><ol>
+<li>Показать информацию для одной или нескольких групп пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-44073baed58bec5144a479fa7fb487e9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;is_member_of($bbuserinfo, X, Y, Z)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-44073baed58bec5144a479fa7fb487e9"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Показать информацию только для одного пользователя.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a95ce6fa58607f3041fb3316f01bb80b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$bbuserinfo[userid] == X&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a95ce6fa58607f3041fb3316f01bb80b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Показать информацию только для нескольких пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2a3c134eb88152ab656302c42f6f77bf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;in_array($bbuserinfo[userid], array(X,Y,Z))&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2a3c134eb88152ab656302c42f6f77bf"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Скрыть информацию для одной группы пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d8f827e0e945ab685099af65ecfc7796"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;!is_member_of($bbuserinfo, X)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d8f827e0e945ab685099af65ecfc7796"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="5">
+<li>Скрыть информацию для нескольких групп пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3a4eb1fae9ab44e97ebc0ba83623e651"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;!is_member_of($bbuserinfo, X, Y, Z)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3a4eb1fae9ab44e97ebc0ba83623e651"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="6">
+<li>Скрыть информацию от нескольких пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4e7ec0f29ab288190b058fd0944b8575"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;!in_array($bbuserinfo[userid], array(X,Y,Z))&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4e7ec0f29ab288190b058fd0944b8575"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="7">
+<li>Показать информацию только в определённом форуме.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0739924a2c222bab3330947eb10874d6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$forumid == X&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0739924a2c222bab3330947eb10874d6"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="8">
+<li>Показать информацию в нескольких форумах.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cdc59a2f2db0dbbe55a35c39dc4faa2d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;in_array($forumid, array(X,Y,Z))&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cdc59a2f2db0dbbe55a35c39dc4faa2d"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="9">
+<li>Скрыть информацию в определённом форуме.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-96980703a48a1e251af5f259dd0742d6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$forumid != X&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-96980703a48a1e251af5f259dd0742d6"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="10">
+<li>Скрыть информацию в нескольких форумах.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-30fa93aec74e34e7681478650b724781"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;!in_array($forumid, array(X,Y,Z))&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-30fa93aec74e34e7681478650b724781"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></content:encoded><turbo:source/><turbo:topic>Условия в шаблонах для vBulletin 3</turbo:topic><turbo:content><![CDATA[<p>Набор условий для применения в шаблонах форумного движка <strong>vBulletin 3</strong>.</p>
+<h2 id="условия-в-шаблонах">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d0%bb%d0%be%d0%b2%d0%b8%d1%8f-%d0%b2-%d1%88%d0%b0%d0%b1%d0%bb%d0%be%d0%bd%d0%b0%d1%85">Условия в шаблонах</a>
+</h2><ol>
+<li>Показать информацию для одной или нескольких групп пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-44073baed58bec5144a479fa7fb487e9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;is_member_of($bbuserinfo, X, Y, Z)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-44073baed58bec5144a479fa7fb487e9"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Показать информацию только для одного пользователя.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a95ce6fa58607f3041fb3316f01bb80b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$bbuserinfo[userid] == X&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a95ce6fa58607f3041fb3316f01bb80b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Показать информацию только для нескольких пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2a3c134eb88152ab656302c42f6f77bf"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;in_array($bbuserinfo[userid], array(X,Y,Z))&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2a3c134eb88152ab656302c42f6f77bf"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="4">
+<li>Скрыть информацию для одной группы пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d8f827e0e945ab685099af65ecfc7796"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;!is_member_of($bbuserinfo, X)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d8f827e0e945ab685099af65ecfc7796"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="5">
+<li>Скрыть информацию для нескольких групп пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3a4eb1fae9ab44e97ebc0ba83623e651"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;!is_member_of($bbuserinfo, X, Y, Z)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3a4eb1fae9ab44e97ebc0ba83623e651"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="6">
+<li>Скрыть информацию от нескольких пользователей.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4e7ec0f29ab288190b058fd0944b8575"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;!in_array($bbuserinfo[userid], array(X,Y,Z))&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4e7ec0f29ab288190b058fd0944b8575"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="7">
+<li>Показать информацию только в определённом форуме.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0739924a2c222bab3330947eb10874d6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$forumid == X&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0739924a2c222bab3330947eb10874d6"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="8">
+<li>Показать информацию в нескольких форумах.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cdc59a2f2db0dbbe55a35c39dc4faa2d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;in_array($forumid, array(X,Y,Z))&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cdc59a2f2db0dbbe55a35c39dc4faa2d"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="9">
+<li>Скрыть информацию в определённом форуме.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-96980703a48a1e251af5f259dd0742d6"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;$forumid != X&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-96980703a48a1e251af5f259dd0742d6"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="10">
+<li>Скрыть информацию в нескольких форумах.</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-html">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-30fa93aec74e34e7681478650b724781"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">if</span> <span class="na">condition</span><span class="o">=</span><span class="s">&#34;!in_array($forumid, array(X,Y,Z))&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- информация --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">if</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-30fa93aec74e34e7681478650b724781"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></turbo:content><pubDate>Tue, 17 Oct 2023 17:07:58 +0000</pubDate><category>CMF</category><category>В истории</category></item></channel></rss>

@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>Git / Library Online</title><link>https://lib.onl/ru/categories/git/</link><description>Информация по работе с системой управления версиями файлов Git.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/categories/git/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>Git / Library Online</title><description>Информация по работе с системой управления версиями файлов Git.</description></image><lastBuildDate>Sat, 14 Aug 2021 15:52:38 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/categories/git/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Настройка и использование Git</title><link>https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/08/c35f395f-5921-55eb-afcf-1ad812a1a9d9/</guid><description>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</description><media:content medium="image" url="https://images.unsplash.com/photo-1556075798-4825dfaaf498" width="1600" height="900"/><content:encoded><![CDATA[<p>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</p>
+<h2 id="первичная-настройка">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b5%d1%80%d0%b2%d0%b8%d1%87%d0%bd%d0%b0%d1%8f-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0">Первичная настройка</a>
+</h2><p>Для начала работы с Git&rsquo;ом, его необходимо хотя бы минимально настроить.</p>
+<ol>
+<li>Указать своё имя:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1f8892d6a8ee02e72ed4cfe43b36980e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;John Doe&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1f8892d6a8ee02e72ed4cfe43b36980e"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Указать свой адрес e-mail:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-dd98b6950c829b0082c762afd661d15e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;johndoe@example.com&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-dd98b6950c829b0082c762afd661d15e"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="настройка-подписи">
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d0%bf%d0%be%d0%b4%d0%bf%d0%b8%d1%81%d0%b8">Настройка подписи</a>
+</h2><p>Хорошим тоном будет считаться подпись каждого своего коммита.</p>
+<ol>
+<li>Выяснить какие ключи установлены в системе (о создании ключей я публиковал заметку <span class="shortcode shortcode-uuid"><a href="/ru/posts/2020/07/7a204545-daa8-58ce-ba35-75e732e1bcc0/">GnuPG: Создание и работа с ключами шифрования</a></span>):</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-6721323efa71b9e675e60c072a9b1075"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format<span class="o">=</span>long</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6721323efa71b9e675e60c072a9b1075"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Указать Git&rsquo;у всегда подписывать каждый коммит:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f2241e8393fd52e0bd917572c9aeb01b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f2241e8393fd52e0bd917572c9aeb01b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Указать Git&rsquo;у идентификатор ключа для подписи коммита:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2d3c551174099a2554e0bf0091a8d597"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.signingkey 3AA5C34371567BD2</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2d3c551174099a2554e0bf0091a8d597"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="хранилище-паролей">
+  <a class="link-body-emphasis" href="#%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b5-%d0%bf%d0%b0%d1%80%d0%be%d0%bb%d0%b5%d0%b9">Хранилище паролей</a>
+</h2><p>Git по умолчанию не сохраняет регистрационные данные для репозиториев. Эта настройка позволяет указать Git&rsquo;у использовать для хранения регистрационных данных текстовый файл <code>~/.git-credentials</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-152e9dc9f6c3928c69b2d155e3adc3bc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global credential.helper store</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-152e9dc9f6c3928c69b2d155e3adc3bc"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="отмена-изменений">
+  <a class="link-body-emphasis" href="#%d0%be%d1%82%d0%bc%d0%b5%d0%bd%d0%b0-%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b9">Отмена изменений</a>
+</h2><p>Отмена конкретного коммита:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f4e7892078100d9262625f2315155451"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert <span class="o">[</span>commit<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f4e7892078100d9262625f2315155451"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Отмена 2-х коммитов подряд:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4529abafce443bcf9328bad0919db46b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert HEAD~2</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4529abafce443bcf9328bad0919db46b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="модули">
+  <a class="link-body-emphasis" href="#%d0%bc%d0%be%d0%b4%d1%83%d0%bb%d0%b8">Модули</a>
+</h2><p>Добавление модуля:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f4a7e282de04b63bbbb3c52e40f1fe85"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule add https://github.com/<span class="o">[</span>MODULE<span class="o">]</span> <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f4a7e282de04b63bbbb3c52e40f1fe85"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Рекурсивное обновление всех модулей:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7da7edc4240f07487b387a2c8f7695b9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule update --recursive --remote --merge</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7da7edc4240f07487b387a2c8f7695b9"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Удаление модуля:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-391440e78a084ce7db5de00520040608"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule deinit -f <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> git rm -r --cached <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> rm -rf .git/modules/<span class="o">[</span>MODULE<span class="o">]</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> rm -rf <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-391440e78a084ce7db5de00520040608"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="изменение-адреса-репозитория">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b0%d0%b4%d1%80%d0%b5%d1%81%d0%b0-%d1%80%d0%b5%d0%bf%d0%be%d0%b7%d0%b8%d1%82%d0%be%d1%80%d0%b8%d1%8f">Изменение адреса репозитория</a>
+</h2><p>Показать текущий адрес:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-dc9aa26b331ad3d1b1bb3e4e4d1ae3c1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote -v</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-dc9aa26b331ad3d1b1bb3e4e4d1ae3c1"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить новый адрес:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b9172275c96edac38cf43c04fe58db5a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote set-url origin <span class="s1">&#39;[URL]&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b9172275c96edac38cf43c04fe58db5a"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></content:encoded><turbo:source/><turbo:topic>Настройка и использование Git</turbo:topic><turbo:content><![CDATA[<p>В этой заметке я приведу параметры Git, которые сам использую при работе с репозиториями.</p>
+<h2 id="первичная-настройка">
+  <a class="link-body-emphasis" href="#%d0%bf%d0%b5%d1%80%d0%b2%d0%b8%d1%87%d0%bd%d0%b0%d1%8f-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0">Первичная настройка</a>
+</h2><p>Для начала работы с Git&rsquo;ом, его необходимо хотя бы минимально настроить.</p>
+<ol>
+<li>Указать своё имя:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-1f8892d6a8ee02e72ed4cfe43b36980e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.name <span class="s2">&#34;John Doe&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1f8892d6a8ee02e72ed4cfe43b36980e"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Указать свой адрес e-mail:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-dd98b6950c829b0082c762afd661d15e"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.email <span class="s2">&#34;johndoe@example.com&#34;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-dd98b6950c829b0082c762afd661d15e"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="настройка-подписи">
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d0%bf%d0%be%d0%b4%d0%bf%d0%b8%d1%81%d0%b8">Настройка подписи</a>
+</h2><p>Хорошим тоном будет считаться подпись каждого своего коммита.</p>
+<ol>
+<li>Выяснить какие ключи установлены в системе (о создании ключей я публиковал заметку <span class="shortcode shortcode-uuid"><a href="/ru/posts/2020/07/7a204545-daa8-58ce-ba35-75e732e1bcc0/">GnuPG: Создание и работа с ключами шифрования</a></span>):</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-6721323efa71b9e675e60c072a9b1075"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format<span class="o">=</span>long</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-6721323efa71b9e675e60c072a9b1075"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="2">
+<li>Указать Git&rsquo;у всегда подписывать каждый коммит:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f2241e8393fd52e0bd917572c9aeb01b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global commit.gpgsign true</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f2241e8393fd52e0bd917572c9aeb01b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ol start="3">
+<li>Указать Git&rsquo;у идентификатор ключа для подписи коммита:</li>
+</ol>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2d3c551174099a2554e0bf0091a8d597"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global user.signingkey 3AA5C34371567BD2</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2d3c551174099a2554e0bf0091a8d597"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="хранилище-паролей">
+  <a class="link-body-emphasis" href="#%d1%85%d1%80%d0%b0%d0%bd%d0%b8%d0%bb%d0%b8%d1%89%d0%b5-%d0%bf%d0%b0%d1%80%d0%be%d0%bb%d0%b5%d0%b9">Хранилище паролей</a>
+</h2><p>Git по умолчанию не сохраняет регистрационные данные для репозиториев. Эта настройка позволяет указать Git&rsquo;у использовать для хранения регистрационных данных текстовый файл <code>~/.git-credentials</code>:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-152e9dc9f6c3928c69b2d155e3adc3bc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global credential.helper store</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-152e9dc9f6c3928c69b2d155e3adc3bc"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="отмена-изменений">
+  <a class="link-body-emphasis" href="#%d0%be%d1%82%d0%bc%d0%b5%d0%bd%d0%b0-%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b9">Отмена изменений</a>
+</h2><p>Отмена конкретного коммита:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f4e7892078100d9262625f2315155451"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert <span class="o">[</span>commit<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f4e7892078100d9262625f2315155451"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Отмена 2-х коммитов подряд:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4529abafce443bcf9328bad0919db46b"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git revert HEAD~2</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4529abafce443bcf9328bad0919db46b"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="модули">
+  <a class="link-body-emphasis" href="#%d0%bc%d0%be%d0%b4%d1%83%d0%bb%d0%b8">Модули</a>
+</h2><p>Добавление модуля:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-f4a7e282de04b63bbbb3c52e40f1fe85"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule add https://github.com/<span class="o">[</span>MODULE<span class="o">]</span> <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f4a7e282de04b63bbbb3c52e40f1fe85"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Рекурсивное обновление всех модулей:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-7da7edc4240f07487b387a2c8f7695b9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule update --recursive --remote --merge</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7da7edc4240f07487b387a2c8f7695b9"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Удаление модуля:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-391440e78a084ce7db5de00520040608"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git submodule deinit -f <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> git rm -r --cached <span class="o">[</span>MODULE<span class="o">]</span>  <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> rm -rf .git/modules/<span class="o">[</span>MODULE<span class="o">]</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="o">&amp;&amp;</span> rm -rf <span class="o">[</span>MODULE<span class="o">]</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-391440e78a084ce7db5de00520040608"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="изменение-адреса-репозитория">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b0%d0%b4%d1%80%d0%b5%d1%81%d0%b0-%d1%80%d0%b5%d0%bf%d0%be%d0%b7%d0%b8%d1%82%d0%be%d1%80%d0%b8%d1%8f">Изменение адреса репозитория</a>
+</h2><p>Показать текущий адрес:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-dc9aa26b331ad3d1b1bb3e4e4d1ae3c1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote -v</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-dc9aa26b331ad3d1b1bb3e4e4d1ae3c1"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Установить новый адрес:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b9172275c96edac38cf43c04fe58db5a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote set-url origin <span class="s1">&#39;[URL]&#39;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b9172275c96edac38cf43c04fe58db5a"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></turbo:content><pubDate>Sat, 14 Aug 2021 15:52:38 +0000</pubDate><category>Linux</category><category>Git</category><category>Терминал</category><category>В доработке</category></item></channel></rss>

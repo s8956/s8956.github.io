@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>mirror / Library Online</title><link>https://lib.onl/ru/tags/mirror/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/mirror/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>mirror / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Tue, 06 Jul 2021 17:40:43 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/mirror/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Зеркалирование репозитория между хостингами</title><link>https://lib.onl/ru/posts/2021/07/3834fbed-71c8-5979-b6c2-236269f5ecea/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/07/3834fbed-71c8-5979-b6c2-236269f5ecea/</guid><description>В предыдущей статье Синхронизация репозитория от GitHub к GitLab я рассказал о том, как организовать синхронизацию между репозиториями GIT на разных хостингах, в частности, между GitHub и GitLab. В итоге, я решил сделать собственный GitHub Action, который позволяет полностью зеркалировать репозитории.</description><media:content medium="image" url="https://images.unsplash.com/photo-1611854571485-982a1f4ba294" width="1600" height="900"/><content:encoded><![CDATA[<p>В предыдущей статье <span class="shortcode shortcode-uuid"><a href="/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/">Синхронизация репозитория от GitHub к GitLab</a></span> я рассказал о том, как организовать синхронизацию между репозиториями GIT на разных хостингах, в частности, между GitHub и GitLab. В итоге, я решил сделать <a title="" href="https://github.com/ghastore/github-mirror" target="_blank" rel="noopener noreferrer nofollow">собственный GitHub Action</a>, который позволяет полностью зеркалировать репозитории.</p>
+<h2 id="использование">
+  <a class="link-body-emphasis" href="#%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5">Использование</a>
+</h2><p>Для подключения зеркалирования, к примеру, с GitHub на GitLab, необходимо в исходном репозитории создать файл <code>.github/workflows/mirror.yml</code>, в котором указать следующее содержимое:</p>
+
+    
+
+    
+
+    <div class="shortcode shortcode-file mb-3">
+      <div class="card overflow-hidden">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="far fa-file-code fa-fw"></i>
+            </div>
+            <div class="flex-grow-1 mx-2">
+              <code>mirror.yml</code>
+            </div>
+            <div class="flex-shrink-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+                  <a class="text-body" href="#"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-605d0b6869e75455549443d345756539"
+                     role="button" aria-label='Копировать'>
+                    <i class="fas fa-copy fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="mirror.yml" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="mirror.yml" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+          
+              
+          
+        <div class="card-body" id="clipboard-605d0b6869e75455549443d345756539"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Repository Mirror&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">push</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mirror</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Mirror&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">pkgstore/github-action-mirror@main</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">src_repo</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://github.com/${{ github.repository }}.git&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">src_user</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${{ secrets.MIRROR_SOURCE_USER_GITHUB }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">src_token</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${{ secrets.MIRROR_SOURCE_TOKEN_GITHUB }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">dsc_repo</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://gitlab.com/${{ github.repository }}.git&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">dsc_user</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${{ secrets.MIRROR_TARGET_USER_GITLAB }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">dsc_token</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${{ secrets.MIRROR_TARGET_TOKEN_GITLAB }}&#34;</span><span class="w">
+</span></span></span></code></pre></div></div>
+      </div>
+    </div>
+<ul>
+<li><code>src_repo</code> - <strong>URL</strong> исходного репозитория.</li>
+<li><code>src_user</code> - <strong>пользователь</strong> исходного репозитория.</li>
+<li><code>src_token</code> - <strong>токен пользователя</strong> исходного репозитория.</li>
+<li><code>dsc_repo</code> - <strong>URL</strong> зеркального репозитория.</li>
+<li><code>dsc_user</code> - <strong>пользователь</strong> зеркального репозитория.</li>
+<li><code>dsc_token</code> - <strong>токен пользователя</strong> зеркального репозитория.</li>
+</ul>
+<p>В этом коде стоит обратить внимание на параметр <code>target_repo</code>. GitLab позволяет автоматически создавать репозиторий при зеркалировании, а так как у меня адреса репозиториев совпадают между GitHub и GitLab, мне гораздо проще выстроить конструкцию <code>https://gitlab.com/${{ github.repository }}.git</code>. Переменная <code>${{ github.repository }}</code> содержит имя пользователя / организации и название репозитория, и, при настройке зеркалирования репозитория на GitHub&rsquo;е, зеркало репозитория автоматически создаётся на GitLab&rsquo;е.</p>]]></content:encoded><turbo:source/><turbo:topic>Зеркалирование репозитория между хостингами</turbo:topic><turbo:content><![CDATA[<p>В предыдущей статье <span class="shortcode shortcode-uuid"><a href="/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/">Синхронизация репозитория от GitHub к GitLab</a></span> я рассказал о том, как организовать синхронизацию между репозиториями GIT на разных хостингах, в частности, между GitHub и GitLab. В итоге, я решил сделать <a title="" href="https://github.com/ghastore/github-mirror" target="_blank" rel="noopener noreferrer nofollow">собственный GitHub Action</a>, который позволяет полностью зеркалировать репозитории.</p>
+<h2 id="использование">
+  <a class="link-body-emphasis" href="#%d0%b8%d1%81%d0%bf%d0%be%d0%bb%d1%8c%d0%b7%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5">Использование</a>
+</h2><p>Для подключения зеркалирования, к примеру, с GitHub на GitLab, необходимо в исходном репозитории создать файл <code>.github/workflows/mirror.yml</code>, в котором указать следующее содержимое:</p>
+
+    
+
+    
+
+    <div class="shortcode shortcode-file mb-3">
+      <div class="card overflow-hidden">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="far fa-file-code fa-fw"></i>
+            </div>
+            <div class="flex-grow-1 mx-2">
+              <code>mirror.yml</code>
+            </div>
+            <div class="flex-shrink-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+                  <a class="text-body" href="#"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-605d0b6869e75455549443d345756539"
+                     role="button" aria-label='Копировать'>
+                    <i class="fas fa-copy fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Скачать'>
+                  <a class="text-body" href="mirror.yml" download
+                     role="button" aria-label='Скачать'>
+                    <i class="fas fa-download fa-fw"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item" data-bs-tooltip data-bs-title='Открыть'>
+                  <a class="text-body" href="mirror.yml" target="_blank"
+                     role="button" aria-label='Открыть'>
+                    <i class="fas fa-arrow-up-right-from-square fa-fw"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+          
+              
+          
+        <div class="card-body" id="clipboard-605d0b6869e75455549443d345756539"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Repository Mirror&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">push</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mirror</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Mirror&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">pkgstore/github-action-mirror@main</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">src_repo</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://github.com/${{ github.repository }}.git&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">src_user</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${{ secrets.MIRROR_SOURCE_USER_GITHUB }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">src_token</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${{ secrets.MIRROR_SOURCE_TOKEN_GITHUB }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">dsc_repo</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://gitlab.com/${{ github.repository }}.git&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">dsc_user</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${{ secrets.MIRROR_TARGET_USER_GITLAB }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">dsc_token</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${{ secrets.MIRROR_TARGET_TOKEN_GITLAB }}&#34;</span><span class="w">
+</span></span></span></code></pre></div></div>
+      </div>
+    </div>
+<ul>
+<li><code>src_repo</code> - <strong>URL</strong> исходного репозитория.</li>
+<li><code>src_user</code> - <strong>пользователь</strong> исходного репозитория.</li>
+<li><code>src_token</code> - <strong>токен пользователя</strong> исходного репозитория.</li>
+<li><code>dsc_repo</code> - <strong>URL</strong> зеркального репозитория.</li>
+<li><code>dsc_user</code> - <strong>пользователь</strong> зеркального репозитория.</li>
+<li><code>dsc_token</code> - <strong>токен пользователя</strong> зеркального репозитория.</li>
+</ul>
+<p>В этом коде стоит обратить внимание на параметр <code>target_repo</code>. GitLab позволяет автоматически создавать репозиторий при зеркалировании, а так как у меня адреса репозиториев совпадают между GitHub и GitLab, мне гораздо проще выстроить конструкцию <code>https://gitlab.com/${{ github.repository }}.git</code>. Переменная <code>${{ github.repository }}</code> содержит имя пользователя / организации и название репозитория, и, при настройке зеркалирования репозитория на GitHub&rsquo;е, зеркало репозитория автоматически создаётся на GitLab&rsquo;е.</p>]]></turbo:content><pubDate>Tue, 06 Jul 2021 17:40:43 +0000</pubDate><category>Разработка</category><category>Скрипты</category></item></channel></rss>

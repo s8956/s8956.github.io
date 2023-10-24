@@ -1,0 +1,1319 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>Безопасность / Library Online</title><link>https://lib.onl/ru/categories/security/</link><description>Информационная безопасность, протоколы, шифрование.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/categories/security/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>Безопасность / Library Online</title><description>Информационная безопасность, протоколы, шифрование.</description></image><lastBuildDate>Thu, 19 Oct 2023 08:56:43 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/categories/security/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Добавление корневых сертификатов в RouterOS</title><link>https://lib.onl/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/</guid><description>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</description><media:content medium="image" url="https://images.unsplash.com/photo-1554098415-4052459dc340" width="1600" height="900"/><content:encoded><![CDATA[<p>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</p>
+<p>Если репозиторий заполнен корневыми сертификатами центров сертификации, RouterOS сможет проверять подлинность выданных этими центрами сертификатов, работать с DNS over HTTPS (DoH) и делать другую работу, связанную с шифрованием данных.</p>
+<h2 id="загрузка-базы-сертификатов">
+  <a class="link-body-emphasis" href="#%d0%b7%d0%b0%d0%b3%d1%80%d1%83%d0%b7%d0%ba%d0%b0-%d0%b1%d0%b0%d0%b7%d1%8b-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%be%d0%b2">Загрузка базы сертификатов</a>
+</h2><p>Файл <a title="" href="https://curl.se/docs/caextract.html" target="_blank" rel="noopener noreferrer nofollow">cacert.pem</a> с сайта <a title="" href="https://curl.se/" target="_blank" rel="noopener noreferrer nofollow">curl.se</a> переодически обновляется и содержит в себе корневые сертификаты центров сертификации. Откроем терминал в RouterOS и скачаем сразу на роутер командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-46a4555b5946ec7f5980c8f938699f88"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-46a4555b5946ec7f5980c8f938699f88"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>url</code> - URL файла, который необходимо скачать.</li>
+<li><code>dst-path</code> - название, под которым файл сохранится на роутере. Я добавляю префикс <code>ros.</code>, чтобы знать, что этот файл важен для RouterOS.</li>
+</ul>
+<h2 id="импортирование-сертификатов-в-репозиторий">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%bc%d0%bf%d0%be%d1%80%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%be%d0%b2-%d0%b2-%d1%80%d0%b5%d0%bf%d0%be%d0%b7%d0%b8%d1%82%d0%be%d1%80%d0%b8%d0%b9">Импортирование сертификатов в репозиторий</a>
+</h2><p>Теперь когда файл на роутере, нужно импортировать его содержимое в репозиторий сертификатов. Делается это следующей командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8359a86a0c436ef3326a73680ec1771a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8359a86a0c436ef3326a73680ec1771a"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>file-name</code> - название файла на  роутере.</li>
+<li><code>name</code> - название, под которым сертификаты будут обозначаться в репозитории сертификатов. Здесь тоже я указываю <code>ROS</code>, чтобы знать, что сертификаты импортировались вручную. Вы можете ввести любое своё название, главное, чтобы оно для вас что-то обозначало.</li>
+</ul>
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-success d-flex overflow-hidden" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-lightbulb fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Параметр <code>name</code> можно не указывать, тогда при импорте сертификатов, RouterOS в этот параметр автоматически подставит название файла.</p>
+
+    </div>
+  </div>
+</div>]]></content:encoded><turbo:source/><turbo:topic>Добавление корневых сертификатов в RouterOS</turbo:topic><turbo:content><![CDATA[<p>Репозиторий корневых сертификатов необходим для того, чтобы RouterOS имела представление какие вообще центры сертификации существуют.</p>
+<p>Если репозиторий заполнен корневыми сертификатами центров сертификации, RouterOS сможет проверять подлинность выданных этими центрами сертификатов, работать с DNS over HTTPS (DoH) и делать другую работу, связанную с шифрованием данных.</p>
+<h2 id="загрузка-базы-сертификатов">
+  <a class="link-body-emphasis" href="#%d0%b7%d0%b0%d0%b3%d1%80%d1%83%d0%b7%d0%ba%d0%b0-%d0%b1%d0%b0%d0%b7%d1%8b-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%be%d0%b2">Загрузка базы сертификатов</a>
+</h2><p>Файл <a title="" href="https://curl.se/docs/caextract.html" target="_blank" rel="noopener noreferrer nofollow">cacert.pem</a> с сайта <a title="" href="https://curl.se/" target="_blank" rel="noopener noreferrer nofollow">curl.se</a> переодически обновляется и содержит в себе корневые сертификаты центров сертификации. Откроем терминал в RouterOS и скачаем сразу на роутер командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-46a4555b5946ec7f5980c8f938699f88"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/tool fetch url=&#34;https://curl.se/ca/cacert.pem&#34; dst-path=&#34;ros.cacert.pem&#34;</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-46a4555b5946ec7f5980c8f938699f88"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>url</code> - URL файла, который необходимо скачать.</li>
+<li><code>dst-path</code> - название, под которым файл сохранится на роутере. Я добавляю префикс <code>ros.</code>, чтобы знать, что этот файл важен для RouterOS.</li>
+</ul>
+<h2 id="импортирование-сертификатов-в-репозиторий">
+  <a class="link-body-emphasis" href="#%d0%b8%d0%bc%d0%bf%d0%be%d1%80%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%be%d0%b2-%d0%b2-%d1%80%d0%b5%d0%bf%d0%be%d0%b7%d0%b8%d1%82%d0%be%d1%80%d0%b8%d0%b9">Импортирование сертификатов в репозиторий</a>
+</h2><p>Теперь когда файл на роутере, нужно импортировать его содержимое в репозиторий сертификатов. Делается это следующей командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-8359a86a0c436ef3326a73680ec1771a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">/certificate import file-name=&#34;ros.cacert.pem&#34; passphrase=&#34;&#34; name=&#34;ROS&#34;</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-8359a86a0c436ef3326a73680ec1771a"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Где:</p>
+<ul>
+<li><code>file-name</code> - название файла на  роутере.</li>
+<li><code>name</code> - название, под которым сертификаты будут обозначаться в репозитории сертификатов. Здесь тоже я указываю <code>ROS</code>, чтобы знать, что сертификаты импортировались вручную. Вы можете ввести любое своё название, главное, чтобы оно для вас что-то обозначало.</li>
+</ul>
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+<div class="shortcode shortcode-alert">
+  <div class="alert alert-success d-flex overflow-hidden" role="alert">
+    <div class="flex-shrink-0 align-self-center">
+      <i class="fas fa-lightbulb fa-fw fa-2x"></i>
+    </div>
+    <div class="flex-grow-1 ms-3 overflow-hidden">
+        <p>Параметр <code>name</code> можно не указывать, тогда при импорте сертификатов, RouterOS в этот параметр автоматически подставит название файла.</p>
+
+    </div>
+  </div>
+</div>]]></turbo:content><pubDate>Thu, 19 Oct 2023 08:56:43 +0000</pubDate><category>Сеть</category><category>Безопасность</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Установка сертификата НУЦ Минцифры</title><link>https://lib.onl/ru/posts/2023/10/75075788-9308-56b7-b531-2008cb35f7d0/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2023/10/75075788-9308-56b7-b531-2008cb35f7d0/</guid><description>Рассказываю о нескольких способах установки сертификатов от НУЦ Минцифры. Установка производится в ОС MS Windows и Linux.</description><media:content medium="image" url="https://images.unsplash.com/photo-1570610159825-ec5d3823660c" width="1600" height="900"/><content:encoded><![CDATA[<p>Рассказываю о нескольких способах установки сертификатов от НУЦ Минцифры. Установка производится в ОС MS Windows и Linux.</p>
+<h2 id="ms-windows">
+  <a class="link-body-emphasis" href="#ms-windows">MS Windows</a>
+</h2><h3 id="установка-корневого-сертификата">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%ba%d0%be%d1%80%d0%bd%d0%b5%d0%b2%d0%be%d0%b3%d0%be-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%b0">Установка корневого сертификата</a>
+</h3><ul>
+<li><a title="" href="https://gu-st.ru/content/Other/doc/russian_trusted_root_ca.cer" target="_blank" rel="noopener noreferrer nofollow">Скачать</a> корневой сертификат.</li>
+<li>Открыть скаченный файл <code>russian_trusted_root_ca.cer</code> и нажать кнопку <span class="shortcode shortcode-key"><kbd>Установить сертификат...</kbd></span>.</li>
+<li>В <strong>Мастере импорта сертификатов</strong> выбрать <em>Текущий пользователь</em>.
+<ul>
+<li>Выбрать <em>Поместить все сертификаты в следующее хранилище</em>.</li>
+<li>Нажать <span class="shortcode shortcode-key"><kbd>Обзор</kbd></span> и выбрать <em>Доверенные корневые центры сертификации</em>.</li>
+<li>В окне <strong>Завершение мастера импорта сертификатов</strong> нажать <span class="shortcode shortcode-key"><kbd>Готово</kbd></span>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="установка-выпускающего-сертификата">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%b2%d1%8b%d0%bf%d1%83%d1%81%d0%ba%d0%b0%d1%8e%d1%89%d0%b5%d0%b3%d0%be-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%b0">Установка выпускающего сертификата</a>
+</h3><ul>
+<li><a title="" href="https://gu-st.ru/content/Other/doc/russian_trusted_sub_ca.cer" target="_blank" rel="noopener noreferrer nofollow">Скачать</a> выпускающий сертификат.</li>
+<li>Открыть скаченный файл <code>russian_trusted_sub_ca.cer</code> и нажать кнопку <span class="shortcode shortcode-key"><kbd>Установить сертификат...</kbd></span>.</li>
+<li>В <strong>Мастере импорта сертификатов</strong> выбрать <em>Текущий пользователь</em>.
+<ul>
+<li>Выбрать <em>Автоматически выбрать хранилище на основе типа сертификата</em>.</li>
+<li>В окне <strong>Завершение мастера импорта сертификатов</strong> нажать <span class="shortcode shortcode-key"><kbd>Готово</kbd></span>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="powershell">
+  <a class="link-body-emphasis" href="#powershell">PowerShell</a>
+</h3><p>При помощи PowerShell можно установить сертификат одной строчкой, состоящей из нескольких команд:</p>
+<ul>
+<li><code>Invoke-WebRequest</code> - скачивает файл с внешнего веб-ресурса.</li>
+<li><code>Import-Certificate</code> - импортирует сертификат в указанное хранилище.</li>
+<li><code>${DIR}</code> - переменная, определяющая директорию <code>Downloads</code> (<code>Загрузки</code>) для текущего пользователя.</li>
+</ul>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b5a246314907e0b953ae6b81b0819af8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b5a246314907e0b953ae6b81b0819af8"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="linux">
+  <a class="link-body-emphasis" href="#linux">Linux</a>
+</h2><p>Для Linux можно воспользоваться пакетом сертификатов в формате <code>.PEM</code> от <strong>MacOS</strong>. Положительным моментом подобного пакета является то, что PEM содержит в себе сразу два сертификата: корневой и выпускающий.</p>
+<h3 id="установка-корневого-и-выпускающего-сертификатов">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%ba%d0%be%d1%80%d0%bd%d0%b5%d0%b2%d0%be%d0%b3%d0%be-%d0%b8-%d0%b2%d1%8b%d0%bf%d1%83%d1%81%d0%ba%d0%b0%d1%8e%d1%89%d0%b5%d0%b3%d0%be-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%be%d0%b2">Установка корневого и выпускающего сертификатов</a>
+</h3><ul>
+<li><a title="" href="https://gu-st.ru/content/Other/doc/russiantrustedca.pem" target="_blank" rel="noopener noreferrer nofollow">Скачать</a> файл с корневым и выпускающим сертификатами.</li>
+<li>Добавить скаченный файл <code>russiantrustedca.pem</code> в хранилище доверенных сертификатов в зависимости от дистрибутива Linux.
+<ul>
+<li>DEB-based: <code>/usr/local/share/ca-certificates/</code>.</li>
+<li>RHEL-based: <code>/etc/pki/ca-trust/source/anchors/</code>.</li>
+<li>Arch Linux: <code>/etc/ca-certificates/trust-source/anchors/</code>.</li>
+</ul>
+</li>
+<li>Обновить хранилище сертификатов следующими командами.
+<ul>
+<li>DEB-based: <code>update-ca-certificates --fresh</code>.</li>
+<li>RHEL-based: <code>update-ca-trust force-enable</code> и <code>update-ca-trust extract</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="bash">
+  <a class="link-body-emphasis" href="#bash">Bash</a>
+</h3><p>Установить сертификат можно одной командой. Команды вводится от пользователя <code>root</code>. Как выше приводилось, для DEB-based и RHEL-based дистрибутивов, пути хранилища сертификатов различаются. Поэтому, я привожу две команды под каждые версии дистрибутивов.</p>
+<h4 id="deb-based-дистрибутивы">
+  <a class="link-body-emphasis" href="#deb-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d1%8b">DEB-based дистрибутивы</a>
+</h4>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a30676aa2ed4dd7876fcf074ba0d3ec7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a30676aa2ed4dd7876fcf074ba0d3ec7"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h4 id="rhel-based-дистрибутивы">
+  <a class="link-body-emphasis" href="#rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d1%8b">RHEL-based дистрибутивы</a>
+</h4>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0f4a6bb6f4b74234b72e2a12c142add4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0f4a6bb6f4b74234b72e2a12c142add4"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></content:encoded><turbo:source/><turbo:topic>Установка сертификата НУЦ Минцифры</turbo:topic><turbo:content><![CDATA[<p>Рассказываю о нескольких способах установки сертификатов от НУЦ Минцифры. Установка производится в ОС MS Windows и Linux.</p>
+<h2 id="ms-windows">
+  <a class="link-body-emphasis" href="#ms-windows">MS Windows</a>
+</h2><h3 id="установка-корневого-сертификата">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%ba%d0%be%d1%80%d0%bd%d0%b5%d0%b2%d0%be%d0%b3%d0%be-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%b0">Установка корневого сертификата</a>
+</h3><ul>
+<li><a title="" href="https://gu-st.ru/content/Other/doc/russian_trusted_root_ca.cer" target="_blank" rel="noopener noreferrer nofollow">Скачать</a> корневой сертификат.</li>
+<li>Открыть скаченный файл <code>russian_trusted_root_ca.cer</code> и нажать кнопку <span class="shortcode shortcode-key"><kbd>Установить сертификат...</kbd></span>.</li>
+<li>В <strong>Мастере импорта сертификатов</strong> выбрать <em>Текущий пользователь</em>.
+<ul>
+<li>Выбрать <em>Поместить все сертификаты в следующее хранилище</em>.</li>
+<li>Нажать <span class="shortcode shortcode-key"><kbd>Обзор</kbd></span> и выбрать <em>Доверенные корневые центры сертификации</em>.</li>
+<li>В окне <strong>Завершение мастера импорта сертификатов</strong> нажать <span class="shortcode shortcode-key"><kbd>Готово</kbd></span>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="установка-выпускающего-сертификата">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%b2%d1%8b%d0%bf%d1%83%d1%81%d0%ba%d0%b0%d1%8e%d1%89%d0%b5%d0%b3%d0%be-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%b0">Установка выпускающего сертификата</a>
+</h3><ul>
+<li><a title="" href="https://gu-st.ru/content/Other/doc/russian_trusted_sub_ca.cer" target="_blank" rel="noopener noreferrer nofollow">Скачать</a> выпускающий сертификат.</li>
+<li>Открыть скаченный файл <code>russian_trusted_sub_ca.cer</code> и нажать кнопку <span class="shortcode shortcode-key"><kbd>Установить сертификат...</kbd></span>.</li>
+<li>В <strong>Мастере импорта сертификатов</strong> выбрать <em>Текущий пользователь</em>.
+<ul>
+<li>Выбрать <em>Автоматически выбрать хранилище на основе типа сертификата</em>.</li>
+<li>В окне <strong>Завершение мастера импорта сертификатов</strong> нажать <span class="shortcode shortcode-key"><kbd>Готово</kbd></span>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="powershell">
+  <a class="link-body-emphasis" href="#powershell">PowerShell</a>
+</h3><p>При помощи PowerShell можно установить сертификат одной строчкой, состоящей из нескольких команд:</p>
+<ul>
+<li><code>Invoke-WebRequest</code> - скачивает файл с внешнего веб-ресурса.</li>
+<li><code>Import-Certificate</code> - импортирует сертификат в указанное хранилище.</li>
+<li><code>${DIR}</code> - переменная, определяющая директорию <code>Downloads</code> (<code>Загрузки</code>) для текущего пользователя.</li>
+</ul>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-powershell">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-b5a246314907e0b953ae6b81b0819af8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">${</span><span class="n">CERT_ROOT</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_root_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">CERT_SUB</span><span class="p">}</span> <span class="p">=</span> <span class="s1">&#39;russian_trusted_sub_ca.cer&#39;</span><span class="p">;</span> <span class="p">${</span><span class="n">DIR</span><span class="p">}</span> <span class="p">=</span> <span class="p">(</span><span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Shell</span><span class="p">.</span><span class="n">Application</span><span class="p">).</span><span class="py">NameSpace</span><span class="p">(</span><span class="s1">&#39;shell:Downloads&#39;</span><span class="p">).</span><span class="py">Self</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_ROOT}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\Root&#39;</span><span class="p">;</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="nb">Import-Certificate</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">${DIR}</span><span class="s2">\</span><span class="nv">${CERT_SUB}</span><span class="s2">&#34;</span> <span class="n">-CertStoreLocation</span> <span class="s1">&#39;Cert:\CurrentUser\CA&#39;</span><span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b5a246314907e0b953ae6b81b0819af8"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h2 id="linux">
+  <a class="link-body-emphasis" href="#linux">Linux</a>
+</h2><p>Для Linux можно воспользоваться пакетом сертификатов в формате <code>.PEM</code> от <strong>MacOS</strong>. Положительным моментом подобного пакета является то, что PEM содержит в себе сразу два сертификата: корневой и выпускающий.</p>
+<h3 id="установка-корневого-и-выпускающего-сертификатов">
+  <a class="link-body-emphasis" href="#%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-%d0%ba%d0%be%d1%80%d0%bd%d0%b5%d0%b2%d0%be%d0%b3%d0%be-%d0%b8-%d0%b2%d1%8b%d0%bf%d1%83%d1%81%d0%ba%d0%b0%d1%8e%d1%89%d0%b5%d0%b3%d0%be-%d1%81%d0%b5%d1%80%d1%82%d0%b8%d1%84%d0%b8%d0%ba%d0%b0%d1%82%d0%be%d0%b2">Установка корневого и выпускающего сертификатов</a>
+</h3><ul>
+<li><a title="" href="https://gu-st.ru/content/Other/doc/russiantrustedca.pem" target="_blank" rel="noopener noreferrer nofollow">Скачать</a> файл с корневым и выпускающим сертификатами.</li>
+<li>Добавить скаченный файл <code>russiantrustedca.pem</code> в хранилище доверенных сертификатов в зависимости от дистрибутива Linux.
+<ul>
+<li>DEB-based: <code>/usr/local/share/ca-certificates/</code>.</li>
+<li>RHEL-based: <code>/etc/pki/ca-trust/source/anchors/</code>.</li>
+<li>Arch Linux: <code>/etc/ca-certificates/trust-source/anchors/</code>.</li>
+</ul>
+</li>
+<li>Обновить хранилище сертификатов следующими командами.
+<ul>
+<li>DEB-based: <code>update-ca-certificates --fresh</code>.</li>
+<li>RHEL-based: <code>update-ca-trust force-enable</code> и <code>update-ca-trust extract</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="bash">
+  <a class="link-body-emphasis" href="#bash">Bash</a>
+</h3><p>Установить сертификат можно одной командой. Команды вводится от пользователя <code>root</code>. Как выше приводилось, для DEB-based и RHEL-based дистрибутивов, пути хранилища сертификатов различаются. Поэтому, я привожу две команды под каждые версии дистрибутивов.</p>
+<h4 id="deb-based-дистрибутивы">
+  <a class="link-body-emphasis" href="#deb-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d1%8b">DEB-based дистрибутивы</a>
+</h4>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-a30676aa2ed4dd7876fcf074ba0d3ec7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/usr/local/share/ca-certificates/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-certificates --fresh<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-a30676aa2ed4dd7876fcf074ba0d3ec7"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<h4 id="rhel-based-дистрибутивы">
+  <a class="link-body-emphasis" href="#rhel-based-%d0%b4%d0%b8%d1%81%d1%82%d1%80%d0%b8%d0%b1%d1%83%d1%82%d0%b8%d0%b2%d1%8b">RHEL-based дистрибутивы</a>
+</h4>
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0f4a6bb6f4b74234b72e2a12c142add4"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">CERT</span><span class="o">=</span><span class="s1">&#39;russiantrustedca.pem&#39;</span><span class="p">;</span> curl -o <span class="s2">&#34;/etc/pki/ca-trust/source/anchors/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="s2">&#34;https://gu-st.ru/content/Other/doc/</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> update-ca-trust force-enable <span class="o">&amp;&amp;</span> update-ca-trust extract<span class="p">;</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0f4a6bb6f4b74234b72e2a12c142add4"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>]]></turbo:content><pubDate>Fri, 06 Oct 2023 11:42:15 +0000</pubDate><category>Linux</category><category>MS Windows</category><category>Безопасность</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>GnuPG: Создание и работа с ключами шифрования</title><link>https://lib.onl/ru/posts/2020/07/7a204545-daa8-58ce-ba35-75e732e1bcc0/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2020/07/7a204545-daa8-58ce-ba35-75e732e1bcc0/</guid><description>GnuPG (GPG) это программа для шифрования информации и создания электронных цифровых подписей. Она создавалась в качестве свободной альтернативе несвободному PGP.</description><media:content medium="image" url="https://images.unsplash.com/photo-1572435555646-7ad9a149ad91" width="1600" height="900"/><content:encoded><![CDATA[<p><strong>GnuPG (GPG)</strong> это программа для шифрования информации и создания электронных цифровых подписей. Она создавалась в качестве свободной альтернативе несвободному <strong>PGP</strong>.</p>
+<h2 id="создание-ключа">
+  <a class="link-body-emphasis" href="#%d1%81%d0%be%d0%b7%d0%b4%d0%b0%d0%bd%d0%b8%d0%b5-%d0%ba%d0%bb%d1%8e%d1%87%d0%b0">Создание ключа</a>
+</h2><p>GPG предоставляет различные алгоритмы шифрования. Я предпочитаю алгоритм <strong>ECC</strong>, основанный на эллиптических кривых (Elliptic Curve Cryptography).</p>
+<p>Для создания ключей шифрования, нужно чтобы в системе была установлена утилита GPG. Для систем <strong>Debian</strong> и <strong>CentOS / Fedora</strong> этим занимается пакет <code>gnupg</code>, устанавливается командами:</p>
+<ul>
+<li>CentOS 8 / Fedora:</li>
+</ul>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-412f63ff9564a21e2453ad35958aa4b8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dnf install gnupg</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-412f63ff9564a21e2453ad35958aa4b8"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ul>
+<li>Debian:</li>
+</ul>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ac750ce039688745cb1f931661f5559a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install gnupg</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ac750ce039688745cb1f931661f5559a"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>После того, как пакет установлен, можно начать создание ключа командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d25c342d1a53052a35131d2bf28bbaa3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --expert --full-gen-key</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d25c342d1a53052a35131d2bf28bbaa3"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Команда вернёт следующий результат:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-linux
+shortcode-codeblock-terminal-linux">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b504cd40e58e2f5f6c869e124b955092"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-b504cd40e58e2f5f6c869e124b955092"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
+
+gpg (GnuPG) 2.2.20; Copyright (C) 2020 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+   (7) DSA (set your own capabilities)
+   (8) RSA (set your own capabilities)
+   (9) ECC and ECC
+  (10) ECC (sign only)
+  (11) ECC (set your own capabilities)
+  (13) Existing key
+  (14) Existing key from card
+Your selection?</code></pre></div>
+  </div>
+</div>
+<p>Здесь спрашивается, какой конкретно ключ мы хотим получить. Вводим <code>9</code>. Получаем:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-linux
+shortcode-codeblock-terminal-linux">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bfaaae020da2a5f763fb0b2636a27fea"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-bfaaae020da2a5f763fb0b2636a27fea"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
+
+Please select which elliptic curve you want:
+   (1) Curve 25519
+   (3) NIST P-256
+   (4) NIST P-384
+   (5) NIST P-521
+   (9) secp256k1
+Your selection?</code></pre></div>
+  </div>
+</div>
+<p>А здесь уже предстоит выбрать алгоритм шифрования. Вводим <code>1</code>. Получаем:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-linux
+shortcode-codeblock-terminal-linux">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-00674cc0bf9db46709edf85f24e1ebfe"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-00674cc0bf9db46709edf85f24e1ebfe"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
+
+Please specify how long the key should be valid.
+         0 = key does not expire
+      &lt;n&gt;  = key expires in n days
+      &lt;n&gt;w = key expires in n weeks
+      &lt;n&gt;m = key expires in n months
+      &lt;n&gt;y = key expires in n years
+Key is valid for? (0)</code></pre></div>
+  </div>
+</div>
+<p>На последнем шаге настройки ключа спрашивается время действия ключа. Обычно, личные ключи генерируются с безлимитным временем действия. Вводим <code>0</code> (этот пункт идёт по умолчанию).</p>
+<p>Дальше будет пара-тройка вопросов по поводу имени владельца ключа, его адреса e-mail и с просьбой указать комментарий. Таким образом, создаётся пара ключей: закрытый и открытый. Открытый ключ можно публиковать на различных ресурсах с целью идентификации владельца и подтверждения его личности. Например, так работает верификация коммитов на GitLab’е и GitHub’е. Закрытый ключ должен всегда оставаться внутри системы.</p>
+<h2 id="список-ключей-в-системе">
+  <a class="link-body-emphasis" href="#%d1%81%d0%bf%d0%b8%d1%81%d0%be%d0%ba-%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%b9-%d0%b2-%d1%81%d0%b8%d1%81%d1%82%d0%b5%d0%bc%d0%b5">Список ключей в системе</a>
+</h2><p>Посмотреть установленные в системе ключи можно командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cd2963c7e7af63d8eaca3c07c336bca1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-keys --keyid-format LONG --with-fingerprint</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cd2963c7e7af63d8eaca3c07c336bca1"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Здесь:</p>
+<ul>
+<li><code>--list-keys</code> - показать список ключей.</li>
+<li><code>--keyid-format LONG</code> - формат отображения каждого ключа в расширенном (<code>LONG</code>) формате.</li>
+<li><code>--with-fingerprint</code> - вывести отпечаток. Для себя всегда добавляю эту опцию на всякий случай.</li>
+</ul>
+<p>Команда вернёт следующий результат:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-linux
+shortcode-codeblock-terminal-linux">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f6103437478f75a0c1b37b5c4dd635d2"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-f6103437478f75a0c1b37b5c4dd635d2"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --list-keys --keyid-format LONG --with-fingerprint
+
+pub   ed25519/JTM4BAVLPI8F0XHR 2020-02-17 [SC]
+      Key fingerprint = XXXX XXXX XXXX XXXX XXXX  XXXX XXXX XXXX XXXX XXXX
+uid                 [ultimate] John Doe &lt;john.doe@example.com&gt;
+sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
+  </div>
+</div>
+<p>Здесь:</p>
+<ul>
+<li><code>JTM4BAVLPI8F0XHR</code> - идентификатор ключа. Он потребуется для каких-либо действий с ключом (редактирование / удаление / и т.п.).</li>
+<li><code>[ultimate]</code> - уровень доверия к ключу.</li>
+<li><code>John Doe</code> - имя хозяина ключа.</li>
+<li><code>&lt;john.doe@example.com&gt;</code> - почта хозяина ключа.</li>
+<li><code>ed25519</code> &amp; <code>cv25519</code> - алгоритмы шифрования.</li>
+</ul>
+<h2 id="экспорт-и-импорт-ключа">
+  <a class="link-body-emphasis" href="#%d1%8d%d0%ba%d1%81%d0%bf%d0%be%d1%80%d1%82-%d0%b8-%d0%b8%d0%bc%d0%bf%d0%be%d1%80%d1%82-%d0%ba%d0%bb%d1%8e%d1%87%d0%b0">Экспорт и импорт ключа</a>
+</h2><p>При создании открытого и закрытого ключей, необходимо экспортировать их для того, чтобы они хранились где-то независимо от системы, например, на какой-нибудь карте памяти или USB-флешке. Следующие две команды выполняют необходимые действия:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4bc5047cb2f5b9f2691dde9bf146608c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Export: PUBLIC.</span>
+</span></span><span class="line"><span class="cl">gpg --armor --output JohnDoe.public.asc --export JTM4BAVLPI8F0XHR
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Export: PRIVATE.</span>
+</span></span><span class="line"><span class="cl">gpg --armor --output JohnDoe.private.asc --export-secret-keys JTM4BAVLPI8F0XHR</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4bc5047cb2f5b9f2691dde9bf146608c"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Здесь:</p>
+<ul>
+<li><code>--armor</code> - экспорт ключа в формате <strong>ASCII</strong> (текстовый формат).</li>
+<li><code>--output</code> - имя файлы, в который будет экспортирован ключ.</li>
+<li><code>--export JTM4BAVLPI8F0XHR</code> - экспорт открытого ключа с идентификатором <code>JTM4BAVLPI8F0XHR</code>.</li>
+<li><code>--export-secret-keys JTM4BAVLPI8F0XHR</code> - экспорт закрытого ключа с идентификатором <code>JTM4BAVLPI8F0XHR</code>.</li>
+</ul>
+<p>С экспортом разобрались. Теперь по поводу импорта&hellip; Импортировать также необходимо открытый и закрытый ключи. Следующие две команды выполняют необходимые действия:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0efc0ff308ab7e6bc0f93def14844f1d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Import: PUBLIC.</span>
+</span></span><span class="line"><span class="cl">gpg --import JohnDoe.public.asc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Import: PRIVATE.</span>
+</span></span><span class="line"><span class="cl">gpg --import JohnDoe.private.asc</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0efc0ff308ab7e6bc0f93def14844f1d"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>После импорта ключ приобретает <strong>стандартный уровень доверия</strong>. Для повышения или понижения уровня доверия, ключ необходимо отредактировать.</p>
+<h2 id="редактирование-ключа">
+  <a class="link-body-emphasis" href="#%d1%80%d0%b5%d0%b4%d0%b0%d0%ba%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-%d0%ba%d0%bb%d1%8e%d1%87%d0%b0">Редактирование ключа</a>
+</h2><p>Следующая команда позволяет отредактировать ключ:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bf6acbbcfee101670eb995db0bdecb8a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --edit-key JTM4BAVLPI8F0XHR</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bf6acbbcfee101670eb995db0bdecb8a"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Здесь:</p>
+<ul>
+<li><code>--edit-key JTM4BAVLPI8F0XHR</code> - редактирование ключа с идентификатором <code>JTM4BAVLPI8F0XHR</code>.</li>
+</ul>
+<p>Режим редактирования ключа представляет собой текстовый интерфейс, в который вручную вбиваются команды. Например, повысим уровень доверия к ключу до максимального (ultimate).</p>
+<ol>
+<li>Вводим <code>trust</code>.</li>
+<li>Выбираем <code>5 (I trust ultimately)</code>.</li>
+<li>Вводим <code>quit</code> (выход).</li>
+</ol>]]></content:encoded><turbo:source/><turbo:topic>GnuPG: Создание и работа с ключами шифрования</turbo:topic><turbo:content><![CDATA[<p><strong>GnuPG (GPG)</strong> это программа для шифрования информации и создания электронных цифровых подписей. Она создавалась в качестве свободной альтернативе несвободному <strong>PGP</strong>.</p>
+<h2 id="создание-ключа">
+  <a class="link-body-emphasis" href="#%d1%81%d0%be%d0%b7%d0%b4%d0%b0%d0%bd%d0%b8%d0%b5-%d0%ba%d0%bb%d1%8e%d1%87%d0%b0">Создание ключа</a>
+</h2><p>GPG предоставляет различные алгоритмы шифрования. Я предпочитаю алгоритм <strong>ECC</strong>, основанный на эллиптических кривых (Elliptic Curve Cryptography).</p>
+<p>Для создания ключей шифрования, нужно чтобы в системе была установлена утилита GPG. Для систем <strong>Debian</strong> и <strong>CentOS / Fedora</strong> этим занимается пакет <code>gnupg</code>, устанавливается командами:</p>
+<ul>
+<li>CentOS 8 / Fedora:</li>
+</ul>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-412f63ff9564a21e2453ad35958aa4b8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dnf install gnupg</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-412f63ff9564a21e2453ad35958aa4b8"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<ul>
+<li>Debian:</li>
+</ul>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ac750ce039688745cb1f931661f5559a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">apt install gnupg</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ac750ce039688745cb1f931661f5559a"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>После того, как пакет установлен, можно начать создание ключа командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d25c342d1a53052a35131d2bf28bbaa3"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --expert --full-gen-key</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d25c342d1a53052a35131d2bf28bbaa3"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Команда вернёт следующий результат:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-linux
+shortcode-codeblock-terminal-linux">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-b504cd40e58e2f5f6c869e124b955092"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-b504cd40e58e2f5f6c869e124b955092"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
+
+gpg (GnuPG) 2.2.20; Copyright (C) 2020 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+   (7) DSA (set your own capabilities)
+   (8) RSA (set your own capabilities)
+   (9) ECC and ECC
+  (10) ECC (sign only)
+  (11) ECC (set your own capabilities)
+  (13) Existing key
+  (14) Existing key from card
+Your selection?</code></pre></div>
+  </div>
+</div>
+<p>Здесь спрашивается, какой конкретно ключ мы хотим получить. Вводим <code>9</code>. Получаем:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-linux
+shortcode-codeblock-terminal-linux">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bfaaae020da2a5f763fb0b2636a27fea"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-bfaaae020da2a5f763fb0b2636a27fea"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
+
+Please select which elliptic curve you want:
+   (1) Curve 25519
+   (3) NIST P-256
+   (4) NIST P-384
+   (5) NIST P-521
+   (9) secp256k1
+Your selection?</code></pre></div>
+  </div>
+</div>
+<p>А здесь уже предстоит выбрать алгоритм шифрования. Вводим <code>1</code>. Получаем:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-linux
+shortcode-codeblock-terminal-linux">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-00674cc0bf9db46709edf85f24e1ebfe"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-00674cc0bf9db46709edf85f24e1ebfe"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --expert --full-gen-key
+
+Please specify how long the key should be valid.
+         0 = key does not expire
+      &lt;n&gt;  = key expires in n days
+      &lt;n&gt;w = key expires in n weeks
+      &lt;n&gt;m = key expires in n months
+      &lt;n&gt;y = key expires in n years
+Key is valid for? (0)</code></pre></div>
+  </div>
+</div>
+<p>На последнем шаге настройки ключа спрашивается время действия ключа. Обычно, личные ключи генерируются с безлимитным временем действия. Вводим <code>0</code> (этот пункт идёт по умолчанию).</p>
+<p>Дальше будет пара-тройка вопросов по поводу имени владельца ключа, его адреса e-mail и с просьбой указать комментарий. Таким образом, создаётся пара ключей: закрытый и открытый. Открытый ключ можно публиковать на различных ресурсах с целью идентификации владельца и подтверждения его личности. Например, так работает верификация коммитов на GitLab’е и GitHub’е. Закрытый ключ должен всегда оставаться внутри системы.</p>
+<h2 id="список-ключей-в-системе">
+  <a class="link-body-emphasis" href="#%d1%81%d0%bf%d0%b8%d1%81%d0%be%d0%ba-%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%b9-%d0%b2-%d1%81%d0%b8%d1%81%d1%82%d0%b5%d0%bc%d0%b5">Список ключей в системе</a>
+</h2><p>Посмотреть установленные в системе ключи можно командой:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cd2963c7e7af63d8eaca3c07c336bca1"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --list-keys --keyid-format LONG --with-fingerprint</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cd2963c7e7af63d8eaca3c07c336bca1"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Здесь:</p>
+<ul>
+<li><code>--list-keys</code> - показать список ключей.</li>
+<li><code>--keyid-format LONG</code> - формат отображения каждого ключа в расширенном (<code>LONG</code>) формате.</li>
+<li><code>--with-fingerprint</code> - вывести отпечаток. Для себя всегда добавляю эту опцию на всякий случай.</li>
+</ul>
+<p>Команда вернёт следующий результат:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-linux
+shortcode-codeblock-terminal-linux">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-f6103437478f75a0c1b37b5c4dd635d2"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-f6103437478f75a0c1b37b5c4dd635d2"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">gpg --list-keys --keyid-format LONG --with-fingerprint
+
+pub   ed25519/JTM4BAVLPI8F0XHR 2020-02-17 [SC]
+      Key fingerprint = XXXX XXXX XXXX XXXX XXXX  XXXX XXXX XXXX XXXX XXXX
+uid                 [ultimate] John Doe &lt;john.doe@example.com&gt;
+sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre></div>
+  </div>
+</div>
+<p>Здесь:</p>
+<ul>
+<li><code>JTM4BAVLPI8F0XHR</code> - идентификатор ключа. Он потребуется для каких-либо действий с ключом (редактирование / удаление / и т.п.).</li>
+<li><code>[ultimate]</code> - уровень доверия к ключу.</li>
+<li><code>John Doe</code> - имя хозяина ключа.</li>
+<li><code>&lt;john.doe@example.com&gt;</code> - почта хозяина ключа.</li>
+<li><code>ed25519</code> &amp; <code>cv25519</code> - алгоритмы шифрования.</li>
+</ul>
+<h2 id="экспорт-и-импорт-ключа">
+  <a class="link-body-emphasis" href="#%d1%8d%d0%ba%d1%81%d0%bf%d0%be%d1%80%d1%82-%d0%b8-%d0%b8%d0%bc%d0%bf%d0%be%d1%80%d1%82-%d0%ba%d0%bb%d1%8e%d1%87%d0%b0">Экспорт и импорт ключа</a>
+</h2><p>При создании открытого и закрытого ключей, необходимо экспортировать их для того, чтобы они хранились где-то независимо от системы, например, на какой-нибудь карте памяти или USB-флешке. Следующие две команды выполняют необходимые действия:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4bc5047cb2f5b9f2691dde9bf146608c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Export: PUBLIC.</span>
+</span></span><span class="line"><span class="cl">gpg --armor --output JohnDoe.public.asc --export JTM4BAVLPI8F0XHR
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Export: PRIVATE.</span>
+</span></span><span class="line"><span class="cl">gpg --armor --output JohnDoe.private.asc --export-secret-keys JTM4BAVLPI8F0XHR</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4bc5047cb2f5b9f2691dde9bf146608c"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Здесь:</p>
+<ul>
+<li><code>--armor</code> - экспорт ключа в формате <strong>ASCII</strong> (текстовый формат).</li>
+<li><code>--output</code> - имя файлы, в который будет экспортирован ключ.</li>
+<li><code>--export JTM4BAVLPI8F0XHR</code> - экспорт открытого ключа с идентификатором <code>JTM4BAVLPI8F0XHR</code>.</li>
+<li><code>--export-secret-keys JTM4BAVLPI8F0XHR</code> - экспорт закрытого ключа с идентификатором <code>JTM4BAVLPI8F0XHR</code>.</li>
+</ul>
+<p>С экспортом разобрались. Теперь по поводу импорта&hellip; Импортировать также необходимо открытый и закрытый ключи. Следующие две команды выполняют необходимые действия:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0efc0ff308ab7e6bc0f93def14844f1d"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Import: PUBLIC.</span>
+</span></span><span class="line"><span class="cl">gpg --import JohnDoe.public.asc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Import: PRIVATE.</span>
+</span></span><span class="line"><span class="cl">gpg --import JohnDoe.private.asc</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0efc0ff308ab7e6bc0f93def14844f1d"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>После импорта ключ приобретает <strong>стандартный уровень доверия</strong>. Для повышения или понижения уровня доверия, ключ необходимо отредактировать.</p>
+<h2 id="редактирование-ключа">
+  <a class="link-body-emphasis" href="#%d1%80%d0%b5%d0%b4%d0%b0%d0%ba%d1%82%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-%d0%ba%d0%bb%d1%8e%d1%87%d0%b0">Редактирование ключа</a>
+</h2><p>Следующая команда позволяет отредактировать ключ:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-bf6acbbcfee101670eb995db0bdecb8a"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg --edit-key JTM4BAVLPI8F0XHR</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bf6acbbcfee101670eb995db0bdecb8a"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Здесь:</p>
+<ul>
+<li><code>--edit-key JTM4BAVLPI8F0XHR</code> - редактирование ключа с идентификатором <code>JTM4BAVLPI8F0XHR</code>.</li>
+</ul>
+<p>Режим редактирования ключа представляет собой текстовый интерфейс, в который вручную вбиваются команды. Например, повысим уровень доверия к ключу до максимального (ultimate).</p>
+<ol>
+<li>Вводим <code>trust</code>.</li>
+<li>Выбираем <code>5 (I trust ultimately)</code>.</li>
+<li>Вводим <code>quit</code> (выход).</li>
+</ol>]]></turbo:content><pubDate>Thu, 16 Jul 2020 06:55:17 +0000</pubDate><category>Криптография</category><category>Безопасность</category></item></channel></rss>

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>gdm / Library Online</title><link>https://lib.onl/ru/tags/gdm/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><sy:updatePeriod>weekly</sy:updatePeriod><sy:updateFrequency>1</sy:updateFrequency><image><link>https://lib.onl/ru/tags/gdm/</link><url>https://lib.onl/favicon-128.png</url><width>128</width><height>128</height><title>gdm / Library Online</title><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description></image><lastBuildDate>Thu, 30 Sep 2021 08:10:19 +0000</lastBuildDate><atom:link href="https://lib.onl/ru/tags/gdm/index.xml" rel="self" type="application/rss+xml"/><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Чёрный экран с курсором при старте GDM</title><link>https://lib.onl/ru/posts/2021/09/581804b8-0613-52a8-a5c4-fdae90e7bc8a/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/581804b8-0613-52a8-a5c4-fdae90e7bc8a/</guid><description>На днях установил Debian 11 на несколько ПК. Всё было отлично, кроме как на одном из ПК почему то GDM не стал загружаться. Чёрный экран с мигающем текстовым курсором&amp;hellip;</description><media:content medium="image" url="https://images.unsplash.com/photo-1542906453-02e875f65428" width="1600" height="900"/><content:encoded><![CDATA[<p>На днях установил <strong>Debian 11</strong> на несколько ПК. Всё было отлично, кроме как на одном из ПК почему то <strong>GDM</strong> не стал загружаться. Чёрный экран с мигающем текстовым курсором&hellip;</p>
+<p>На других ПК всё было нормально. Отличие проблемного ПК от остальных заключалось в том, что на проблемном ПК система была установлена на <strong>SSD</strong>. Может быть дело в этом. В интернете я нашёл похожую проблему. По сути, проблема заключается в том, что сам GDM запускается чуть раньше, чем начинается инициализация графической подсистемы. И на кой чёрт его несёт вперёд&hellip;</p>
+<p>В общем, предлагают несколько решений.</p>
+<h2 id="настройка-сервиса-gdm">
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d1%81%d0%b5%d1%80%d0%b2%d0%b8%d1%81%d0%b0-gdm">Настройка сервиса GDM</a>
+</h2><p>Данный вариант решения проблемы предлагает отредактировать стартовые параметры сервиса GDM, чтобы тот запускался с небольшой задержкой и не лез вперёд остальной графической подсистемы.</p>
+<p>В терминале нужно ввести от root&rsquo;а команду <code>systemctl edit gdm.service</code>, откроется редактор сервиса GDM. В нем необходимо добавить строку <code>ExecStartPre=/bin/sleep 2</code>, которая создаёт задержку перед запуском самого GDM. Примерно вот так:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0e50a41d3f5ed018aa4059d70c731620"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1">### Anything between here and the comment below will become the new contents of the file</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStartPre</span><span class="o">=</span><span class="s">/bin/sleep 2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">### Lines below this comment will be discarded</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0e50a41d3f5ed018aa4059d70c731620"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Таким образом GDM начинает запускаться после того, как инициализируется графическая подсистема.</p>
+<p>Ещё одно исправление <a title="" href="https://gitlab.gnome.org/GNOME/gdm/-/issues/662#note_993169" target="_blank" rel="noopener noreferrer nofollow">предложили</a> в баг-трекере GNOME/GDM. Вместо торможения загрузки GDM, необходимо добавить следующие строки:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d630b9e962ad227e145fe84538837cab"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Unit]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Wants</span><span class="o">=</span><span class="s">systemd-udev-trigger.service systemd-udev-settle.service</span>
+</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">systemd-udev-trigger.service systemd-udev-settle.service</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d630b9e962ad227e145fe84538837cab"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Но это не совсем корректное исправление (хотя исправление, изложенное выше, тоже трудно назвать правильным), так как после применения этих строк, появляется ошибка:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-linux
+shortcode-codeblock-terminal-linux">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1997bd7ccc672d6bb9a07423f871c90d"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-1997bd7ccc672d6bb9a07423f871c90d"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dec 27 22:23:48 oleksandr-xps15 udevadm[260]: systemd-udev-settle.service is deprecated. Please fix gdm.service not to pull it in.</code></pre></div>
+  </div>
+</div>
+<h2 id="указание-порядка-инициализации-графической-подсистемы">
+  <a class="link-body-emphasis" href="#%d1%83%d0%ba%d0%b0%d0%b7%d0%b0%d0%bd%d0%b8%d0%b5-%d0%bf%d0%be%d1%80%d1%8f%d0%b4%d0%ba%d0%b0-%d0%b8%d0%bd%d0%b8%d1%86%d0%b8%d0%b0%d0%bb%d0%b8%d0%b7%d0%b0%d1%86%d0%b8%d0%b8-%d0%b3%d1%80%d0%b0%d1%84%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%be%d0%b9-%d0%bf%d0%be%d0%b4%d1%81%d0%b8%d1%81%d1%82%d0%b5%d0%bc%d1%8b">Указание порядка инициализации графической подсистемы</a>
+</h2><p>Этот вариант решения проблемы подходит для <strong>Arch Linux</strong>. Необходимо в файле <code>/etc/mkinitcpio.conf</code> добавить в массив <code>MODULES</code> свою графическую подсистему, чтобы та запускалась раньше, чем GDM. Например:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d0edb4c24712070d47b7c3c0cdc22ee0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">MODULES=(amdgpu)</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d0edb4c24712070d47b7c3c0cdc22ee0"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Можно указать другие графические подсистемы, всё зависит от видеокарты, установленной в ПК:</p>
+<ul>
+<li><code>amdgpu</code> - для современных видеокарт AMD.</li>
+<li><code>radeon</code> - для устаревших видеокарт AMD.</li>
+<li><code>nouveau</code> - для Nvidia Nouveau.</li>
+<li><code>i915</code> - для Intel.</li>
+<li><code>mgag200</code> - для видеокарт Matrox.</li>
+</ul>
+<p>Если в системе используется Intel в качестве графики и в модулях прописан <code>i915</code>, то могут появится ошибки ACPI. Для исправления этих ошибок необходимо добавить <code>intel_agp</code> перед <code>i915</code>. Чтобы проверить корректность загрузки модуля, можно ввести команду <code>lsmod | grep intel_agp</code>.</p>]]></content:encoded><turbo:source/><turbo:topic>Чёрный экран с курсором при старте GDM</turbo:topic><turbo:content><![CDATA[<p>На днях установил <strong>Debian 11</strong> на несколько ПК. Всё было отлично, кроме как на одном из ПК почему то <strong>GDM</strong> не стал загружаться. Чёрный экран с мигающем текстовым курсором&hellip;</p>
+<p>На других ПК всё было нормально. Отличие проблемного ПК от остальных заключалось в том, что на проблемном ПК система была установлена на <strong>SSD</strong>. Может быть дело в этом. В интернете я нашёл похожую проблему. По сути, проблема заключается в том, что сам GDM запускается чуть раньше, чем начинается инициализация графической подсистемы. И на кой чёрт его несёт вперёд&hellip;</p>
+<p>В общем, предлагают несколько решений.</p>
+<h2 id="настройка-сервиса-gdm">
+  <a class="link-body-emphasis" href="#%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d1%81%d0%b5%d1%80%d0%b2%d0%b8%d1%81%d0%b0-gdm">Настройка сервиса GDM</a>
+</h2><p>Данный вариант решения проблемы предлагает отредактировать стартовые параметры сервиса GDM, чтобы тот запускался с небольшой задержкой и не лез вперёд остальной графической подсистемы.</p>
+<p>В терминале нужно ввести от root&rsquo;а команду <code>systemctl edit gdm.service</code>, откроется редактор сервиса GDM. В нем необходимо добавить строку <code>ExecStartPre=/bin/sleep 2</code>, которая создаёт задержку перед запуском самого GDM. Примерно вот так:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-0e50a41d3f5ed018aa4059d70c731620"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1">### Anything between here and the comment below will become the new contents of the file</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStartPre</span><span class="o">=</span><span class="s">/bin/sleep 2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">### Lines below this comment will be discarded</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-0e50a41d3f5ed018aa4059d70c731620"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Таким образом GDM начинает запускаться после того, как инициализируется графическая подсистема.</p>
+<p>Ещё одно исправление <a title="" href="https://gitlab.gnome.org/GNOME/gdm/-/issues/662#note_993169" target="_blank" rel="noopener noreferrer nofollow">предложили</a> в баг-трекере GNOME/GDM. Вместо торможения загрузки GDM, необходимо добавить следующие строки:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d630b9e962ad227e145fe84538837cab"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Unit]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Wants</span><span class="o">=</span><span class="s">systemd-udev-trigger.service systemd-udev-settle.service</span>
+</span></span><span class="line"><span class="cl"><span class="na">After</span><span class="o">=</span><span class="s">systemd-udev-trigger.service systemd-udev-settle.service</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d630b9e962ad227e145fe84538837cab"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Но это не совсем корректное исправление (хотя исправление, изложенное выше, тоже трудно назвать правильным), так как после применения этих строк, появляется ошибка:</p>
+
+
+
+
+
+
+<div class="shortcode shortcode-codeblock shortcode-codeblock-terminal
+shortcode-codeblock-terminal-linux
+shortcode-codeblock-terminal-linux">
+  <div class="card mb-3 overflow-hidden" data-bs-theme="dark">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <div class="flex-shrink-0 ">
+          <i class="fas fa-terminal fa-fw"></i>
+        </div>
+        <div class="flex-grow-1 mx-2">
+          <h5 class="mb-0">Терминал</h5>
+        </div>
+        <div class="flex-shrink-0">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+              <a class="text-body" href="#"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1997bd7ccc672d6bb9a07423f871c90d"
+                 role="button" aria-label='Копировать'>
+                <i class="fas fa-copy fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0" id="clipboard-1997bd7ccc672d6bb9a07423f871c90d"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">Dec 27 22:23:48 oleksandr-xps15 udevadm[260]: systemd-udev-settle.service is deprecated. Please fix gdm.service not to pull it in.</code></pre></div>
+  </div>
+</div>
+<h2 id="указание-порядка-инициализации-графической-подсистемы">
+  <a class="link-body-emphasis" href="#%d1%83%d0%ba%d0%b0%d0%b7%d0%b0%d0%bd%d0%b8%d0%b5-%d0%bf%d0%be%d1%80%d1%8f%d0%b4%d0%ba%d0%b0-%d0%b8%d0%bd%d0%b8%d1%86%d0%b8%d0%b0%d0%bb%d0%b8%d0%b7%d0%b0%d1%86%d0%b8%d0%b8-%d0%b3%d1%80%d0%b0%d1%84%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%be%d0%b9-%d0%bf%d0%be%d0%b4%d1%81%d0%b8%d1%81%d1%82%d0%b5%d0%bc%d1%8b">Указание порядка инициализации графической подсистемы</a>
+</h2><p>Этот вариант решения проблемы подходит для <strong>Arch Linux</strong>. Необходимо в файле <code>/etc/mkinitcpio.conf</code> добавить в массив <code>MODULES</code> свою графическую подсистему, чтобы та запускалась раньше, чем GDM. Например:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-d0edb4c24712070d47b7c3c0cdc22ee0"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">MODULES=(amdgpu)</span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d0edb4c24712070d47b7c3c0cdc22ee0"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Можно указать другие графические подсистемы, всё зависит от видеокарты, установленной в ПК:</p>
+<ul>
+<li><code>amdgpu</code> - для современных видеокарт AMD.</li>
+<li><code>radeon</code> - для устаревших видеокарт AMD.</li>
+<li><code>nouveau</code> - для Nvidia Nouveau.</li>
+<li><code>i915</code> - для Intel.</li>
+<li><code>mgag200</code> - для видеокарт Matrox.</li>
+</ul>
+<p>Если в системе используется Intel в качестве графики и в модулях прописан <code>i915</code>, то могут появится ошибки ACPI. Для исправления этих ошибок необходимо добавить <code>intel_agp</code> перед <code>i915</code>. Чтобы проверить корректность загрузки модуля, можно ввести команду <code>lsmod | grep intel_agp</code>.</p>]]></turbo:content><pubDate>Thu, 30 Sep 2021 08:10:19 +0000</pubDate><category>Linux</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Отключение режима Wayland в GDM</title><link>https://lib.onl/ru/posts/2021/09/0d11ecc0-2714-5c5c-9b48-804f50419590/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/09/0d11ecc0-2714-5c5c-9b48-804f50419590/</guid><description>Использовать Wayland мне, пока что, нет необходимости. Поэтому, я решил его отключить в GDM.</description><media:content medium="image" url="https://images.unsplash.com/photo-1590140409417-8fc288725f77" width="1600" height="900"/><content:encoded><![CDATA[<p>Использовать <strong>Wayland</strong> мне, пока что, нет необходимости. Поэтому, я решил его отключить в <strong>GDM</strong>.</p>
+<p>Для того, чтобы отключить выбор режима Wayland в GDM, необходимо в файле <code>/etc/gdm3/daemon.conf</code> раскомментировать строку:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4698c9f8bac1f4a7c48b6903c4bd8589"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1"># WaylandEnable=false</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4698c9f8bac1f4a7c48b6903c4bd8589"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Должно получится так:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cd13c9ed83d895d92b8d2b7c90beac3c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">WaylandEnable</span><span class="o">=</span><span class="s">false</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cd13c9ed83d895d92b8d2b7c90beac3c"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Таким образом даём понять GDM, что мы не желаем использовать Wayland.</p>]]></content:encoded><turbo:source/><turbo:topic>Отключение режима Wayland в GDM</turbo:topic><turbo:content><![CDATA[<p>Использовать <strong>Wayland</strong> мне, пока что, нет необходимости. Поэтому, я решил его отключить в <strong>GDM</strong>.</p>
+<p>Для того, чтобы отключить выбор режима Wayland в GDM, необходимо в файле <code>/etc/gdm3/daemon.conf</code> раскомментировать строку:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4698c9f8bac1f4a7c48b6903c4bd8589"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1"># WaylandEnable=false</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4698c9f8bac1f4a7c48b6903c4bd8589"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Должно получится так:</p>
+
+
+
+
+
+
+
+
+  <div class="shortcode shortcode-codeblock shortcode-codeblock-ini">
+    <div class="d-flex mb-3 overflow-hidden">
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-cd13c9ed83d895d92b8d2b7c90beac3c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">WaylandEnable</span><span class="o">=</span><span class="s">false</span></span></span></code></pre></div></div>
+      <div class="flex-shrink-0">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
+            <a class="text-body" href="#"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-cd13c9ed83d895d92b8d2b7c90beac3c"
+               role="button" aria-label='Копировать'>
+              <i class="fas fa-copy fa-fw"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<p>Таким образом даём понять GDM, что мы не желаем использовать Wayland.</p>]]></turbo:content><pubDate>Thu, 30 Sep 2021 07:51:30 +0000</pubDate><category>Linux</category></item></channel></rss>
