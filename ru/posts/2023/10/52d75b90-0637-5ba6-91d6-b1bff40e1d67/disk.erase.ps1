@@ -54,7 +54,7 @@ Param(
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # New line separator.
-$NL = [Environment]::NewLine
+$NL = "$([Environment]::NewLine)"
 
 # Random number.
 $Random = "$(Get-Random -Minimum 1000 -Maximum 9999)"
