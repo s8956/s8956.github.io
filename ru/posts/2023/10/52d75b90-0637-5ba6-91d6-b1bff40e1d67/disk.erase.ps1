@@ -22,15 +22,9 @@
   .PARAMETER P_DiskNumber
   Specifies the disk number of the disk on which to perform the clear operation. For a list of available disks, see the 'Get-Disk' cmdlet.
 
-  .PARAMETER P_DriveLetter
-  Specifies the specific drive letter to assign to the new partition.
-
   .PARAMETER P_FileSystem
   Specifies the file system with which to format the volume.
   The acceptable values for this parameter are: 'NTFS', 'ReFS', 'exFAT', 'FAT32' and 'FAT'.
-
-  .PARAMETER P_FileSystemLabel
-  Specifies the label to use for the volume.
 
   .PARAMETER P_Sleep
   Sleep time (in seconds).
@@ -47,16 +41,9 @@ Param(
   [ValidatePattern('^[0-9]+$')]
   [Alias('DN')][int]$P_DiskNumber,
 
-  [Parameter(HelpMessage="Specify the drive letter to assign to the new partition.")]
-  [ValidatePattern('^[A-Z]$')]
-  [Alias('DL')][string]$P_DriveLetter,
-
   [Parameter(HelpMessage="Specify the file system to format the volume.")]
   [ValidateSet('FAT', 'FAT32', 'exFAT', 'NTFS', 'ReFS')]
   [Alias('FS')][string]$P_FileSystem,
-
-  [Parameter(HelpMessage="Specify a new label to use for the volume.")]
-  [Alias('FSL')][string]$P_FileSystemLabel,
 
   [Parameter(HelpMessage="Sleep time (in seconds).")]
   [Alias('S')][int]$P_Sleep = 2
@@ -72,23 +59,24 @@ $NL = [Environment]::NewLine
 # Random number.
 $Random = "$(Get-Random -Minimum 1000 -Maximum 9999)"
 
+# Getting free drive letter and to assign to the new partition.
+$DriveLetter = "$((68..90 | ForEach-Object { $L=[char]$_; if ((Get-PSDrive).Name -notContains $L) { $L } })[0])"
+
+# Specifying a new label to use for the volume.
+$FileSystemLabel = "DISK_${Random}"
+
 # -------------------------------------------------------------------------------------------------------------------- #
 # INITIALIZATION.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-Script() {
-  Start-DPDiskList
-
-  # Get params.
-  if (-not $P_DiskNumber) { $P_DiskNumber = (Read-Host -Prompt 'Disk number') }
-  if (-not $P_DriveLetter) { $P_DriveLetter = (Read-Host -Prompt 'Drive letter') }
-  if (-not $P_FileSystem) { $P_FileSystem = (Read-Host -Prompt 'File system') }
-  if (-not $P_FileSystemLabel) { $P_FileSystemLabel = (Read-Host -Prompt 'New volume label') }
-
-  Start-DPDiskClear
-  Start-DPDiskInit
-  Start-DPDiskPartition
-  Start-DPDiskFormat
+  Start-DPDiskList        # Showing disk list.
+  if (-not $P_DiskNumber) { $P_DiskNumber = (Read-Host -Prompt 'Disk number') }   # Getting disk number.
+  if (-not $P_FileSystem) { $P_FileSystem = (Read-Host -Prompt 'File system') }   # Getting file system.
+  Start-DPDiskClear       # Starting clearing disk.
+  Start-DPDiskInit        # Initializing disk.
+  Start-DPDiskPartition   # Creating partition.
+  Start-DPDiskFormat      # Formatting volume.
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -96,8 +84,8 @@ function Start-Script() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-DPDiskList() {
-  Show-DPDiskList
-  Start-Sleep -s $P_Sleep
+  Write-Msg -T 'HL' -M "Disk List"
+  Get-Disk
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -105,11 +93,18 @@ function Start-DPDiskList() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-DPDiskClear() {
-  Write-Msg -T 'HL' -M "[DISK ${P_DiskNumber}] Clear Disk..."
+  Write-Msg -T 'HL' -M "[DISK #${P_DiskNumber}] Clear Disk"
   Write-Msg -T 'W' -A 'Inquire' -M ("You specified drive number '${P_DiskNumber}'.${NL}" +
   "All data will be DELETED!")
-  Clear-Disk -Number $P_DiskNumber -RemoveData -RemoveOEM -Confirm:$false
-  Show-DPDiskList
+
+  $Params = @{
+    Number = $P_DiskNumber
+    RemoveData = $true
+    RemoveOEM = $true
+    Confirm = $false
+  }
+
+  Clear-Disk @Params
   Start-Sleep -s $P_Sleep
 }
 
@@ -118,9 +113,14 @@ function Start-DPDiskClear() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-DPDiskInit() {
-  Write-Msg -T 'HL' -M "[DISK ${P_DiskNumber}] Initialize Disk..."
-  Initialize-Disk -Number $P_DiskNumber -PartitionStyle 'GPT'
-  Show-DPDiskList
+  Write-Msg -T 'HL' -M "[DISK #${P_DiskNumber}] Initialize Disk"
+
+  $Params = @{
+    Number = $P_DiskNumber
+    PartitionStyle = 'GPT'
+  }
+
+  Initialize-Disk @Params
   Start-Sleep -s $P_Sleep
 }
 
@@ -129,8 +129,15 @@ function Start-DPDiskInit() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-DPDiskPartition() {
-  Write-Msg -T 'HL' -M "[DISK ${P_DiskNumber}] Create Partition..."
-  New-Partition -DiskNumber $P_DiskNumber -UseMaximumSize -DriveLetter "${P_DriveLetter}"
+  Write-Msg -T 'HL' -M "[DISK #${P_DiskNumber}] Create Partition"
+
+  $Params = @{
+    DiskNumber = $P_DiskNumber
+    DriveLetter = "${DriveLetter}"
+    UseMaximumSize = $true
+  }
+
+  New-Partition @Params
   Start-Sleep -s $P_Sleep
 }
 
@@ -139,10 +146,18 @@ function Start-DPDiskPartition() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-DPDiskFormat() {
-  Write-Msg -T 'HL' -M "[DISK ${P_DiskNumber}] Format Disk Volume (${P_DriveLetter} / ${P_FileSystem})..."
-  if (-not $P_FileSystemLabel) { $P_FileSystemLabel = "DISK_${Random}" }
-  Format-Volume -DriveLetter "${P_DriveLetter}" -FileSystem "${P_FileSystem}" -Force -NewFileSystemLabel "${P_FileSystemLabel}"
-  Show-DPVolumeList
+  Write-Msg -T 'HL' -M "[DISK #${P_DiskNumber}] Format Disk Volume (${DriveLetter} / ${P_FileSystem})"
+
+  if (-not $P_FileSystem) { $P_FileSystem = 'NTFS' }
+
+  $Params = @{
+    DriveLetter = "${DriveLetter}"
+    FileSystem = "${P_FileSystem}"
+    NewFileSystemLabel = "${FileSystemLabel}"
+    Force = $true
+  }
+
+  Format-Volume @Params
   Start-Sleep -s $P_Sleep
 }
 
@@ -168,24 +183,6 @@ function Write-Msg() {
     'E'     { Write-Error -Message "${Message}" -ErrorAction "${Action}" }
     default { Write-Host "${Message}" }
   }
-}
-
-# -------------------------------------------------------------------------------------------------------------------- #
-# DISK LIST.
-# -------------------------------------------------------------------------------------------------------------------- #
-
-function Show-DPDiskList() {
-  Write-Msg -T 'HL' -M "[DISK ${P_DiskNumber}] Disk List..."
-  Get-Disk
-}
-
-# -------------------------------------------------------------------------------------------------------------------- #
-# VOLUME LIST.
-# -------------------------------------------------------------------------------------------------------------------- #
-
-function Show-DPVolumeList() {
-  Write-Msg -T 'HL' -M "[DISK ${P_DiskNumber}] Volume List..."
-  Get-Volume
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #

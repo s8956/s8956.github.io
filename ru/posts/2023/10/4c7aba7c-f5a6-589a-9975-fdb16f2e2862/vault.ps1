@@ -146,7 +146,7 @@ function Test-Vault() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Move-Files() {
-  Write-Msg -T 'HL' -M 'Moving files to Vault'
+  Write-Msg -T 'HL' -M 'Moving Files to Vault'
 
   $Files = ((Get-ChildItem -LiteralPath "${P_Source}" -Recurse -File -Exclude (Get-Content "${P_Exclude}"))
     | Where-Object { (($_.CreationTime) -lt ((Get-Date).AddSeconds(-$P_CreationTime))) `
@@ -205,7 +205,7 @@ function Move-Files() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Remove-Dirs() {
-  Write-Msg -T 'HL' -M 'Removing empty directories'
+  Write-Msg -T 'HL' -M 'Removing Empty Directories'
 
   do {
     $Dirs = ((Get-ChildItem -LiteralPath "${P_Source}" -Recurse -Directory)
