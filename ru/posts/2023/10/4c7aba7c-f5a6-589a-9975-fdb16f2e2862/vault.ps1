@@ -185,7 +185,7 @@ function Move-Files() {
         Compress-File -P "$($Path[1])" -N "$($Path[1]).VAULT.${TS}.7z"
 
         Write-VaultMsg -M "[MV] '$($File.FullName)' -> '$($Path[1])'"
-        #Move-Item -LiteralPath "$($File.FullName)" -Destination "$($Path[1])" -Force
+        Move-Item -LiteralPath "$($File.FullName)" -Destination "$($Path[1])" -Force
       }
       'RM' {
         Write-VaultMsg -M "[RM] '$($File.FullName)'"
