@@ -11,4 +11,4 @@ function Test-Module() {
   }
 }
 
-Test-Module # Calling a function.
+Test-Module

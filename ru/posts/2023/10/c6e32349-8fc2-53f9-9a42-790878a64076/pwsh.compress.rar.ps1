@@ -8,4 +8,4 @@ function Compress-RAR() {
   }
 }
 
-Compress-RAR # Calling a function.
+Compress-RAR

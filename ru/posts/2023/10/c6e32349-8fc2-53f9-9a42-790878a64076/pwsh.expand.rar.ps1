@@ -8,4 +8,4 @@ function Expand-RAR() {
   }
 }
 
-Expand-RAR # Calling a function.
+Expand-RAR

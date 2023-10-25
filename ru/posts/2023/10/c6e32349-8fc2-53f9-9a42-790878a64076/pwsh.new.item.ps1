@@ -14,4 +14,4 @@ function New-Data() {
   New-Item -Path "${Path}" -Name "${Name}" -ItemType "${Type}" -ErrorAction "${Action}"
 }
 
-New-Data # Calling a function.
+New-Data

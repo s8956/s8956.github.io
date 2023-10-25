@@ -9,4 +9,4 @@ function Find-CreationTime() {
     | Where-Object { (($_.CreationTime) -lt ((Get-Date).AddSeconds(-$Time))) }
 }
 
-Find-CreationTime # Calling a function.
+Find-CreationTime

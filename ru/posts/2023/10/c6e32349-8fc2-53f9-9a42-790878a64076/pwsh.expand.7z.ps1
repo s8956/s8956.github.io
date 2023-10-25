@@ -8,4 +8,4 @@ function Expand-A7z() {
   }
 }
 
-Expand-A7z # Calling a function.
+Expand-A7z

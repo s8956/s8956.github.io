@@ -10,4 +10,4 @@ function Get-FileSize() {
   (Get-Item "${File}").Length/1TB  # Size in TB.
 }
 
-Get-FileSize # Calling a function.
+Get-FileSize

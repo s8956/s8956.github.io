@@ -12,4 +12,4 @@ function Test-Data() {
   Test-Path -LiteralPath "${Path}" -PathType "${Type}"
 }
 
-Test-Data # Calling a function.
+Test-Data

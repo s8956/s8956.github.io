@@ -9,4 +9,4 @@ function Find-LastWriteTime() {
     | Where-Object { (($_.LastWriteTime) -lt ((Get-Date).AddSeconds(-$Time))) }
 }
 
-Find-LastWriteTime # Calling a function.
+Find-LastWriteTime

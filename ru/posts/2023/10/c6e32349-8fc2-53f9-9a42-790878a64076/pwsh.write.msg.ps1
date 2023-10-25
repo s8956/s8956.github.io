@@ -14,4 +14,4 @@ function Write-Msg() {
   }
 }
 
-Write-Msg # Calling a function.
+Write-Msg

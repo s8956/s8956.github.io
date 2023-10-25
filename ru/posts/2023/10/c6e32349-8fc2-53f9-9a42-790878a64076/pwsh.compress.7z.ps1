@@ -8,4 +8,4 @@ function Compress-A7z() {
   }
 }
 
-Compress-A7z # Calling a function.
+Compress-A7z
