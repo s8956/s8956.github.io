@@ -10,12 +10,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3bdfd6526867a3c84532d6df03981008"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find <span class="s2">&#34;/home/user&#34;</span> -type f -mtime +3</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ccd66134929bf03f5e993230c07fdb8c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find <span class="s2">&#34;/home/user&#34;</span> -type f -mtime +3</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3bdfd6526867a3c84532d6df03981008"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ccd66134929bf03f5e993230c07fdb8c"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -38,12 +38,12 @@
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-50f1c48c6de5a99153a5b81c66075a83"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find <span class="s2">&#34;/home/user&#34;</span> -type f -mtime +3 -print0 <span class="p">|</span> xargs -0 rm -f</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5ee0d0e0b0c3f8d40d52d18b54fefcff"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find <span class="s2">&#34;/home/user&#34;</span> -type f -mtime +3 -print0 <span class="p">|</span> xargs -0 rm -f</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-50f1c48c6de5a99153a5b81c66075a83"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5ee0d0e0b0c3f8d40d52d18b54fefcff"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -76,7 +76,7 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d4e48eb5056af70bff3779cc1bfd6c00"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e1339ef5ced86250aa6551844a9784a7"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -101,8 +101,18 @@
           
               
           
-        <div class="card-body" id="clipboard-d4e48eb5056af70bff3779cc1bfd6c00"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+        <div class="card-body" id="clipboard-e1339ef5ced86250aa6551844a9784a7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/bash -e
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Script for automatically deleting outdated files.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @package    Bash</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @author     Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @copyright  2023 iHub TO</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @license    MIT</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @version    0.1.0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @link       https://lib.onl/ru/posts/2021/08/ca744dce-e607-52e6-9952-8ae04e052a5b/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nv">days</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nv">dir</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">
@@ -135,7 +145,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aa2dfd0ffc85aa23350823a46211568f"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d6cee4c950dd91fc2e6ffcd3dab2d220"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -144,7 +154,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-aa2dfd0ffc85aa23350823a46211568f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">delete-files.sh &#34;3&#34; &#34;/path/to/storage&#34;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-d6cee4c950dd91fc2e6ffcd3dab2d220"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">delete-files.sh &#34;3&#34; &#34;/path/to/storage&#34;</code></pre></div>
   </div>
 </div>
 <p>Где:</p>
@@ -165,13 +175,13 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e0f9772b15c0ff5c19b4c54ab6d5ab91"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Check &amp; remove old files in 23:59 every day.</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4d40fbd143b6594fa724bc8adbf914fc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Check &amp; remove old files in 23:59 every day.</span>
 </span></span><span class="line"><span class="cl"><span class="m">59</span> <span class="m">23</span> * * * <span class="o">[</span>username<span class="o">]</span> /usr/bin/bash /path/to/delete-files.sh <span class="s2">&#34;3&#34;</span> <span class="s2">&#34;/path/to/storage&#34;</span> &gt; /dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e0f9772b15c0ff5c19b4c54ab6d5ab91"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4d40fbd143b6594fa724bc8adbf914fc"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -191,12 +201,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3bdfd6526867a3c84532d6df03981008"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find <span class="s2">&#34;/home/user&#34;</span> -type f -mtime +3</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-ccd66134929bf03f5e993230c07fdb8c"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find <span class="s2">&#34;/home/user&#34;</span> -type f -mtime +3</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3bdfd6526867a3c84532d6df03981008"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-ccd66134929bf03f5e993230c07fdb8c"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -219,12 +229,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-50f1c48c6de5a99153a5b81c66075a83"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find <span class="s2">&#34;/home/user&#34;</span> -type f -mtime +3 -print0 <span class="p">|</span> xargs -0 rm -f</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5ee0d0e0b0c3f8d40d52d18b54fefcff"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">find <span class="s2">&#34;/home/user&#34;</span> -type f -mtime +3 -print0 <span class="p">|</span> xargs -0 rm -f</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-50f1c48c6de5a99153a5b81c66075a83"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5ee0d0e0b0c3f8d40d52d18b54fefcff"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -257,7 +267,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d4e48eb5056af70bff3779cc1bfd6c00"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e1339ef5ced86250aa6551844a9784a7"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -282,8 +292,18 @@ shortcode-codeblock-terminal-linux">
           
               
           
-        <div class="card-body" id="clipboard-d4e48eb5056af70bff3779cc1bfd6c00"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+        <div class="card-body" id="clipboard-e1339ef5ced86250aa6551844a9784a7"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/bash -e
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Script for automatically deleting outdated files.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @package    Bash</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @author     Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @copyright  2023 iHub TO</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @license    MIT</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @version    0.1.0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @link       https://lib.onl/ru/posts/2021/08/ca744dce-e607-52e6-9952-8ae04e052a5b/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nv">days</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nv">dir</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">
@@ -316,7 +336,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-aa2dfd0ffc85aa23350823a46211568f"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-d6cee4c950dd91fc2e6ffcd3dab2d220"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -325,7 +345,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-aa2dfd0ffc85aa23350823a46211568f"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">delete-files.sh &#34;3&#34; &#34;/path/to/storage&#34;</code></pre></div>
+    <div class="card-body p-0" id="clipboard-d6cee4c950dd91fc2e6ffcd3dab2d220"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">delete-files.sh &#34;3&#34; &#34;/path/to/storage&#34;</code></pre></div>
   </div>
 </div>
 <p>Где:</p>
@@ -346,13 +366,13 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-sh">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-e0f9772b15c0ff5c19b4c54ab6d5ab91"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Check &amp; remove old files in 23:59 every day.</span>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-4d40fbd143b6594fa724bc8adbf914fc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Check &amp; remove old files in 23:59 every day.</span>
 </span></span><span class="line"><span class="cl"><span class="m">59</span> <span class="m">23</span> * * * <span class="o">[</span>username<span class="o">]</span> /usr/bin/bash /path/to/delete-files.sh <span class="s2">&#34;3&#34;</span> <span class="s2">&#34;/path/to/storage&#34;</span> &gt; /dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span></span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-e0f9772b15c0ff5c19b4c54ab6d5ab91"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4d40fbd143b6594fa724bc8adbf914fc"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -383,7 +403,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7bd6b37614f11ed186cb05102bfe0c48"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1cf5f334bf83c29b6c6ded81c014c224"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -408,7 +428,7 @@ shortcode-codeblock-terminal-linux">
           
               
           
-        <div class="card-body" id="clipboard-7bd6b37614f11ed186cb05102bfe0c48"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+        <div class="card-body" id="clipboard-1cf5f334bf83c29b6c6ded81c014c224"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Database.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">][</span><span class="s1">&#39;host&#39;</span><span class="p">]</span>                             <span class="o">=</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">;</span>
@@ -478,12 +498,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5eae140fac1478b81b320378a76bd553"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3e76d873e065cb0472f8e6fea870dba8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5eae140fac1478b81b320378a76bd553"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3e76d873e065cb0472f8e6fea870dba8"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -508,12 +528,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2c1e42e5c4089b89e3a0d1a56b383e56"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9c8819a62845c15729ccaa981534b412"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2c1e42e5c4089b89e3a0d1a56b383e56"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9c8819a62845c15729ccaa981534b412"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -556,7 +576,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-7bd6b37614f11ed186cb05102bfe0c48"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-1cf5f334bf83c29b6c6ded81c014c224"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -581,7 +601,7 @@ shortcode-codeblock-terminal-linux">
           
               
           
-        <div class="card-body" id="clipboard-7bd6b37614f11ed186cb05102bfe0c48"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+        <div class="card-body" id="clipboard-1cf5f334bf83c29b6c6ded81c014c224"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Database.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">][</span><span class="s1">&#39;host&#39;</span><span class="p">]</span>                             <span class="o">=</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">;</span>
@@ -651,12 +671,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-5eae140fac1478b81b320378a76bd553"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-3e76d873e065cb0472f8e6fea870dba8"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5eae140fac1478b81b320378a76bd553"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-3e76d873e065cb0472f8e6fea870dba8"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -681,12 +701,12 @@ shortcode-codeblock-terminal-linux">
 
   <div class="shortcode shortcode-codeblock shortcode-codeblock-text">
     <div class="d-flex mb-3 overflow-hidden">
-      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-2c1e42e5c4089b89e3a0d1a56b383e56"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#</span></span></code></pre></div></div>
+      <div class="flex-grow-1 rounded overflow-hidden" id="clipboard-9c8819a62845c15729ccaa981534b412"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#(?!^[\d\-\_\s]+$)^(([a-zA-Z0-9\-\_\s]+)|(((\xD0[\x80-\xBF])|(\xD1[\x80-\xBF])|([0-9\-\_\s]))+))$#</span></span></code></pre></div></div>
       <div class="flex-shrink-0">
         <ul class="list-inline mb-0">
           <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
             <a class="text-body" href="#"
-               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-2c1e42e5c4089b89e3a0d1a56b383e56"
+               data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9c8819a62845c15729ccaa981534b412"
                role="button" aria-label='Копировать'>
               <i class="fas fa-copy fa-fw"></i>
             </a>
@@ -729,7 +749,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9c2559b91038a802f44c1296b5e9b9d5"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-673e5670e286b79b82d80eb1591b86bc"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -754,7 +774,7 @@ shortcode-codeblock-terminal-linux">
           
               
           
-        <div class="card-body" id="clipboard-9c2559b91038a802f44c1296b5e9b9d5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Repository Mirror&#34;</span><span class="w">
+        <div class="card-body" id="clipboard-673e5670e286b79b82d80eb1591b86bc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Repository Mirror&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">push</span><span class="w">
@@ -806,7 +826,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-9c2559b91038a802f44c1296b5e9b9d5"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-673e5670e286b79b82d80eb1591b86bc"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -831,7 +851,7 @@ shortcode-codeblock-terminal-linux">
           
               
           
-        <div class="card-body" id="clipboard-9c2559b91038a802f44c1296b5e9b9d5"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Repository Mirror&#34;</span><span class="w">
+        <div class="card-body" id="clipboard-673e5670e286b79b82d80eb1591b86bc"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Repository Mirror&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">push</span><span class="w">
@@ -881,7 +901,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5dfee4ce1b3513340ba647ba2ca37ede"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-02dfa684d7ccd86af400bffa7000be12"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -906,16 +926,16 @@ shortcode-codeblock-terminal-linux">
           
               
           
-        <div class="card-body" id="clipboard-5dfee4ce1b3513340ba647ba2ca37ede"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/bash -e
+        <div class="card-body" id="clipboard-02dfa684d7ccd86af400bffa7000be12"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/bash -e
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">#</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Generating &#39;favicon&#39; file.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Generating &#39;favicon.ico&#39; file.</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @package    Bash</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @author     Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @copyright  2023 iHub TO</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @license    MIT</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @version    0.1.0</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># @link       https://github.com/pkgstore</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @link       https://lib.onl/ru/posts/2021/05/841ba281-a22b-55ee-b97d-251a5dc111d8/</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nv">size</span><span class="o">=(</span> <span class="m">16</span> <span class="m">24</span> <span class="m">32</span> <span class="m">48</span> <span class="m">64</span> <span class="m">72</span> <span class="m">80</span> <span class="m">96</span> <span class="m">128</span> <span class="m">144</span> <span class="m">152</span> <span class="m">167</span> <span class="m">180</span> <span class="m">192</span> <span class="m">196</span> <span class="m">256</span> <span class="m">300</span> <span class="m">512</span> <span class="o">)</span>
@@ -972,7 +992,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb43d6e98b39f8ffaee1f5bbc8f8e31c"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-647c51755754ab06f9735b1ee4b71fdc"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -981,7 +1001,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-bb43d6e98b39f8ffaee1f5bbc8f8e31c"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh png</code></pre></div>
+    <div class="card-body p-0" id="clipboard-647c51755754ab06f9735b1ee4b71fdc"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh png</code></pre></div>
   </div>
 </div>
 
@@ -1006,7 +1026,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4bad6474c3bcfb72285d78c0c82f3c8d"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-01f7f78241e27a6ff96eaee026b4ef39"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1015,7 +1035,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-4bad6474c3bcfb72285d78c0c82f3c8d"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh ico</code></pre></div>
+    <div class="card-body p-0" id="clipboard-01f7f78241e27a6ff96eaee026b4ef39"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh ico</code></pre></div>
   </div>
 </div>
 <p>Скрипт ищет файл <code>favicon.svg</code> и преобразует его в необходимые изображения.</p>]]></content:encoded><turbo:source/><turbo:topic>Генератор иконок для сайта</turbo:topic><turbo:content><![CDATA[<p>Сделал для сайта автоматизированное создание иконок типа <code>favicon</code>, которыми пользуются браузеры и устройства для своих нужд.</p>
@@ -1039,7 +1059,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-5dfee4ce1b3513340ba647ba2ca37ede"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-02dfa684d7ccd86af400bffa7000be12"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -1064,16 +1084,16 @@ shortcode-codeblock-terminal-linux">
           
               
           
-        <div class="card-body" id="clipboard-5dfee4ce1b3513340ba647ba2ca37ede"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/bash -e
+        <div class="card-body" id="clipboard-02dfa684d7ccd86af400bffa7000be12"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/bash -e
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">#</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Generating &#39;favicon&#39; file.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Generating &#39;favicon.ico&#39; file.</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @package    Bash</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @author     Kitsune Solar &lt;mail@kitsune.solar&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @copyright  2023 iHub TO</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @license    MIT</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># @version    0.1.0</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># @link       https://github.com/pkgstore</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># @link       https://lib.onl/ru/posts/2021/05/841ba281-a22b-55ee-b97d-251a5dc111d8/</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># -------------------------------------------------------------------------------------------------------------------- #</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nv">size</span><span class="o">=(</span> <span class="m">16</span> <span class="m">24</span> <span class="m">32</span> <span class="m">48</span> <span class="m">64</span> <span class="m">72</span> <span class="m">80</span> <span class="m">96</span> <span class="m">128</span> <span class="m">144</span> <span class="m">152</span> <span class="m">167</span> <span class="m">180</span> <span class="m">192</span> <span class="m">196</span> <span class="m">256</span> <span class="m">300</span> <span class="m">512</span> <span class="o">)</span>
@@ -1130,7 +1150,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-bb43d6e98b39f8ffaee1f5bbc8f8e31c"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-647c51755754ab06f9735b1ee4b71fdc"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1139,7 +1159,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-bb43d6e98b39f8ffaee1f5bbc8f8e31c"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh png</code></pre></div>
+    <div class="card-body p-0" id="clipboard-647c51755754ab06f9735b1ee4b71fdc"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh png</code></pre></div>
   </div>
 </div>
 
@@ -1164,7 +1184,7 @@ shortcode-codeblock-terminal-linux">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4bad6474c3bcfb72285d78c0c82f3c8d"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-01f7f78241e27a6ff96eaee026b4ef39"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1173,7 +1193,7 @@ shortcode-codeblock-terminal-linux">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="clipboard-4bad6474c3bcfb72285d78c0c82f3c8d"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh ico</code></pre></div>
+    <div class="card-body p-0" id="clipboard-01f7f78241e27a6ff96eaee026b4ef39"><pre tabindex="0"><code class="language-terminal" data-lang="terminal">bash favicon.sh ico</code></pre></div>
   </div>
 </div>
 <p>Скрипт ищет файл <code>favicon.svg</code> и преобразует его в необходимые изображения.</p>]]></turbo:content><pubDate>Tue, 18 May 2021 07:41:46 +0000</pubDate><category>Разработка</category><category>Скрипты</category></item><item turbo="true"><turbo:extendedHtml>true</turbo:extendedHtml><title>Синхронизация репозитория от GitHub к GitLab</title><link>https://lib.onl/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/</link><dc:creator>Kitsune Solar</dc:creator><guid isPermaLink="true">https://lib.onl/ru/posts/2021/05/8544b8ce-4586-578f-9633-e8ae43441a25/</guid><description>Понадобилось мне на днях синхронизировать некоторые свои репозитории между GitHub и GitLab. Сам GitLab имеет встроенные средства зеркалирования репозиториев от себя к другому git-хранилищу. GitHub же не обладает такой функцией. Но эту функцию можно воссоздать при помощи GitHub Actions.</description><media:content medium="image" url="https://images.unsplash.com/photo-1531030874896-fdef6826f2f7" width="1600" height="900"/><content:encoded><![CDATA[<p>Понадобилось мне на днях синхронизировать некоторые свои репозитории между GitHub и GitLab. Сам GitLab имеет встроенные средства зеркалирования репозиториев от себя к другому git-хранилищу. GitHub же не обладает такой функцией. Но эту функцию можно воссоздать при помощи GitHub Actions.</p>
@@ -1203,7 +1223,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-64305279269d8c59d450d9f72c94d892"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4effc662ad4562919cad585c45a30ce9"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -1228,7 +1248,7 @@ shortcode-codeblock-terminal-linux">
           
               
           
-        <div class="card-body" id="clipboard-64305279269d8c59d450d9f72c94d892"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">GitLab Sync</span><span class="w">
+        <div class="card-body" id="clipboard-4effc662ad4562919cad585c45a30ce9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">GitLab Sync</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">push</span><span class="w">
@@ -1280,7 +1300,7 @@ shortcode-codeblock-terminal-linux">
               <ul class="list-inline mb-0">
                 <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                   <a class="text-body" href="#"
-                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-64305279269d8c59d450d9f72c94d892"
+                     data-fn="clipboard preventDefault" data-clipboard-target="#clipboard-4effc662ad4562919cad585c45a30ce9"
                      role="button" aria-label='Копировать'>
                     <i class="fas fa-copy fa-fw"></i>
                   </a>
@@ -1305,7 +1325,7 @@ shortcode-codeblock-terminal-linux">
           
               
           
-        <div class="card-body" id="clipboard-64305279269d8c59d450d9f72c94d892"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">GitLab Sync</span><span class="w">
+        <div class="card-body" id="clipboard-4effc662ad4562919cad585c45a30ce9"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">GitLab Sync</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">push</span><span class="w">

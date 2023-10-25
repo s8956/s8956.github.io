@@ -1,13 +1,13 @@
 #!/usr/bin/bash -e
 #
-# Generating 'favicon' file.
+# Generating 'favicon.ico' file.
 #
 # @package    Bash
 # @author     Kitsune Solar <mail@kitsune.solar>
 # @copyright  2023 iHub TO
 # @license    MIT
 # @version    0.1.0
-# @link       https://github.com/pkgstore
+# @link       https://lib.onl/ru/posts/2021/05/841ba281-a22b-55ee-b97d-251a5dc111d8/
 # -------------------------------------------------------------------------------------------------------------------- #
 
 size=( 16 24 32 48 64 72 80 96 128 144 152 167 180 192 196 256 300 512 )

@@ -7,7 +7,7 @@
 # @copyright  2023 iHub TO
 # @license    MIT
 # @version    0.1.0
-# @link       https://lib.onl
+# @link       https://lib.onl/ru/posts/2023/10/6733cb51-62a0-5ed9-b421-8f08c4e0cb18/
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # Get 'date' command.
