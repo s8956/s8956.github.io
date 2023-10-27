@@ -94,6 +94,7 @@ function Set-RdpFirewall() {
 function Restart-RdpService() {
   $Param = @{
     Name = 'TermService'
+    Force = $true
   }
 
   Restart-Service @Param
