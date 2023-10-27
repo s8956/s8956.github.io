@@ -59,13 +59,13 @@
   Default: 'false'.
 
   .EXAMPLE
-  .\vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault'
+  .\pwsh.vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault'
 
   .EXAMPLE
-  .\vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault' -CT '864000' -WT '864000'
+  .\pwsh.vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault' -CT '864000' -WT '864000'
 
   .EXAMPLE
-  .\vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault' -CT '864000' -WT '864000' -FS '32mb'
+  .\pwsh.vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault' -CT '864000' -WT '864000' -FS '32mb'
 
   .LINK
   https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/

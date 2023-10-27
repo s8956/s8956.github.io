@@ -30,7 +30,7 @@
   Sleep time (in seconds).
 
   .EXAMPLE
-  .\disk.erase.ps1 -DN 3 -DL 'E' -FS 'NTFS' -FSL 'USB-SSD'
+  .\pwsh.disk.erase.ps1 -DN 3 -DL 'E' -FS 'NTFS' -FSL 'USB-SSD'
 
   .LINK
   https://lib.onl/ru/posts/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/
@@ -97,14 +97,14 @@ function Start-DPDiskClear() {
   Write-Msg -T 'W' -A 'Inquire' -M ("You specified drive number '${P_DiskNumber}'.${NL}" +
   "All data will be DELETED!")
 
-  $Params = @{
+  $Param = @{
     Number = $P_DiskNumber
     RemoveData = $true
     RemoveOEM = $true
     Confirm = $false
   }
 
-  Clear-Disk @Params
+  Clear-Disk @Param
   Start-Sleep -s $P_Sleep
 }
 
@@ -115,12 +115,12 @@ function Start-DPDiskClear() {
 function Start-DPDiskInit() {
   Write-Msg -T 'HL' -M "[DISK #${P_DiskNumber}] Initialize Disk"
 
-  $Params = @{
+  $Param = @{
     Number = $P_DiskNumber
     PartitionStyle = 'GPT'
   }
 
-  Initialize-Disk @Params
+  Initialize-Disk @Param
   Start-Sleep -s $P_Sleep
 }
 
@@ -131,13 +131,13 @@ function Start-DPDiskInit() {
 function Start-DPDiskPartition() {
   Write-Msg -T 'HL' -M "[DISK #${P_DiskNumber}] Create Partition"
 
-  $Params = @{
+  $Param = @{
     DiskNumber = $P_DiskNumber
     DriveLetter = "${DriveLetter}"
     UseMaximumSize = $true
   }
 
-  New-Partition @Params
+  New-Partition @Param
   Start-Sleep -s $P_Sleep
 }
 
@@ -150,14 +150,14 @@ function Start-DPDiskFormat() {
 
   if (-not $P_FileSystem) { $P_FileSystem = 'NTFS' }
 
-  $Params = @{
+  $Param = @{
     DriveLetter = "${DriveLetter}"
     FileSystem = "${P_FileSystem}"
     NewFileSystemLabel = "${FileSystemLabel}"
     Force = $true
   }
 
-  Format-Volume @Params
+  Format-Volume @Param
   Start-Sleep -s $P_Sleep
 }
 

@@ -47,10 +47,10 @@
   Default: 'mp4'.
 
   .EXAMPLE
-  .\ffmpeg.video.compress.ps1 -F 'file_01.mov', 'file_02.mov', 'file_03.mov'
+  .\pwsh.ffmpeg.video.compress.ps1 -F 'file_01.mov', 'file_02.mov', 'file_03.mov'
 
   .EXAMPLE
-  .\ffmpeg.video.compress.ps1 -F '*.mov'
+  .\pwsh.ffmpeg.video.compress.ps1 -F '*.mov'
 
   .LINK
   https://lib.onl/ru/posts/2023/10/2a73410a-6611-570c-9ab4-dc8cc8998146/
@@ -151,17 +151,17 @@ function Start-FFmpeg() {
   }
 
   # Specifying 'ffmpeg.exe' parameters.
-  $Params = @('-hide_banner')
-  $Params += @('-i', "${In}")
-  $Params += @('-c:v', "${P_vCodec}")
-  if ($P_CRF) { $Params += @('-crf', "${P_CRF}") }
-  if ($P_Preset) { $Params += @('-preset', "${P_Preset}") }
-  if ($P_Framerate) { $Params += @('-r', "${P_Framerate}") }
-  $Params += @('-c:a', "${P_aCodec}")
-  $Params += @("${Out}")
+  $Param = @('-hide_banner')
+  $Param += @('-i', "${In}")
+  $Param += @('-c:v', "${P_vCodec}")
+  if ($P_CRF) { $Param += @('-crf', "${P_CRF}") }
+  if ($P_Preset) { $Param += @('-preset', "${P_Preset}") }
+  if ($P_Framerate) { $Param += @('-r', "${P_Framerate}") }
+  $Param += @('-c:a', "${P_aCodec}")
+  $Param += @("${Out}")
 
   # Running 'ffmpeg.exe'.
-  & "${FFmpegExe}" $Params
+  & "${FFmpegExe}" $Param
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
