@@ -54,12 +54,12 @@ function Start-RdpRegistry() {
   $Path = 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
 
   $Param = @{
-    Path = "${Path}"
+    LiteralPath = "${Path}"
     Name = 'PortNumber'
     Value = $P_Port
   }
 
-  if (Test-Path -Path "${Path}") {
+  if (Test-Path -LiteralPath "${Path}") {
     Set-ItemProperty @Param
   } else {
     Write-Error -Message "'${Path}' not found!" -ErrorAction 'Stop'
