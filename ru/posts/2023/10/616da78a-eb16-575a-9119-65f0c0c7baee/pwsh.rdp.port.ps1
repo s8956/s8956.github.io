@@ -41,16 +41,16 @@ Param(
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-Script() {
-  Set-RdpRegistry
-  Set-RdpFirewall
-  Restart-RdpService
+  Start-RdpRegistry
+  Start-RdpFirewall
+  Start-RdpService
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # EDITING THE REGISTRY.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function Set-RdpRegistry() {
+function Start-RdpRegistry() {
   $Path = 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
 
   $Param = @{
@@ -70,7 +70,7 @@ function Set-RdpRegistry() {
 # EDITING THE FIREWALL.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function Set-RdpFirewall() {
+function Start-RdpFirewall() {
   $TCP = @{
     DisplayName = 'Custom RDP Port (TCP-In)'
     Profile = 'Public'
@@ -97,7 +97,7 @@ function Set-RdpFirewall() {
 # RESTARTING THE REMOTE DESKTOP SERVICES.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function Restart-RdpService() {
+function Start-RdpService() {
   $Name = 'TermService'
 
   $Param = @{
@@ -108,7 +108,7 @@ function Restart-RdpService() {
   if ((Get-Service -Name "${Name}").Status -eq 'Running') {
     Restart-Service @Param
   } else {
-    Write-Information -MessageData "Service '${Name}' not running!" -InformationAction 'Continue'
+    Write-Host "Service '${Name}' not running!"
   }
 }
 

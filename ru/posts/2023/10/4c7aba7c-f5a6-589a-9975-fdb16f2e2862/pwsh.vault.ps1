@@ -120,16 +120,16 @@ $NL = "$([Environment]::NewLine)"
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-Script() {
-  Test-Vault
-  Move-Files
-  if ($P_RemoveDirs) { Remove-Dirs }
+  Start-TestVault
+  Start-MoveFiles
+  if ($P_RemoveDirs) { Start-RemoveDirs }
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # CREATING VAULT DIRECTORIES.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function Test-Vault() {
+function Start-TestVault() {
   $Dirs = @("${P_Source}", "${P_Vault}")
   $Files = @("${P_Exclude}")
 
@@ -146,7 +146,7 @@ function Test-Vault() {
 # MOVING FILES TO VAULT.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function Move-Files() {
+function Start-MoveFiles() {
   Write-Msg -T 'HL' -M 'Moving Files to Vault'
 
   $Files = ((Get-ChildItem -LiteralPath "${P_Source}" -Recurse -File -Exclude (Get-Content "${P_Exclude}"))
@@ -154,7 +154,7 @@ function Move-Files() {
       -and (($_.LastWriteTime) -lt ((Get-Date).AddSeconds(-$P_LastWriteTime))) }
     | Where-Object { ($_.Length) -ge "${P_FileSize}" })
 
-  if (-not $Files) { Write-Msg -T 'I' -M "Required files were not found in the '${P_Source}'!" }
+  if (-not $Files) { Write-Msg -M "Required files were not found in the '${P_Source}'!" }
 
   $Files | ForEach-Object {
     $File = $_
@@ -195,7 +195,7 @@ function Move-Files() {
 # REMOVING EMPTY DIRECTORIES FROM SOURCE.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function Remove-Dirs() {
+function Start-RemoveDirs() {
   Write-Msg -T 'HL' -M 'Removing Empty Directories'
 
   do {
@@ -205,7 +205,7 @@ function Remove-Dirs() {
       | Where-Object { ((Get-ChildItem $_.FullName -Force).Count) -eq 0 }
       | Select-Object -ExpandProperty 'FullName')
 
-    if (-not $Dirs) { Write-Msg -T 'I' -M "No empty directories were found in the '${P_Source}'!" }
+    if (-not $Dirs) { Write-Msg -M "No empty directories were found in the '${P_Source}'!" }
 
     $Dirs | ForEach-Object {
       $Dir = $_
