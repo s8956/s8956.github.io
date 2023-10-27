@@ -51,13 +51,19 @@ function Start-Script() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Set-RdpRegistry() {
+  $Path = 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
+
   $Param = @{
-    Path = 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
+    Path = "${Path}"
     Name = 'PortNumber'
     Value = $P_Port
   }
 
-  Set-ItemProperty @Param
+  if (Test-Path -Path "${Path}") {
+    Set-ItemProperty @Param
+  } else {
+    Write-Error -Message "'${Path}' not found!" -ErrorAction 'Stop'
+  }
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -66,7 +72,7 @@ function Set-RdpRegistry() {
 
 function Set-RdpFirewall() {
   $TCP = @{
-    DisplayName = 'RDPPORTLatest-TCP-In'
+    DisplayName = 'Custom RDP Port (TCP-In)'
     Profile = 'Public'
     Direction = Inbound
     Action = Allow
@@ -75,7 +81,7 @@ function Set-RdpFirewall() {
   }
 
   $UDP = @{
-    DisplayName = 'RDPPORTLatest-UDP-In'
+    DisplayName = 'Custom RDP Port (UDP-In)'
     Profile = 'Public'
     Direction = Inbound
     Action = Allow
@@ -92,12 +98,18 @@ function Set-RdpFirewall() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Restart-RdpService() {
+  $Name = 'TermService'
+
   $Param = @{
-    Name = 'TermService'
+    Name = "${Name}"
     Force = $true
   }
 
-  Restart-Service @Param
+  if ((Get-Service -Name "${Name}").Status -eq 'Running') {
+    Restart-Service @Param
+  } else {
+    Write-Information -MessageData "Service '${Name}' not running!" -InformationAction 'Continue'
+  }
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
