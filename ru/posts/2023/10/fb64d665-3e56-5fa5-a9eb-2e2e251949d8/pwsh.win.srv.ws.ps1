@@ -31,6 +31,7 @@
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-Script() {
+  Start-FeatureConfig
   Start-ServiceConfig
   Start-IEConfig
   Start-PriorityControlConfig
@@ -39,18 +40,31 @@ function Start-Script() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
+# CONFIGURING FEATURES.
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function Start-FeatureConfig {
+  $Param = @{
+    Name = 'Wireless-Networking'
+  }
+
+  Install-WindowsFeature @Param
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
 # CONFIGURING SERVICES.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-ServiceConfig() {
-  $AudioSRV = @{
-    Name = 'Audiosrv'
-    StartupType = 'Automatic'
-  }
+  $Name = @('Audiosrv', 'AudioEndpointBuilder')
 
-  $AudioEB = @{
-    Name = 'AudioEndpointBuilder'
-    StartupType = 'Automatic'
+  $Name | ForEach-Object {
+    $Param = @{
+      Name = "${_}"
+      StartupType = 'Automatic'
+    }
+
+    Set-Service @Param
   }
 
   $WSearch = @{
@@ -58,8 +72,6 @@ function Start-ServiceConfig() {
     StartupType = 'AutomaticDelayedStart'
   }
 
-  Set-Service @AudioSRV
-  Set-Service @AudioEB
   Set-Service @WSearch
 }
 
