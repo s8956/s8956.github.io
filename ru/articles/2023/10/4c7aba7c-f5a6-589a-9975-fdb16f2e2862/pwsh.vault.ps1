@@ -6,7 +6,7 @@
   .COMPANYNAME  iHub TO
   .COPYRIGHT    2023 iHub TO. All rights reserved.
   .LICENSEURI   https://choosealicense.com/licenses/mit/
-  .PROJECTURI   https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
+  .PROJECTURI   https://lib.onl/ru/articles/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
 #>
 
 #Requires -Version 7.2
@@ -68,7 +68,7 @@
   .\pwsh.vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault' -CT '864000' -WT '864000' -FS '32mb'
 
   .LINK
-  https://lib.onl/ru/posts/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
+  https://lib.onl/ru/articles/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
 #>
 
 Param(

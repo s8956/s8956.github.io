@@ -6,7 +6,7 @@
   .COMPANYNAME  iHub TO
   .COPYRIGHT    2023 iHub TO. All rights reserved.
   .LICENSEURI   https://choosealicense.com/licenses/mit/
-  .PROJECTURI   https://lib.onl/ru/posts/2023/10/1f062637-3227-56d7-93e3-126d1c80f5a8/
+  .PROJECTURI   https://lib.onl/ru/articles/2023/10/1f062637-3227-56d7-93e3-126d1c80f5a8/
 #>
 
 #Requires -Version 7.2
@@ -23,7 +23,7 @@
   .\pwsh.set.env.path.system.ps1 -P 'C:\Apps\App_01', 'C:\Apps\App_02', 'C:\Apps\App_03'
 
   .LINK
-  https://lib.onl/ru/posts/2023/10/1f062637-3227-56d7-93e3-126d1c80f5a8/
+  https://lib.onl/ru/articles/2023/10/1f062637-3227-56d7-93e3-126d1c80f5a8/
 #>
 
 Param(

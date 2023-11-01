@@ -5,7 +5,7 @@
 :: @copyright 2023 iHub TO
 :: @license   MIT
 :: @version   0.1.0
-:: @link      https://lib.onl/ru/posts/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/
+:: @link      https://lib.onl/ru/articles/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/
 :: ------------------------------------------------------------------------------------------------------------------ ::
 
 @echo off

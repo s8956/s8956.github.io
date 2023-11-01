@@ -6,7 +6,7 @@
   .COMPANYNAME  iHub TO
   .COPYRIGHT    2023 iHub TO. All rights reserved.
   .LICENSEURI   https://choosealicense.com/licenses/mit/
-  .PROJECTURI   https://lib.onl/ru/posts/2023/10/38fc94dd-8d37-5f9e-b556-676304976a9f/
+  .PROJECTURI   https://lib.onl/ru/articles/2023/10/38fc94dd-8d37-5f9e-b556-676304976a9f/
 #>
 
 #Requires -Version 7.2
@@ -32,7 +32,7 @@
   .\pwsh.csc.repair.ps1 -DC 'DC-server.domain.com'
 
   .LINK
-  https://lib.onl/ru/posts/2023/10/38fc94dd-8d37-5f9e-b556-676304976a9f/
+  https://lib.onl/ru/articles/2023/10/38fc94dd-8d37-5f9e-b556-676304976a9f/
 #>
 
 Param(
