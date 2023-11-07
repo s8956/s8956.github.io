@@ -4,7 +4,7 @@
 #
 # @package    Bash
 # @author     Kitsune Solar <mail@kitsune.solar>
-# @copyright  2023 iHub TO
+# @copyright  2023 Library Online
 # @license    MIT
 # @version    0.1.0
 # @link       https://lib.onl/ru/articles/2023/10/6733cb51-62a0-5ed9-b421-8f08c4e0cb18/

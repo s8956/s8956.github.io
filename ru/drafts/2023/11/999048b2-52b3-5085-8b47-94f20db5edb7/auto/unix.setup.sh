@@ -4,7 +4,7 @@
 #
 # @package    Bash
 # @author     Kitsune Solar <mail@kitsune.solar>
-# @copyright  2023 iHub TO
+# @copyright  2023 Library Online
 # @license    MIT
 # @version    0.1.0
 # @link       https://lib.onl/ru/articles/2023/11/999048b2-52b3-5085-8b47-94f20db5edb7/
@@ -34,7 +34,7 @@ init() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 user_root() {
-  local name="root"
+  local name='root'
   local password
 
   echo "--- [${name^^}] Changing password for '${name^^}'..."
@@ -50,7 +50,7 @@ user_root() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 user_0001() {
-  local name="user-0001"
+  local name='user-0001'
   local password
 
   echo "--- [${name^^}] Adding user '${name^^}'..."
@@ -69,7 +69,7 @@ user_0001() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 user_0000() {
-  local name="user-0000"
+  local name='user-0000'
 
   echo "--- [${name^^}] Locking default user '${name^^}'..."
   ${usermod} -L "${name}"

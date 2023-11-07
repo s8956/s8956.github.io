@@ -3,8 +3,8 @@
   .GUID         b42524a4-c0d0-4402-951c-e97aa140698e
   .AUTHOR       Kitsune Solar
   .AUTHOREMAIL  mail@kitsune.solar
-  .COMPANYNAME  iHub TO
-  .COPYRIGHT    2023 iHub TO. All rights reserved.
+  .COMPANYNAME  Library Online
+  .COPYRIGHT    2023 Library Online. All rights reserved.
   .LICENSEURI   https://choosealicense.com/licenses/mit/
   .PROJECTURI   https://lib.onl/ru/articles/2023/10/430b916d-fd5c-5d44-8c24-8b98f41e0355/
 #>
