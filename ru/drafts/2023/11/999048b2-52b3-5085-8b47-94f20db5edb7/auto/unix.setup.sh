@@ -10,7 +10,7 @@
 # @link       https://lib.onl/ru/articles/2023/11/999048b2-52b3-5085-8b47-94f20db5edb7/
 # -------------------------------------------------------------------------------------------------------------------- #
 
-(( EUID != 0 )) && { echo >&2 "This script should be run as root!"; exit 1; }
+(( EUID != 0 )) && { echo >&2 'This script should be run as root!'; exit 1; }
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # INITIALIZATION.
@@ -38,7 +38,7 @@ user_root() {
   local password
 
   echo "--- [${name^^}] Changing password for '${name^^}'..."
-  read -rp "Password: " password </dev/tty
+  read -rp 'Password: ' password </dev/tty
   echo "${name}:${password}" | ${chpasswd}
 
   echo "--- [${name^^}] Changing shell for '${name^^}'..."
