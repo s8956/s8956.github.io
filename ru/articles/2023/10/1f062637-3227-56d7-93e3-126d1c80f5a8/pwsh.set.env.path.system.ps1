@@ -1,8 +1,8 @@
 <#PSScriptInfo
   .VERSION      0.1.0
   .GUID         41643d28-3808-4a6f-a322-d87ed4384d5f
-  .AUTHOR       Kitsune Solar
-  .AUTHOREMAIL  mail@kitsune.solar
+  .AUTHOR       z17CX
+  .AUTHOREMAIL  mail@z17.cx
   .COMPANYNAME  Library Online
   .COPYRIGHT    2023 Library Online. All rights reserved.
   .LICENSEURI   https://choosealicense.com/licenses/mit/

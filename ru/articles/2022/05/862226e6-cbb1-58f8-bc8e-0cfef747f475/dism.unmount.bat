@@ -1,7 +1,7 @@
 :: Automatic unmounting WIM images into DISM.
 ::
 :: @package   CMD
-:: @author    Kitsune Solar <mail@kitsune.solar>
+:: @author    z17CX <mail@z17.cx>
 :: @copyright 2023 Library Online
 :: @license   MIT
 :: @version   0.1.0
