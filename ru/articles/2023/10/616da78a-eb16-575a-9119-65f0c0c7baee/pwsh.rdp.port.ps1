@@ -1,8 +1,8 @@
 <#PSScriptInfo
   .VERSION      0.1.0
   .GUID         5d2bddd9-4eed-42f0-a0ba-7d30efcb81e2
-  .AUTHOR       z17CX
-  .AUTHOREMAIL  mail@z17.cx
+  .AUTHOR       Kai Kimera
+  .AUTHOREMAIL  mail@kai.kim
   .COMPANYNAME  Library Online
   .COPYRIGHT    2023 Library Online. All rights reserved.
   .LICENSEURI   https://choosealicense.com/licenses/mit/
