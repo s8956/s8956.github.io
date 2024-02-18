@@ -1,4 +1,4 @@
-#!/usr/bin/bash -e
+#!/usr/bin/env -S bash -e
 #
 # OpenSSL certificate generator.
 #

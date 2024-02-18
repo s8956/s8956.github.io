@@ -1,4 +1,4 @@
-#!/usr/bin/bash -e
+#!/usr/bin/env -S bash -e
 #
 # Creating a new GPG key.
 #
