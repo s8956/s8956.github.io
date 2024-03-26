@@ -65,7 +65,7 @@
   :log info ("CloudFlare: Domain IP (dstIP) = $dstIP")
   :log info ("CloudFlare: WAN IP (srcIP) = $srcIP")
   :log info ("CloudFlare: CloudFlare API (cfAPI) = $cfAPI&content=$srcIP")
-};
+}
 
 # Compare and update CF if necessary.
 :if ($dstIP != $srcIP) do={
@@ -79,5 +79,5 @@
     output=user as-value
   /ip dns cache flush
 } else={
-  :log info "CloudFlare: No Update Needed!"
+  :log info "CloudFlare: No update needed!"
 }
