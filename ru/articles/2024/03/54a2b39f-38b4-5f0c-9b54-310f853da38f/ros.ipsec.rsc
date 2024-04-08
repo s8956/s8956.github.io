@@ -3,47 +3,48 @@
 # @copyright  2024 Library Online
 # @license    MIT
 # @version    0.1.0
-# @link
+# @link       https://lib.onl/ru/articles/2024/03/54a2b39f-38b4-5f0c-9b54-310f853da38f/
 # -------------------------------------------------------------------------------------------------------------------- #
 
-# Connection interface.
-:local ipsWan "WAN"
-
-# Common name.
-:local ipsName "ipsec-sts"
-
-# Secret phrase.
 :local ipsSecret "pa$$word"
+:local ipsInterface "WAN"
+:local ipsProfileName "ipsec-sts"
 
-# Local network address.
-:local ipsSrcAddress "10.1.0.0/16"
+# -------------------------------------------------------------------------------------------------------------------- #
 
-# Remote network address.
-:local ipsDstAddress "10.2.0.0/16"
+:local ipsLocalName "GW1"
+:local ipsLocalNetwork "10.1.0.0/16"
 
-# Remote peer address.
-:local ipsPeerAddress "gw1.example.com"
+# -------------------------------------------------------------------------------------------------------------------- #
+
+:local ipsRemoteName "GW2"
+:local ipsRemoteNetwork "10.2.0.0/16"
+:local ipsRemoteIp "gw2.example.com"
 
 # -------------------------------------------------------------------------------------------------------------------- #
 
 /ip ipsec profile
-add dh-group=ecp384 enc-algorithm=aes-256 name="$ipsName"
+add dh-group=ecp384 enc-algorithm=aes-256 name=$ipsProfileName
 
 /ip ipsec proposal
-add auth-algorithms=sha256 enc-algorithms=aes-256-cbc pfs-group=ecp384 name="$ipsName"
+add auth-algorithms=sha256 enc-algorithms=aes-256-cbc pfs-group=ecp384 name=$ipsProfileName
 
 /ip ipsec peer
-add address="$ipsPeerAddress" exchange-mode=ike2 name="$ipsName" profile="$ipsName"
+add address=$ipsRemoteIp exchange-mode=ike2 name=$ipsRemoteName profile=$ipsProfileName \
+  comment="$ipsRemoteName"
 
 /ip ipsec identity
-add peer="$ipsName" secret="$ipsSecret"
+add peer=$ipsRemoteName secret="$ipsSecret" \
+  comment="$ipsRemoteName"
 
 /ip ipsec policy
-add src-address=$ipsSrcAddress dst-address=$ipsDstAddress tunnel=yes action=encrypt proposal="$ipsName" peer="$ipsName"
+add src-address=$ipsLocalNetwork dst-address=$ipsRemoteNetwork tunnel=yes action=encrypt \
+  proposal=$ipsProfileName peer=$ipsRemoteName \
+  comment="$ipsLocalName-$ipsRemoteName"
 
 /ip firewall nat
-add chain=srcnat action=accept src-address=$ipsSrcAddress dst-address=$ipsDstAddress place-before=0 \
-  comment="[IPsec] $ipsName"
+add chain=srcnat action=accept src-address=$ipsLocalNetwork dst-address=$ipsRemoteNetwork place-before=0 \
+  comment="[IPsec] $ipsLocalName-$ipsRemoteName"
 
 /ip firewall filter
 add action=accept chain=input dst-port=500,4500 in-interface-list=$ipsWan protocol=udp \
@@ -55,7 +56,7 @@ add action=accept chain=input in-interface-list=$ipsWan protocol=ipsec-esp \
 # by approximately 30%.
 
 /ip firewall raw
-add action=notrack chain=prerouting src-address=$ipsDstAddress dst-address=$ipsSrcAddress \
-  comment="[IPsec] $ipsName"
-add action=notrack chain=prerouting src-address=$ipsSrcAddress dst-address=$ipsDstAddress \
-  comment="[IPsec] $ipsName"
+add action=notrack chain=prerouting src-address=$ipsRemoteNetwork dst-address=$ipsLocalNetwork \
+  comment="[IPsec] $ipsRemoteName-$ipsLocalName"
+add action=notrack chain=prerouting src-address=$ipsLocalNetwork dst-address=$ipsRemoteNetwork \
+  comment="[IPsec] $ipsLocalName-$ipsRemoteName"
