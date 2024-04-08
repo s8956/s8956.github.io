@@ -6,19 +6,36 @@
 # @link       https://lib.onl/ru/articles/2024/03/54a2b39f-38b4-5f0c-9b54-310f853da38f/
 # -------------------------------------------------------------------------------------------------------------------- #
 
+# IPsec secret phrase.
 :local ipsSecret "pa$$word"
+
+# IPsec external interface.
 :local ipsInterface "WAN"
+
+# IPsec profile name.
 :local ipsProfileName "ipsec-sts"
 
 # -------------------------------------------------------------------------------------------------------------------- #
+# Local router.
+# -------------------------------------------------------------------------------------------------------------------- #
 
+# Local router name.
 :local ipsLocalName "GW1"
+
+# Local network address.
 :local ipsLocalNetwork "10.1.0.0/16"
 
 # -------------------------------------------------------------------------------------------------------------------- #
+# Remote router.
+# -------------------------------------------------------------------------------------------------------------------- #
 
+# Remote router name.
 :local ipsRemoteName "GW2"
+
+# Remote network address.
 :local ipsRemoteNetwork "10.2.0.0/16"
+
+# Remote external IP address.
 :local ipsRemoteWanIp "gw2.example.com"
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -56,7 +73,6 @@ add action=accept chain=input in-interface-list=$ipsWan protocol=ipsec-esp \
 
 # Use IP/Firewall/Raw to bypass connection tracking, that way eliminating need of filter rules and reducing load on CPU
 # by approximately 30%.
-
 /ip firewall raw
 add action=notrack chain=prerouting src-address=$ipsRemoteNetwork dst-address=$ipsLocalNetwork \
   comment="[IPsec] $ipsRemoteName-$ipsLocalName"
