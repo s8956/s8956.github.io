@@ -19,8 +19,10 @@
 
 :local ipsRemoteName "GW2"
 :local ipsRemoteNetwork "10.2.0.0/16"
-:local ipsRemoteIp "gw2.example.com"
+:local ipsRemoteWanIp "gw2.example.com"
 
+# -------------------------------------------------------------------------------------------------------------------- #
+# -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
 # -------------------------------------------------------------------------------------------------------------------- #
 
 /ip ipsec profile
@@ -30,7 +32,7 @@ add dh-group=ecp384 enc-algorithm=aes-256 name=$ipsProfileName
 add auth-algorithms=sha256 enc-algorithms=aes-256-cbc pfs-group=ecp384 name=$ipsProfileName
 
 /ip ipsec peer
-add address=$ipsRemoteIp exchange-mode=ike2 name=$ipsRemoteName profile=$ipsProfileName \
+add address=$ipsRemoteWanIp exchange-mode=ike2 name=$ipsRemoteName profile=$ipsProfileName \
   comment="$ipsRemoteName"
 
 /ip ipsec identity
