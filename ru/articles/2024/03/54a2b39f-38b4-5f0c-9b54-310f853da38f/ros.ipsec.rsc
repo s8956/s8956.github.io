@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # IPsec secret phrase.
-:local ipsSecret "pa$$word"
+:local ipsSecret "PassWord"
 
 # IPsec external interface.
 :local ipsInterface "WAN"
