@@ -1,12 +1,12 @@
-:: Automatic unmounting WIM images into DISM.
-::
-:: @package   CMD
-:: @author    Kai Kimera <mail@kai.kim>
-:: @copyright 2023 Library Online
-:: @license   MIT
-:: @version   0.1.0
-:: @link      https://lib.onl/ru/articles/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/
-:: ------------------------------------------------------------------------------------------------------------------ ::
+rem Automatic unmounting WIM images into DISM.
+rem
+rem @package   CMD
+rem @author    Kai Kimera <mail@kai.kim>
+rem @copyright 2023 Library Online
+rem @license   MIT
+rem @version   0.1.0
+rem @link      https://lib.onl/ru/articles/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/
+rem ------------------------------------------------------------------------------------------------------------------ ::
 
 @echo off
 
