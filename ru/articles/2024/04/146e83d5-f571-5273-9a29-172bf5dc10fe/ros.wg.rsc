@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # WireGuard interface name.
-:local wgName "wireguard1"
+:local wgName "wireguard-sts"
 
 # WireGuard interface IP address.
 :local wgIp "10.255.255.1/24"

@@ -3,12 +3,15 @@
 # @copyright  2024 Library Online
 # @license    MIT
 # @version    0.1.0
-# @link
+# @link       https://lib.onl/ru/articles/2024/04/326618af-d950-5001-8114-57c66bb8a5af/
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # Общие настройки.
 # -------------------------------------------------------------------------------------------------------------------- #
+
+# Название интерфейса GRE локального маршрутизатора.
+:local greName "gre-gw1-gw2"
 
 # Секретная фраза IPsec.
 :local ipsSecret "PassWord"
@@ -18,41 +21,38 @@
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # Внешний IP-адрес локального маршрутизатора в интернете.
-:local greLocalAddress "1.1.1.1"
-
-# Название интерфейса GRE локального маршрутизатора.
-:local greName "gre-gw1-gw2"
+:local greLocalWanIP "1.1.1.1"
 
 # IP-адрес интерфейса GRE локального маршрутизатора.
-:local greIpAddress "10.255.255.1/24"
+:local greLocalInterfaceIP "10.255.255.1/24"
 
 # Адрес сети GRE локального маршрутизатора.
-:local greIpNetwork "10.255.255.0"
+:local greLocalNetwork "10.255.255.0"
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # Удалённый маршрутизатор.
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # Внешний IP-адрес удалённого маршрутизатора в интернете.
-:local greRemoteAddress "2.2.2.2"
-
-# Название домена удалённого маршрутизатора.
-:local greHost "gw2.example.com"
-
-# Адрес сети удалённого маршрутизатора.
-:local greIpRouteDstAddress "10.2.0.0/16"
+:local greRemoteWanIP "2.2.2.2"
 
 # IP-адрес интерфейса GRE удалённого маршрутизатора.
-:local greIpRouteGateway "10.255.255.2"
+:local greRemoteInterfaceIP "10.255.255.2"
+
+# Адрес сети удалённого маршрутизатора.
+:local greRemoteNetwork "10.2.0.0/16"
+
+# Название домена удалённого маршрутизатора.
+:local greRemoteHost "gw2.example.com"
 
 # -------------------------------------------------------------------------------------------------------------------- #
 
 /interface gre add allow-fast-path=no ipsec-secret="$ipsSecret" name="$greName" \
-  local-address=$greLocalAddress remote-address=$greRemoteAddress \
-  comment="HOST: $greHost"
+  local-address=$greLocalWanIP remote-address=$greRemoteWanIP \
+  comment="HOST: $greRemoteHost"
 
-/ip address add address=$greIpAddress interface="$greName" network=$greIpNetwork \
+/ip address add address=$greLocalInterfaceIP interface="$greName" network=$greLocalNetwork \
   comment="[GRE] $greName"
 
-/ip route add distance=1 dst-address=$greIpRouteDstAddress gateway=$greIpRouteGateway \
-  comment="[GRE] DOMAIN: $greHost"
+/ip route add distance=1 dst-address=$greRemoteNetwork gateway=$greRemoteInterfaceIP \
+  comment="[GRE] HOST: $greRemoteHost"
