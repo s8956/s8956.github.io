@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>Library Online</title><link>https://lib.onl/ru/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><item turbo="true"><title>MikroTik: GRE/IPsec (Site-to-Site)</title><link>https://lib.onl/ru/articles/2024/04/326618af-d950-5001-8114-57c66bb8a5af/</link><pubDate>Mon, 08 Apr 2024 10:04:21 +0000</pubDate><dc:creator>Kai Kimera</dc:creator><category>В доработке</category><category>Сеть</category><yandex:related><link url="https://lib.onl/ru/articles/2024/03/54a2b39f-38b4-5f0c-9b54-310f853da38f/">MikroTik: Туннель IPsec (Site-to-Site)</link><link url="https://lib.onl/ru/articles/2024/04/146e83d5-f571-5273-9a29-172bf5dc10fe/">MikroTik: Туннель WireGuard (Site-to-Site) + OSPF</link><link url="https://lib.onl/ru/articles/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/">MikroTik: Добавление корневых сертификатов в RouterOS</link><link url="https://lib.onl/ru/articles/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/">MikroTik и CloudFlare: Динамический IP для домена</link><link url="https://lib.onl/ru/articles/2023/12/b6c7c5cd-1b0d-5fcd-8dd2-f28f87a5064c/">MikroTik: Настройка DoH</link></yandex:related><turbo:extendedHtml>true</turbo:extendedHtml><turbo:source>https://lib.onl/ru/articles/2024/04/326618af-d950-5001-8114-57c66bb8a5af/</turbo:source><turbo:topic>MikroTik: GRE/IPsec (Site-to-Site)</turbo:topic><turbo:content><![CDATA[<p>Продолжаем серию статей по настройке туннеля между двумя маршрутизаторами. На этот раз создадим <span class="shortcode shortcode-tag"><a href="/ru/tags/gre/" target="_blank">#GRE</a></span> туннель.</p>
+<?xml version='1.0' encoding='UTF-8'?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:yandex="http://news.yandex.ru" xmlns:turbo="http://turbo.yandex.ru"><channel><title>Library Online</title><link>https://lib.onl/ru/</link><description>Заметки на тему администрирования и разработки различных систем, приложений и серверов.</description><language>ru-RU</language><item turbo="true"><title>MikroTik: Туннель GRE/IPsec (Site-to-Site)</title><link>https://lib.onl/ru/articles/2024/04/326618af-d950-5001-8114-57c66bb8a5af/</link><pubDate>Mon, 08 Apr 2024 10:04:21 +0000</pubDate><dc:creator>Kai Kimera</dc:creator><category>Сеть</category><yandex:related><link url="https://lib.onl/ru/articles/2024/03/54a2b39f-38b4-5f0c-9b54-310f853da38f/">MikroTik: Туннель IPsec (Site-to-Site)</link><link url="https://lib.onl/ru/articles/2024/04/146e83d5-f571-5273-9a29-172bf5dc10fe/">MikroTik: Туннель WireGuard (Site-to-Site) + OSPF</link><link url="https://lib.onl/ru/articles/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/">MikroTik: Добавление корневых сертификатов в RouterOS</link><link url="https://lib.onl/ru/articles/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/">MikroTik и CloudFlare: Динамический IP для домена</link><link url="https://lib.onl/ru/articles/2023/12/b6c7c5cd-1b0d-5fcd-8dd2-f28f87a5064c/">MikroTik: Настройка DoH</link></yandex:related><turbo:extendedHtml>true</turbo:extendedHtml><turbo:source>https://lib.onl/ru/articles/2024/04/326618af-d950-5001-8114-57c66bb8a5af/</turbo:source><turbo:topic>MikroTik: Туннель GRE/IPsec (Site-to-Site)</turbo:topic><turbo:content><![CDATA[<p>Продолжаем серию статей по настройке туннеля между двумя маршрутизаторами. На этот раз создадим <span class="shortcode shortcode-tag"><a href="/ru/tags/gre/" target="_blank">#GRE</a></span> туннель.</p>
 <p>На обоих маршрутизаторах у меня используются динамические WAN IP. <span class="shortcode shortcode-tag"><a href="/ru/tags/gre/" target="_blank">#GRE</a></span> предпочитает только статические IP-адреса. Чтобы обойти данное ограничение, я использую скрипт из статьи <span class="shortcode shortcode-uuid"><a href="/ru/articles/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/">MikroTik и CloudFlare: Динамический IP для домена</a></span>, который обновляет IP-адреса маршрутизаторов в суб-доменах, далее скриптом в конце статьи я забираю актуальные IP-адреса суб-доменов и обновляю их в настройках интерфейса <span class="shortcode shortcode-tag"><a href="/ru/tags/gre/" target="_blank">#GRE</a></span>.</p>
 <h2 id="вводные-данные">
   <a class="link-body-emphasis" href="#%d0%b2%d0%b2%d0%be%d0%b4%d0%bd%d1%8b%d0%b5-%d0%b4%d0%b0%d0%bd%d0%bd%d1%8b%d0%b5">Вводные данные</a>
@@ -180,7 +180,7 @@ add distance=1 dst-address=10.1.0.0/16 gateway=10.255.255.1 comment=&quot;[GRE] 
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-f6c2d661fec4c312ff3dbf9f32386863"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-fe66904b576b69e918096de8d4700c7c"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -201,7 +201,7 @@ add distance=1 dst-address=10.1.0.0/16 gateway=10.255.255.1 comment=&quot;[GRE] 
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-f6c2d661fec4c312ff3dbf9f32386863">
+                <div class="card-body" id="cp-fe66904b576b69e918096de8d4700c7c">
                     
                         
                     
@@ -248,7 +248,7 @@ add distance=1 dst-address=10.1.0.0/16 gateway=10.255.255.1 comment=&quot;[GRE] 
 }</code></pre>
                 </div>
               </div>
-            </div>]]></turbo:content></item><item turbo="true"><title>MikroTik: Туннель WireGuard (Site-to-Site) + OSPF</title><link>https://lib.onl/ru/articles/2024/04/146e83d5-f571-5273-9a29-172bf5dc10fe/</link><pubDate>Sat, 06 Apr 2024 09:27:28 +0000</pubDate><dc:creator>Kai Kimera</dc:creator><category>В доработке</category><category>Сеть</category><yandex:related><link url="https://lib.onl/ru/articles/2024/03/54a2b39f-38b4-5f0c-9b54-310f853da38f/">MikroTik: Туннель IPsec (Site-to-Site)</link><link url="https://lib.onl/ru/articles/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/">MikroTik: Добавление корневых сертификатов в RouterOS</link><link url="https://lib.onl/ru/articles/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/">MikroTik и CloudFlare: Динамический IP для домена</link><link url="https://lib.onl/ru/articles/2023/12/b6c7c5cd-1b0d-5fcd-8dd2-f28f87a5064c/">MikroTik: Настройка DoH</link></yandex:related><turbo:extendedHtml>true</turbo:extendedHtml><turbo:source>https://lib.onl/ru/articles/2024/04/146e83d5-f571-5273-9a29-172bf5dc10fe/</turbo:source><turbo:topic>MikroTik: Туннель WireGuard (Site-to-Site) + OSPF</turbo:topic><turbo:content><![CDATA[<p>Объединение двух маршрутизаторов между собой при помощи туннеля <span class="shortcode shortcode-tag"><a href="/ru/tags/wireguard/" target="_blank">#WireGuard</a></span>. При этом, обмениваться маршрутами эти маршрутизаторы будут через протокол <span class="shortcode shortcode-tag"><a href="/ru/tags/ospf/" target="_blank">#OSPF</a></span>.</p>
+            </div>]]></turbo:content></item><item turbo="true"><title>MikroTik: Туннель WireGuard (Site-to-Site) + OSPF</title><link>https://lib.onl/ru/articles/2024/04/146e83d5-f571-5273-9a29-172bf5dc10fe/</link><pubDate>Sat, 06 Apr 2024 09:27:28 +0000</pubDate><dc:creator>Kai Kimera</dc:creator><category>Сеть</category><yandex:related><link url="https://lib.onl/ru/articles/2024/03/54a2b39f-38b4-5f0c-9b54-310f853da38f/">MikroTik: Туннель IPsec (Site-to-Site)</link><link url="https://lib.onl/ru/articles/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/">MikroTik: Добавление корневых сертификатов в RouterOS</link><link url="https://lib.onl/ru/articles/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/">MikroTik и CloudFlare: Динамический IP для домена</link><link url="https://lib.onl/ru/articles/2023/12/b6c7c5cd-1b0d-5fcd-8dd2-f28f87a5064c/">MikroTik: Настройка DoH</link></yandex:related><turbo:extendedHtml>true</turbo:extendedHtml><turbo:source>https://lib.onl/ru/articles/2024/04/146e83d5-f571-5273-9a29-172bf5dc10fe/</turbo:source><turbo:topic>MikroTik: Туннель WireGuard (Site-to-Site) + OSPF</turbo:topic><turbo:content><![CDATA[<p>Объединение двух маршрутизаторов между собой при помощи туннеля <span class="shortcode shortcode-tag"><a href="/ru/tags/wireguard/" target="_blank">#WireGuard</a></span>. При этом, обмениваться маршрутами эти маршрутизаторы будут через протокол <span class="shortcode shortcode-tag"><a href="/ru/tags/ospf/" target="_blank">#OSPF</a></span>.</p>
 <p>В качестве WAN IP я использую суб-домены. <span class="shortcode shortcode-tag"><a href="/ru/tags/wireguard/" target="_blank">#WireGuard</a></span> позволяет использовать суб-домены как EndPoint&rsquo;ы, а уже к суб-доменам приписываются IP-адреса маршрутизаторов. Подобная схема наиболее универсальная, так как не в каждом случае имеется внешний статический IP-адрес, но при использовании скрипта из статьи <span class="shortcode shortcode-uuid"><a href="/ru/articles/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/">MikroTik и CloudFlare: Динамический IP для домена</a></span> любой адрес маршрутизатора можно превратить в статический через суб-домен.</p>
 <h2 id="вводные-данные">
   <a class="link-body-emphasis" href="#%d0%b2%d0%b2%d0%be%d0%b4%d0%bd%d1%8b%d0%b5-%d0%b4%d0%b0%d0%bd%d0%bd%d1%8b%d0%b5">Вводные данные</a>
@@ -397,7 +397,7 @@ add action=accept chain=forward src-address=10.2.0.0/16 dst-address=10.1.0.0/16 
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-8f9b1c48954ff2e73d40e1eb23ad0a29"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-67af44fd996293a5371131be4bfa9fdb"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -418,7 +418,7 @@ add action=accept chain=forward src-address=10.2.0.0/16 dst-address=10.1.0.0/16 
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-8f9b1c48954ff2e73d40e1eb23ad0a29">
+                <div class="card-body" id="cp-67af44fd996293a5371131be4bfa9fdb">
                     
                         
                     
@@ -625,7 +625,7 @@ add area=backbone interfaces=wireguard1 type=ptp
 </ul>
 <pre><code>/ip firewall filter
 add action=accept chain=input in-interface=wireguard1 protocol=ospf comment=&quot;[WG] OSPF&quot;
-</code></pre>]]></turbo:content></item><item turbo="true"><title>MikroTik: Туннель IPsec (Site-to-Site)</title><link>https://lib.onl/ru/articles/2024/03/54a2b39f-38b4-5f0c-9b54-310f853da38f/</link><pubDate>Sun, 31 Mar 2024 20:46:24 +0000</pubDate><dc:creator>Kai Kimera</dc:creator><category>В доработке</category><category>Сеть</category><category>Скрипты</category><yandex:related><link url="https://lib.onl/ru/articles/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/">MikroTik: Добавление корневых сертификатов в RouterOS</link><link url="https://lib.onl/ru/articles/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/">MikroTik и CloudFlare: Динамический IP для домена</link><link url="https://lib.onl/ru/articles/2023/12/b6c7c5cd-1b0d-5fcd-8dd2-f28f87a5064c/">MikroTik: Настройка DoH</link></yandex:related><turbo:extendedHtml>true</turbo:extendedHtml><turbo:source>https://lib.onl/ru/articles/2024/03/54a2b39f-38b4-5f0c-9b54-310f853da38f/</turbo:source><turbo:topic>MikroTik: Туннель IPsec (Site-to-Site)</turbo:topic><turbo:content><![CDATA[<p>Объединение двух маршрутизаторов между собой при помощи туннеля <span class="shortcode shortcode-tag"><a href="/ru/tags/ipsec/" target="_blank">#IPsec</a></span>.</p>
+</code></pre>]]></turbo:content></item><item turbo="true"><title>MikroTik: Туннель IPsec (Site-to-Site)</title><link>https://lib.onl/ru/articles/2024/03/54a2b39f-38b4-5f0c-9b54-310f853da38f/</link><pubDate>Sun, 31 Mar 2024 20:46:24 +0000</pubDate><dc:creator>Kai Kimera</dc:creator><category>Сеть</category><category>Скрипты</category><yandex:related><link url="https://lib.onl/ru/articles/2023/10/cc13623b-970c-5950-867e-168f9ba9025a/">MikroTik: Добавление корневых сертификатов в RouterOS</link><link url="https://lib.onl/ru/articles/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/">MikroTik и CloudFlare: Динамический IP для домена</link><link url="https://lib.onl/ru/articles/2023/12/b6c7c5cd-1b0d-5fcd-8dd2-f28f87a5064c/">MikroTik: Настройка DoH</link></yandex:related><turbo:extendedHtml>true</turbo:extendedHtml><turbo:source>https://lib.onl/ru/articles/2024/03/54a2b39f-38b4-5f0c-9b54-310f853da38f/</turbo:source><turbo:topic>MikroTik: Туннель IPsec (Site-to-Site)</turbo:topic><turbo:content><![CDATA[<p>Объединение двух маршрутизаторов между собой при помощи туннеля <span class="shortcode shortcode-tag"><a href="/ru/tags/ipsec/" target="_blank">#IPsec</a></span>.</p>
 <p>В WAN IP у меня используются суб-домены. К суб-доменам через A-запись в <span class="shortcode shortcode-tag"><a href="/ru/tags/dns/" target="_blank">#DNS</a></span> прописаны внешние IP-адреса маршрутизаторов. При помощи скрипта из статьи <span class="shortcode shortcode-uuid"><a href="/ru/articles/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/">MikroTik и CloudFlare: Динамический IP для домена</a></span> у меня каждый маршрутизатор имеет актуальный IP-адрес в суб-домене.</p>
 <h2 id="вводные-данные">
   <a class="link-body-emphasis" href="#%d0%b2%d0%b2%d0%be%d0%b4%d0%bd%d1%8b%d0%b5-%d0%b4%d0%b0%d0%bd%d0%bd%d1%8b%d0%b5">Вводные данные</a>
@@ -882,7 +882,7 @@ add action=notrack chain=prerouting src-address=10.2.0.0/16 dst-address=10.1.0.0
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-8955bcf755d2171ca12a439464fdb45a"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-eb7398f8c5a1a519f75940ac07205c08"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -903,7 +903,7 @@ add action=notrack chain=prerouting src-address=10.2.0.0/16 dst-address=10.1.0.0
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-8955bcf755d2171ca12a439464fdb45a">
+                <div class="card-body" id="cp-eb7398f8c5a1a519f75940ac07205c08">
                     
                         
                     
@@ -989,7 +989,7 @@ add action=notrack chain=prerouting src-address=$ipsLocalNetwork dst-address=$ip
   comment=&#34;[IPsec] $ipsLocalName-$ipsRemoteName&#34;</code></pre>
                 </div>
               </div>
-            </div>]]></turbo:content></item><item turbo="true"><title>Обновление Cisco IOS</title><link>https://lib.onl/ru/articles/2024/03/b81f9cca-d723-5b72-929a-b88be9d329f9/</link><pubDate>Wed, 27 Mar 2024 18:41:49 +0000</pubDate><dc:creator>Kai Kimera</dc:creator><category>Сеть</category><category>В доработке</category><category>Терминал</category><yandex:related><link url="https://lib.onl/ru/articles/2024/03/4a7addb9-eff3-5482-902c-791fbe49899f/">Загрузка и выгрузка конфигурации Cisco</link><link url="https://lib.onl/ru/articles/2024/03/fc67eb74-8f7c-5de3-bd1e-2d823208eae2/">Сброс пароля Cisco</link><link url="https://lib.onl/ru/articles/2021/05/0acd3f9d-07b7-52b8-9fac-b5cb1cc579e0/">Обновление Fedora Linux до актуальной версии</link></yandex:related><turbo:extendedHtml>true</turbo:extendedHtml><turbo:source>https://lib.onl/ru/articles/2024/03/b81f9cca-d723-5b72-929a-b88be9d329f9/</turbo:source><turbo:topic>Обновление Cisco IOS</turbo:topic><turbo:content><![CDATA[<p>Инструкция по резервному копированию и обновлению <span class="shortcode shortcode-tag"><a href="/ru/tags/cisco/" target="_blank">#Cisco</a></span> <span class="shortcode shortcode-tag"><a href="/ru/tags/ios/" target="_blank">#IOS</a></span>.</p>
+            </div>]]></turbo:content></item><item turbo="true"><title>Обновление Cisco IOS</title><link>https://lib.onl/ru/articles/2024/03/b81f9cca-d723-5b72-929a-b88be9d329f9/</link><pubDate>Wed, 27 Mar 2024 18:41:49 +0000</pubDate><dc:creator>Kai Kimera</dc:creator><category>Сеть</category><category>Терминал</category><yandex:related><link url="https://lib.onl/ru/articles/2024/03/4a7addb9-eff3-5482-902c-791fbe49899f/">Загрузка и выгрузка конфигурации Cisco</link><link url="https://lib.onl/ru/articles/2024/03/fc67eb74-8f7c-5de3-bd1e-2d823208eae2/">Сброс пароля Cisco</link><link url="https://lib.onl/ru/articles/2021/05/0acd3f9d-07b7-52b8-9fac-b5cb1cc579e0/">Обновление Fedora Linux до актуальной версии</link></yandex:related><turbo:extendedHtml>true</turbo:extendedHtml><turbo:source>https://lib.onl/ru/articles/2024/03/b81f9cca-d723-5b72-929a-b88be9d329f9/</turbo:source><turbo:topic>Обновление Cisco IOS</turbo:topic><turbo:content><![CDATA[<p>Инструкция по резервному копированию и обновлению <span class="shortcode shortcode-tag"><a href="/ru/tags/cisco/" target="_blank">#Cisco</a></span> <span class="shortcode shortcode-tag"><a href="/ru/tags/ios/" target="_blank">#IOS</a></span>.</p>
 <h2 id="общая-настройка">
   <a class="link-body-emphasis" href="#%d0%be%d0%b1%d1%89%d0%b0%d1%8f-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0">Общая настройка</a>
 </h2><ul>
@@ -1078,7 +1078,7 @@ add action=notrack chain=prerouting src-address=$ipsLocalNetwork dst-address=$ip
 </code></pre>
 <ul>
 <li>Готово!</li>
-</ul>]]></turbo:content></item><item turbo="true"><title>Как проверить PTR-запись?</title><link>https://lib.onl/ru/faq/2024/03/4db553f9-8a24-5807-bce0-bbbcc59fb4e1/</link><pubDate>Wed, 27 Mar 2024 13:49:08 +0000</pubDate><dc:creator>Kai Kimera</dc:creator><category>Dns</category><category>Ptr</category><category>Nslookup</category><turbo:extendedHtml>true</turbo:extendedHtml><turbo:source>https://lib.onl/ru/faq/2024/03/4db553f9-8a24-5807-bce0-bbbcc59fb4e1/</turbo:source><turbo:topic>Как проверить PTR-запись?</turbo:topic><turbo:content>&lt;p>Как проверить запись PTR у домена?&lt;/p></turbo:content></item><item turbo="true"><title>Загрузка и выгрузка конфигурации Cisco</title><link>https://lib.onl/ru/articles/2024/03/4a7addb9-eff3-5482-902c-791fbe49899f/</link><pubDate>Tue, 26 Mar 2024 13:00:25 +0000</pubDate><dc:creator>Kai Kimera</dc:creator><category>Сеть</category><category>В доработке</category><category>Терминал</category><yandex:related><link url="https://lib.onl/ru/articles/2024/03/fc67eb74-8f7c-5de3-bd1e-2d823208eae2/">Сброс пароля Cisco</link></yandex:related><turbo:extendedHtml>true</turbo:extendedHtml><turbo:source>https://lib.onl/ru/articles/2024/03/4a7addb9-eff3-5482-902c-791fbe49899f/</turbo:source><turbo:topic>Загрузка и выгрузка конфигурации Cisco</turbo:topic><turbo:content><![CDATA[<p>Рассмотрим способ загрузки и выгрузки (backup) конфигурации на устройствах <span class="shortcode shortcode-tag"><a href="/ru/tags/cisco/" target="_blank">#Cisco</a></span>.</p>
+</ul>]]></turbo:content></item><item turbo="true"><title>Как проверить PTR-запись?</title><link>https://lib.onl/ru/faq/2024/03/4db553f9-8a24-5807-bce0-bbbcc59fb4e1/</link><pubDate>Wed, 27 Mar 2024 13:49:08 +0000</pubDate><dc:creator>Kai Kimera</dc:creator><category>Dns</category><category>Ptr</category><category>Nslookup</category><turbo:extendedHtml>true</turbo:extendedHtml><turbo:source>https://lib.onl/ru/faq/2024/03/4db553f9-8a24-5807-bce0-bbbcc59fb4e1/</turbo:source><turbo:topic>Как проверить PTR-запись?</turbo:topic><turbo:content>&lt;p>Как проверить запись PTR у домена?&lt;/p></turbo:content></item><item turbo="true"><title>Загрузка и выгрузка конфигурации Cisco</title><link>https://lib.onl/ru/articles/2024/03/4a7addb9-eff3-5482-902c-791fbe49899f/</link><pubDate>Tue, 26 Mar 2024 13:00:25 +0000</pubDate><dc:creator>Kai Kimera</dc:creator><category>Сеть</category><category>Терминал</category><yandex:related><link url="https://lib.onl/ru/articles/2024/03/fc67eb74-8f7c-5de3-bd1e-2d823208eae2/">Сброс пароля Cisco</link></yandex:related><turbo:extendedHtml>true</turbo:extendedHtml><turbo:source>https://lib.onl/ru/articles/2024/03/4a7addb9-eff3-5482-902c-791fbe49899f/</turbo:source><turbo:topic>Загрузка и выгрузка конфигурации Cisco</turbo:topic><turbo:content><![CDATA[<p>Рассмотрим способ загрузки и выгрузки (backup) конфигурации на устройствах <span class="shortcode shortcode-tag"><a href="/ru/tags/cisco/" target="_blank">#Cisco</a></span>.</p>
 <h2 id="общая-настройка">
   <a class="link-body-emphasis" href="#%d0%be%d0%b1%d1%89%d0%b0%d1%8f-%d0%bd%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0">Общая настройка</a>
 </h2><ul>
@@ -1349,7 +1349,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-b6ea8df288b295d8861fa6e6255c964b"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-298596bfb6c41b389e19be7a3e68245c"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -1358,7 +1358,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-b6ea8df288b295d8861fa6e6255c964b">
+    <div class="card-body p-0" id="cp-298596bfb6c41b389e19be7a3e68245c">
       <pre><code class="language-plaintext">Get-Service -DisplayName &#39;win*&#39;
 
 Status   Name               DisplayName
@@ -1474,7 +1474,7 @@ Running  SecurityHealthSer… Windows Security Service</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-dce4813b4f33246e69dfe5185863e95c"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-b496d8b94bbc9a9f69d887f056bab477"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -1495,7 +1495,7 @@ Running  SecurityHealthSer… Windows Security Service</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-dce4813b4f33246e69dfe5185863e95c">
+                <div class="card-body" id="cp-b496d8b94bbc9a9f69d887f056bab477">
                     
                         
                     
@@ -1670,12 +1670,12 @@ User Agent клиента, строка, позволяющая идентифи
     <div class="accordion-item">
       <div class="accordion-header">
         <a class="accordion-button collapsed" href="#" role="button" tabindex="0"
-           data-bs-toggle="collapse" data-bs-target="#sc-0774148809159e7683b832eb18ca5e1e"
-           aria-expanded="false" aria-controls="sc-0774148809159e7683b832eb18ca5e1e" aria-label="example.com | www.example.com">
+           data-bs-toggle="collapse" data-bs-target="#sc-0dffcdf1bc0a9b3a4ffdcf3faf723cff"
+           aria-expanded="false" aria-controls="sc-0dffcdf1bc0a9b3a4ffdcf3faf723cff" aria-label="example.com | www.example.com">
             example.com | www.example.com
         </a>
       </div>
-      <div class="accordion-collapse collapse" id="sc-0774148809159e7683b832eb18ca5e1e" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
+      <div class="accordion-collapse collapse" id="sc-0dffcdf1bc0a9b3a4ffdcf3faf723cff" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
         <div class="accordion-body">
             <p><code>https://example.com</code> <code>-&gt;</code> <code>https://www.example.com</code></p>
 <p><strong>When incoming requests match:</strong></p>
@@ -1703,12 +1703,12 @@ User Agent клиента, строка, позволяющая идентифи
     <div class="accordion-item">
       <div class="accordion-header">
         <a class="accordion-button collapsed" href="#" role="button" tabindex="0"
-           data-bs-toggle="collapse" data-bs-target="#sc-46c95460c900a66f50a7cad75a326f26"
-           aria-expanded="false" aria-controls="sc-46c95460c900a66f50a7cad75a326f26" aria-label="www.example.com | example.com">
+           data-bs-toggle="collapse" data-bs-target="#sc-f72bac1efa94e4b028a49b29d75bfe52"
+           aria-expanded="false" aria-controls="sc-f72bac1efa94e4b028a49b29d75bfe52" aria-label="www.example.com | example.com">
             www.example.com | example.com
         </a>
       </div>
-      <div class="accordion-collapse collapse" id="sc-46c95460c900a66f50a7cad75a326f26" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
+      <div class="accordion-collapse collapse" id="sc-f72bac1efa94e4b028a49b29d75bfe52" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
         <div class="accordion-body">
             <p><code>https://www.example.com</code> <code>-&gt;</code> <code>https://example.com</code></p>
 <p><strong>When incoming requests match:</strong></p>
@@ -1736,12 +1736,12 @@ User Agent клиента, строка, позволяющая идентифи
     <div class="accordion-item">
       <div class="accordion-header">
         <a class="accordion-button collapsed" href="#" role="button" tabindex="0"
-           data-bs-toggle="collapse" data-bs-target="#sc-d71ec8a2eb1c74136ebd3470c331a1cc"
-           aria-expanded="false" aria-controls="sc-d71ec8a2eb1c74136ebd3470c331a1cc" aria-label="example.com/path | example.org/path">
+           data-bs-toggle="collapse" data-bs-target="#sc-0f210c678701b3ce95a6bd124c9dea94"
+           aria-expanded="false" aria-controls="sc-0f210c678701b3ce95a6bd124c9dea94" aria-label="example.com/path | example.org/path">
             example.com/path | example.org/path
         </a>
       </div>
-      <div class="accordion-collapse collapse" id="sc-d71ec8a2eb1c74136ebd3470c331a1cc" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
+      <div class="accordion-collapse collapse" id="sc-0f210c678701b3ce95a6bd124c9dea94" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
         <div class="accordion-body">
             <p><code>https://example.com/path</code> <code>-&gt;</code> <code>https://example.org/path</code></p>
 <p><strong>When incoming requests match:</strong></p>
@@ -1769,12 +1769,12 @@ User Agent клиента, строка, позволяющая идентифи
     <div class="accordion-item">
       <div class="accordion-header">
         <a class="accordion-button collapsed" href="#" role="button" tabindex="0"
-           data-bs-toggle="collapse" data-bs-target="#sc-75980350d7a9c4b11501eada9f89e42a"
-           aria-expanded="false" aria-controls="sc-75980350d7a9c4b11501eada9f89e42a" aria-label="example.com | example.org">
+           data-bs-toggle="collapse" data-bs-target="#sc-fdcaa7bebcb729c5dbeb013743aab698"
+           aria-expanded="false" aria-controls="sc-fdcaa7bebcb729c5dbeb013743aab698" aria-label="example.com | example.org">
             example.com | example.org
         </a>
       </div>
-      <div class="accordion-collapse collapse" id="sc-75980350d7a9c4b11501eada9f89e42a" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
+      <div class="accordion-collapse collapse" id="sc-fdcaa7bebcb729c5dbeb013743aab698" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
         <div class="accordion-body">
             <p><code>https://example.com</code> <code>-&gt;</code> <code>https://example.org</code></p>
 <p><strong>When incoming requests match:</strong></p>
@@ -1802,12 +1802,12 @@ User Agent клиента, строка, позволяющая идентифи
     <div class="accordion-item">
       <div class="accordion-header">
         <a class="accordion-button collapsed" href="#" role="button" tabindex="0"
-           data-bs-toggle="collapse" data-bs-target="#sc-42ac8c8c111cfd7994fb8c8a870355f7"
-           aria-expanded="false" aria-controls="sc-42ac8c8c111cfd7994fb8c8a870355f7" aria-label="sub.example.com | example.com/sub">
+           data-bs-toggle="collapse" data-bs-target="#sc-ee8a9abeec68d4a754c4578342f88a23"
+           aria-expanded="false" aria-controls="sc-ee8a9abeec68d4a754c4578342f88a23" aria-label="sub.example.com | example.com/sub">
             sub.example.com | example.com/sub
         </a>
       </div>
-      <div class="accordion-collapse collapse" id="sc-42ac8c8c111cfd7994fb8c8a870355f7" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
+      <div class="accordion-collapse collapse" id="sc-ee8a9abeec68d4a754c4578342f88a23" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
         <div class="accordion-body">
             <p><code>https://sub.example.com</code> <code>-&gt;</code> <code>https://example.com/sub</code></p>
 <p><strong>When incoming requests match:</strong></p>
@@ -1835,12 +1835,12 @@ User Agent клиента, строка, позволяющая идентифи
     <div class="accordion-item">
       <div class="accordion-header">
         <a class="accordion-button collapsed" href="#" role="button" tabindex="0"
-           data-bs-toggle="collapse" data-bs-target="#sc-295dd74b593d0c580fe3c89863b61126"
-           aria-expanded="false" aria-controls="sc-295dd74b593d0c580fe3c89863b61126" aria-label="example.com/sub | sub.example.com">
+           data-bs-toggle="collapse" data-bs-target="#sc-54f0eb74abe74c00b2b5ebe6d0b9d8fc"
+           aria-expanded="false" aria-controls="sc-54f0eb74abe74c00b2b5ebe6d0b9d8fc" aria-label="example.com/sub | sub.example.com">
             example.com/sub | sub.example.com
         </a>
       </div>
-      <div class="accordion-collapse collapse" id="sc-295dd74b593d0c580fe3c89863b61126" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
+      <div class="accordion-collapse collapse" id="sc-54f0eb74abe74c00b2b5ebe6d0b9d8fc" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
         <div class="accordion-body">
             <p><code>https://example.com/sub</code> <code>-&gt;</code> <code>https://sub.example.com</code></p>
 <p><strong>When incoming requests match:</strong></p>
@@ -1869,12 +1869,12 @@ User Agent клиента, строка, позволяющая идентифи
     <div class="accordion-item">
       <div class="accordion-header">
         <a class="accordion-button collapsed" href="#" role="button" tabindex="0"
-           data-bs-toggle="collapse" data-bs-target="#sc-e5428cb44a664c0b5b1e001af30aa525"
-           aria-expanded="false" aria-controls="sc-e5428cb44a664c0b5b1e001af30aa525" aria-label="example.com/contact-us/ | example.com/contact/">
+           data-bs-toggle="collapse" data-bs-target="#sc-4fd865c4f14827c743a4cf8b005c3293"
+           aria-expanded="false" aria-controls="sc-4fd865c4f14827c743a4cf8b005c3293" aria-label="example.com/contact-us/ | example.com/contact/">
             example.com/contact-us/ | example.com/contact/
         </a>
       </div>
-      <div class="accordion-collapse collapse" id="sc-e5428cb44a664c0b5b1e001af30aa525" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
+      <div class="accordion-collapse collapse" id="sc-4fd865c4f14827c743a4cf8b005c3293" data-bs-parent="#sc-a8ec36334fe29993bc73f5d4b48c1c5e">
         <div class="accordion-body">
             <p><code>https://example.com/contact-us/</code> <code>-&gt;</code> <code>https://example.com/contact/</code></p>
 <p><strong>When incoming requests match:</strong></p>
@@ -1912,12 +1912,12 @@ User Agent клиента, строка, позволяющая идентифи
     <div class="accordion-item">
       <div class="accordion-header">
         <a class="accordion-button collapsed" href="#" role="button" tabindex="0"
-           data-bs-toggle="collapse" data-bs-target="#sc-977b0b2e374a6d6ca9b3240da4647137"
-           aria-expanded="false" aria-controls="sc-977b0b2e374a6d6ca9b3240da4647137" aria-label="Переадресовать запрос к любым портам (кроме &#39;80&#39; и &#39;443&#39;) на порт &#39;443&#39; (HTTPS)">
+           data-bs-toggle="collapse" data-bs-target="#sc-048fddd2ef1d49245542a9b7e1b9f14f"
+           aria-expanded="false" aria-controls="sc-048fddd2ef1d49245542a9b7e1b9f14f" aria-label="Переадресовать запрос к любым портам (кроме &#39;80&#39; и &#39;443&#39;) на порт &#39;443&#39; (HTTPS)">
             Переадресовать запрос к любым портам (кроме &#39;80&#39; и &#39;443&#39;) на порт &#39;443&#39; (HTTPS)
         </a>
       </div>
-      <div class="accordion-collapse collapse" id="sc-977b0b2e374a6d6ca9b3240da4647137" data-bs-parent="#sc-f219ae2813b1772c6cb60161e095a344">
+      <div class="accordion-collapse collapse" id="sc-048fddd2ef1d49245542a9b7e1b9f14f" data-bs-parent="#sc-f219ae2813b1772c6cb60161e095a344">
         <div class="accordion-body">
             <p><code>https://example.com:1212</code> <code>-&gt;</code> <code>https://example.com</code></p>
 <p><strong>When incoming requests match:</strong></p>
@@ -1955,12 +1955,12 @@ User Agent клиента, строка, позволяющая идентифи
     <div class="accordion-item">
       <div class="accordion-header">
         <a class="accordion-button collapsed" href="#" role="button" tabindex="0"
-           data-bs-toggle="collapse" data-bs-target="#sc-ba4ff1ce98e5c4b63d802d1f32fb6211"
-           aria-expanded="false" aria-controls="sc-ba4ff1ce98e5c4b63d802d1f32fb6211" aria-label="Переадресовать пользователей из стран RU/BY/UA в директорию &#39;/ru&#39;">
+           data-bs-toggle="collapse" data-bs-target="#sc-e005ae214abd59b779c59a3c19683ebf"
+           aria-expanded="false" aria-controls="sc-e005ae214abd59b779c59a3c19683ebf" aria-label="Переадресовать пользователей из стран RU/BY/UA в директорию &#39;/ru&#39;">
             Переадресовать пользователей из стран RU/BY/UA в директорию &#39;/ru&#39;
         </a>
       </div>
-      <div class="accordion-collapse collapse" id="sc-ba4ff1ce98e5c4b63d802d1f32fb6211" data-bs-parent="#sc-0987ff57b5bf0e6cf679bde17b1f2724">
+      <div class="accordion-collapse collapse" id="sc-e005ae214abd59b779c59a3c19683ebf" data-bs-parent="#sc-0987ff57b5bf0e6cf679bde17b1f2724">
         <div class="accordion-body">
             <p><code>https://example.com</code> <code>-&gt;</code> <code>https://example.com/ru/</code></p>
 <p><strong>When incoming requests match:</strong></p>
@@ -1988,12 +1988,12 @@ User Agent клиента, строка, позволяющая идентифи
     <div class="accordion-item">
       <div class="accordion-header">
         <a class="accordion-button collapsed" href="#" role="button" tabindex="0"
-           data-bs-toggle="collapse" data-bs-target="#sc-ab01a46e3d905c073e97ee3f6a757fb7"
-           aria-expanded="false" aria-controls="sc-ab01a46e3d905c073e97ee3f6a757fb7" aria-label="Переадресовать пользователей НЕ из стран RU/BY/UA в директорию &#39;/en&#39;">
+           data-bs-toggle="collapse" data-bs-target="#sc-0a10658aba4d2974bcdf6b2a8f33b12a"
+           aria-expanded="false" aria-controls="sc-0a10658aba4d2974bcdf6b2a8f33b12a" aria-label="Переадресовать пользователей НЕ из стран RU/BY/UA в директорию &#39;/en&#39;">
             Переадресовать пользователей НЕ из стран RU/BY/UA в директорию &#39;/en&#39;
         </a>
       </div>
-      <div class="accordion-collapse collapse" id="sc-ab01a46e3d905c073e97ee3f6a757fb7" data-bs-parent="#sc-0987ff57b5bf0e6cf679bde17b1f2724">
+      <div class="accordion-collapse collapse" id="sc-0a10658aba4d2974bcdf6b2a8f33b12a" data-bs-parent="#sc-0987ff57b5bf0e6cf679bde17b1f2724">
         <div class="accordion-body">
             <p><code>https://example.com</code> <code>-&gt;</code> <code>https://example.com/en/</code></p>
 <p><strong>When incoming requests match:</strong></p>
@@ -2100,7 +2100,7 @@ User Agent клиента, строка, позволяющая идентифи
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-2274ee74416ecc65df7cf89e9b1fb906"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-3b7380ff0c5cc48634561730b8b7bcdd"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -2121,7 +2121,7 @@ User Agent клиента, строка, позволяющая идентифи
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-2274ee74416ecc65df7cf89e9b1fb906">
+                <div class="card-body" id="cp-3b7380ff0c5cc48634561730b8b7bcdd">
                     
                         
                     
@@ -2179,7 +2179,7 @@ setx /m Path &#34;%Path%!pathCustom!&#34;</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-b4227ebfa647eede20bf25c27981c523"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-b354b8198ce608f50a0b9e7bbc114de8"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -2200,7 +2200,7 @@ setx /m Path &#34;%Path%!pathCustom!&#34;</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-b4227ebfa647eede20bf25c27981c523">
+                <div class="card-body" id="cp-b354b8198ce608f50a0b9e7bbc114de8">
                     
                         
                     
@@ -2264,7 +2264,7 @@ setx Path &#34;!pathUser!!pathCustom!&#34;</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-fc10641a829b9f33d638cadc8d343f97"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-5cce4b2e34ad8bfde2b653223f6ae495"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -2285,7 +2285,7 @@ setx Path &#34;!pathUser!!pathCustom!&#34;</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-fc10641a829b9f33d638cadc8d343f97">
+                <div class="card-body" id="cp-5cce4b2e34ad8bfde2b653223f6ae495">
                     
                         
                     
@@ -2357,7 +2357,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-9666c62ad00e0a51b7b9219a34554871"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-143f0affbef1fd15ab6a3a7ce8111157"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2366,7 +2366,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-9666c62ad00e0a51b7b9219a34554871">
+    <div class="card-body p-0" id="cp-143f0affbef1fd15ab6a3a7ce8111157">
       <pre><code class="language-plaintext">.\pwsh.set.env.path.system.ps1 -P &#39;C:\Apps\App_01&#39;, &#39;C:\Apps\App_02&#39;, &#39;C:\Apps\App_03&#39;</code></pre>
     </div>
   </div>
@@ -2396,7 +2396,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-636d79c58c32dabfcabeea4cbd0c96f0"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-88e39fd1ac1bf516d3f16104bfe4fa9b"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -2417,7 +2417,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-636d79c58c32dabfcabeea4cbd0c96f0">
+                <div class="card-body" id="cp-88e39fd1ac1bf516d3f16104bfe4fa9b">
                     
                         
                     
@@ -2488,7 +2488,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-a06f9450b9e6fc7bce249df7001ffb0b"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-a28d50304181c01ea6fa6758d12fd48e"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2497,7 +2497,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-a06f9450b9e6fc7bce249df7001ffb0b">
+    <div class="card-body p-0" id="cp-a28d50304181c01ea6fa6758d12fd48e">
       <pre><code class="language-plaintext">.\pwsh.set.env.path.user.ps1 -P &#39;C:\Apps\App_01&#39;, &#39;C:\Apps\App_02&#39;, &#39;C:\Apps\App_03&#39;</code></pre>
     </div>
   </div>
@@ -2527,7 +2527,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-21a5ef799db38beeebe58fcb1962a116"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-dc685eb96256e622300ad194e9fd61c8"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -2548,7 +2548,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-21a5ef799db38beeebe58fcb1962a116">
+                <div class="card-body" id="cp-dc685eb96256e622300ad194e9fd61c8">
                     
                         
                     
@@ -2624,7 +2624,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-517c1d9ef0e52cbdb971e5a937c75227"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-2e5cdaeff0711b2c0c9f982773213455"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2633,7 +2633,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-517c1d9ef0e52cbdb971e5a937c75227">
+    <div class="card-body p-0" id="cp-2e5cdaeff0711b2c0c9f982773213455">
       <pre><code class="language-plaintext">.\pwsh.set.env.path.ps1 -P &#39;C:\Apps\App_01&#39;, &#39;C:\Apps\App_02&#39;, &#39;C:\Apps\App_03&#39; -T &#39;User&#39;</code></pre>
     </div>
   </div>
@@ -2672,7 +2672,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-3ad74f35b393bc1cee4806b4060a21bd"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-72580f799bb810f3bd0cb15ffc601851"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -2681,7 +2681,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-3ad74f35b393bc1cee4806b4060a21bd">
+    <div class="card-body p-0" id="cp-72580f799bb810f3bd0cb15ffc601851">
       <pre><code class="language-plaintext">.\pwsh.win.srv.ws.ps1</code></pre>
     </div>
   </div>
@@ -2719,7 +2719,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-ce1d903c9708cb23bb4c1bb7dedb6ebd"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-fa0091362ac1aa8112c22cff3ec203b3"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -2740,7 +2740,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-ce1d903c9708cb23bb4c1bb7dedb6ebd">
+                <div class="card-body" id="cp-fa0091362ac1aa8112c22cff3ec203b3">
                     
                         
                     
@@ -3018,7 +3018,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-847cc3a2433cd21025e469b5382855d9"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-5a85c6e88dded0a8c7c38d028f3ba7b4"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -3027,7 +3027,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-847cc3a2433cd21025e469b5382855d9">
+    <div class="card-body p-0" id="cp-5a85c6e88dded0a8c7c38d028f3ba7b4">
       <pre><code class="language-plaintext">.\pwsh.csc.repair.ps1</code></pre>
     </div>
   </div>
@@ -3055,7 +3055,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-fca8b38422b470891762fa8c706f0a36"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-bdc93a732bba67d20960059c508b0c50"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -3064,7 +3064,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-fca8b38422b470891762fa8c706f0a36">
+    <div class="card-body p-0" id="cp-bdc93a732bba67d20960059c508b0c50">
       <pre><code class="language-plaintext">.\pwsh.csc.repair.ps1 -DC &#39;DC-server.domain.com&#39;</code></pre>
     </div>
   </div>
@@ -3099,7 +3099,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-d095e00728381491780d213722866193"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-a6e8aa79e667dd1a1d0e91ff00dc398d"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -3120,7 +3120,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-d095e00728381491780d213722866193">
+                <div class="card-body" id="cp-a6e8aa79e667dd1a1d0e91ff00dc398d">
                     
                         
                     
@@ -3287,7 +3287,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-8cbe902598bed5d357325fda51723fb8"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-dd4f8fa044ee9623c20de939c5547fc1"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -3296,7 +3296,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-8cbe902598bed5d357325fda51723fb8">
+    <div class="card-body p-0" id="cp-dd4f8fa044ee9623c20de939c5547fc1">
       <pre><code class="language-plaintext">.\pwsh.rdp.port.ps1 -P 50102</code></pre>
     </div>
   </div>
@@ -3331,7 +3331,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-5bf81f8d1cfd5c3565078f5e42402abb"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-2dff8dc40da7d23fd1e33506f81b59c5"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -3352,7 +3352,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-5bf81f8d1cfd5c3565078f5e42402abb">
+                <div class="card-body" id="cp-2dff8dc40da7d23fd1e33506f81b59c5">
                     
                         
                     
@@ -3511,7 +3511,7 @@ Start-Script</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-8e08d0317ed6507511e2c2d2dc80c1f5"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-8a96dcc761ae9be017cf4c9024925234"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -3532,7 +3532,7 @@ Start-Script</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-8e08d0317ed6507511e2c2d2dc80c1f5">
+                <div class="card-body" id="cp-8a96dcc761ae9be017cf4c9024925234">
                     
                         
                     
@@ -3648,7 +3648,7 @@ Find-CreationTime</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-aa6a1cdd3c530e7057a75f98074c3f2b"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-f1e065cba28ea8eab6a7f02431271886"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -3669,7 +3669,7 @@ Find-CreationTime</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-aa6a1cdd3c530e7057a75f98074c3f2b">
+                <div class="card-body" id="cp-f1e065cba28ea8eab6a7f02431271886">
                     
                         
                     
@@ -3725,7 +3725,7 @@ Find-LastWriteTime</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-aa6ce3c6e75bc25660f297b210bd027b"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-1526cff3cbef6385692fab8d4085a00c"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -3746,7 +3746,7 @@ Find-LastWriteTime</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-aa6ce3c6e75bc25660f297b210bd027b">
+                <div class="card-body" id="cp-1526cff3cbef6385692fab8d4085a00c">
                     
                         
                     
@@ -3801,7 +3801,7 @@ New-Data</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-be464b59497d96f906c81ac0ab57dbc6"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-b76fd78cc1cbd5ce74a295e1cd4dbc4a"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -3822,7 +3822,7 @@ New-Data</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-be464b59497d96f906c81ac0ab57dbc6">
+                <div class="card-body" id="cp-b76fd78cc1cbd5ce74a295e1cd4dbc4a">
                     
                         
                     
@@ -3874,7 +3874,7 @@ Test-Data</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-c79f306bcd2ad5efa8ac6dc0504fe4cb"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-f2398f560d618e0efc89e9aad938a7e1"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -3895,7 +3895,7 @@ Test-Data</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-c79f306bcd2ad5efa8ac6dc0504fe4cb">
+                <div class="card-body" id="cp-f2398f560d618e0efc89e9aad938a7e1">
                     
                         
                     
@@ -3955,7 +3955,7 @@ Test-Module</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-05a632b2c8639a612d4167d58f2e90dd"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-4cedd22a4586b48f93a89bb1f3cbc8fc"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -3976,7 +3976,7 @@ Test-Module</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-05a632b2c8639a612d4167d58f2e90dd">
+                <div class="card-body" id="cp-4cedd22a4586b48f93a89bb1f3cbc8fc">
                     
                         
                     
@@ -4025,7 +4025,7 @@ Write-Msg</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-927c977c0b79f13bd9bdbda988e65521"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-32db39b06dd43e04c71bec6166ade99c"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -4046,7 +4046,7 @@ Write-Msg</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-927c977c0b79f13bd9bdbda988e65521">
+                <div class="card-body" id="cp-32db39b06dd43e04c71bec6166ade99c">
                     
                         
                     
@@ -4086,7 +4086,7 @@ Write-Msg</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-a9886fefd6a90ff1ffe23288b4251753"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-4f7183c4bc86e8aeff80ac6545b5181d"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -4107,7 +4107,7 @@ Write-Msg</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-a9886fefd6a90ff1ffe23288b4251753">
+                <div class="card-body" id="cp-4f7183c4bc86e8aeff80ac6545b5181d">
                     
                         
                     
@@ -4159,7 +4159,7 @@ Get-FileSize</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-79b6c88597254d1aef12c45085d7bec0"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-de3be68f6ccb1d3f2d1c9ee44481311a"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -4180,7 +4180,7 @@ Get-FileSize</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-79b6c88597254d1aef12c45085d7bec0">
+                <div class="card-body" id="cp-de3be68f6ccb1d3f2d1c9ee44481311a">
                     
                         
                     
@@ -4222,7 +4222,7 @@ Compress-A7z</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-85c04d46bea354af656bbbfacb73f9c6"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-3d74cac47c40baa1268707ce292ec74d"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -4243,7 +4243,7 @@ Compress-A7z</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-85c04d46bea354af656bbbfacb73f9c6">
+                <div class="card-body" id="cp-3d74cac47c40baa1268707ce292ec74d">
                     
                         
                     
@@ -4293,7 +4293,7 @@ Expand-A7z</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-3c382b9c1b6f4a21c37a8adfb4a39007"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-36c5c189a04a457bb084eace552742f8"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -4314,7 +4314,7 @@ Expand-A7z</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-3c382b9c1b6f4a21c37a8adfb4a39007">
+                <div class="card-body" id="cp-36c5c189a04a457bb084eace552742f8">
                     
                         
                     
@@ -4356,7 +4356,7 @@ Compress-RAR</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-0367bd011238642177d1c55246895b4b"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-3034cd5129aab0802f41a1bd53e862b4"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -4377,7 +4377,7 @@ Compress-RAR</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-0367bd011238642177d1c55246895b4b">
+                <div class="card-body" id="cp-3034cd5129aab0802f41a1bd53e862b4">
                     
                         
                     
@@ -4436,7 +4436,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-79d8f564dedb2663949e8177b595bfbd"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-07ffc6801bd0f2e0e9ebf8be99d0e665"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -4445,7 +4445,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-79d8f564dedb2663949e8177b595bfbd">
+    <div class="card-body p-0" id="cp-07ffc6801bd0f2e0e9ebf8be99d0e665">
       <pre><code class="language-plaintext">.\pwsh.disk.erase.ps1</code></pre>
     </div>
   </div>
@@ -4473,7 +4473,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-e51799b380c63c8fe12b4c8751b96a17"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-ae6d313665ba9c713f3a5d63c1c8fd02"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -4482,7 +4482,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-e51799b380c63c8fe12b4c8751b96a17">
+    <div class="card-body p-0" id="cp-ae6d313665ba9c713f3a5d63c1c8fd02">
       <pre><code class="language-plaintext">.\pwsh.disk.erase.ps1 -DN 3 -DL &#39;E&#39; -FS &#39;NTFS&#39; -FSL &#39;USB-SSD&#39;</code></pre>
     </div>
   </div>
@@ -4510,7 +4510,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-60c53793972a4cbf14005f70e8722819"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-6b373b9d972e9ad3dce46df77effffd4"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -4531,7 +4531,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-60c53793972a4cbf14005f70e8722819">
+                <div class="card-body" id="cp-6b373b9d972e9ad3dce46df77effffd4">
                     
                         
                     
@@ -4779,7 +4779,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-dc94f3942d4aed439a6d1022bcf83664"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-04f7f5e22b65540684092e8c8cb9e9cd"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -4788,7 +4788,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-dc94f3942d4aed439a6d1022bcf83664">
+    <div class="card-body p-0" id="cp-04f7f5e22b65540684092e8c8cb9e9cd">
       <pre><code class="language-plaintext">Compress-Video -F &#39;file_01.mov&#39;, &#39;file_02.mov&#39;, &#39;file_03.mov&#39;</code></pre>
     </div>
   </div>
@@ -4816,7 +4816,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-5010b4975f31f20cb58d20275b8bcdbd"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-1a85c52b0fcaf288b3d4399c31a04ce0"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -4825,7 +4825,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-5010b4975f31f20cb58d20275b8bcdbd">
+    <div class="card-body p-0" id="cp-1a85c52b0fcaf288b3d4399c31a04ce0">
       <pre><code class="language-plaintext">Compress-Video -F &#39;*.mov&#39;</code></pre>
     </div>
   </div>
@@ -4980,7 +4980,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-65014f7968374edbe55ad415223266d8"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-e1e3e41b477c5bbebbc551afc1c1a5e6"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -4989,7 +4989,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-65014f7968374edbe55ad415223266d8">
+    <div class="card-body p-0" id="cp-e1e3e41b477c5bbebbc551afc1c1a5e6">
       <pre><code class="language-plaintext">.\arch.ps1
 64</code></pre>
     </div>
@@ -5049,7 +5049,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-0f31c7f83fd5a85f2124faa1a0504831"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-f4fd295b9b09a4a2f7ad2426e043a7af"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -5058,7 +5058,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-0f31c7f83fd5a85f2124faa1a0504831">
+    <div class="card-body p-0" id="cp-f4fd295b9b09a4a2f7ad2426e043a7af">
       <pre><code class="language-plaintext">.\arch.ps1
 
 ProcessArchitecture WindowsArchitecture
@@ -5145,7 +5145,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-2b22d8020621b8e74a1b63c90df7c778"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-b0bb1cebcb74581244c2685d53643404"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -5154,7 +5154,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-2b22d8020621b8e74a1b63c90df7c778">
+    <div class="card-body p-0" id="cp-b0bb1cebcb74581244c2685d53643404">
       <pre><code class="language-plaintext">Start-Vault -SRC &#39;C:\Data\Source&#39; -DST &#39;C:\Data\Vault&#39;</code></pre>
     </div>
   </div>
@@ -5182,7 +5182,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-ce65856070fbd402d80ef34c4a83259d"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-d41fb3233ed69f3496621b7f169e6be5"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -5191,7 +5191,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-ce65856070fbd402d80ef34c4a83259d">
+    <div class="card-body p-0" id="cp-d41fb3233ed69f3496621b7f169e6be5">
       <pre><code class="language-plaintext">Start-Vault -SRC &#39;C:\Data\Source&#39; -DST &#39;C:\Data\Vault&#39; -CT &#39;864000&#39; -WT &#39;864000&#39;</code></pre>
     </div>
   </div>
@@ -5219,7 +5219,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-433a67f004d7f433d41eb21347709011"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-4f9ecac7bac829c76aa4cd92d57dd5eb"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -5228,7 +5228,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-433a67f004d7f433d41eb21347709011">
+    <div class="card-body p-0" id="cp-4f9ecac7bac829c76aa4cd92d57dd5eb">
       <pre><code class="language-plaintext">Start-Vault -SRC &#39;C:\Data\Source&#39; -DST &#39;C:\Data\Vault&#39; -CT &#39;864000&#39; -WT &#39;864000&#39; -FS &#39;32mb&#39;</code></pre>
     </div>
   </div>
@@ -5256,7 +5256,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-8c14c960a6eaa53e478f94b27d1f146d"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-119e46a0eb96ef3f03161e58de65a2bc"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -5265,7 +5265,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-8c14c960a6eaa53e478f94b27d1f146d">
+    <div class="card-body p-0" id="cp-119e46a0eb96ef3f03161e58de65a2bc">
       <pre><code class="language-plaintext">Start-Vault -SRC &#39;C:\Data\Source&#39; -DST &#39;C:\Data\Vault&#39; -CT &#39;864000&#39; -WT &#39;864000&#39; -O</code></pre>
     </div>
   </div>
@@ -5718,7 +5718,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-5a010d44660a6fecc04e3ff63c24b839"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-3a2afdd107e81db128e71e75685e1443"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -5727,7 +5727,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-5a010d44660a6fecc04e3ff63c24b839">
+    <div class="card-body p-0" id="cp-3a2afdd107e81db128e71e75685e1443">
       <pre><code class="language-plaintext">openssl x509 -in &#39;client.crt&#39; -text
 
 Certificate:
@@ -5793,7 +5793,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-cac107a63bc9feb65547eb2f2113ccd0"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-9a5c1c6738cb1d69e51dd3262e062c7f"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -5802,7 +5802,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-cac107a63bc9feb65547eb2f2113ccd0">
+    <div class="card-body p-0" id="cp-9a5c1c6738cb1d69e51dd3262e062c7f">
       <pre><code class="language-plaintext">openssl req -in &#39;client.csr&#39; -text
 
 Certificate Request:
@@ -5855,7 +5855,7 @@ Certificate Request:
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-d360c93f9db33cead18ba96d1ca8408e"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-83a416b9656a5587f65bb0b9419f7d7a"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -5876,7 +5876,7 @@ Certificate Request:
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-d360c93f9db33cead18ba96d1ca8408e">
+                <div class="card-body" id="cp-83a416b9656a5587f65bb0b9419f7d7a">
                     
                         
                     
@@ -6004,7 +6004,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-97460c5158e1f85dafb6366ea5c17c20"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-5caf89163f9fe08a830308a8f4a25d5e"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -6013,7 +6013,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-97460c5158e1f85dafb6366ea5c17c20">
+    <div class="card-body p-0" id="cp-5caf89163f9fe08a830308a8f4a25d5e">
       <pre><code class="language-plaintext">bash bash.openssl.ca.sh ca</code></pre>
     </div>
   </div>
@@ -6043,7 +6043,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-bf5c9209278d14993fc60b179d411e97"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-91b6d2bd0c522186763a3b084b29bb9c"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -6052,7 +6052,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-bf5c9209278d14993fc60b179d411e97">
+    <div class="card-body p-0" id="cp-91b6d2bd0c522186763a3b084b29bb9c">
       <pre><code class="language-plaintext">bash bash.openssl.ca.sh cert</code></pre>
     </div>
   </div>
@@ -6115,7 +6115,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-d94f85e5cd9e0b770c49fd857ab15052"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-cd0ae5d51a72d470db1c8de902a4bdb7"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -6136,7 +6136,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-d94f85e5cd9e0b770c49fd857ab15052">
+                <div class="card-body" id="cp-cd0ae5d51a72d470db1c8de902a4bdb7">
                     
                         
                     
@@ -7403,7 +7403,7 @@ else
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-9cc1089cda4eeb1ad3e0b466899fda3f"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-9b4973c9e6c508935e5805aa9a606b9f"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -7424,7 +7424,7 @@ else
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-9cc1089cda4eeb1ad3e0b466899fda3f">
+                <div class="card-body" id="cp-9b4973c9e6c508935e5805aa9a606b9f">
                     
                         
                     
@@ -7491,7 +7491,7 @@ else
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-51ad45aa2668ba68dbbed3bb5e5c632d"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-55913ad13f9123fe8094dae38880cb1a"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -7512,7 +7512,7 @@ else
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-51ad45aa2668ba68dbbed3bb5e5c632d">
+                <div class="card-body" id="cp-55913ad13f9123fe8094dae38880cb1a">
                     
                         
                     
@@ -7980,7 +7980,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-e889146c911d0fe268518934186c3b6d"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-df4a0b9375c171403fa5076baf459039"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -7989,7 +7989,7 @@ shortcode-codeblock-terminal-windows shortcode-codeblock-terminal-windows-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-e889146c911d0fe268518934186c3b6d">
+    <div class="card-body p-0" id="cp-df4a0b9375c171403fa5076baf459039">
       <pre><code class="language-plaintext">Dism /Get-ImageInfo /ImageFile:&#34;C:\BuildFarm\WIM\install.wim&#34;
 
 Details for image : C:\BuildFarm\WIM\install.wim
@@ -8169,7 +8169,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-d121b000c48debb7babd7e8e3c7ac56d"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-270c90b1c13b591b758ed94b8001c9e9"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -8190,7 +8190,7 @@ Extract Specific Windows Index from Windows 10 Multiple Edition ISO</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-d121b000c48debb7babd7e8e3c7ac56d">
+                <div class="card-body" id="cp-270c90b1c13b591b758ed94b8001c9e9">
                     
                         
                     
@@ -8278,7 +8278,7 @@ exit /b %errorlevel%</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-fe8197bd54ae941f6a318ebb475c9a2b"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-1e6cd6e733a265dfb2b7413466e3fa36"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -8299,7 +8299,7 @@ exit /b %errorlevel%</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-fe8197bd54ae941f6a318ebb475c9a2b">
+                <div class="card-body" id="cp-1e6cd6e733a265dfb2b7413466e3fa36">
                     
                         
                     
@@ -8616,7 +8616,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-f5e86652cd4388fb07be1ca1cef71d1a"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-3a0b4bd77f4d5079de7b83066aa688d2"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -8625,7 +8625,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-f5e86652cd4388fb07be1ca1cef71d1a">
+    <div class="card-body p-0" id="cp-3a0b4bd77f4d5079de7b83066aa688d2">
       <pre><code class="language-plaintext">Dec 27 22:23:48 oleksandr-xps15 udevadm[260]: systemd-udev-settle.service is deprecated. Please fix gdm.service not to pull it in.</code></pre>
     </div>
   </div>
@@ -8818,7 +8818,7 @@ rpm2cpio myrpmfile.rpm | cpio -idmv
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-f8e990070f0dc1a02cbdb0b2c4315b3d"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-d557a50c4f611e63f45401f49f56a9ec"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -8839,7 +8839,7 @@ rpm2cpio myrpmfile.rpm | cpio -idmv
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-f8e990070f0dc1a02cbdb0b2c4315b3d">
+                <div class="card-body" id="cp-d557a50c4f611e63f45401f49f56a9ec">
                     
                         
                     
@@ -8888,7 +8888,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-7448c542e43a3672dacc2b9b7e0ec6ec"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-7e0dd1c8b36874ca25d7e20c19a3b0d5"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -8897,7 +8897,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-7448c542e43a3672dacc2b9b7e0ec6ec">
+    <div class="card-body p-0" id="cp-7e0dd1c8b36874ca25d7e20c19a3b0d5">
       <pre><code class="language-plaintext">delete-files.sh &#34;3&#34; &#34;/path/to/storage&#34;</code></pre>
     </div>
   </div>
@@ -8949,7 +8949,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-3542c0d69a0a2ac8d82fd892a847177e"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-f57b6666ef36b2d322549139018d2fe2"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -8970,7 +8970,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-3542c0d69a0a2ac8d82fd892a847177e">
+                <div class="card-body" id="cp-f57b6666ef36b2d322549139018d2fe2">
                     
                         
                     
@@ -9571,7 +9571,7 @@ $config[&#39;cache&#39;][&#39;context&#39;][&#39;page&#39;][&#39;config&#39;]   
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-61bd22977111f9b025eb8519cdd06d4e"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-0e00aefddb920f83e0b3290979081816"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -9592,7 +9592,7 @@ $config[&#39;cache&#39;][&#39;context&#39;][&#39;page&#39;][&#39;config&#39;]   
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-61bd22977111f9b025eb8519cdd06d4e">
+                <div class="card-body" id="cp-0e00aefddb920f83e0b3290979081816">
                     
                         
                     
@@ -9649,7 +9649,7 @@ jobs:
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-560847471ad2226d934aadd207cbd982"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-e05a071e9b5190d68d10a2c24bfa57c3"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -9670,7 +9670,7 @@ jobs:
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-560847471ad2226d934aadd207cbd982">
+                <div class="card-body" id="cp-e05a071e9b5190d68d10a2c24bfa57c3">
                     
                         
                     
@@ -9741,7 +9741,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-8fbfe9dac177436194551545954bc584"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-41a0dbac4bbafcac632cba8fbd05d71e"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -9750,7 +9750,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-8fbfe9dac177436194551545954bc584">
+    <div class="card-body p-0" id="cp-41a0dbac4bbafcac632cba8fbd05d71e">
       <pre><code class="language-plaintext">bash favicon.sh png</code></pre>
     </div>
   </div>
@@ -9777,7 +9777,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-32ccae6a7c3a07255b139064e1fda894"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-b67686aecdf3ff81145d4b333fa1e212"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -9786,7 +9786,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-32ccae6a7c3a07255b139064e1fda894">
+    <div class="card-body p-0" id="cp-b67686aecdf3ff81145d4b333fa1e212">
       <pre><code class="language-plaintext">bash favicon.sh ico</code></pre>
     </div>
   </div>
@@ -9836,7 +9836,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-bf13594c4d4e22f94e168525954f9a24"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-6cb4dc1723129245bf0e7f036f616817"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -9845,7 +9845,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-bf13594c4d4e22f94e168525954f9a24">
+    <div class="card-body p-0" id="cp-6cb4dc1723129245bf0e7f036f616817">
       <pre><code class="language-plaintext">ip a
 
 1: lo: &lt;loopback,up,lower_up&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
@@ -9882,7 +9882,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-root">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-1dafd490f69d863642336e00ea1287a9"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-d46a71f3db8b6e54993351b21f11d102"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -9891,7 +9891,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-root">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-1dafd490f69d863642336e00ea1287a9">
+    <div class="card-body p-0" id="cp-d46a71f3db8b6e54993351b21f11d102">
       <pre><code class="language-plaintext">cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
 
 TYPE=&#34;Ethernet&#34;
@@ -10138,7 +10138,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-f272cb60a9043871f0c0bce5369e0c11"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-1251520c7124768c993c30194392f9b7"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -10147,7 +10147,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-f272cb60a9043871f0c0bce5369e0c11">
+    <div class="card-body p-0" id="cp-1251520c7124768c993c30194392f9b7">
       <pre><code class="language-plaintext">lscpu
 
 Architecture:                    x86_64
@@ -10203,7 +10203,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-51907996780220ec7ac1f7d79dd51e23"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-1175622f136aa0b6a94071c7f30088e2"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -10212,7 +10212,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-51907996780220ec7ac1f7d79dd51e23">
+    <div class="card-body p-0" id="cp-1175622f136aa0b6a94071c7f30088e2">
       <pre><code class="language-plaintext">lspci
 
 00:00.0 Host bridge: Intel Corporation Comet Lake-S 6c Host Bridge/DRAM Controller (rev 05)
@@ -10262,7 +10262,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-706672acf4504211e3f324b1c270ef90"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-040956e16e33fa5004e00b4377faf23c"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -10271,7 +10271,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-706672acf4504211e3f324b1c270ef90">
+    <div class="card-body p-0" id="cp-040956e16e33fa5004e00b4377faf23c">
       <pre><code class="language-plaintext">lsblk
 
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -10320,7 +10320,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-eda5bc4d8d081a8c153d0431f88ef8c8"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-35e7b74862a19908dcad8b5e84c36ac6"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -10329,7 +10329,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-eda5bc4d8d081a8c153d0431f88ef8c8">
+    <div class="card-body p-0" id="cp-35e7b74862a19908dcad8b5e84c36ac6">
       <pre><code class="language-plaintext">lsmod
 
 Module                  Size  Used by
@@ -10383,7 +10383,7 @@ llc                    16384  2 bridge,stp</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-cd26112965376a565e8538bffdb755eb"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-0a3b3c59a30f8cc5a15b8514e3919c16"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -10404,7 +10404,7 @@ llc                    16384  2 bridge,stp</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-cd26112965376a565e8538bffdb755eb">
+                <div class="card-body" id="cp-0a3b3c59a30f8cc5a15b8514e3919c16">
                     
                         
                     
@@ -10699,7 +10699,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-2827b29f20a353f64283e7c9d2129b65"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-975d2993869d9a7e65fc57c705a2f0e8"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -10708,7 +10708,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-2827b29f20a353f64283e7c9d2129b65">
+    <div class="card-body p-0" id="cp-975d2993869d9a7e65fc57c705a2f0e8">
       <pre><code class="language-plaintext">gpg --expert --full-gen-key
 
 gpg (GnuPG) 2.2.20; Copyright (C) 2020 Free Software Foundation, Inc.
@@ -10754,7 +10754,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-99f5b4ed64af78b9dcdd798554655a64"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-19f73a8b81b3406b6c258fc7bfc82db2"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -10763,7 +10763,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-99f5b4ed64af78b9dcdd798554655a64">
+    <div class="card-body p-0" id="cp-19f73a8b81b3406b6c258fc7bfc82db2">
       <pre><code class="language-plaintext">gpg --expert --full-gen-key
 
 Please select which elliptic curve you want:
@@ -10799,7 +10799,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-d616d2cf514da5dab154afba87128ccf"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-909f7cbde1016a8a0c75cb2687bb4678"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -10808,7 +10808,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-d616d2cf514da5dab154afba87128ccf">
+    <div class="card-body p-0" id="cp-909f7cbde1016a8a0c75cb2687bb4678">
       <pre><code class="language-plaintext">gpg --expert --full-gen-key
 
 Please specify how long the key should be valid.
@@ -10857,7 +10857,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-b2f0a861fd1a8d44c10a7e819a0692f5"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-8a3ab1e884e84eb3a63cdb0be7cd4b26"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -10866,7 +10866,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-b2f0a861fd1a8d44c10a7e819a0692f5">
+    <div class="card-body p-0" id="cp-8a3ab1e884e84eb3a63cdb0be7cd4b26">
       <pre><code class="language-plaintext">gpg --list-keys --keyid-format LONG --with-fingerprint
 
 pub   ed25519/JTM4BAVLPI8F0XHR 2020-02-17 [SC]
@@ -10985,7 +10985,7 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-6322e6193c6f16bdbd82b001a17620f5"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-e64e72622c9e8d009bb61fcd94b4224c"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -11006,7 +11006,7 @@ sub   cv25519/AI9NEDUOWRF016Y2 2020-02-17 [E]</code></pre>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-6322e6193c6f16bdbd82b001a17620f5">
+                <div class="card-body" id="cp-e64e72622c9e8d009bb61fcd94b4224c">
                     
                         
                     
@@ -11096,7 +11096,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-56d3c013e1c50072af5080a5db21ffba"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-8b509c1f8087547ad96b5e0640600fb3"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -11105,7 +11105,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-56d3c013e1c50072af5080a5db21ffba">
+    <div class="card-body p-0" id="cp-8b509c1f8087547ad96b5e0640600fb3">
       <pre><code class="language-plaintext">bash bash.gpg.gen.sh key &#39;John Doe&#39; &#39;john.doe@example.com&#39; &#39;&lt;PASSPHRASE&gt;&#39;</code></pre>
     </div>
   </div>
@@ -11156,7 +11156,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-146ecad82fa90716cef3cfbe9bab183b"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-cd1ef5db0b35f41f5adb4e3b6be92698"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -11165,7 +11165,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-146ecad82fa90716cef3cfbe9bab183b">
+    <div class="card-body p-0" id="cp-cd1ef5db0b35f41f5adb4e3b6be92698">
       <pre><code class="language-plaintext">curl -X GET &#34;https://api.cloudflare.com/client/v4/user/tokens/verify&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
 
 {
@@ -11255,7 +11255,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
           <ul class="list-inline mb-0">
             <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
               <a class="text-body" href="#"
-                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-5e07677f0206391a157c3c31d02fe560"
+                 data-fn="clipboard preventDefault" data-clipboard-target="#cp-d8c20677e35f17de1d099d65afe505a6"
                  role="button" aria-label='Копировать'>
                 <i class="fas fa-copy fa-fw"></i>
               </a>
@@ -11264,7 +11264,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
         </div>
       </div>
     </div>
-    <div class="card-body p-0" id="cp-5e07677f0206391a157c3c31d02fe560">
+    <div class="card-body p-0" id="cp-d8c20677e35f17de1d099d65afe505a6">
       <pre><code class="language-plaintext">curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/&lt;...&gt;/dns_records&#34; -H &#34;Authorization: Bearer &lt;...&gt;&#34; -H &#34;Content-Type: application/json&#34; | python3 -mjson.tool
 
 {
@@ -11333,7 +11333,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item" data-bs-tooltip data-bs-title='Копировать'>
                           <a class="text-body" href="#"
-                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-48963e6de65a2c902365a69c98466259"
+                             data-fn="clipboard preventDefault" data-clipboard-target="#cp-ff79581611722e16833f3fa8745d7b09"
                              role="button" aria-label='Копировать'>
                             <i class="fas fa-copy fa-fw"></i>
                           </a>
@@ -11354,7 +11354,7 @@ shortcode-codeblock-terminal-linux shortcode-codeblock-terminal-linux-user">
                     </div>
                   </div>
                 </div>
-                <div class="card-body" id="cp-48963e6de65a2c902365a69c98466259">
+                <div class="card-body" id="cp-ff79581611722e16833f3fa8745d7b09">
                     
                         
                     
