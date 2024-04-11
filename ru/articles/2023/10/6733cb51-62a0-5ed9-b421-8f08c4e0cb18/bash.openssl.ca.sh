@@ -16,8 +16,14 @@
 # CONFIGURATION.
 # -------------------------------------------------------------------------------------------------------------------- #
 
+# Get 'cat' command.
+cat="$( command -v cat )"
+
 # Get 'date' command.
 date="$( command -v date )"
+
+# Get 'mkdir' command.
+mkdir="$( command -v mkdir )"
 
 # Get 'openssl' command.
 ossl="$( command -v openssl )"
@@ -25,16 +31,27 @@ ossl="$( command -v openssl )"
 # Get 'shuf' command.
 shuf="$( command -v shuf )"
 
-# CA key & certificate names.
-ca_key='ca.root.key'
-ca_crt='ca.root.crt'
+# CA file names.
+ca='_CA'
 
 # Specifies the number of days to make a certificate valid for.
 # Default is 10 years.
 days='3650'
 
+# The two-letter country code where your company is legally located.
+country='RU'
+
+# The state/province where your company is legally located.
+state='Russia'
+
+# The city where your company is legally located.
+city='Moscow'
+
+# Your company's legally registered name (e.g., YourCompany, Inc.).
+org='YourCompany'
+
 # Timestamp.
-ts="$(( $( ${date} -u '+%s%N' ) / 1000000 ))"
+ts="$( ${date} -u '+%s' )"
 
 # Suffix.
 sfx=$( ${shuf} -i '1000-9999' -n 1 --random-source='/dev/random' )
@@ -48,14 +65,25 @@ sfx=$( ${shuf} -i '1000-9999' -n 1 --random-source='/dev/random' )
 # -------------------------------------------------------------------------------------------------------------------- #
 
 ca() {
-  local ec='secp384r1'
-
   ! [[ -x "${ossl}" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
 
-  echo "" && echo "--- [SSL] Certificate Authority" && echo ""
-  ${ossl} req -x509 -newkey ec:<( openssl ecparam -name "${ec}" ) -nodes -sha384 -days "${days}" \
-    -keyout "${ca_key}" -out "${ca_crt}" \
-    && ${ossl} x509 -in "${ca_crt}" -text -noout
+  local name="${1:-example.com}"
+  local email="${2:-mail@example.com}"
+  local v3ext_ca='_CA.v3ext'
+
+  cat > "${v3ext_ca}" <<EOF
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints = critical, CA:TRUE
+keyUsage = critical, digitalSignature, cRLSign, keyCertSign
+EOF
+
+  echo '' && echo "--- [SSL-CA] CREATING A CA CERTIFICATE" && echo ''
+  ${ossl} ecparam -genkey -name 'secp384r1' | ${ossl} ec -aes256 -out "${ca}.key" \
+    && ${ossl} req -new -sha384 -key "${ca}.key" -out "${ca}.csr" \
+    -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/emailAddress=${email}/CN=${name}" \
+    && ${ossl} x509 -req -extfile "${v3ext_ca}" -sha384 -days ${days} -key "${ca}.key" -in "${ca}.csr" -out "${ca}.crt"
+
+    _info "${ca}.crt"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -63,30 +91,83 @@ ca() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 cert() {
-  local ec='prime256v1'
-  local key_pvt="${ts}.${sfx}.private.key"
-  local key_pub="${ts}.${sfx}.public.key"
-  local csr="${ts}.${sfx}.csr"
-  local crt="${ts}.${sfx}.crt"
-  local p12="${ts}.${sfx}.p12"
-  local srl="${ts}.${sfx}.srl"
+  for i in "${mkdir}" "${ossl}" "${shuf}"; do
+    ! [[ -x "${i}" ]] && { echo >&2 "'${i}' is not installed!"; exit 1; }
+  done
 
-  ! [[ -x "${ossl}" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
-  ! [[ -x "${shuf}" ]] && { echo >&2 "'shuf' is not installed!"; exit 1; }
+  local name="${1:-example.com}"
+  local email="${2:-mail@example.com}"
+  local type="${3:-server}"; [[ "${name}" = *' '* ]] && type='client'
+  local dir="${type}/${name// /_}"; ${mkdir} -p "${dir}"
+  local file="${dir}/${email}.${ts}.${sfx}"
 
-  echo "" && echo "--- [SSL] Client Certificate [${ts}]" && echo ""
-  ${ossl} ecparam -name "${ec}" -genkey -noout -out "${key_pvt}" \
-    && ${ossl} ec -in "${key_pvt}" -pubout -out "${key_pub}" \
-    && ${ossl} req -new -key "${key_pvt}" -out "${csr}" \
-    && ${ossl} x509 -req -in "${csr}" \
-        -CA "${ca_crt}" -CAkey "${ca_key}" -days "${days}" \
-        -CAcreateserial -CAserial "${srl}" \
-        -out "${crt}" \
-    && ${ossl} pkcs12 -export \
-        -inkey "${key_pvt}" \
-        -in "${crt}" -out "${p12}" \
-    && ${ossl} verify -CAfile "${ca_crt}" "${crt}" \
-    && ${ossl} x509 -in "${crt}" -text -noout
+  local v3ext
+  if [[ "${type}" = 'client' ]]; then
+    v3ext=$( _v3ext_client "${file}.v3ext" )
+  else
+    v3ext=$( _v3ext_server "${file}.v3ext" "${name}" )
+  fi
+
+  echo '' && echo "--- [SSL] CREATING A ${type^^} CERTIFICATE" && echo ''
+  ${ossl} ecparam -genkey -name 'prime256v1' | ${ossl} ec -out "${file}.key" \
+    && ${ossl} req -new -key "${file}.key" -out "${file}.csr" \
+    -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/emailAddress=${email}/CN=${name}" \
+    && ${ossl} x509 -req -extfile "${v3ext}" -days ${days} -in "${file}.csr" \
+    -CA "${ca}.crt" -CAkey "${ca}.key" -CAcreateserial -CAserial "${file}.srl" -out "${file}.crt" \
+    && ${cat} "${file}.key" "${file}.crt" "${ca}.crt" > "${file}.crt.chain"
+
+  _verify "${ca}.crt" "${file}.crt" && _info "${file}.crt" && _export "${file}.key" "${file}.crt" "${file}.p12"
 }
+
+_verify() {
+  echo '' && echo "--- [SSL] CERTIFICATE VERIFICATION" && echo ''
+  for i in "${1}" "${2}"; do [[ ! -f "${i}" ]] && { echo >&2 "'${i}' not found!"; exit 1; }; done
+  ${ossl} verify -CAfile "${1}" "${2}"
+}
+
+_info() {
+  echo '' && echo "--- [SSL] CERTIFICATE DETAILS" && echo ''
+  [[ ! -f "${1}" ]] && { echo >&2 "'${i}' not found!"; exit 1; }
+  ${ossl} x509 -in "${1}" -text -noout
+}
+
+_export() {
+  echo '' && echo "--- [SSL] EXPORTING A CERTIFICATE" && echo ''
+  for i in "${1}" "${2}"; do [[ ! -f "${i}" ]] && { echo >&2 "'${i}' not found!"; exit 1; }; done
+  ${ossl} pkcs12 -export -inkey "${1}" -in "${2}" -out "${3}"
+}
+
+_v3ext_client() {
+  cat > "${1}" <<EOF
+authorityKeyIdentifier = keyid,issuer
+basicConstraints = CA:FALSE
+extendedKeyUsage = clientAuth, emailProtection
+keyUsage = critical, digitalSignature, keyEncipherment, nonRepudiation
+nsCertType = client, email
+nsComment = "OpenSSL Generated Client Certificate"
+EOF
+  echo -n "${1}"
+}
+
+_v3ext_server() {
+  cat > "${1}" <<EOF
+authorityKeyIdentifier = keyid,issuer:always
+basicConstraints = CA:FALSE
+extendedKeyUsage = serverAuth
+keyUsage = critical, digitalSignature, keyEncipherment
+nsCertType = server
+nsComment = "OpenSSL Generated Server Certificate"
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = ${2}
+DNS.2 = *.${2}
+EOF
+  echo -n "${1}"
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# -------------------------------------------------< RUNNING SCRIPT >------------------------------------------------- #
+# -------------------------------------------------------------------------------------------------------------------- #
 
 "$@"
