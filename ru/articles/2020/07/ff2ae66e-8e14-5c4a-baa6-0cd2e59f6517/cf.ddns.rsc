@@ -77,5 +77,5 @@
     output=user as-value
   /ip dns cache flush
 } else={
-  # :log info "CloudFlare: No update needed!"
+# :log info "CloudFlare: No update needed!"
 }
