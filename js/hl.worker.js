@@ -7,7 +7,7 @@ onmessage = ($event) => {
 
   for (let $i = 0; $i < $len; ++$i) {
     const $data = $event.data[$i];
-    const $lang = $data.language;
+    let $lang = $data.language;
     if (self.hljs.getLanguage($lang) === undefined) $lang = 'plaintext';
     $result.push(self.hljs.highlight($data.code, {language: $lang}).value);
   }
