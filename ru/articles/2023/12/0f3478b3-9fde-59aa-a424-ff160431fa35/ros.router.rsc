@@ -6,7 +6,7 @@
 # @link       https://lib.onl/ru/articles/2023/12/0f3478b3-9fde-59aa-a424-ff160431fa35/
 # -------------------------------------------------------------------------------------------------------------------- #
 # Set MAC:
-# /interface ethernet set [ find default-name="ether1" ] mac-address="00:00:00:00:00:00"
+# /interface ethernet set [find default-name="ether1"] mac-address="00:00:00:00:00:00"
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # Administrator password.
