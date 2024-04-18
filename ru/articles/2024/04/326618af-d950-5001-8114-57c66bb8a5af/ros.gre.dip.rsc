@@ -21,10 +21,10 @@
 :set wanAddress [/ip address get [/ip address find interface=$wanInterface] address]
 :set wanAddress [:pick $wanAddress 0 [:find $wanAddress "/"]]
 
-:foreach i in=[/interface gre find where comment~"^DOMAIN: "] do={
+:foreach i in=[/interface gre find where comment~"^HOST: "] do={
   :set greComment [/interface gre get $i comment]
   :set greCommentLen [:len $greComment]
-  :set greHost [:pick $greComment 8 $greCommentLen]
+  :set greHost [:pick $greComment 6 $greCommentLen]
   :set greLocalAddress [/interface gre get $i local-address]
   :set greRemoteAddressOld [/interface gre get $i remote-address]
   :set greRemoteAddressNew [:resolve $greHost]
