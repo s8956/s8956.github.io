@@ -51,10 +51,10 @@ add interface="$rosBridgeName" list=LAN
 set disable-ipv6=yes
 
 /ip ipsec profile
-set [ find default=yes ] dh-group=ecp384 enc-algorithm=aes-256 hash-algorithm=sha256
+set [find default=yes] dh-group=ecp384 enc-algorithm=aes-256 hash-algorithm=sha256
 
 /ip ipsec proposal
-set [ find default=yes ] auth-algorithms=sha256 enc-algorithms=aes-256-cbc pfs-group=ecp384
+set [find default=yes] auth-algorithms=sha256 enc-algorithms=aes-256-cbc pfs-group=ecp384
 
 /ip pool
 add name=dhcp ranges=10.1.200.1-10.1.200.254
