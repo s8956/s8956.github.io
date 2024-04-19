@@ -39,10 +39,10 @@
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # IP on WAN interface.
-:local srcIP ""
+:local srcIP
 
 # IP on CloudFlare domain.
-:local dstIP ""
+:local dstIP
 
 # Get RouterOS WAN IP.
 :set srcIP [/ip address get [/ip address find interface=$rosWanInterface ] address]
@@ -76,6 +76,4 @@
     check-certificate=$rosCheckCert \
     output=user as-value
   /ip dns cache flush
-} else={
-# :log info "CloudFlare: No update needed!"
 }
