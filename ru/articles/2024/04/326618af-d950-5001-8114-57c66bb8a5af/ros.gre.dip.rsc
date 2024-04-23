@@ -36,8 +36,8 @@
     :log info ("Updating GRE remote address (" . $greComment . ") from " . $greRemoteAddressOld . " to " . $greRemoteAddressNew . ".")
   }
 
-  :if ($wanAddress != $greLocalAddress) do={
-    /interface gre set $i local-address=$wanAddress
-    :log info ("Updating GRE local address from " . $greLocalAddress . " to " . $wanAddress . ".")
-  }
+  # :if ($wanAddress != $greLocalAddress) do={
+  #   /interface gre set $i local-address=$wanAddress
+  #   :log info ("Updating GRE local address from " . $greLocalAddress . " to " . $wanAddress . ".")
+  # }
 }
