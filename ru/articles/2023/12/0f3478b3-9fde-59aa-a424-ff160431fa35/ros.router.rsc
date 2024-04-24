@@ -34,20 +34,21 @@
 # -------------------------------------------------------------------------------------------------------------------- #
 
 /interface bridge
-add name="$rosBridgeName"
+add name=$rosBridgeName
 
 /interface list
 add name=WAN
 add name=LAN
+add name=GRE
 
 /interface bridge port
 :for i from=$rosBridgeMinPort to=$rosBridgeMaxPort do={
-  add bridge="$rosBridgeName" interface=("ether" . $i)
+  add bridge=$rosBridgeName interface=("ether" . $i)
 }
 
 /interface list member
 add interface=ether1 list=WAN
-add interface="$rosBridgeName" list=LAN
+add interface=$rosBridgeName list=LAN
 
 /ipv6 settings
 set disable-ipv6=yes
@@ -62,13 +63,13 @@ set [find default=yes] auth-algorithms=sha256 enc-algorithms=aes-256-cbc pfs-gro
 add name=dhcp ranges=10.1.200.1-10.1.200.254
 
 /ip dhcp-server
-add address-pool=dhcp interface="$rosBridgeName" name=dhcp1
+add address-pool=dhcp interface=$rosBridgeName name=dhcp1
 
 /ip neighbor discovery-settings
 set discover-interface-list=LAN
 
 /ip address
-add address=10.1.0.1/16 interface="$rosBridgeName" network=10.1.0.0
+add address=10.1.0.1/16 interface=$rosBridgeName network=10.1.0.0
 
 /ip dhcp-client
 add interface=ether1
@@ -77,13 +78,13 @@ add interface=ether1
 # add address=10.1.0.40 mac-address=00:00:00:00:00:00 comment="SERVER01"
 
 /ip dhcp-server network
-add address=10.1.0.0/16 dns-server=10.1.0.1 domain="$rosNwDomain" gateway=10.1.0.1 ntp-server=10.1.0.1
+add address=10.1.0.0/16 dns-server=10.1.0.1 domain=$rosNwDomain gateway=10.1.0.1 ntp-server=10.1.0.1
 
 /ip dns
 set allow-remote-requests=yes servers=1.1.1.1,8.8.8.8,77.88.8.8
 
 /ip dns static
-add address=10.1.0.1 name="$rosGwDomain"
+add address=10.1.0.1 name=$rosGwDomain
 
 /ip firewall filter
 add action=accept chain=input connection-state=established,related,untracked \
@@ -95,9 +96,13 @@ add action=add-src-to-address-list address-list="AdminCP" address-list-timeout=3
   comment="[ROS] ICMP port knocking for AdminCP"
 add action=accept chain=input protocol=icmp \
   comment="[ROS] ICMP"
-add action=accept chain=input protocol=ospf disabled=yes \
+add action=accept chain=input in-interface-list=GRE protocol=ospf disabled=yes \
   comment="[ROS] OSPF"
+add action=accept chain=input dst-port=53 in-interface-list=GRE protocol=udp disabled=yes \
+  comment="[ROS] DNS"
 add action=accept chain=input dst-port=9090,22022 protocol=tcp src-address-list="AdminCP" \
+  comment="[ROS] WinBox and SSH"
+add action=accept chain=input dst-port=9090,22022 in-interface-list=GRE protocol=tcp disabled=yes \
   comment="[ROS] WinBox and SSH"
 add action=drop chain=input in-interface-list=!LAN \
   comment="[ROS] All not coming from LAN"
@@ -131,7 +136,7 @@ set api-ssl disabled=yes
 set time-zone-name=Europe/Moscow
 
 /system identity
-set name="$rosRouterName"
+set name=$rosRouterName
 
 /system ntp client
 set enabled=yes
@@ -162,3 +167,11 @@ set enabled=no
 
 /user
 set [find name="admin"] password="$rosAdminPassword"
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# Router ID.
+# -------------------------------------------------------------------------------------------------------------------- #
+
+/routing id
+add id=10.1.0.1 name=lo select-dynamic-id=only-loopback \
+  comment="[ROS] Router ID (Loopback)"
