@@ -129,11 +129,11 @@ ip dhcp pool LAN
 ! -------------------------------------------------------------------------------------------------------------------- !
 ! NAT.
 ! -------------------------------------------------------------------------------------------------------------------- !
-ip nat inside source route-map MAP_ETH_00 interface FastEthernet0/0 overload
+ip nat inside source route-map RM_NAT_ISP0 interface FastEthernet0/0 overload
+!ip nat inside source route-map RM_NAT_ISP1 interface FastEthernet0/1 overload
 ! -------------------------------------------------------------------------------------------------------------------- !
 ! ACL.
 ! -------------------------------------------------------------------------------------------------------------------- !
-!
 ip access-list standard ACL_VTY
   remark Hosts permitted to VTY.
   permit 10.0.0.0 0.255.255.255
@@ -142,9 +142,39 @@ ip access-list standard ACL_VTY
 ip access-list standard ACL_NAT
   remark Hosts permitted to NAT.
   permit 10.88.0.0 0.0.255.255
-!
-route-map MAP_ETH_00 permit 10
+! -------------------------------------------------------------------------------------------------------------------- !
+! ROUTE MAPS.
+! -------------------------------------------------------------------------------------------------------------------- !
+! Internet Service Provider #0.
+route-map RM_NAT_ISP0 permit 10
   match ip address ACL_NAT
   match interface FastEthernet0/0
+! Internet Service Provider #1.
+!route-map RM_NAT_ISP1 permit 20
+!  match ip address ACL_NAT
+!  match interface FastEthernet0/1
+! -------------------------------------------------------------------------------------------------------------------- !
+! SLA.
+! -------------------------------------------------------------------------------------------------------------------- !
+ip sla 100
+  icmp-echo 8.8.8.8 source-interface FastEthernet0/0
+  threshold 1000
+  timeout 1000
+  frequency 10
+ip sla schedule 100 life forever start-time now
+ip sla 101
+  icmp-echo 77.88.8.8 source-interface FastEthernet0/0
+  threshold 1000
+  timeout 1000
+  frequency 10
+ip sla schedule 101 life forever start-time now
+! -------------------------------------------------------------------------------------------------------------------- !
+! TRACKs.
+! -------------------------------------------------------------------------------------------------------------------- !
+track 100 ip sla 100 reachability
+track 101 ip sla 101 reachability
+track 105 list boolean or
+  object 100
+  object 101
 !
 end
