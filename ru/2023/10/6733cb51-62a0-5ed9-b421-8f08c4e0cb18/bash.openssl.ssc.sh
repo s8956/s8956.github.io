@@ -60,7 +60,7 @@ if [[ -f "${host}.key" ]]; then
     -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/emailAddress=${email}/CN=${host}" \
     -addext "subjectAltName=DNS:${host},DNS:*.${host}" \
     && ${ossl} x509 -req -sha256 -days ${days} -copy_extensions 'copyall' \
-      -signkey "${host}.key" -in "${host}.csr" -out "${host}.crt" \
+      -key "${host}.key" -in "${host}.csr" -out "${host}.crt" \
     && ${ossl} x509 -in "${host}.crt" -text -noout
 else
   echo "'${host}.key' not found!" && exit 1
