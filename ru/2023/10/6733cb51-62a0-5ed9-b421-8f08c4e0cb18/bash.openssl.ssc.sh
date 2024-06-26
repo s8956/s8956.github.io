@@ -58,6 +58,10 @@ fi
 if [[ -f "${host}.key" ]]; then
   ${ossl} req -new -sha256 -key "${host}.key" -out "${host}.csr" \
     -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/emailAddress=${email}/CN=${host}" \
+    -addext 'basicConstraints = critical, CA:FALSE' \
+    -addext 'nsComment = OpenSSL Generated Certificate' \
+    -addext 'keyUsage = critical, digitalSignature, keyEncipherment' \
+    -addext 'extendedKeyUsage = serverAuth, clientAuth' \
     -addext "subjectAltName=DNS:${host},DNS:*.${host}" \
     && ${ossl} x509 -req -sha256 -days ${days} -copy_extensions 'copyall' \
       -key "${host}.key" -in "${host}.csr" -out "${host}.crt" \
