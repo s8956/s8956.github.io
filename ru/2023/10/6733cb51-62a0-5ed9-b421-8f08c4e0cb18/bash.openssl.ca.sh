@@ -95,11 +95,11 @@ cert() {
     ! [[ -x "${i}" ]] && { echo >&2 "'${i}' is not installed!"; exit 1; }
   done
 
-  local name="${1:-example.com}"
-  local email="${2:-mail@example.com}"
-  local type="${3:-server}"; [[ "${name}" = *' '* ]] && type='client'
-  local dir="${type}/${name// /_}"; ${mkdir} -p "${dir}"
-  local file="${dir}/${email}.${ts}.${sfx}"
+  local name; name="${1:-example.com}"
+  local email; email="${2:-mail@example.com}"
+  local type; type="${3:-server}"; [[ "${name}" = *' '* ]] && type='client'
+  local dir; dir="${type}/${name// /_}"; ${mkdir} -p "${dir}"
+  local file; file="${dir}/${email}.${ts}.${sfx}"
 
   local v3ext
   if [[ "${type}" = 'client' ]]; then
@@ -153,7 +153,7 @@ _v3ext_server() {
   cat > "${1}" <<EOF
 authorityKeyIdentifier = keyid,issuer:always
 basicConstraints = CA:FALSE
-extendedKeyUsage = serverAuth
+extendedKeyUsage = serverAuth, clientAuth
 keyUsage = critical, digitalSignature, keyEncipherment
 nsCertType = server
 nsComment = "OpenSSL Generated Server Certificate"
@@ -162,6 +162,7 @@ subjectAltName = @alt_names
 [alt_names]
 DNS.1 = ${2}
 DNS.2 = *.${2}
+IP.1 = 127.0.0.1
 EOF
   echo -n "${1}"
 }
