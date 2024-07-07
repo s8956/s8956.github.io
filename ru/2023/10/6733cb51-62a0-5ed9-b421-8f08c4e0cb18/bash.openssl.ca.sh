@@ -26,7 +26,7 @@ date="$( command -v date )"
 mkdir="$( command -v mkdir )"
 
 # Get 'openssl' command.
-ossl="$( command -v openssl )"
+openssl="$( command -v openssl )"
 
 # Get 'shuf' command.
 shuf="$( command -v shuf )"
@@ -65,7 +65,7 @@ sfx=$( ${shuf} -i '1000-9999' -n 1 --random-source='/dev/random' )
 # -------------------------------------------------------------------------------------------------------------------- #
 
 ca() {
-  ! [[ -x "${ossl}" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
+  ! [[ -x "${openssl}" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
 
   local name="${1:-example.com}"
   local email="${2:-mail@example.com}"
@@ -78,10 +78,10 @@ keyUsage = critical, digitalSignature, cRLSign, keyCertSign
 EOF
 
   echo '' && echo "--- [SSL-CA] CREATING A CA CERTIFICATE" && echo ''
-  ${ossl} ecparam -genkey -name 'secp384r1' | ${ossl} ec -aes256 -out "${ca}.key" \
-    && ${ossl} req -new -sha384 -key "${ca}.key" -out "${ca}.csr" \
+  ${openssl} ecparam -genkey -name 'secp384r1' | ${openssl} ec -aes256 -out "${ca}.key" \
+    && ${openssl} req -new -sha384 -key "${ca}.key" -out "${ca}.csr" \
     -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/emailAddress=${email}/CN=${name}" \
-    && ${ossl} x509 -req -extfile "${v3ext_ca}" -sha384 -days ${days} -key "${ca}.key" -in "${ca}.csr" -out "${ca}.crt"
+    && ${openssl} x509 -req -extfile "${v3ext_ca}" -sha384 -days ${days} -key "${ca}.key" -in "${ca}.csr" -out "${ca}.crt"
 
     _info "${ca}.crt"
 }
@@ -91,7 +91,7 @@ EOF
 # -------------------------------------------------------------------------------------------------------------------- #
 
 cert() {
-  for i in "${mkdir}" "${ossl}" "${shuf}"; do
+  for i in "${mkdir}" "${openssl}" "${shuf}"; do
     ! [[ -x "${i}" ]] && { echo >&2 "'${i}' is not installed!"; exit 1; }
   done
 
@@ -109,10 +109,10 @@ cert() {
   fi
 
   echo '' && echo "--- [SSL] CREATING A ${type^^} CERTIFICATE" && echo ''
-  ${ossl} ecparam -genkey -name 'prime256v1' | ${ossl} ec -out "${file}.key" \
-    && ${ossl} req -new -key "${file}.key" -out "${file}.csr" \
+  ${openssl} ecparam -genkey -name 'prime256v1' | ${openssl} ec -out "${file}.key" \
+    && ${openssl} req -new -key "${file}.key" -out "${file}.csr" \
     -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/emailAddress=${email}/CN=${name}" \
-    && ${ossl} x509 -req -extfile "${v3ext}" -days ${days} -in "${file}.csr" \
+    && ${openssl} x509 -req -extfile "${v3ext}" -days ${days} -in "${file}.csr" \
     -CA "${ca}.crt" -CAkey "${ca}.key" -CAcreateserial -CAserial "${file}.srl" -out "${file}.crt" \
     && ${cat} "${file}.key" "${file}.crt" "${ca}.crt" > "${file}.crt.chain"
 
@@ -122,29 +122,29 @@ cert() {
 _verify() {
   echo '' && echo "--- [SSL] CERTIFICATE VERIFICATION" && echo ''
   for i in "${1}" "${2}"; do [[ ! -f "${i}" ]] && { echo >&2 "'${i}' not found!"; exit 1; }; done
-  ${ossl} verify -CAfile "${1}" "${2}"
+  ${openssl} verify -CAfile "${1}" "${2}"
 }
 
 _info() {
   echo '' && echo "--- [SSL] CERTIFICATE DETAILS" && echo ''
   [[ ! -f "${1}" ]] && { echo >&2 "'${i}' not found!"; exit 1; }
-  ${ossl} x509 -in "${1}" -text -noout
+  ${openssl} x509 -in "${1}" -text -noout
 }
 
 _export() {
   echo '' && echo "--- [SSL] EXPORTING A CERTIFICATE" && echo ''
   for i in "${1}" "${2}"; do [[ ! -f "${i}" ]] && { echo >&2 "'${i}' not found!"; exit 1; }; done
-  ${ossl} pkcs12 -export -inkey "${1}" -in "${2}" -out "${3}"
+  ${openssl} pkcs12 -export -inkey "${1}" -in "${2}" -out "${3}"
 }
 
 _v3ext_client() {
   cat > "${1}" <<EOF
 authorityKeyIdentifier = keyid,issuer
 basicConstraints = CA:FALSE
-extendedKeyUsage = clientAuth, emailProtection
-keyUsage = critical, digitalSignature, keyEncipherment, nonRepudiation
 nsCertType = client, email
 nsComment = "OpenSSL Generated Client Certificate"
+keyUsage = critical, digitalSignature, keyEncipherment, nonRepudiation
+extendedKeyUsage = clientAuth, emailProtection
 EOF
   echo -n "${1}"
 }
@@ -153,10 +153,10 @@ _v3ext_server() {
   cat > "${1}" <<EOF
 authorityKeyIdentifier = keyid,issuer:always
 basicConstraints = CA:FALSE
-extendedKeyUsage = serverAuth, clientAuth
-keyUsage = critical, digitalSignature, keyEncipherment
 nsCertType = server
 nsComment = "OpenSSL Generated Server Certificate"
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth, clientAuth
 subjectAltName = @alt_names
 
 [alt_names]

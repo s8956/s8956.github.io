@@ -17,7 +17,7 @@
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # Get 'openssl' command.
-ossl="$( command -v openssl )"
+openssl="$( command -v openssl )"
 
 # Specifies the number of days to make a certificate valid for.
 # Default is 10 years.
@@ -33,41 +33,41 @@ state='Russia'
 city='Moscow'
 
 # Your company's legally registered name (e.g., YourCompany, Inc.).
-org='YourCompany'
+org='LocalHost'
+
+# Your company's organizational unit.
+ou='IT Department'
 
 # The fully-qualified domain name (FQDN) (e.g., www.example.com).
-host="${1:-example.com}"
+cn="${1:-localhost}"
+
+# Host IP addresses.
+ip="${2:-IP:127.0.0.1}"
 
 # Your email address.
-email="mail@${host}"
+email="mail@${cn}"
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
 # -------------------------------------------------------------------------------------------------------------------- #
 
-! [[ -x "${ossl}" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
-
-echo "" && echo "--- [SSL] Self Signed Certificate: '${host}'" && echo ""
-
-if [[ "${2}" = 'rsa' ]]; then
-  ${ossl} genrsa -out "${host}.key" 2048
-else
-  ${ossl} ecparam -genkey -name 'prime256v1' -out "${host}.key"
-fi
-
-if [[ -f "${host}.key" ]]; then
-  ${ossl} req -new -sha256 -key "${host}.key" -out "${host}.csr" \
-    -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/emailAddress=${email}/CN=${host}" \
-    -addext 'basicConstraints = critical, CA:FALSE' \
-    -addext 'nsComment = OpenSSL Generated Certificate' \
-    -addext 'keyUsage = critical, digitalSignature, keyEncipherment' \
-    -addext 'extendedKeyUsage = serverAuth, clientAuth' \
-    -addext "subjectAltName=DNS:${host},DNS:*.${host}" \
-    && ${ossl} x509 -req -sha256 -days ${days} -copy_extensions 'copyall' \
-      -key "${host}.key" -in "${host}.csr" -out "${host}.crt" \
-    && ${ossl} x509 -in "${host}.crt" -text -noout
-else
-  echo "'${host}.key' not found!" && exit 1
-fi
+! [[ -x "${openssl}" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
+echo "" && echo "--- [SSL] Self Signed Certificate: '${cn}'" && echo ""
+${openssl} ecparam -genkey -name 'prime256v1' | ${openssl} ec -out "${cn}.key" \
+  && ${openssl} req -new -sha256 \
+  -key "${cn}.key" \
+  -out "${cn}.csr" \
+  -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/OU=${ou}/CN=${cn}/emailAddress=${email}" \
+  -addext 'basicConstraints = critical, CA:FALSE' \
+  -addext 'nsCertType = server' \
+  -addext 'nsComment = OpenSSL Generated Server Certificate' \
+  -addext 'keyUsage = critical, digitalSignature, keyEncipherment' \
+  -addext 'extendedKeyUsage = serverAuth, clientAuth' \
+  -addext "subjectAltName=DNS:${cn}, DNS:*.${cn}, ${ip}" \
+  && ${openssl} x509 -req -sha256 -days ${days} -copy_extensions 'copyall' \
+  -key "${cn}.key" \
+  -in "${cn}.csr" \
+  -out "${cn}.crt" \
+  && ${openssl} x509 -in "${cn}.crt" -text -noout
 
 exit 0
