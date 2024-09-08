@@ -1,15 +1,14 @@
-rem Automatic integration of updates into DISM.
-rem
-rem @package   CMD
-rem @author    Kai Kimera <mail@kai.kim>
-rem @copyright 2023 Library Online
-rem @license   MIT
-rem @version   0.1.0
-rem @link      https://lib.onl/ru/articles/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/
-rem ------------------------------------------------------------------------------------------------------------------ ::
+rem # Automatic integration of updates into DISM.
+rem #
+rem # @package   CMD
+rem # @author    Kai Kimera <mail@kai.kim>
+rem # @copyright 2023 Library Online
+rem # @license   MIT
+rem # @version   0.1.0
+rem # @link      https://lib.onl/ru/articles/2022/05/862226e6-cbb1-58f8-bc8e-0cfef747f475/
+rem # ---------------------------------------------------------------------------------------------------------------- #
 
 @echo off
-
 set d_mnt="%~dp0MNT"
 set d_upd="%~dp0UPD"
 set d_wim="%~dp0WIM"
