@@ -1,63 +1,63 @@
 <#PSScriptInfo
-  .VERSION      0.1.2
-  .GUID         b95fb1ac-6878-4451-bb49-434d51d9555d
-  .AUTHOR       Kai Kimera
-  .AUTHOREMAIL  mail@kai.kim
-  .COMPANYNAME  Library Online
-  .COPYRIGHT    2023 Library Online. All rights reserved.
-  .LICENSEURI   https://choosealicense.com/licenses/mit/
-  .PROJECTURI   https://lib.onl/ru/articles/2023/10/2a73410a-6611-570c-9ab4-dc8cc8998146/
+.VERSION      0.1.2
+.GUID         b95fb1ac-6878-4451-bb49-434d51d9555d
+.AUTHOR       Kai Kimera
+.AUTHOREMAIL  mail@kai.kim
+.COMPANYNAME  Library Online
+.COPYRIGHT    2023 Library Online. All rights reserved.
+.LICENSEURI   https://choosealicense.com/licenses/mit/
+.PROJECTURI   https://lib.onl/ru/2023/10/2a73410a-6611-570c-9ab4-dc8cc8998146/
 #>
 
 #Requires -Version 7.2
 
 <#
-  .SYNOPSIS
-  Video compression script based on FFmpeg.
+.SYNOPSIS
+Video compression script based on FFmpeg.
 
-  .DESCRIPTION
-  FFmpeg is a free and open-source software project consisting of a suite of libraries and programs for handling video, audio, and other multimedia files and streams.
+.DESCRIPTION
+FFmpeg is a free and open-source software project consisting of a suite of libraries and programs for handling video, audio, and other multimedia files and streams.
 
-  .PARAMETER P_Files
-  An array of input files.
+.PARAMETER P_Files
+An array of input files.
 
-  .PARAMETER P_vCodec
-  The video codec.
-  Default: 'libx265'.
+.PARAMETER P_vCodec
+The video codec.
+Default: 'libx265'.
 
-  .PARAMETER P_aCodec
-  The audio codec.
-  Default: 'copy'.
+.PARAMETER P_aCodec
+The audio codec.
+Default: 'copy'.
 
-  .PARAMETER P_Framerate
-  FFmpeg can be used to change the frame rate of an existing video, such that the output frame rate is lower or higher than the input frame rate. The output duration of the video will stay the same.
-  This is useful when working with, for example, high-framerate input video that needs to be temporally scaled down for devices that do not support high FPS.
-  When the frame rate is changed, FFmpeg will drop or duplicate frames as necessary to achieve the targeted output frame rate.
+.PARAMETER P_Framerate
+FFmpeg can be used to change the frame rate of an existing video, such that the output frame rate is lower or higher than the input frame rate. The output duration of the video will stay the same.
+This is useful when working with, for example, high-framerate input video that needs to be temporally scaled down for devices that do not support high FPS.
+When the frame rate is changed, FFmpeg will drop or duplicate frames as necessary to achieve the targeted output frame rate.
 
-  .PARAMETER P_CRF
-  Constant Rate Factor.
-  Use this rate control mode if you want to keep the best quality and care less about the file size. This is the recommended rate control mode for most uses.
-  This method allows the encoder to attempt to achieve a certain output quality for the whole file when output file size is of less importance. This provides maximum compression efficiency with a single pass. By adjusting the so-called quantizer for each frame, it gets the bitrate it needs to keep the requested quality level. The downside is that you can't tell it to get a specific filesize or not go over a specific size or bitrate, which means that this method is not recommended for encoding videos for streaming.
+.PARAMETER P_CRF
+Constant Rate Factor.
+Use this rate control mode if you want to keep the best quality and care less about the file size. This is the recommended rate control mode for most uses.
+This method allows the encoder to attempt to achieve a certain output quality for the whole file when output file size is of less importance. This provides maximum compression efficiency with a single pass. By adjusting the so-called quantizer for each frame, it gets the bitrate it needs to keep the requested quality level. The downside is that you can't tell it to get a specific filesize or not go over a specific size or bitrate, which means that this method is not recommended for encoding videos for streaming.
 
-  .PARAMETER P_Preset
-  A preset is a collection of options that will provide a certain encoding speed to compression ratio. A slower preset will provide better compression (compression is quality per filesize). This means that, for example, if you target a certain file size or constant bit rate, you will achieve better quality with a slower preset. Similarly, for constant quality encoding, you will simply save bitrate by choosing a slower preset.
+.PARAMETER P_Preset
+A preset is a collection of options that will provide a certain encoding speed to compression ratio. A slower preset will provide better compression (compression is quality per filesize). This means that, for example, if you target a certain file size or constant bit rate, you will achieve better quality with a slower preset. Similarly, for constant quality encoding, you will simply save bitrate by choosing a slower preset.
 
-  .PARAMETER P_Extension
-  The extension of the resulting files.
-  Default: 'mp4'.
+.PARAMETER P_Extension
+The extension of the resulting files.
+Default: 'mp4'.
 
-  .EXAMPLE
-  .\pwsh.ffmpeg.video.compress.ps1 -F 'file_01.mov', 'file_02.mov', 'file_03.mov'
+.EXAMPLE
+.\pwsh.ffmpeg.video.compress.ps1 -F 'file_01.mov', 'file_02.mov', 'file_03.mov'
 
-  .EXAMPLE
-  .\pwsh.ffmpeg.video.compress.ps1 -F '*.mov'
+.EXAMPLE
+.\pwsh.ffmpeg.video.compress.ps1 -F '*.mov'
 
-  .LINK
-  https://lib.onl/ru/articles/2023/10/2a73410a-6611-570c-9ab4-dc8cc8998146/
+.LINK
+https://lib.onl/ru/2023/10/2a73410a-6611-570c-9ab4-dc8cc8998146/
 #>
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CONFIGURATION.
+# CONFIGURATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
 Param(
@@ -87,7 +87,7 @@ Param(
 $NL = "$([Environment]::NewLine)"
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# INITIALIZATION.
+# INITIALIZATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-Script() {
@@ -95,7 +95,7 @@ function Start-Script() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# COMPRESS VIDEO.
+# COMPRESS VIDEO
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-CompressVideo() {
@@ -113,7 +113,7 @@ function Start-CompressVideo() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# TESTING ELEMENTS.
+# TESTING ELEMENTS
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Test-Data() {
@@ -131,7 +131,7 @@ function Test-Data() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# APP: FFmpeg.
+# APP: FFMPEG
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-FFmpeg() {

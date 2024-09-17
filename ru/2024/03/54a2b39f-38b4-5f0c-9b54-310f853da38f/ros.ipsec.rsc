@@ -3,7 +3,7 @@
 # @copyright  2024 Library Online
 # @license    MIT
 # @version    0.1.0
-# @link       https://lib.onl/ru/articles/2024/03/54a2b39f-38b4-5f0c-9b54-310f853da38f/
+# @link       https://lib.onl/ru/2024/03/54a2b39f-38b4-5f0c-9b54-310f853da38f/
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # IPsec secret phrase.

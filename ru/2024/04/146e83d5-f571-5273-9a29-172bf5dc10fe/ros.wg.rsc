@@ -3,7 +3,7 @@
 # @copyright  2024 Library Online
 # @license    MIT
 # @version    0.1.0
-# @link       https://lib.onl/ru/articles/2024/04/146e83d5-f571-5273-9a29-172bf5dc10fe/
+# @link       https://lib.onl/ru/2024/04/146e83d5-f571-5273-9a29-172bf5dc10fe/
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # WireGuard interface name.

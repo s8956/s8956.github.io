@@ -7,7 +7,7 @@
 # @copyright  2023 Library Online
 # @license    MIT
 # @version    0.1.0
-# @link       https://lib.onl/ru/articles/2020/07/7a204545-daa8-58ce-ba35-75e732e1bcc0/
+# @link       https://lib.onl/ru/2020/07/7a204545-daa8-58ce-ba35-75e732e1bcc0/
 # -------------------------------------------------------------------------------------------------------------------- #
 
 (( EUID == 0 )) && { echo >&2 'This script should not be run as root!'; exit 1; }

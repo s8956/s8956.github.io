@@ -1,43 +1,43 @@
 <#PSScriptInfo
-  .VERSION      0.1.0
-  .GUID         8d95f4d5-4d14-412c-9fa4-b75ebe79df09
-  .AUTHOR       Kai Kimera
-  .AUTHOREMAIL  mail@kai.kim
-  .COMPANYNAME  Library Online
-  .COPYRIGHT    2023 Library Online. All rights reserved.
-  .LICENSEURI   https://choosealicense.com/licenses/mit/
-  .PROJECTURI   https://lib.onl/ru/articles/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/
+.VERSION      0.1.0
+.GUID         8d95f4d5-4d14-412c-9fa4-b75ebe79df09
+.AUTHOR       Kai Kimera
+.AUTHOREMAIL  mail@kai.kim
+.COMPANYNAME  Library Online
+.COPYRIGHT    2023 Library Online. All rights reserved.
+.LICENSEURI   https://choosealicense.com/licenses/mit/
+.PROJECTURI   https://lib.onl/ru/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/
 #>
 
 #Requires -Version 7.2
 #Requires -RunAsAdministrator
 
 <#
-  .SYNOPSIS
-  Disk erase script.
+.SYNOPSIS
+Disk erase script.
 
-  .DESCRIPTION
-  Disk cleanup followed by partition creation.
+.DESCRIPTION
+Disk cleanup followed by partition creation.
 
-  .PARAMETER P_DiskNumber
-  Specifies the disk number of the disk on which to perform the clear operation. For a list of available disks, see the 'Get-Disk' cmdlet.
+.PARAMETER P_DiskNumber
+Specifies the disk number of the disk on which to perform the clear operation. For a list of available disks, see the 'Get-Disk' cmdlet.
 
-  .PARAMETER P_FileSystem
-  Specifies the file system with which to format the volume.
-  The acceptable values for this parameter are: 'NTFS', 'ReFS', 'exFAT', 'FAT32' and 'FAT'.
+.PARAMETER P_FileSystem
+Specifies the file system with which to format the volume.
+The acceptable values for this parameter are: 'NTFS', 'ReFS', 'exFAT', 'FAT32' and 'FAT'.
 
-  .PARAMETER P_Sleep
-  Sleep time (in seconds).
+.PARAMETER P_Sleep
+Sleep time (in seconds).
 
-  .EXAMPLE
-  .\pwsh.disk.erase.ps1 -DN 3 -DL 'E' -FS 'NTFS' -FSL 'USB-SSD'
+.EXAMPLE
+.\pwsh.disk.erase.ps1 -DN 3 -DL 'E' -FS 'NTFS' -FSL 'USB-SSD'
 
-  .LINK
-  https://lib.onl/ru/articles/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/
+.LINK
+https://lib.onl/ru/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/
 #>
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CONFIGURATION.
+# CONFIGURATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
 Param(
@@ -66,7 +66,7 @@ $DriveLetter = "$((68..90 | ForEach-Object { $L=[char]$_; if ((Get-PSDrive).Name
 $FileSystemLabel = "DISK_${Random}"
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# INITIALIZATION.
+# INITIALIZATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-Script() {
@@ -80,7 +80,7 @@ function Start-Script() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# DISK LIST.
+# DISK LIST
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-DPDiskList() {
@@ -89,7 +89,7 @@ function Start-DPDiskList() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CLEAR DISK.
+# CLEAR DISK
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-DPDiskClear() {
@@ -109,7 +109,7 @@ function Start-DPDiskClear() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# INITIALIZE DISK.
+# INITIALIZE DISK
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-DPDiskInit() {
@@ -125,7 +125,7 @@ function Start-DPDiskInit() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CREATE PARTITION.
+# CREATE PARTITION
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-DPDiskPartition() {
@@ -142,7 +142,7 @@ function Start-DPDiskPartition() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# FORMAT DISK VOLUME.
+# FORMAT DISK VOLUME
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-DPDiskFormat() {
@@ -166,7 +166,7 @@ function Start-DPDiskFormat() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# SYSTEM MESSAGES.
+# SYSTEM MESSAGES
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Write-Msg() {

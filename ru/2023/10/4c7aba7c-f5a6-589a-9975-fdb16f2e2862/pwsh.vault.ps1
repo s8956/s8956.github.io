@@ -1,78 +1,78 @@
 <#PSScriptInfo
-  .VERSION      0.1.4
-  .GUID         8fd0ce2c-0288-4d9c-805f-703a0c659ade
-  .AUTHOR       Kai Kimera
-  .AUTHOREMAIL  mail@kai.kim
-  .COMPANYNAME  Library Online
-  .COPYRIGHT    2023 Library Online. All rights reserved.
-  .LICENSEURI   https://choosealicense.com/licenses/mit/
-  .PROJECTURI   https://lib.onl/ru/articles/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
+.VERSION      0.1.4
+.GUID         8fd0ce2c-0288-4d9c-805f-703a0c659ade
+.AUTHOR       Kai Kimera
+.AUTHOREMAIL  mail@kai.kim
+.COMPANYNAME  Library Online
+.COPYRIGHT    2023 Library Online. All rights reserved.
+.LICENSEURI   https://choosealicense.com/licenses/mit/
+.PROJECTURI   https://lib.onl/ru/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
 #>
 
 #Requires -Version 7.2
 
 <#
-  .SYNOPSIS
-  PowerShell "Vault".
+.SYNOPSIS
+PowerShell "Vault".
 
-  .DESCRIPTION
-  The script moves files to Vault based on various criteria.
+.DESCRIPTION
+The script moves files to Vault based on various criteria.
 
-  .PARAMETER P_Mode
-  Script operation mode.
-  Default: 'MV'.
+.PARAMETER P_Mode
+Script operation mode.
+Default: 'MV'.
 
-  .PARAMETER P_Source
-  Path to the source. E.g.: 'C:\Data\Source'.
-  Default: '${PSScriptRoot}\Source'.
+.PARAMETER P_Source
+Path to the source. E.g.: 'C:\Data\Source'.
+Default: '${PSScriptRoot}\Source'.
 
-  .PARAMETER P_Vault
-  Path to the Vault. E.g.: 'C:\Data\Vault'.
-  Default: '${PSScriptRoot}\Vault'.
+.PARAMETER P_Vault
+Path to the Vault. E.g.: 'C:\Data\Vault'.
+Default: '${PSScriptRoot}\Vault'.
 
-  .PARAMETER P_CreationTime
-  Time since file creation (in seconds). E.g.: '5270400'.
-  Default: '5270400' (61 day).
+.PARAMETER P_CreationTime
+Time since file creation (in seconds). E.g.: '5270400'.
+Default: '5270400' (61 day).
 
-  .PARAMETER P_LastWriteTime
-  Time since file modification (in seconds). E.g.: '5270400'.
-  Default: '${P_CreationTime}'.
+.PARAMETER P_LastWriteTime
+Time since file modification (in seconds). E.g.: '5270400'.
+Default: '${P_CreationTime}'.
 
-  .PARAMETER P_FileSize
-  File size check. E.g.: '5kb' / '12mb'.
-  Default: '0kb'.
+.PARAMETER P_FileSize
+File size check. E.g.: '5kb' / '12mb'.
+Default: '0kb'.
 
-  .PARAMETER P_Exclude
-  Path to the file with exceptions. E.g.: 'C:\Data\exclude.txt'.
-  Default: '${PSScriptRoot}\vault.exclude.txt'.
+.PARAMETER P_Exclude
+Path to the file with exceptions. E.g.: 'C:\Data\exclude.txt'.
+Default: '${PSScriptRoot}\vault.exclude.txt'.
 
-  .PARAMETER P_Logs
-  Path to the directory with logs. E.g.: 'C:\Data\Logs'.
-  Default: '${PSScriptRoot}\Logs'.
+.PARAMETER P_Logs
+Path to the directory with logs. E.g.: 'C:\Data\Logs'.
+Default: '${PSScriptRoot}\Logs'.
 
-  .PARAMETER P_RemoveDirs
-  Removing empty directories.
-  Default: 'false'.
+.PARAMETER P_RemoveDirs
+Removing empty directories.
+Default: 'false'.
 
-  .PARAMETER P_Overwrite
-  Overwrite existing files in Vault.
-  Default: 'false'.
+.PARAMETER P_Overwrite
+Overwrite existing files in Vault.
+Default: 'false'.
 
-  .EXAMPLE
-  .\pwsh.vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault'
+.EXAMPLE
+.\pwsh.vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault'
 
-  .EXAMPLE
-  .\pwsh.vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault' -CT '864000' -WT '864000'
+.EXAMPLE
+.\pwsh.vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault' -CT '864000' -WT '864000'
 
-  .EXAMPLE
-  .\pwsh.vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault' -CT '864000' -WT '864000' -FS '32mb'
+.EXAMPLE
+.\pwsh.vault.ps1 -SRC 'C:\Data' -DST 'C:\Vault' -CT '864000' -WT '864000' -FS '32mb'
 
-  .LINK
-  https://lib.onl/ru/articles/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
+.LINK
+https://lib.onl/ru/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
 #>
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CONFIGURATION.
+# CONFIGURATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
 Param(
@@ -116,7 +116,7 @@ $UTS = "$([DateTimeOffset]::Now.ToUnixTimeSeconds())"
 $NL = "$([Environment]::NewLine)"
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# INITIALIZATION.
+# INITIALIZATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-Script() {
@@ -126,7 +126,7 @@ function Start-Script() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CREATING VAULT DIRECTORIES.
+# CREATING VAULT DIRECTORIES
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-TestVault() {
@@ -143,7 +143,7 @@ function Start-TestVault() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# MOVING FILES TO VAULT.
+# MOVING FILES TO VAULT
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-MoveFiles() {
@@ -192,7 +192,7 @@ function Start-MoveFiles() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# REMOVING EMPTY DIRECTORIES FROM SOURCE.
+# REMOVING EMPTY DIRECTORIES FROM SOURCE
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-RemoveDirs() {
@@ -220,7 +220,7 @@ function Start-RemoveDirs() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# WORKING WITH ELEMENTS.
+# WORKING WITH ELEMENTS
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Test-Data() {
@@ -291,7 +291,7 @@ function Compress-Data() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# SYSTEM MESSAGES.
+# SYSTEM MESSAGES
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Write-Msg() {
@@ -311,7 +311,7 @@ function Write-Msg() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# APP: 7-ZIP.
+# APP: 7-ZIP
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-7z() {

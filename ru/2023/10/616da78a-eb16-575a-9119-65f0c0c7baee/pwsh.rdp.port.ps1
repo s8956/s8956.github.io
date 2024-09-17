@@ -1,37 +1,37 @@
 <#PSScriptInfo
-  .VERSION      0.1.0
-  .GUID         5d2bddd9-4eed-42f0-a0ba-7d30efcb81e2
-  .AUTHOR       Kai Kimera
-  .AUTHOREMAIL  mail@kai.kim
-  .COMPANYNAME  Library Online
-  .COPYRIGHT    2023 Library Online. All rights reserved.
-  .LICENSEURI   https://choosealicense.com/licenses/mit/
-  .PROJECTURI   https://lib.onl/ru/articles/2023/10/616da78a-eb16-575a-9119-65f0c0c7baee/
+.VERSION      0.1.0
+.GUID         5d2bddd9-4eed-42f0-a0ba-7d30efcb81e2
+.AUTHOR       Kai Kimera
+.AUTHOREMAIL  mail@kai.kim
+.COMPANYNAME  Library Online
+.COPYRIGHT    2023 Library Online. All rights reserved.
+.LICENSEURI   https://choosealicense.com/licenses/mit/
+.PROJECTURI   https://lib.onl/ru/2023/10/616da78a-eb16-575a-9119-65f0c0c7baee/
 #>
 
 #Requires -Version 7.2
 #Requires -RunAsAdministrator
 
 <#
-  .SYNOPSIS
-  Changing the RDP port number.
+.SYNOPSIS
+Changing the RDP port number.
 
-  .DESCRIPTION
-  Changing the listening port for Remote Desktop on your computer.
+.DESCRIPTION
+Changing the listening port for Remote Desktop on your computer.
 
-  .PARAMETER P_Port
-  RDP port number.
-  Default: 3389.
+.PARAMETER P_Port
+RDP port number.
+Default: 3389.
 
-  .EXAMPLE
-  .\pwsh.rdp.port.ps1 -P 50102
+.EXAMPLE
+.\pwsh.rdp.port.ps1 -P 50102
 
-  .LINK
-  https://lib.onl/ru/articles/2023/10/616da78a-eb16-575a-9119-65f0c0c7baee/
+.LINK
+https://lib.onl/ru/2023/10/616da78a-eb16-575a-9119-65f0c0c7baee/
 #>
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CONFIGURATION.
+# CONFIGURATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
 Param(
@@ -41,7 +41,7 @@ Param(
 )
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# INITIALIZATION.
+# INITIALIZATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-Script() {
@@ -51,7 +51,7 @@ function Start-Script() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# EDITING THE REGISTRY.
+# EDITING THE REGISTRY
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-RdpRegistry() {
@@ -71,7 +71,7 @@ function Start-RdpRegistry() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# EDITING THE FIREWALL.
+# EDITING THE FIREWALL
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-RdpFirewall() {
@@ -98,7 +98,7 @@ function Start-RdpFirewall() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# RESTARTING THE REMOTE DESKTOP SERVICES.
+# RESTARTING THE REMOTE DESKTOP SERVICES
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-RdpService() {

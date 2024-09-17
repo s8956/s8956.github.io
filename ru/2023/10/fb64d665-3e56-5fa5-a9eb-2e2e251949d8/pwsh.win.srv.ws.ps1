@@ -1,33 +1,33 @@
 <#PSScriptInfo
-  .VERSION      0.1.0
-  .GUID         c050355b-ecbd-4b13-b805-3a422dc0c995
-  .AUTHOR       Kai Kimera
-  .AUTHOREMAIL  mail@kai.kim
-  .COMPANYNAME  Library Online
-  .COPYRIGHT    2023 Library Online. All rights reserved.
-  .LICENSEURI   https://choosealicense.com/licenses/mit/
-  .PROJECTURI   https://lib.onl/ru/articles/2023/10/fb64d665-3e56-5fa5-a9eb-2e2e251949d8/
+.VERSION      0.1.0
+.GUID         c050355b-ecbd-4b13-b805-3a422dc0c995
+.AUTHOR       Kai Kimera
+.AUTHOREMAIL  mail@kai.kim
+.COMPANYNAME  Library Online
+.COPYRIGHT    2023 Library Online. All rights reserved.
+.LICENSEURI   https://choosealicense.com/licenses/mit/
+.PROJECTURI   https://lib.onl/ru/2023/10/fb64d665-3e56-5fa5-a9eb-2e2e251949d8/
 #>
 
 #Requires -Version 7.2
 #Requires -RunAsAdministrator
 
 <#
-  .SYNOPSIS
-  Windows Server configuration script.
+.SYNOPSIS
+Windows Server configuration script.
 
-  .DESCRIPTION
-  The script allows you to set up Windows Server as a workstation.
+.DESCRIPTION
+The script allows you to set up Windows Server as a workstation.
 
-  .EXAMPLE
-  .\pwsh.win.srv.ws.ps1
+.EXAMPLE
+.\pwsh.win.srv.ws.ps1
 
-  .LINK
-  https://lib.onl/ru/articles/2023/10/fb64d665-3e56-5fa5-a9eb-2e2e251949d8/
+.LINK
+https://lib.onl/ru/2023/10/fb64d665-3e56-5fa5-a9eb-2e2e251949d8/
 #>
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# INITIALIZATION.
+# INITIALIZATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-Script() {
@@ -40,7 +40,7 @@ function Start-Script() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CONFIGURING FEATURES.
+# CONFIGURING FEATURES
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-FeatureConfig {
@@ -52,7 +52,7 @@ function Start-FeatureConfig {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CONFIGURING SERVICES.
+# CONFIGURING SERVICES
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-ServiceConfig() {
@@ -76,7 +76,7 @@ function Start-ServiceConfig() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# DISABLE IE ENHANCED SECURITY CONFIGURATION (ESC).
+# DISABLE IE ENHANCED SECURITY CONFIGURATION (ESC)
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-IEConfig() {
@@ -102,7 +102,7 @@ function Start-IEConfig() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# ADJUST PROCESSOR RESOURCES FOR BEST PERFORMANCE OF PROGRAMS.
+# ADJUST PROCESSOR RESOURCES FOR BEST PERFORMANCE OF PROGRAMS
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-PriorityControlConfig() {
@@ -122,7 +122,7 @@ function Start-PriorityControlConfig() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CONFIGURING MMAGENT.
+# CONFIGURING MMAGENT
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-MMAgentConfig() {
@@ -136,7 +136,7 @@ function Start-MMAgentConfig() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CONFIGURING DEP.
+# CONFIGURING DEP
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function Start-DEPConfig() {
