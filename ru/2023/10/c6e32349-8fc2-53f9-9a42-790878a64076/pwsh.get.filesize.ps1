@@ -1,4 +1,4 @@
-Param(
+param(
   [Alias('F')][string]$File
 )
 

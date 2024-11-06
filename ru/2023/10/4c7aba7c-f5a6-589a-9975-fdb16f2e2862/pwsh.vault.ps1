@@ -75,7 +75,7 @@ https://lib.onl/ru/2023/10/4c7aba7c-f5a6-589a-9975-fdb16f2e2862/
 # CONFIGURATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
-Param(
+param(
   [Parameter(HelpMessage="Script operation mode. Default: 'MV'.")]
   [ValidateSet('CP', 'MV', 'RM')]
   [Alias('M')][string]$P_Mode = 'MV',

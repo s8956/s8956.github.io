@@ -1,4 +1,4 @@
-Param(
+param(
   [Alias('P')][string]$Path,
   [Alias('T')][long]$Time
 )

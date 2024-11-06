@@ -40,7 +40,7 @@ https://lib.onl/ru/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/
 # CONFIGURATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
-Param(
+param(
   [Parameter(HelpMessage="Specify the disk number.")]
   [ValidatePattern('^[0-9]+$')]
   [Alias('DN')][int]$P_DiskNumber,

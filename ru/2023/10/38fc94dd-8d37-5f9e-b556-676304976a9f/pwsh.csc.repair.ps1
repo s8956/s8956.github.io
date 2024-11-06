@@ -39,7 +39,7 @@ https://lib.onl/ru/2023/10/38fc94dd-8d37-5f9e-b556-676304976a9f/
 # CONFIGURATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
-Param(
+param(
   [Parameter(HelpMessage="Specifies the domain controller to run the command.")]
   [Alias('DC')][string]$P_Server,
 

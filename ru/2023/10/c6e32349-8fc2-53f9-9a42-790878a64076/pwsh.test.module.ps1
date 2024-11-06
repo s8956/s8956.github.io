@@ -1,4 +1,4 @@
-Param(
+param(
   [Alias('N')][string[]]$Names,
   [Alias('A')][string]$Action = 'Stop'
 )

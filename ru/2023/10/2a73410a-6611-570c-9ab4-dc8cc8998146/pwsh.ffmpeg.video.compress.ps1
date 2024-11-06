@@ -60,7 +60,7 @@ https://lib.onl/ru/2023/10/2a73410a-6611-570c-9ab4-dc8cc8998146/
 # CONFIGURATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
-Param(
+param(
   [Parameter(Mandatory, HelpMessage="An array of input files.")]
   [Alias('F')][string[]]$P_Files,
 

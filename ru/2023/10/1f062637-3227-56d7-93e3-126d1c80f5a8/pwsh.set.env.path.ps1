@@ -29,7 +29,7 @@ https://lib.onl/ru/2023/10/1f062637-3227-56d7-93e3-126d1c80f5a8/
 #>
 
 
-Param(
+param(
   [Alias('P')][string[]]$Path,
   [Parameter(Mandatory)][ValidateSet('Machine', 'User')][Alias('T')][string[]]$Target
 )

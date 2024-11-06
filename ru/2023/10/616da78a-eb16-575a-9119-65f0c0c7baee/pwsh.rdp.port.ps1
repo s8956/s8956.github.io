@@ -34,7 +34,7 @@ https://lib.onl/ru/2023/10/616da78a-eb16-575a-9119-65f0c0c7baee/
 # CONFIGURATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
-Param(
+param(
   [Parameter(HelpMessage="RDP port number.")]
   [ValidatePattern('^[0-9]+$')]
   [Alias('P')][int]$P_Port = 3389
