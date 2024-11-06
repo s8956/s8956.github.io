@@ -1,6 +1,6 @@
 #!/usr/bin/env -S bash -e
-#
-# OpenSSL self signed certificate generator.
+# -------------------------------------------------------------------------------------------------------------------- #
+# OPENSSL SELF SIGNED CERTIFICATE GENERATOR
 #
 # @package    Bash
 # @author     Kai Kimera <mail@kai.kim>
@@ -13,11 +13,8 @@
 (( EUID == 0 )) && { echo >&2 'This script should not be run as root!'; exit 1; }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CONFIGURATION.
+# CONFIGURATION
 # -------------------------------------------------------------------------------------------------------------------- #
-
-# Get 'openssl' command.
-openssl="$( command -v openssl )"
 
 # Specifies the number of days to make a certificate valid for.
 # Default is 10 years.
@@ -38,36 +35,33 @@ org='LocalHost'
 # Your company's organizational unit.
 ou='IT Department'
 
-# The fully-qualified domain name (FQDN) (e.g., www.example.com).
-cn="${1:-localhost}"
-
-# Host IP addresses.
-ip="${2:-IP:127.0.0.1}"
+# Common name (CN). The fully-qualified domain name (FQDN) (e.g., www.example.com).
+cn="${1:?}"
 
 # Your email address.
-email="mail@${cn}"
+email='mail@localhost'
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
 # -------------------------------------------------------------------------------------------------------------------- #
 
-! [[ -x "${openssl}" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
-echo "" && echo "--- [SSL] Self Signed Certificate: '${cn}'" && echo ""
-${openssl} ecparam -genkey -name 'prime256v1' | ${openssl} ec -out "${cn}.key" \
-  && ${openssl} req -new -sha256 \
+! [[ -x "$( command -v 'openssl' )" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
+echo '' && echo "--- [SSL] SELF SIGNED CERTIFICATE: '${cn}'" && echo ''
+openssl ecparam -genkey -name 'prime256v1' | openssl ec -out "${cn}.key" \
+  && openssl req -new -sha256 \
   -key "${cn}.key" \
   -out "${cn}.csr" \
   -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/OU=${ou}/CN=${cn}/emailAddress=${email}" \
-  -addext 'basicConstraints = critical, CA:FALSE' \
+  -addext "basicConstraints = critical, CA:${3:-FALSE}" \
   -addext 'nsCertType = server' \
   -addext 'nsComment = OpenSSL Generated Server Certificate' \
   -addext 'keyUsage = critical, digitalSignature, keyEncipherment' \
   -addext 'extendedKeyUsage = serverAuth, clientAuth' \
-  -addext "subjectAltName=DNS:${cn}, DNS:*.${cn}, ${ip}" \
-  && ${openssl} x509 -req -sha256 -days ${days} -copy_extensions 'copyall' \
+  -addext "subjectAltName = ${2:?}" \
+  && openssl x509 -req -sha256 -days ${days} -copy_extensions 'copyall' \
   -key "${cn}.key" \
   -in "${cn}.csr" \
   -out "${cn}.crt" \
-  && ${openssl} x509 -in "${cn}.crt" -text -noout
+  && openssl x509 -in "${cn}.crt" -text -noout
 
 exit 0
