@@ -1,7 +1,8 @@
-#!/usr/bin/env -S bash -e
-#
+#!/usr/bin/env -S bash -eu
+# -------------------------------------------------------------------------------------------------------------------- #
+# FAVICON.ICO
 # Generating 'favicon.ico' file.
-#
+# -------------------------------------------------------------------------------------------------------------------- #
 # @package    Bash
 # @author     Kai Kimera <mail@kai.kim>
 # @copyright  2023 Library Online
@@ -11,28 +12,24 @@
 # -------------------------------------------------------------------------------------------------------------------- #
 
 size=( 16 24 32 48 64 72 80 96 128 144 152 167 180 192 196 256 300 512 )
-file_svg='favicon.svg'
-file_ico='favicon.ico'
-
-rsvg="$( command -v rsvg-convert )"
-convert="$( command -v convert )"
-identify="$( command -v identify )"
+svg='favicon.svg'
+ico='favicon.ico'
 
 png() {
   _check_file
   for i in "${size[@]}"; do
-    ${rsvg} -w "${i}" -h "${i}" "${file_svg}" -o "favicon-${i}.png"
+    rsvg-convert -w "${i}" -h "${i}" "${svg}" -o "favicon-${i}.png"
   done
 }
 
 ico() {
   _check_file
-  ${convert} -density '256x256' -background 'transparent' "${file_svg}" -define 'icon:auto-resize' -colors '256' "${file_ico}"
-  ${identify} "${file_ico}"
+  convert -density '256x256' -background 'transparent' "${svg}" -define 'icon:auto-resize' -colors '256' "${ico}"
+  identify "${ico}"
 }
 
 _check_file() {
-  [[ -f "${file_svg}" ]] || { printf '%s does not exist!\n' "${file_svg}"; exit 1; }
+  [[ -f "${svg}" ]] || { printf '%s does not exist!\n' "${svg}"; exit 1; }
 }
 
 "$@"

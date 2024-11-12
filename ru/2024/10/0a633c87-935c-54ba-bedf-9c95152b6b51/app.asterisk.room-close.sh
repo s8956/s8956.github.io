@@ -1,8 +1,8 @@
-#!/usr/bin/env -S bash -e
-#
-# Asterisk script for closing room.
+#!/usr/bin/env -S bash -eu
+# -------------------------------------------------------------------------------------------------------------------- #
+# ASTERISK: CLOSING ROOM
 # If there is only 1 user left in the room, the room is closed.
-#
+# -------------------------------------------------------------------------------------------------------------------- #
 # @package    Bash
 # @author     Kai Kimera
 # @license    MIT
@@ -13,9 +13,10 @@
 (( EUID != 0 )) && { echo >&2 'This script should be run as root!'; exit 1; }
 
 # Sources.
-SRC_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P ) # Source directory.
-SRC_NAME="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")" # Source name.
-. "${SRC_DIR}/${SRC_NAME%.*}.ini" # Loading configuration data.
+SRC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P )" # Source directory.
+SRC_NAME="$( basename "$( readlink -f "${BASH_SOURCE[0]}" )" )" # Source name.
+# shellcheck source=/dev/null
+. "${SRC_DIR}/${SRC_NAME%.*}.conf" # Loading configuration file.
 
 # Variables.
 mapfile -t rooms < <( grep '^conf =>' '/etc/asterisk/meetme.conf' | cut -d ' ' -f 3 )
