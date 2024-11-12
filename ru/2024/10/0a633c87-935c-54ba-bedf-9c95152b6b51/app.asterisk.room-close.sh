@@ -18,8 +18,11 @@ SRC_NAME="$( basename "$( readlink -f "${BASH_SOURCE[0]}" )" )" # Source name.
 # shellcheck source=/dev/null
 . "${SRC_DIR}/${SRC_NAME%.*}.conf" # Loading configuration file.
 
+# Parameters.
+PHONES=("${PHONES[@]:?}"); readonly PHONES
+
 # Variables.
-mapfile -t rooms < <( grep '^conf =>' '/etc/asterisk/meetme.conf' | cut -d ' ' -f 3 )
+mapfile -t ROOMS < <( grep '^conf =>' '/etc/asterisk/meetme.conf' | cut -d ' ' -f 3 )
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # INITIALIZATION
@@ -32,8 +35,8 @@ run() { close; }
 # -------------------------------------------------------------------------------------------------------------------- #
 
 close() {
-  for room in "${rooms[@]}"; do
-    for phone in "${phones[@]:?}"; do
+  for room in "${ROOMS[@]}"; do
+    for phone in "${PHONES[@]}"; do
       local users; users=$( asterisk -x "meetme list ${room}" | head -n -1 | awk '{ print NR }' )
       local last; last=$( asterisk -x "meetme list ${room}" | grep "${phone}" | awk '{ print $4 }' )
 
