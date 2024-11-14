@@ -41,7 +41,8 @@ ACME_CRT_TIMEOUT="${ACME_CRT_TIMEOUT:?}"; readonly ACME_CRT_TIMEOUT
 ACME_DAYS="${ACME_DAYS:?}"; readonly ACME_DAYS
 ACME_SERVICES=("${ACME_SERVICES[@]:?}"); readonly ACME_SERVICES
 ACME_DOMAINS=("${ACME_DOMAINS[@]:?}"); readonly ACME_DOMAINS
-ACME_DNS="${ACME_DNS:?}"; readonly ACME_DNS
+ACME_DNS_PROVIDER="${ACME_DNS_PROVIDER:?}"; readonly ACME_DNS_PROVIDER
+ACME_DNS_RESOLVERS=("${ACME_DNS_RESOLVERS[@]:?}"); readonly ACME_DNS_RESOLVERS
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # INITIALIZATION
@@ -75,7 +76,8 @@ lego() {
 
   case "${ACME_METHOD}" in
     'dns')
-      opts+=('--dns' "${ACME_DNS}")
+      opts+=('--dns' "${ACME_DNS_PROVIDER}")
+      for i in "${ACME_DNS_RESOLVERS[@]}"; do opts+=('--dns.resolvers' "${i}"); done
       ;;
     'http')
       opts+=('--http' '--http.port' "${ACME_HTTP_PORT}" '--http.proxy-header' "${ACME_HTTP_PROXY_HEADER}")
@@ -95,7 +97,7 @@ lego() {
     [[ ! -d "${ACME_PATH}" ]] && mkdir -p "${ACME_PATH}"
     cp -f "${LEGO_PATH}/certificates/"{*.crt,*.key,*.pem,*.pfx} "${ACME_PATH}" \
       && chmod 644 "${ACME_PATH}/"{*.crt,*.key,*.pem,*.pfx}
-    for s in "${ACME_SERVICES[@]}"; do _service "${s}" && systemctl reload "${s}"; done
+    for s in "${ACME_SERVICES[@]}"; do _service 'reload' "${s}"; done
   fi
 }
 
@@ -105,9 +107,9 @@ lego() {
 
 # Checking service availability.
 _service() {
-  local s; s="${1}"
-  { systemctl list-units --full -all | grep -Fq "${s}"; } && return 0
-  return 1
+  local a; a="${1}"
+  local s; s="${2}"
+  { systemctl list-units --full -all | grep -Fq "${s}"; } && systemctl "${a}" "${s}"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
