@@ -97,7 +97,7 @@ lego() {
     [[ ! -d "${ACME_PATH}" ]] && mkdir -p "${ACME_PATH}"
     cp -f "${LEGO_PATH}/certificates/"{*.crt,*.key,*.pem,*.pfx} "${ACME_PATH}" \
       && chmod 644 "${ACME_PATH}/"{*.crt,*.key,*.pem,*.pfx}
-    for s in "${ACME_SERVICES[@]}"; do _service 'reload' "${s}"; done
+    for s in "${ACME_SERVICES[@]}"; do _if_service "${s}" && systemctl reload "${s}"; done
   fi
 }
 
@@ -106,10 +106,10 @@ lego() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 # Checking service availability.
-_service() {
-  local a; a="${1}"
-  local s; s="${2}"
-  { systemctl list-units --full -all | grep -Fq "${s}"; } && systemctl "${a}" "${s}"
+_if_service() {
+  local s; s="${1}"
+  if systemctl list-units --full -all | grep -Fq "${s}"; then return 0; fi
+  return 1
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
