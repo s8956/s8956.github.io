@@ -1,59 +1,32 @@
-# Mikrotik RouterOS script for CloudFlare DDNS
-#
+# CLOUDFLARE DNS
+# -------------------------------------------------------------------------------------------------------------------- #
 # @package    RouterOS
 # @author     Kai Kimera <mail@kai.kim>
 # @copyright  2023 Library Online
 # @license    MIT
-# @version    0.0.1
-# @link       https://lib.onl
+# @version    0.1.0
+# @policy     read, write, test
+# @schedule:  00:10:00
+# @link       https://lib.onl/ru/2020/07/ff2ae66e-8e14-5c4a-baa6-0cd2e59f6517/
 # -------------------------------------------------------------------------------------------------------------------- #
 
-# RouterOS: WAN interface name.
 :local rosWanInterface "ether1"
-
-# RouterOS: Enables trust chain validation from local certificate store.
-# 'no'  | Disable certificate check.
-# 'yes' | Enable certificate check.
-:local rosCheckCert "no"
-
-# CloudFlare: API token.
+:local rosCheckCrt "no"
 :local cfToken ""
-
-# CloudFlare: Domain.
-:local cfDomain "example.com"
-
-# CloudFlare: Zone ID.
+:local cfDomain "sub.example.com"
 :local cfZoneID ""
-
-# CloudFlare: DNS ID.
 :local cfDnsID ""
-
-# CloudFlare: Domain record type.
 :local cfRecordType "A"
-
-# CloudFlare: Debug mode.
-# 0 | Disable debug mode.
-# 1 | Enable debug mode.
 :local cfDebug 0
 
 # -------------------------------------------------------------------------------------------------------------------- #
+# -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
+# -------------------------------------------------------------------------------------------------------------------- #
 
-# IP on WAN interface.
-:local srcIP
-
-# IP on CloudFlare domain.
-:local dstIP
-
-# Get RouterOS WAN IP.
-:set srcIP [/ip address get [/ip address find interface=$rosWanInterface ] address]
+:local srcIP [/ip address get [find interface=$rosWanInterface] address]
 :set srcIP [:pick $srcIP 0 [:find $srcIP "/"]]
-
-# Get CloudFlare domain IP.
-:set dstIP [:resolve $cfDomain]
-
-# Build CloudFlare API (v4).
-:local cfAPI "https://api.cloudflare.com/client/v4/zones/"
-:set cfAPI ($cfAPI . "$cfZoneID/dns_records/$cfDnsID")
+:local dstIP [:resolve $cfDomain]
+:local cfAPI "https://api.cloudflare.com/client/v4/zones/$cfZoneID/dns_records/$cfDnsID"
 :local cfAPIHeader "Authorization: Bearer $cfToken, Content-Type: application/json"
 :local cfAPIData "{\"type\":\"$cfRecordType\",\"name\":\"$cfDomain\",\"content\":\"$srcIP\"}"
 
@@ -68,12 +41,10 @@
 # Compare and update CF if necessary.
 :if ($dstIP != $srcIP) do={
   :log info ("CloudFlare: Updating $cfDomain, setting $srcIP = $cfDomain")
-  /tool fetch \
-    mode=https \
-    http-method=put \
+  /tool fetch mode=https http-method=put \
     http-header-field="$cfAPIHeader" \
     http-data="$cfAPIData" url="$cfAPI" \
-    check-certificate=$rosCheckCert \
+    check-certificate=$rosCheckCrt \
     output=user as-value
   /ip dns cache flush
 }

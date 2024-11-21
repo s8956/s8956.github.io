@@ -1,4 +1,4 @@
-# @package    MikroTik / RouterOS / GRE
+# @package    RouterOS
 # @author     Kai Kimera <mail@kai.kim>
 # @copyright  2024 Library Online
 # @license    MIT
