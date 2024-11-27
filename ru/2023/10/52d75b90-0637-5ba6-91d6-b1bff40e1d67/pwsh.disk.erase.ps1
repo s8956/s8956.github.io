@@ -30,7 +30,7 @@ The acceptable values for this parameter are: 'NTFS', 'ReFS', 'exFAT', 'FAT32' a
 Sleep time (in seconds).
 
 .EXAMPLE
-.\pwsh.disk.erase.ps1 -DN 3 -DL 'E' -FS 'NTFS' -FSL 'USB-SSD'
+.\pwsh.disk.erase.ps1 -DN 3 -FS 'NTFS'
 
 .LINK
 https://lib.onl/ru/2023/10/52d75b90-0637-5ba6-91d6-b1bff40e1d67/
@@ -44,11 +44,9 @@ param(
   [Parameter(HelpMessage="Specify the disk number.")]
   [ValidatePattern('^[0-9]+$')]
   [Alias('DN')][int]$P_DiskNumber,
-
   [Parameter(HelpMessage="Specify the file system to format the volume.")]
   [ValidateSet('FAT', 'FAT32', 'exFAT', 'NTFS', 'ReFS')]
   [Alias('FS')][string]$P_FileSystem,
-
   [Parameter(HelpMessage="Sleep time (in seconds).")]
   [Alias('S')][int]$P_Sleep = 2
 )
