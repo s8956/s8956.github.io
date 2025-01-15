@@ -30,7 +30,6 @@ export LEGO_PFX_FORMAT="${ACME_PFX_FORMAT:?}"
 # Parameters.
 ACME_CMD="${2:?}"; readonly ACME_CMD; [[ ! "${ACME_CMD}" =~ ^(run|renew)$ ]] && exit 1
 ACME_EMAIL="${ACME_EMAIL:?}"; readonly ACME_EMAIL
-ACME_PATH="${ACME_PATH:?}"; readonly ACME_PATH
 ACME_METHOD="${ACME_METHOD:?}"; readonly ACME_METHOD
 ACME_HTTP_PORT="${ACME_HTTP_PORT:?}"; readonly ACME_HTTP_PORT
 ACME_HTTP_PROXY_HEADER="${ACME_HTTP_PROXY_HEADER:?}"; readonly ACME_HTTP_PROXY_HEADER
@@ -39,7 +38,6 @@ ACME_TLS_PORT="${ACME_TLS_PORT:?}"; readonly ACME_TLS_PORT
 ACME_KEY_TYPE="${ACME_KEY_TYPE:?}"; readonly ACME_KEY_TYPE
 ACME_CRT_TIMEOUT="${ACME_CRT_TIMEOUT:?}"; readonly ACME_CRT_TIMEOUT
 ACME_DAYS="${ACME_DAYS:?}"; readonly ACME_DAYS
-ACME_SERVICES=("${ACME_SERVICES[@]:?}"); readonly ACME_SERVICES
 ACME_DOMAINS=("${ACME_DOMAINS[@]:?}"); readonly ACME_DOMAINS
 ACME_DNS_PROVIDER="${ACME_DNS_PROVIDER:?}"; readonly ACME_DNS_PROVIDER
 ACME_DNS_RESOLVERS=("${ACME_DNS_RESOLVERS[@]:?}"); readonly ACME_DNS_RESOLVERS
@@ -59,8 +57,11 @@ lego() {
   local cmd; cmd=("${ACME_CMD}")
 
   case "${ACME_CMD}" in
+    'run')
+      cmd+=('--run-hook' "${SRC_DIR}/app.hook.sh")
+      ;;
     'renew')
-      cmd+=('--days' "${ACME_DAYS}")
+      cmd+=('--days' "${ACME_DAYS}" '--renew-hook' "${SRC_DIR}/app.hook.sh")
       ;;
   esac
 
@@ -93,23 +94,7 @@ lego() {
 
   for i in "${ACME_DOMAINS[@]}"; do opts+=('--domains' "${i}"); done
 
-  if "${SRC_DIR}/lego" "${opts[@]}" "${cmd[@]}"; then
-    [[ ! -d "${ACME_PATH}" ]] && mkdir -p "${ACME_PATH}"
-    cp -f "${LEGO_PATH}/certificates/"{*.crt,*.key,*.pem,*.pfx} "${ACME_PATH}" \
-      && chmod 644 "${ACME_PATH}/"{*.crt,*.key,*.pem,*.pfx}
-    for s in "${ACME_SERVICES[@]}"; do _if_service "${s}" && systemctl reload "${s}"; done
-  fi
-}
-
-# -------------------------------------------------------------------------------------------------------------------- #
-# ------------------------------------------------< COMMON FUNCTIONS >------------------------------------------------ #
-# -------------------------------------------------------------------------------------------------------------------- #
-
-# Checking service availability.
-_if_service() {
-  local s; s="${1}"
-  if systemctl list-units --full -all | grep -Fq "${s}"; then return 0; fi
-  return 1
+  "${SRC_DIR}/lego" "${opts[@]}" "${cmd[@]}"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
