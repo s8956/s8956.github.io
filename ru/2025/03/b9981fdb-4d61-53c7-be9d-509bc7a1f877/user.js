@@ -1,7 +1,9 @@
 user_pref("app.normandy.first_run", false);
+user_pref("app.shield.optoutstudies.enabled", false);
 user_pref("apz.overscroll.enabled", true);
 user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
 user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
+user_pref("browser.shell.checkDefaultBrowser", false);
 user_pref("browser.toolbars.bookmarks.visibility", "never");
 user_pref("datareporting.healthreport.uploadEnabled", false);
 user_pref("datareporting.usage.uploadEnabled", false);
