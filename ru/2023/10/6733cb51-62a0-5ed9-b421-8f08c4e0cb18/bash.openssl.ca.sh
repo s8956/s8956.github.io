@@ -153,7 +153,7 @@ _v3ext_server() {
   cat > "${1}" <<EOF
 authorityKeyIdentifier = keyid,issuer:always
 basicConstraints = CA:FALSE
-nsCertType = server
+nsCertType = server, client
 nsComment = "OpenSSL Server Certificate"
 keyUsage = critical, digitalSignature, keyEncipherment
 extendedKeyUsage = serverAuth, clientAuth

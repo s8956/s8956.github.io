@@ -53,7 +53,7 @@ openssl ecparam -genkey -name 'prime256v1' | openssl ec -out "${cn}.key" \
   -out "${cn}.csr" \
   -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/OU=${ou}/CN=${cn}/emailAddress=${email}" \
   -addext "basicConstraints = critical, CA:${3:-FALSE}" \
-  -addext 'nsCertType = server' \
+  -addext 'nsCertType = server, client' \
   -addext 'nsComment = OpenSSL Self-Signed Certificate' \
   -addext 'keyUsage = critical, digitalSignature, keyEncipherment' \
   -addext 'extendedKeyUsage = serverAuth, clientAuth' \
