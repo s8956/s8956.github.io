@@ -142,7 +142,7 @@ _v3ext_client() {
 authorityKeyIdentifier = keyid,issuer
 basicConstraints = CA:FALSE
 nsCertType = client, email
-nsComment = "OpenSSL Generated Client Certificate"
+nsComment = "OpenSSL Client Certificate"
 keyUsage = critical, digitalSignature, keyEncipherment, nonRepudiation
 extendedKeyUsage = clientAuth, emailProtection
 EOF
@@ -154,7 +154,7 @@ _v3ext_server() {
 authorityKeyIdentifier = keyid,issuer:always
 basicConstraints = CA:FALSE
 nsCertType = server
-nsComment = "OpenSSL Generated Server Certificate"
+nsComment = "OpenSSL Server Certificate"
 keyUsage = critical, digitalSignature, keyEncipherment
 extendedKeyUsage = serverAuth, clientAuth
 subjectAltName = @alt_names
