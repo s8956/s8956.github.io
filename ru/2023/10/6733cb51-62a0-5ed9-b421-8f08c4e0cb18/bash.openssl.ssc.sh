@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/usr/bin/env -S bash -eu
 # -------------------------------------------------------------------------------------------------------------------- #
 # OPENSSL SELF SIGNED CERTIFICATE GENERATOR
 #
@@ -41,6 +41,15 @@ cn="${1:?}"
 # Your email address.
 email='mail@localhost'
 
+# Additional subject identities.
+san="${2}"; [[ -z "${2}" ]] && san="DNS:${cn}, DNS:*.${cn}, DNS:*.localdomain, DNS:*.local, IP:127.0.0.1"
+
+# Key usage extensions.
+ku="${3}"; [[ -z "${3}" ]] && ku='digitalSignature, nonRepudiation, keyEncipherment'
+
+# Extended key usage.
+eku="${4}"; [[ -z "${4}" ]] && eku='serverAuth, clientAuth'
+
 # -------------------------------------------------------------------------------------------------------------------- #
 # -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -52,12 +61,12 @@ openssl ecparam -genkey -name 'prime256v1' | openssl ec -out "${cn}.key" \
   -key "${cn}.key" \
   -out "${cn}.csr" \
   -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/OU=${ou}/CN=${cn}/emailAddress=${email}" \
-  -addext "basicConstraints = critical, CA:${3:-FALSE}" \
+  -addext "basicConstraints = critical, CA:${5:-FALSE}" \
   -addext 'nsCertType = server, client' \
   -addext 'nsComment = OpenSSL Self-Signed Certificate' \
-  -addext 'keyUsage = critical, digitalSignature, keyEncipherment' \
-  -addext 'extendedKeyUsage = serverAuth, clientAuth' \
-  -addext "subjectAltName = ${2:?}" \
+  -addext "keyUsage = critical, ${ku}" \
+  -addext "extendedKeyUsage = ${eku}" \
+  -addext "subjectAltName = ${san}" \
   && openssl x509 -req -sha256 -days ${days} -copy_extensions 'copyall' \
   -key "${cn}.key" \
   -in "${cn}.csr" \
