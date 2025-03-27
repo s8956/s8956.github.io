@@ -11,6 +11,7 @@
 # -------------------------------------------------------------------------------------------------------------------- #
 
 (( EUID == 0 )) && { echo >&2 'This script should not be run as root!'; exit 1; }
+! [[ -x "$( command -v 'openssl' )" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # CONFIGURATION
@@ -54,8 +55,8 @@ eku="${4}"; [[ -z "${4}" ]] && eku='serverAuth, clientAuth'
 # -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
 # -------------------------------------------------------------------------------------------------------------------- #
 
-! [[ -x "$( command -v 'openssl' )" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
 echo '' && echo "--- [SSL] SELF SIGNED CERTIFICATE: '${cn}'" && echo ''
+
 openssl ecparam -genkey -name 'prime256v1' | openssl ec -out "${cn}.key" \
   && openssl req -new -sha256 \
   -key "${cn}.key" \
