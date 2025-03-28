@@ -50,28 +50,53 @@ ku="${3}"; [[ -z "${3}" ]] && ku='digitalSignature, nonRepudiation, keyEncipherm
 # Extended key usage.
 eku="${4}"; [[ -z "${4}" ]] && eku='serverAuth, clientAuth'
 
+# Certificate authority.
+ca="${5:-FALSE}"
+
 # -------------------------------------------------------------------------------------------------------------------- #
-# -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
+# INITIALIZATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
-! [[ -x "$( command -v 'openssl' )" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
-echo '' && echo "--- [SSL] SELF SIGNED CERTIFICATE: '${cn}'" && echo ''
+run() { cmd; gen; }
 
-openssl ecparam -genkey -name 'prime256v1' | openssl ec -out "${cn}.key" \
-  && openssl req -new -sha256 \
-  -key "${cn}.key" \
-  -out "${cn}.csr" \
-  -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/OU=${ou}/CN=${cn}/emailAddress=${email}" \
-  -addext "basicConstraints = critical, CA:${5:-FALSE}" \
-  -addext 'nsCertType = server, client' \
-  -addext 'nsComment = OpenSSL Self-Signed Certificate' \
-  -addext "keyUsage = critical, ${ku}" \
-  -addext "extendedKeyUsage = ${eku}" \
-  -addext "subjectAltName = ${san}" \
-  && openssl x509 -req -sha256 -days ${days} -copy_extensions 'copyall' \
-  -key "${cn}.key" \
-  -in "${cn}.csr" \
-  -out "${cn}.crt" \
-  && openssl x509 -in "${cn}.crt" -text -noout
+# -------------------------------------------------------------------------------------------------------------------- #
+# COMMAND
+# Checking the installed command.
+# -------------------------------------------------------------------------------------------------------------------- #
 
-exit 0
+cmd() {
+  for i in 'openssl'; do
+    [[ ! -x "$( command -v "${i}" )" ]] && { echo >&2 "'${i}' is not installed!"; exit 1; }
+  done
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# GENERATOR
+# Creating a self-signed certificate.
+# -------------------------------------------------------------------------------------------------------------------- #
+
+gen() {
+  echo '' && echo "--- [SSL] SELF SIGNED CERTIFICATE: '${cn}'" && echo ''
+  openssl ecparam -genkey -name 'prime256v1' | openssl ec -out "${cn}.key" \
+    && openssl req -new -sha256 \
+    -key "${cn}.key" \
+    -out "${cn}.csr" \
+    -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/OU=${ou}/CN=${cn}/emailAddress=${email}" \
+    -addext "basicConstraints = critical, CA:${ca}" \
+    -addext 'nsCertType = server, client' \
+    -addext 'nsComment = OpenSSL Self-Signed Certificate' \
+    -addext "keyUsage = critical, ${ku}" \
+    -addext "extendedKeyUsage = ${eku}" \
+    -addext "subjectAltName = ${san}" \
+    && openssl x509 -req -sha256 -days "${days}" -copy_extensions 'copyall' \
+    -key "${cn}.key" \
+    -in "${cn}.csr" \
+    -out "${cn}.crt" \
+    && openssl x509 -in "${cn}.crt" -text -noout
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# -------------------------------------------------< RUNNING SCRIPT >------------------------------------------------- #
+# -------------------------------------------------------------------------------------------------------------------- #
+
+run && exit 0 || exit 1

@@ -65,7 +65,7 @@ sfx=$( ${shuf} -i '1000-9999' -n 1 --random-source='/dev/random' )
 # -------------------------------------------------------------------------------------------------------------------- #
 
 ca() {
-  ! [[ -x "${openssl}" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
+  [[ ! -x "${openssl}" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
 
   local name="${1:-example.com}"
   local email="${2:-mail@example.com}"
@@ -92,7 +92,7 @@ EOF
 
 cert() {
   for i in "${mkdir}" "${openssl}" "${shuf}"; do
-    ! [[ -x "${i}" ]] && { echo >&2 "'${i}' is not installed!"; exit 1; }
+    [[ ! -x "${i}" ]] && { echo >&2 "'${i}' is not installed!"; exit 1; }
   done
 
   local name; name="${1:-example.com}"
