@@ -18,7 +18,7 @@ Script to extend the trial period of Veritas Backup Exec.
 The script allows you to extend the trial period of Veritas Backup Exec by adjusting the Windows registry.
 
 .EXAMPLE
-.\be.trial_ext.ps1 -Version '23.0'
+.\app.be.trial.ps1 -Version '23.0'
 
 .LINK
 https://lib.onl/ru/2025/03/0e079d06-d87d-50de-b8e2-713a8ddb8fd6/
