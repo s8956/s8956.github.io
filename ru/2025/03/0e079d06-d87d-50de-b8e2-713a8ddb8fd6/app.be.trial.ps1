@@ -1,7 +1,7 @@
 <#PSScriptInfo
 .VERSION      0.1.0
 .GUID         fc37f35a-a9b7-43ed-8316-9520cbae9622
-.AUTHOR       Kai Kimera
+.AUTHOR       koolance / Kai Kimera
 .AUTHOREMAIL  mail@kai.kim
 .COMPANYNAME  Library Online
 .COPYRIGHT    2024 Library Online. All rights reserved.
