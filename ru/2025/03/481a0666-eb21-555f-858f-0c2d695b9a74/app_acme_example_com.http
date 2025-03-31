@@ -1,4 +1,4 @@
 SHELL='/bin/bash'; PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'; HOME='/root'
 APP="${HOME}/apps/acme"
 
-35 3 * * * root "${APP}/lego" --path="${APP}" --email='mail@example.com' --domains='example.com' --domains='mail.example.com' --key-type='ec256' --pem --pfx --http --http.webroot='/var/www/html' --renew-hook="${APP}/hook.sh" renew > /dev/null 2>&1
+35 3 * * * root "${APP}/lego" --path="${APP}" --email='mail@example.com' --domains='example.com' --domains='mail.example.com' --pem --pfx --http --http.webroot='/var/www/html' --renew-hook="${APP}/hook.sh" renew > /dev/null 2>&1
