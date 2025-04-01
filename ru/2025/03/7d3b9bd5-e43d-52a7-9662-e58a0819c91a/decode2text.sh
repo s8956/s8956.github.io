@@ -9,12 +9,11 @@
 # @link       https://lib.onl/ru/2025/03/7d3b9bd5-e43d-52a7-9662-e58a0819c91a/
 # -------------------------------------------------------------------------------------------------------------------- #
 
-dir='/usr/lib/dovecot'
+lib_dir='/usr/lib/dovecot'
 content_type="${1}"
 
-# The second parameter is the format's filename extension, which is used when
-# found from a filename of application/octet-stream. You can also add more
-# extensions by giving more parameters.
+# The second parameter is the format's filename extension, which is used when found from a filename of
+# application/octet-stream. You can also add more extensions by giving more parameters.
 formats='application/pdf pdf
 application/x-pdf pdf
 application/msword doc
@@ -36,24 +35,22 @@ fmt="$( echo "${formats}" | grep -w "^${content_type}" | cut -d ' ' -f 2 )"
 [[ "${fmt}" == "" ]] && { echo >&2 "Content-Type: ${content_type} not supported"; exit 1; }
 
 # Most decoders can't handle stdin directly, so write the attachment to a temp file.
-path="$( mktemp )"
-trap "rm -f ${path}" 0 1 2 3 14 15
-cat > "${path}"
+path="$( mktemp )"; trap 'rm -f "${path}"' 0 1 2 3 14 15; cat > "${path}"
 
-xmlunzip() {
+xml_unzip() {
   name="${1}"
   tempdir="$( mktemp -d )"; [[ "${tempdir}" == "" ]] && exit 1
 
-  trap "rm -rf ${path} ${tempdir}" 0 1 2 3 14 15
+  trap 'rm -rf "${path}" "${tempdir}"' 0 1 2 3 14 15
   cd "${tempdir}" || exit 1
   unzip -q "${path}" 2>/dev/null || exit 0
-  find . -name "${name}" -print0 | xargs -0 cat | "${dir}/xml2text"
+  find . -name "${name}" -print0 | xargs -0 cat | "${lib_dir}/xml2text"
 }
 
 wait_timeout() {
-  childpid=$!
-  trap "kill -9 ${childpid}; rm -f ${path}" 1 2 3 14 15
-  wait "${childpid}"
+  child_pid=$!
+  trap 'kill -9 "${child_pid}"; rm -f "${path}"' 1 2 3 14 15
+  wait "${child_pid}"
 }
 
 LANG='en_US.UTF-8'; export LANG
@@ -71,13 +68,13 @@ elif [[ "${fmt}" == "xls" ]]; then
   ( /usr/bin/xls2csv "${path}"; true ) 2>/dev/null&
   wait_timeout 2>/dev/null
 elif [[ "${fmt}" == "odt" || "${fmt}" == "ods" || "${fmt}" == "odp" ]]; then
-  xmlunzip "content.xml"
+  xml_unzip "content.xml"
 elif [[ "${fmt}" == "docx" ]]; then
-  xmlunzip "document.xml"
+  xml_unzip "document.xml"
 elif [[ "${fmt}" == "xlsx" ]]; then
-  xmlunzip "sharedStrings.xml"
+  xml_unzip "sharedStrings.xml"
 elif [[ "${fmt}" == "pptx" ]]; then
-  xmlunzip "slide*.xml"
+  xml_unzip "slide*.xml"
 else
   echo "Buggy decoder script: ${fmt} not handled" >&2; exit 1
 fi
