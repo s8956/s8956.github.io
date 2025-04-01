@@ -76,7 +76,7 @@ elif [[ "${fmt}" == "xlsx" ]]; then
 elif [[ "${fmt}" == "pptx" ]]; then
   xml_unzip "slide*.xml"
 else
-  echo "Buggy decoder script: ${fmt} not handled" >&2; exit 1
+  echo "Buggy decoder script: ${fmt} not handled!" >&2; exit 1
 fi
 
 exit 0
