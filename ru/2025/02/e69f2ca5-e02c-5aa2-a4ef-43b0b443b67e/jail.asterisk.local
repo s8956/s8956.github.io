@@ -1,0 +1,10 @@
+[asterisk]
+
+enabled             = true
+backend             = polling
+filter              = %(__name__)s
+logpath             = /var/log/%(__name__)s/messages.log
+
+action              = nftables[type="allports", name="%(__name__)s-tcp", protocol="tcp"]
+                      nftables[type="allports", name="%(__name__)s-udp", protocol="udp"]
+maxretry            = 10

@@ -1,0 +1,11 @@
+[recidive]
+
+enabled             = true
+backend             = polling
+filter              = %(__name__)s
+logpath             = /var/log/fail2ban.log
+
+action              = nftables[type="allports"]
+bantime             = 1w
+findtime            = 1d
+maxretry            = 3
