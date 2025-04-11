@@ -1,9 +1,0 @@
-[nginx-limit-req]
-
-enabled             = true
-backend             = polling
-filter              = %(__name__)s
-logpath             = /var/log/angie/*error.log
-
-action              = nftables[type="multiport", name="%(__name__)s", port="80,443", protocol="tcp"]
-maxretry            = 5
