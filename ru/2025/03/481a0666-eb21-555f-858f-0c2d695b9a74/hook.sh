@@ -20,6 +20,10 @@ SRC_NAME="$( basename "$( readlink -f "${BASH_SOURCE[0]}" )" )" # Source name.
 # Parameters.
 DATA=("${DATA:?}"); readonly DATA
 SERVICES=("${SERVICES[@]:?}"); readonly SERVICES
+CRT="${LEGO_CERT_PATH:?}"; readonly CRT
+KEY="${LEGO_CERT_KEY_PATH:?}"; readonly KEY
+PEM="${LEGO_CERT_PEM_PATH:?}"; readonly PEM
+PFX="${LEGO_CERT_PFX_PATH:?}"; readonly PFX
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # INITIALIZATION
@@ -33,7 +37,7 @@ run() { cert && svcs; }
 
 cert() {
   [[ ! -d "${DATA}" ]] && mkdir -p "${DATA}"
-  for i in "${LEGO_CERT_PATH}" "${LEGO_CERT_KEY_PATH}" "${LEGO_CERT_PEM_PATH}" "${LEGO_CERT_PFX_PATH}"; do
+  for i in "${CRT}" "${KEY}" "${PEM}" "${PFX}"; do
     install -u 'root' -g 'root' -m '0644' "${i}" "${DATA}"
   done
 }
