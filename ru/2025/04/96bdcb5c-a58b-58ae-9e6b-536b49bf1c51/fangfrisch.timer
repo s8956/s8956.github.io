@@ -1,11 +1,13 @@
 [Unit]
 Description=Automatically refresh the fangfrisch signatures
-ConditionPathExists=/etc/fangfrisch.conf
+Documentation=https://rseichter.github.io/fangfrisch/
+Requires=fangfrisch.service
 
 [Timer]
 OnBootSec=2min
 OnUnitActiveSec=15min
 RandomizedDelaySec=2m
+Unit=fangfrisch.service
 
 [Install]
 WantedBy=timers.target

@@ -1,5 +1,9 @@
 [Unit]
 Description=Updater for unofficial ClamAV signatures
+Documentation=https://rseichter.github.io/fangfrisch/
+ConditionPathExists=/var/lib/fangfrisch/db.sqlite
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 ExecStart=/var/lib/fangfrisch/venv/bin/fangfrisch --conf /etc/fangfrisch.conf refresh
