@@ -1,0 +1,6 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOME=/var/lib/fangfrisch
+LOG_LEVEL=INFO
+
+*/10 * * * * clamav sleep $((RANDOM % 42)); "${HOME}/venv/bin/fangfrisch" --conf '/etc/fangfrisch.conf' refresh
