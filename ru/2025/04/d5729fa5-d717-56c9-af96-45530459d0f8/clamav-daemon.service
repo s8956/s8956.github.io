@@ -1,7 +1,6 @@
 [Unit]
 Description=Clam AntiVirus userspace daemon
 Documentation=https://docs.clamav.net/
-Requires=clamav-daemon.socket
 # Check for database existence
 ConditionPathExistsGlob=/var/lib/clamav/main.{c[vl]d,inc}
 ConditionPathExistsGlob=/var/lib/clamav/daily.{c[vl]d,inc}
@@ -14,4 +13,3 @@ TimeoutStartSec=420
 
 [Install]
 WantedBy=multi-user.target
-Also=clamav-daemon.socket
