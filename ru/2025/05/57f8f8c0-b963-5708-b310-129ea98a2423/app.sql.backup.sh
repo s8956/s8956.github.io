@@ -22,6 +22,7 @@ SRC_NAME="$( basename "$( readlink -f "${BASH_SOURCE[0]}" )" )" # Source name.
 SQL_ON="${SQL_ON:?}"; readonly SQL_ON
 SQL_TYPE="${SQL_TYPE:?}"; readonly SQL_TYPE
 SQL_DATA="${SQL_DATA:?}"; readonly SQL_DATA
+SQL_USER="${SQL_USER:?}"; readonly SQL_USER
 SQL_PASS="${SQL_PASS:?}"; readonly SQL_PASS
 SQL_DB=("${SQL_DB[@]:?}"); readonly SQL_DB
 SYNC_ON="${SYNC_ON:?}"; readonly SYNC_ON
@@ -36,8 +37,7 @@ MAIL_TO="${MAIL_TO:?}"; readonly MAIL_TO
 # -------------------------------------------------------------------------------------------------------------------- #
 
 run() {
-  (( ! "${SQL_ON}" )) && return 0
-  sql_backup && sql_remove && fs_sync
+  (( ! "${SQL_ON}" )) && return 0; sql_backup && sql_remove && fs_sync
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -47,11 +47,13 @@ run() {
 
 sql_backup() {
   local id; id="$( _id )"
+
   for i in "${SQL_DB[@]}"; do
     local ts; ts="$( _timestamp )"
     local file; file="${i}.${id}.${ts}.sql"
-    { [[ ! -d "${SQL_DATA}" ]] && mkdir -p "${SQL_DATA}"; } && cd "${SQL_DATA}" \
-      && _dump "${i}" "${file}" && _pack "${file}"
+
+    [[ ! -d "${SQL_DATA}" ]] && mkdir -p "${SQL_DATA}"; cd "${SQL_DATA}" || exit 1
+    _dump "${i}" "${file}" && _pack "${file}"
   done
 }
 
@@ -70,8 +72,7 @@ sql_remove() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 fs_sync() {
-  (( ! "${SYNC_ON}" )) && return 0
-  rsync -a --delete --quiet -e "sshpass -p '${SYNC_PASS}' ssh -p ${SYNC_PORT:-22}" \
+  (( ! "${SYNC_ON}" )) && return 0; rsync -a --delete --quiet -e "sshpass -p '${SYNC_PASS}' ssh -p ${SYNC_PORT:-22}" \
     "${SQL_DATA}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/"
 }
 
@@ -96,7 +97,7 @@ _dump() {
 }
 
 _mysql() {
-  local cmd; cmd='mariadb-dump'; [[ $( command -v 'mysqldump' ) ]] && cmd='mysqldump'
+  local cmd; cmd='mariadb-dump'; [[ "$( command -v 'mysqldump' )" ]] && cmd='mysqldump'
   "${cmd}" --host="${SQL_HOST:-127.0.0.1}" --port="${SQL_PORT:-3306}" \
     --user="${SQL_USER:-root}" --password="${SQL_PASS}" \
     --single-transaction --skip-lock-tables "${1}" --result-file="${2}"
@@ -110,12 +111,13 @@ _pgsql() {
 }
 
 _pack() {
-  xz "${1}" && { [[ -f "${1}" ]] && rm -f "${1}"; }
+  xz "${1}"
 }
 
 _mail() {
   local id; id="#ID:$( hostname -f ):$( dmidecode -s system-uuid )"
   local type; type="#TYPE:BACKUP:${3}"
+
   printf '%s\n\n-- \n%s\n%s' "${2}" "${id^^}" "${type^^}" | mail -s "${1}" "${MAIL_TO}"
 }
 
