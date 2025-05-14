@@ -60,6 +60,7 @@ sql_backup() {
 
 sql_remove() {
   find "${SQL_DATA}" -type f -mtime "+${SQL_DAYS:-30}" -print0 | xargs -0 rm -f --
+  find "${SQL_DATA}" -type d -empty -delete
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
