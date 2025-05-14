@@ -46,8 +46,9 @@ sql_backup() {
   local id; id="$( _id )"
   for i in "${SQL_DB[@]}"; do
     local ts; ts="$( _timestamp )"
+    local dir; dir="${SQL_DATA}/$( _dir )"
     local file; file="${i}.${id}.${ts}.sql"
-    [[ ! -d "${SQL_DATA}" ]] && mkdir -p "${SQL_DATA}"; cd "${SQL_DATA}" || exit 1
+    [[ ! -d "${dir}" ]] && mkdir -p "${dir}"; cd "${dir}" || exit 1
     _dump "${i}" "${file}" && _pack "${file}"
   done
 }
@@ -83,13 +84,18 @@ _timestamp() {
   date -u '+%Y-%m-%d.%H-%M-%S'
 }
 
+_dir() {
+  echo "$( date -u '+%Y' )/$( date -u '+%m' )/$( date -u '+%d' )"
+}
+
 _dump() {
+  local dbms; dbms="${1%%.*}"
   local db; db="${1##*.}"
   local file; file="${2}"
-  case "${SQL_TYPE%%.*}" in
+  case "${dbms}" in
     'mysql') _mysql "${db}" "${file}" ;;
     'pgsql') _pgsql "${db}" "${file}" ;;
-    *) echo >&2 'SQL_TYPE does not exist!'; exit 1 ;;
+    *) echo >&2 'SQL_DB does not exist!'; exit 1 ;;
   esac
 }
 
@@ -119,7 +125,6 @@ _pack() {
 _mail() {
   local id; id="#ID:$( hostname -f ):$( dmidecode -s system-uuid )"
   local type; type="#TYPE:BACKUP:${3}"
-
   printf '%s\n\n-- \n%s\n%s' "${2}" "${id^^}" "${type^^}" | mail -s "${1}" "${MAIL_TO}"
 }
 
