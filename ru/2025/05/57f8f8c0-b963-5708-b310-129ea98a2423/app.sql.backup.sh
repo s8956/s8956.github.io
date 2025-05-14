@@ -29,13 +29,18 @@ SYNC_HOST="${SYNC_HOST:?}"; readonly SYNC_HOST
 SYNC_USER="${SYNC_USER:?}"; readonly SYNC_USER
 SYNC_PASS="${SYNC_PASS:?}"; readonly SYNC_PASS
 SYNC_DST="${SYNC_DST:?}"; readonly SYNC_DST
+ENC_ON="${ENC_ON:?}"; readonly ENC_ON
+ENC_PASS="${ENC_PASS:?}"; readonly ENC_PASS
 MAIL_TO="${MAIL_TO:?}"; readonly MAIL_TO
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # INITIALIZATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
-run() { (( ! "${SQL_ON}" )) && return 0; sql_backup && sql_remove && fs_sync; }
+run() {
+  (( ! "${SQL_ON}" )) && return 0
+  sql_backup && sql_remove && fs_sync
+}
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # SQL: BACKUP
@@ -49,7 +54,7 @@ sql_backup() {
     local dir; dir="${SQL_DATA}/$( _dir )"
     local file; file="${i}.${id}.${ts}.sql"
     [[ ! -d "${dir}" ]] && mkdir -p "${dir}"; cd "${dir}" || exit 1
-    _dump "${i}" "${file}" && _pack "${file}"
+    _dump "${i}" "${file}" && _pack "${file}" && _enc "${file}.xz" "${ENC_PASS}"
   done
 }
 
@@ -59,8 +64,8 @@ sql_backup() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 sql_remove() {
-  find "${SQL_DATA}" -type f -mtime "+${SQL_DAYS:-30}" -print0 | xargs -0 rm -f --
-  find "${SQL_DATA}" -type d -empty -delete
+  find "${SQL_DATA}" -type 'f' -mtime "+${SQL_DAYS:-30}" -print0 | xargs -0 rm -f --
+  find "${SQL_DATA}" -type 'd' -empty -delete
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -69,7 +74,8 @@ sql_remove() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 fs_sync() {
-  (( ! "${SYNC_ON}" )) && return 0; rsync -a --delete --quiet -e "sshpass -p '${SYNC_PASS}' ssh -p ${SYNC_PORT:-22}" \
+  (( ! "${SYNC_ON}" )) && return 0
+  rsync -am --delete --quiet -e "sshpass -p '${SYNC_PASS}' ssh -p ${SYNC_PORT:-22}" \
     "${SQL_DATA}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/"
 }
 
@@ -96,7 +102,7 @@ _dump() {
   case "${dbms}" in
     'mysql') _mysql "${db}" "${file}" ;;
     'pgsql') _pgsql "${db}" "${file}" ;;
-    *) echo >&2 'SQL_DB does not exist!'; exit 1 ;;
+    *) echo >&2 'DBMS does not exist!'; exit 1 ;;
   esac
 }
 
@@ -121,6 +127,13 @@ _pgsql() {
 _pack() {
   local file; file="${1}"
   xz "${file}"
+}
+
+_enc() {
+  (( ! "${ENC_ON}" )) && return 0;
+  local file; file="${1}"
+  local pass; pass="${2}"
+  openssl enc -aes-256-cbc -salt -pbkdf2 -in "${file}" -out "${file}.enc" -pass "pass:${pass}" && rm -f "${file}"
 }
 
 _mail() {
