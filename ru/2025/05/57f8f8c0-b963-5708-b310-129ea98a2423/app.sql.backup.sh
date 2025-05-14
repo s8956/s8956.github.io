@@ -20,7 +20,6 @@ SRC_NAME="$( basename "$( readlink -f "${BASH_SOURCE[0]}" )" )" # Source name.
 
 # Parameters.
 SQL_ON="${SQL_ON:?}"; readonly SQL_ON
-SQL_TYPE="${SQL_TYPE:?}"; readonly SQL_TYPE
 SQL_DATA="${SQL_DATA:?}"; readonly SQL_DATA
 SQL_USER="${SQL_USER:?}"; readonly SQL_USER
 SQL_PASS="${SQL_PASS:?}"; readonly SQL_PASS
@@ -36,9 +35,7 @@ MAIL_TO="${MAIL_TO:?}"; readonly MAIL_TO
 # INITIALIZATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
-run() {
-  (( ! "${SQL_ON}" )) && return 0; sql_backup && sql_remove && fs_sync
-}
+run() { (( ! "${SQL_ON}" )) && return 0; sql_backup && sql_remove && fs_sync; }
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # SQL: BACKUP
@@ -47,11 +44,9 @@ run() {
 
 sql_backup() {
   local id; id="$( _id )"
-
   for i in "${SQL_DB[@]}"; do
     local ts; ts="$( _timestamp )"
     local file; file="${i}.${id}.${ts}.sql"
-
     [[ ! -d "${SQL_DATA}" ]] && mkdir -p "${SQL_DATA}"; cd "${SQL_DATA}" || exit 1
     _dump "${i}" "${file}" && _pack "${file}"
   done
@@ -89,29 +84,36 @@ _timestamp() {
 }
 
 _dump() {
-  case "${SQL_TYPE}" in
-    'mysql') _mysql "${1}" "${2}" ;;
-    'pgsql') _pgsql "${1}" "${2}" ;;
+  local db; db="${1##*.}"
+  local file; file="${2}"
+  case "${SQL_TYPE%%.*}" in
+    'mysql') _mysql "${db}" "${file}" ;;
+    'pgsql') _pgsql "${db}" "${file}" ;;
     *) echo >&2 'SQL_TYPE does not exist!'; exit 1 ;;
   esac
 }
 
 _mysql() {
+  local db; db="${1}"
+  local file; file="${2}"
   local cmd; cmd='mariadb-dump'; [[ "$( command -v 'mysqldump' )" ]] && cmd='mysqldump'
   "${cmd}" --host="${SQL_HOST:-127.0.0.1}" --port="${SQL_PORT:-3306}" \
     --user="${SQL_USER:-root}" --password="${SQL_PASS}" \
-    --single-transaction --skip-lock-tables "${1}" --result-file="${2}"
+    --single-transaction --skip-lock-tables "${db}" --result-file="${file}"
 }
 
 _pgsql() {
-  pg_dump --host="${SQL_HOST:-127.0.0.1}" --port="${SQL_PORT:-5432}" \
+  local db; db="${1}"
+  local file; file="${2}"
+  PGPASSWORD="${SQL_PASS}" pg_dump --host="${SQL_HOST:-127.0.0.1}" --port="${SQL_PORT:-5432}" \
     --username="${SQL_USER:-postgres}" --no-password \
-    --dbname="${1}" --file="${2}" \
+    --dbname="${db}" --file="${file}" \
     --clean --if-exists --no-owner --no-privileges --quote-all-identifiers
 }
 
 _pack() {
-  xz "${1}"
+  local file; file="${1}"
+  xz "${file}"
 }
 
 _mail() {
