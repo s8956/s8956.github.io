@@ -29,6 +29,7 @@ SYNC_HOST="${SYNC_HOST:?}"; readonly SYNC_HOST
 SYNC_USER="${SYNC_USER:?}"; readonly SYNC_USER
 SYNC_PASS="${SYNC_PASS:?}"; readonly SYNC_PASS
 SYNC_DST="${SYNC_DST:?}"; readonly SYNC_DST
+SUM_ON="${SUM_ON:?}"; readonly SUM_ON
 ENC_ON="${ENC_ON:?}"; readonly ENC_ON
 ENC_PASS="${ENC_PASS:?}"; readonly ENC_PASS
 MAIL_ON="${MAIL_ON:?}"; readonly MAIL_ON
@@ -55,7 +56,7 @@ sql_backup() {
     local dir; dir="${SQL_DATA}/$( _dir )"
     local file; file="${i}.${id}.${ts}.sql"
     [[ ! -d "${dir}" ]] && mkdir -p "${dir}"; cd "${dir}" || exit 1
-    _dump "${i}" "${file}" && _pack "${file}" && _enc "${file}.xz" "${ENC_PASS}" \
+    _dump "${i}" "${file}" && _pack "${file}" && _enc "${file}" "${ENC_PASS}" && _sum "${file}" \
       && _mail "$( hostname -f ) / SQL: ${i}" "The '${i}' database is saved in the file '${file}'!" 'SUCCESS'
   done
 }
@@ -134,16 +135,27 @@ _pack() {
 
 _enc() {
   (( ! "${ENC_ON}" )) && return 0;
-  local file; file="${1}"
+  local in; in="${1}.xz"
+  local out; out="${in}.enc"
   local pass; pass="${2}"
-  openssl enc -aes-256-cbc -salt -pbkdf2 -in "${file}" -out "${file}.enc" -pass "pass:${pass}" && rm -f "${file}"
+  openssl enc -aes-256-cbc -salt -pbkdf2 -in "${in}" -out "${out}" -pass "pass:${pass}" && rm -f "${in}"
+}
+
+_sum() {
+  (( ! "${SUM_ON}" )) && return 0;
+  local in; in="${1}.xz"; (( "${ENC_ON}" )) && in="${1}.xz.enc"
+  local out; out="${in}.sum"
+  sha256sum "${in}" | sed 's| .*/|  |g' | tee "${out}" > '/dev/null'
 }
 
 _mail() {
   (( ! "${MAIL_ON}" )) && return 0;
+  local subj; subj="${1}"
+  local body; body="${2}"
+  local status; status="${3}"
   local id; id="#ID:$( hostname -f ):$( dmidecode -s system-uuid )"
-  local type; type="#TYPE:BACKUP:${3}"
-  printf '%s\n\n-- \n%s\n%s' "${2}" "${id^^}" "${type^^}" | mail -s "${1}" "${MAIL_TO}"
+  local type; type="#TYPE:BACKUP:${status}"
+  printf '%s\n\n-- \n%s\n%s' "${body}" "${id^^}" "${type^^}" | mail -s "${subj}" "${MAIL_TO}"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
