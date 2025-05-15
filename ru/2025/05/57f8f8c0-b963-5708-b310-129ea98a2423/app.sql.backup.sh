@@ -32,6 +32,7 @@ SYNC_DST="${SYNC_DST:?}"; readonly SYNC_DST
 SYNC_DEL="${SYNC_DEL:?}"; readonly SYNC_DEL
 SYNC_RSF="${SYNC_RSF:?}"; readonly SYNC_RSF
 SYNC_PED="${SYNC_PED:?}"; readonly SYNC_PED
+SYNC_CVS="${SYNC_CVS:?}"; readonly SYNC_CVS
 SUM_ON="${SUM_ON:?}"; readonly SUM_ON
 ENC_ON="${ENC_ON:?}"; readonly ENC_ON
 ENC_PASS="${ENC_PASS:?}"; readonly ENC_PASS
@@ -85,6 +86,7 @@ fs_sync() {
   (( "${SYNC_DEL}" )) && opts+=('--delete')
   (( "${SYNC_RSF}" )) && opts+=('--remove-source-files')
   (( "${SYNC_PED}" )) && opts+=('--prune-empty-dirs')
+  (( "${SYNC_CVS}" )) && opts+=('--cvs-exclude')
   rsync "${opts[@]}" -e "sshpass -p '${SYNC_PASS}' ssh -p ${SYNC_PORT:-22}" \
     "${SQL_DATA}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/" \
     && _mail "$( hostname -f ) / SYNC" 'The database files are synchronized!' 'SUCCESS'
