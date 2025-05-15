@@ -31,6 +31,7 @@ SYNC_PASS="${SYNC_PASS:?}"; readonly SYNC_PASS
 SYNC_DST="${SYNC_DST:?}"; readonly SYNC_DST
 ENC_ON="${ENC_ON:?}"; readonly ENC_ON
 ENC_PASS="${ENC_PASS:?}"; readonly ENC_PASS
+MAIL_ON="${MAIL_ON:?}"; readonly MAIL_ON
 MAIL_TO="${MAIL_TO:?}"; readonly MAIL_TO
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -54,7 +55,8 @@ sql_backup() {
     local dir; dir="${SQL_DATA}/$( _dir )"
     local file; file="${i}.${id}.${ts}.sql"
     [[ ! -d "${dir}" ]] && mkdir -p "${dir}"; cd "${dir}" || exit 1
-    _dump "${i}" "${file}" && _pack "${file}" && _enc "${file}.xz" "${ENC_PASS}"
+    _dump "${i}" "${file}" && _pack "${file}" && _enc "${file}.xz" "${ENC_PASS}" \
+      && _mail "$( hostname -f ) / SQL: ${i}" "The '${i}' database is saved in the file '${file}'!" 'SUCCESS'
   done
 }
 
@@ -76,7 +78,8 @@ sql_remove() {
 fs_sync() {
   (( ! "${SYNC_ON}" )) && return 0
   rsync -am --delete --quiet -e "sshpass -p '${SYNC_PASS}' ssh -p ${SYNC_PORT:-22}" \
-    "${SQL_DATA}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/"
+    "${SQL_DATA}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/" \
+    && _mail "$( hostname -f ) / SYNC" 'The database files are synchronized!' 'SUCCESS'
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -137,6 +140,7 @@ _enc() {
 }
 
 _mail() {
+  (( ! "${MAIL_ON}" )) && return 0;
   local id; id="#ID:$( hostname -f ):$( dmidecode -s system-uuid )"
   local type; type="#TYPE:BACKUP:${3}"
   printf '%s\n\n-- \n%s\n%s' "${2}" "${id^^}" "${type^^}" | mail -s "${1}" "${MAIL_TO}"
