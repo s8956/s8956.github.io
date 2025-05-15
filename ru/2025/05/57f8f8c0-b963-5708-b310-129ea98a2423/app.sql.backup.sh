@@ -29,6 +29,9 @@ SYNC_HOST="${SYNC_HOST:?}"; readonly SYNC_HOST
 SYNC_USER="${SYNC_USER:?}"; readonly SYNC_USER
 SYNC_PASS="${SYNC_PASS:?}"; readonly SYNC_PASS
 SYNC_DST="${SYNC_DST:?}"; readonly SYNC_DST
+SYNC_DEL="${SYNC_DEL:?}"; readonly SYNC_DEL
+SYNC_RSF="${SYNC_RSF:?}"; readonly SYNC_RSF
+SYNC_PED="${SYNC_PED:?}"; readonly SYNC_PED
 SUM_ON="${SUM_ON:?}"; readonly SUM_ON
 ENC_ON="${ENC_ON:?}"; readonly ENC_ON
 ENC_PASS="${ENC_PASS:?}"; readonly ENC_PASS
@@ -78,7 +81,11 @@ sql_remove() {
 
 fs_sync() {
   (( ! "${SYNC_ON}" )) && return 0
-  rsync -am --delete --quiet -e "sshpass -p '${SYNC_PASS}' ssh -p ${SYNC_PORT:-22}" \
+  local opts; opts=('--archive' '--quiet')
+  (( "${SYNC_DEL}" )) && opts+=('--delete')
+  (( "${SYNC_RSF}" )) && opts+=('--remove-source-files')
+  (( "${SYNC_PED}" )) && opts+=('--prune-empty-dirs')
+  rsync "${opts[@]}" -e "sshpass -p '${SYNC_PASS}' ssh -p ${SYNC_PORT:-22}" \
     "${SQL_DATA}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/" \
     && _mail "$( hostname -f ) / SYNC" 'The database files are synchronized!' 'SUCCESS'
 }
