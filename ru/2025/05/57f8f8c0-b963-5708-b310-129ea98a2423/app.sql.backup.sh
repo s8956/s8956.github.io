@@ -45,17 +45,7 @@ MAIL_TO="${MAIL_TO:?}"; readonly MAIL_TO
 
 run() {
   (( ! "${SQL_ON}" )) && return 0
-  sql_remove && sql_backup && fs_sync
-}
-
-# -------------------------------------------------------------------------------------------------------------------- #
-# SQL: REMOVE
-# Deleting old database dumps.
-# -------------------------------------------------------------------------------------------------------------------- #
-
-sql_remove() {
-  find "${SQL_DATA}" -type 'f' -mtime "+${SQL_DAYS:-30}" -print0 | xargs -0 rm -f --
-  find "${SQL_DATA}" -type 'd' -empty -delete
+  sql_backup && fs_sync && fs_clean
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -90,6 +80,16 @@ fs_sync() {
   rsync "${opts[@]}" -e "sshpass -p '${SYNC_PASS}' ssh -p ${SYNC_PORT:-22}" \
     "${SQL_DATA}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/" \
     && _mail "$( hostname -f ) / SYNC" 'The database files are synchronized!' 'SUCCESS'
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# FS: CLEAN
+# Cleaning the file system.
+# -------------------------------------------------------------------------------------------------------------------- #
+
+fs_clean() {
+  find "${SQL_DATA}" -type 'f' -mtime "+${SQL_DAYS:-30}" -print0 | xargs -0 rm -f --
+  find "${SQL_DATA}" -type 'd' -empty -delete
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
