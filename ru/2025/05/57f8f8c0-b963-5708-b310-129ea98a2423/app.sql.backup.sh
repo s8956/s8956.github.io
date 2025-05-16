@@ -89,7 +89,7 @@ fs_sync() {
 
 fs_clean() {
   find "${SQL_DATA}" -type 'f' -mtime "+${SQL_DAYS:-30}" -print0 | xargs -0 rm -f --
-  find "${SQL_DATA}" -mindepth 1 -type 'd' -empty -delete
+  find "${SQL_DATA}" -mindepth 1 -type 'd' -not -name 'lost+found' -empty -delete
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
