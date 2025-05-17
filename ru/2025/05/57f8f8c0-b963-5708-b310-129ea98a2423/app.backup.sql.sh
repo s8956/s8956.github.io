@@ -20,10 +20,13 @@ SRC_NAME="$( basename "$( readlink -f "${BASH_SOURCE[0]}" )" )" # Source name.
 
 # Parameters.
 SQL_ON="${SQL_ON:?}"; readonly SQL_ON
-SQL_DATA="${SQL_DATA:?}"; readonly SQL_DATA
+SQL_SRC=("${SQL_SRC[@]:?}"); readonly SQL_SRC
+SQL_DST="${SQL_DST:?}"; readonly SQL_DST
 SQL_USER="${SQL_USER:?}"; readonly SQL_USER
 SQL_PASS="${SQL_PASS:?}"; readonly SQL_PASS
-SQL_DB=("${SQL_DB[@]:?}"); readonly SQL_DB
+ENC_ON="${ENC_ON:?}"; readonly ENC_ON
+ENC_PASS="${ENC_PASS:?}"; readonly ENC_PASS
+SUM_ON="${SUM_ON:?}"; readonly SUM_ON
 SYNC_ON="${SYNC_ON:?}"; readonly SYNC_ON
 SYNC_HOST="${SYNC_HOST:?}"; readonly SYNC_HOST
 SYNC_USER="${SYNC_USER:?}"; readonly SYNC_USER
@@ -33,9 +36,6 @@ SYNC_DEL="${SYNC_DEL:?}"; readonly SYNC_DEL
 SYNC_RSF="${SYNC_RSF:?}"; readonly SYNC_RSF
 SYNC_PED="${SYNC_PED:?}"; readonly SYNC_PED
 SYNC_CVS="${SYNC_CVS:?}"; readonly SYNC_CVS
-SUM_ON="${SUM_ON:?}"; readonly SUM_ON
-ENC_ON="${ENC_ON:?}"; readonly ENC_ON
-ENC_PASS="${ENC_PASS:?}"; readonly ENC_PASS
 MAIL_ON="${MAIL_ON:?}"; readonly MAIL_ON
 MAIL_TO="${MAIL_TO:?}"; readonly MAIL_TO
 
@@ -55,12 +55,12 @@ run() {
 
 sql_backup() {
   local id; id="$( _id )"
-  for i in "${SQL_DB[@]}"; do
+  for i in "${SQL_SRC[@]}"; do
     local ts; ts="$( _timestamp )"
-    local dir; dir="${SQL_DATA}/$( _dir )"
+    local dir; dir="${SQL_DST}/$( _dir )"
     local file; file="${i}.${id}.${ts}.sql"
     [[ ! -d "${dir}" ]] && mkdir -p "${dir}"; cd "${dir}" || exit 1
-    _dump "${i}" "${file}" && _pack "${file}" && _enc "${file}" "${ENC_PASS}" && _sum "${file}" \
+    _dump "${i}" "${file}" && xz "${file}" && _enc "${file}" && _sum "${file}" \
       && _mail "$( hostname -f ) / SQL: ${i}" "The '${i}' database is saved in the file '${file}'!" 'SUCCESS'
   done
 }
@@ -78,7 +78,7 @@ fs_sync() {
   (( "${SYNC_PED}" )) && opts+=('--prune-empty-dirs')
   (( "${SYNC_CVS}" )) && opts+=('--cvs-exclude')
   rsync "${opts[@]}" -e "sshpass -p '${SYNC_PASS}' ssh -p ${SYNC_PORT:-22}" \
-    "${SQL_DATA}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/" \
+    "${SQL_DST}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/" \
     && _mail "$( hostname -f ) / SYNC" 'The database files are synchronized!' 'SUCCESS'
 }
 
@@ -88,8 +88,8 @@ fs_sync() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 fs_clean() {
-  find "${SQL_DATA}" -type 'f' -mtime "+${SQL_DAYS:-30}" -print0 | xargs -0 rm -f --
-  find "${SQL_DATA}" -mindepth 1 -type 'd' -not -name 'lost+found' -empty -delete
+  find "${SQL_DST}" -type 'f' -mtime "+${SQL_DAYS:-30}" -print0 | xargs -0 rm -f --
+  find "${SQL_DST}" -mindepth 1 -type 'd' -not -name 'lost+found' -empty -delete
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -137,16 +137,11 @@ _pgsql() {
     --clean --if-exists --no-owner --no-privileges --quote-all-identifiers
 }
 
-_pack() {
-  local file; file="${1}"
-  xz "${file}"
-}
-
 _enc() {
   (( ! "${ENC_ON}" )) && return 0;
   local in; in="${1}.xz"
   local out; out="${in}.enc"
-  local pass; pass="${2}"
+  local pass; pass="${ENC_PASS}"
   openssl enc -aes-256-cbc -salt -pbkdf2 -in "${in}" -out "${out}" -pass "pass:${pass}" && rm -f "${in}"
 }
 
