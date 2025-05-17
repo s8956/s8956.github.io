@@ -19,14 +19,11 @@ SRC_NAME="$( basename "$( readlink -f "${BASH_SOURCE[0]}" )" )" # Source name.
 . "${SRC_DIR}/${SRC_NAME%.*}.conf" # Loading configuration file.
 
 # Parameters.
-SQL_ON="${SQL_ON:?}"; readonly SQL_ON
 SQL_SRC=("${SQL_SRC[@]:?}"); readonly SQL_SRC
 SQL_DST="${SQL_DST:?}"; readonly SQL_DST
 SQL_USER="${SQL_USER:?}"; readonly SQL_USER
 SQL_PASS="${SQL_PASS:?}"; readonly SQL_PASS
-ENC_ON="${ENC_ON:?}"; readonly ENC_ON
 ENC_PASS="${ENC_PASS:?}"; readonly ENC_PASS
-SUM_ON="${SUM_ON:?}"; readonly SUM_ON
 SYNC_ON="${SYNC_ON:?}"; readonly SYNC_ON
 SYNC_HOST="${SYNC_HOST:?}"; readonly SYNC_HOST
 SYNC_USER="${SYNC_USER:?}"; readonly SYNC_USER
@@ -36,32 +33,26 @@ SYNC_DEL="${SYNC_DEL:?}"; readonly SYNC_DEL
 SYNC_RSF="${SYNC_RSF:?}"; readonly SYNC_RSF
 SYNC_PED="${SYNC_PED:?}"; readonly SYNC_PED
 SYNC_CVS="${SYNC_CVS:?}"; readonly SYNC_CVS
-MAIL_ON="${MAIL_ON:?}"; readonly MAIL_ON
-MAIL_TO="${MAIL_TO:?}"; readonly MAIL_TO
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # INITIALIZATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
-run() {
-  (( ! "${SQL_ON}" )) && return 0
-  sql_backup && fs_sync && fs_clean
-}
+run() { backup && sync && clean; }
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # SQL: BACKUP
 # Creating a database dump.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-sql_backup() {
+backup() {
   local id; id="$( _id )"
   for i in "${SQL_SRC[@]}"; do
     local ts; ts="$( _timestamp )"
-    local dir; dir="${SQL_DST}/$( _dir )"
-    local file; file="${i}.${id}.${ts}.sql"
-    [[ ! -d "${dir}" ]] && mkdir -p "${dir}"; cd "${dir}" || exit 1
-    _dump "${i}" "${file}" && xz "${file}" && _enc "${file}" && _sum "${file}" \
-      && _mail "$( hostname -f ) / SQL: ${i}" "The '${i}' database is saved in the file '${file}'!" 'SUCCESS'
+    local tree; tree="${SQL_DST}/$( _tree )"
+    local file; file="${i}.${id}.${ts}.sql.xz.gpg"
+    [[ ! -d "${tree}" ]] && mkdir -p "${tree}"; cd "${tree}" || _err "Directory '${tree}' not found!"
+    _dump "${i}" | xz | _enc "${file}" && _sum "${file}"
   done
 }
 
@@ -70,7 +61,7 @@ sql_backup() {
 # Sending database dumps to remote storage.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-fs_sync() {
+sync() {
   (( ! "${SYNC_ON}" )) && return 0
   local opts; opts=('--archive' '--quiet')
   (( "${SYNC_DEL}" )) && opts+=('--delete')
@@ -78,8 +69,7 @@ fs_sync() {
   (( "${SYNC_PED}" )) && opts+=('--prune-empty-dirs')
   (( "${SYNC_CVS}" )) && opts+=('--cvs-exclude')
   rsync "${opts[@]}" -e "sshpass -p '${SYNC_PASS}' ssh -p ${SYNC_PORT:-22}" \
-    "${SQL_DST}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/" \
-    && _mail "$( hostname -f ) / SYNC" 'The database files are synchronized!' 'SUCCESS'
+    "${SQL_DST}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -87,7 +77,7 @@ fs_sync() {
 # Cleaning the file system.
 # -------------------------------------------------------------------------------------------------------------------- #
 
-fs_clean() {
+clean() {
   find "${SQL_DST}" -type 'f' -mtime "+${SQL_DAYS:-30}" -print0 | xargs -0 rm -f --
   find "${SQL_DST}" -mindepth 1 -type 'd' -not -name 'lost+found' -empty -delete
 }
@@ -104,62 +94,52 @@ _timestamp() {
   date -u '+%Y-%m-%d.%H-%M-%S'
 }
 
-_dir() {
+_tree() {
   echo "$( date -u '+%Y' )/$( date -u '+%m' )/$( date -u '+%d' )"
 }
 
 _dump() {
   local dbms; dbms="${1%%.*}"
   local db; db="${1##*.}"
-  local file; file="${2}"
   case "${dbms}" in
-    'mysql') _mysql "${db}" "${file}" ;;
-    'pgsql') _pgsql "${db}" "${file}" ;;
-    *) echo >&2 'DBMS does not exist!'; exit 1 ;;
+    'mysql') _mysql "${db}" ;;
+    'pgsql') _pgsql "${db}" ;;
+    *) _err 'DBMS does not exist!' ;;
   esac
 }
 
 _mysql() {
   local db; db="${1}"
-  local file; file="${2}"
   local cmd; cmd='mariadb-dump'; [[ "$( command -v 'mysqldump' )" ]] && cmd='mysqldump'
   "${cmd}" --host="${SQL_HOST:-127.0.0.1}" --port="${SQL_PORT:-3306}" \
-    --user="${SQL_USER:-root}" --password="${SQL_PASS}" \
-    --single-transaction --skip-lock-tables "${db}" --result-file="${file}"
+    --user="${SQL_USER:-root}" --password="${SQL_PASS}" --databases="${db}" \
+    --single-transaction --skip-lock-tables
 }
 
 _pgsql() {
   local db; db="${1}"
-  local file; file="${2}"
   PGPASSWORD="${SQL_PASS}" pg_dump --host="${SQL_HOST:-127.0.0.1}" --port="${SQL_PORT:-5432}" \
-    --username="${SQL_USER:-postgres}" --no-password \
-    --dbname="${db}" --file="${file}" \
+    --username="${SQL_USER:-postgres}" --no-password --dbname="${db}" \
     --clean --if-exists --no-owner --no-privileges --quote-all-identifiers
 }
 
 _enc() {
-  (( ! "${ENC_ON}" )) && return 0;
-  local in; in="${1}.xz"
-  local out; out="${in}.enc"
+  local out; out="${1}"
   local pass; pass="${ENC_PASS}"
-  openssl enc -aes-256-cbc -salt -pbkdf2 -in "${in}" -out "${out}" -pass "pass:${pass}" && rm -f "${in}"
+  gpg --batch --passphrase "${pass}" --symmetric --output "${out}" \
+    --s2k-cipher-algo "${ENC_S2K_CIPHER:-AES256}" \
+    --s2k-digest-algo "${ENC_S2K_DIGEST:-SHA512}" \
+    --s2k-count "${ENC_S2K_COUNT:-65536}"
 }
 
 _sum() {
-  (( ! "${SUM_ON}" )) && return 0;
-  local in; in="${1}.xz"; (( "${ENC_ON}" )) && in="${1}.xz.enc"
+  local in; in="${1}"
   local out; out="${in}.sum"
   sha256sum "${in}" | sed 's| .*/|  |g' | tee "${out}" > '/dev/null'
 }
 
-_mail() {
-  (( ! "${MAIL_ON}" )) && return 0;
-  local subj; subj="${1}"
-  local body; body="${2}"
-  local status; status="${3}"
-  local id; id="#ID:$( hostname -f ):$( dmidecode -s system-uuid )"
-  local type; type="#TYPE:BACKUP:${status}"
-  printf '%s\n\n-- \n%s\n%s' "${body}" "${id^^}" "${type^^}" | mail -s "${subj}" "${MAIL_TO}"
+_err() {
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $*" >&2; exit 1
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
