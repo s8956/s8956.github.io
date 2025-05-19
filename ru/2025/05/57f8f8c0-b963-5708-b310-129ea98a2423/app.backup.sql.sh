@@ -23,6 +23,7 @@ SQL_SRC=("${SQL_SRC[@]:?}"); readonly SQL_SRC
 SQL_DST="${SQL_DST:?}"; readonly SQL_DST
 SQL_USER="${SQL_USER:?}"; readonly SQL_USER
 SQL_PASS="${SQL_PASS:?}"; readonly SQL_PASS
+ENC_ON="${ENC_ON:?}"; readonly ENC_ON
 ENC_PASS="${ENC_PASS:?}"; readonly ENC_PASS
 SYNC_ON="${SYNC_ON:?}"; readonly SYNC_ON
 SYNC_HOST="${SYNC_HOST:?}"; readonly SYNC_HOST
@@ -50,7 +51,7 @@ backup() {
   for i in "${SQL_SRC[@]}"; do
     local ts; ts="$( _timestamp )"
     local tree; tree="${SQL_DST}/$( _tree )"
-    local file; file="${i}.${id}.${ts}.sql.xz.gpg"
+    local file; file="${i}.${id}.${ts}.sql.xz"
     [[ ! -d "${tree}" ]] && mkdir -p "${tree}"; cd "${tree}" || _err "Directory '${tree}' not found!"
     _dump "${i}" | xz | _enc "${file}" && _sum "${file}"
   done
@@ -126,14 +127,18 @@ _pgsql() {
 _enc() {
   local out; out="${1}"
   local pass; pass="${ENC_PASS}"
-  gpg --batch --passphrase "${pass}" --symmetric --output "${out}" \
-    --s2k-cipher-algo "${ENC_S2K_CIPHER:-AES256}" \
-    --s2k-digest-algo "${ENC_S2K_DIGEST:-SHA512}" \
-    --s2k-count "${ENC_S2K_COUNT:-65536}"
+  if (( "${ENC_ON}" )); then
+    gpg --batch --passphrase "${pass}" --symmetric --output "${out}.gpg" \
+      --s2k-cipher-algo "${ENC_S2K_CIPHER:-AES256}" \
+      --s2k-digest-algo "${ENC_S2K_DIGEST:-SHA512}" \
+      --s2k-count "${ENC_S2K_COUNT:-65536}"
+  else
+    cat < '/dev/stdin' > "${out}"
+  fi
 }
 
 _sum() {
-  local in; in="${1}"
+  local in; in="${1}"; (( "${ENC_ON}" )) && in="${1}.gpg"
   local out; out="${in}.sum"
   sha256sum "${in}" | sed 's| .*/|  |g' | tee "${out}" > '/dev/null'
 }
