@@ -24,6 +24,7 @@ SQL_DST="${SQL_DST:?}"; readonly SQL_DST
 SQL_USER="${SQL_USER:?}"; readonly SQL_USER
 SQL_PASS="${SQL_PASS:?}"; readonly SQL_PASS
 ENC_ON="${ENC_ON:?}"; readonly ENC_ON
+ENC_APP="${ENC_APP:?}"; readonly ENC_APP
 ENC_PASS="${ENC_PASS:?}"; readonly ENC_PASS
 SYNC_ON="${SYNC_ON:?}"; readonly SYNC_ON
 SYNC_HOST="${SYNC_HOST:?}"; readonly SYNC_HOST
@@ -99,16 +100,6 @@ _tree() {
   echo "$( date -u '+%Y' )/$( date -u '+%m' )/$( date -u '+%d' )"
 }
 
-_dump() {
-  local dbms; dbms="${1%%.*}"
-  local db; db="${1##*.}"
-  case "${dbms}" in
-    'mysql') _mysql "${db}" ;;
-    'pgsql') _pgsql "${db}" ;;
-    *) _err 'DBMS does not exist!' ;;
-  esac
-}
-
 _mysql() {
   local db; db="${1}"
   local cmd; cmd='mariadb-dump'; [[ "$( command -v 'mysqldump' )" ]] && cmd='mysqldump'
@@ -124,21 +115,46 @@ _pgsql() {
     --clean --if-exists --no-owner --no-privileges --quote-all-identifiers
 }
 
+_dump() {
+  local dbms; dbms="${1%%.*}"
+  local db; db="${1##*.}"
+  case "${dbms}" in
+    'mysql') _mysql "${db}" ;;
+    'pgsql') _pgsql "${db}" ;;
+    *) _err 'DBMS does not exist!' ;;
+  esac
+}
+
+_gpg() {
+  local out; out="${1}"
+  local pass; pass="${2}"
+  gpg --batch --passphrase "${pass}" --symmetric --output "${out}.gpg" \
+    --s2k-cipher-algo "${ENC_S2K_CIPHER:-AES256}" \
+    --s2k-digest-algo "${ENC_S2K_DIGEST:-SHA512}" \
+    --s2k-count "${ENC_S2K_COUNT:-65536}"
+}
+
+_ssl() {
+  local out; out="${1}"
+  local pass; pass="${2}"
+  openssl enc -aes-256-cbc -salt -pbkdf2 -out "${out}.enc" -pass "pass:${pass}"
+}
+
 _enc() {
   local out; out="${1}"
   local pass; pass="${ENC_PASS}"
   if (( "${ENC_ON}" )); then
-    gpg --batch --passphrase "${pass}" --symmetric --output "${out}.gpg" \
-      --s2k-cipher-algo "${ENC_S2K_CIPHER:-AES256}" \
-      --s2k-digest-algo "${ENC_S2K_DIGEST:-SHA512}" \
-      --s2k-count "${ENC_S2K_COUNT:-65536}"
+    if [[ "${ENC_APP}" == 'ssl' ]]; then _ssl "${out}" "${pass}"; else _gpg "${out}" "${pass}"; fi
   else
     cat < '/dev/stdin' > "${out}"
   fi
 }
 
 _sum() {
-  local in; in="${1}"; (( "${ENC_ON}" )) && in="${1}.gpg"
+  local in; in="${1}"
+  if (( "${ENC_ON}" )); then
+    if [[ "${ENC_APP}" == 'ssl' ]]; then in="${1}.enc"; else in="${1}.gpg"; fi
+  fi
   local out; out="${in}.sum"
   sha256sum "${in}" | sed 's| .*/|  |g' | tee "${out}" > '/dev/null'
 }
