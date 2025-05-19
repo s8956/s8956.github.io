@@ -37,17 +37,121 @@ SYNC_PED="${SYNC_PED:?}"; readonly SYNC_PED
 SYNC_CVS="${SYNC_CVS:?}"; readonly SYNC_CVS
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# INITIALIZATION
+# COMMON: ERROR
 # -------------------------------------------------------------------------------------------------------------------- #
 
-run() { backup && sync && clean; }
+function _err() {
+  echo >&2 "[$( date +'%Y-%m-%dT%H:%M:%S%z' )]: $*"; exit 1
+}
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# SQL: BACKUP
-# Creating a database dump.
+# COMMON: ID
 # -------------------------------------------------------------------------------------------------------------------- #
 
-backup() {
+function _id() {
+  date -u '+%s'
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# COMMON: TIMESTAMP
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function _timestamp() {
+  date -u '+%Y-%m-%d.%H-%M-%S'
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# COMMON: DIRECTORY TREE
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function _tree() {
+  echo "$( date -u '+%Y' )/$( date -u '+%m' )/$( date -u '+%d' )"
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# COMMON: DATABASE BACKUP
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function _mysql() {
+  local db; db="${1}"
+  local cmd; cmd='mariadb-dump'; [[ "$( command -v 'mysqldump' )" ]] && cmd='mysqldump'
+  "${cmd}" --host="${SQL_HOST:-127.0.0.1}" --port="${SQL_PORT:-3306}" \
+    --user="${SQL_USER:-root}" --password="${SQL_PASS}" --databases="${db}" \
+    --single-transaction --skip-lock-tables
+}
+
+function _pgsql() {
+  local db; db="${1}"
+  PGPASSWORD="${SQL_PASS}" pg_dump --host="${SQL_HOST:-127.0.0.1}" --port="${SQL_PORT:-5432}" \
+    --username="${SQL_USER:-postgres}" --no-password --dbname="${db}" \
+    --clean --if-exists --no-owner --no-privileges --quote-all-identifiers
+}
+
+function _dump() {
+  local dbms; dbms="${1%%.*}"
+  local db; db="${1##*.}"
+  case "${dbms}" in
+    'mysql') _mysql "${db}" ;;
+    'pgsql') _pgsql "${db}" ;;
+    *) _err 'DBMS does not exist!' ;;
+  esac
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# COMMON: ENCRYPTION
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function _gpg() {
+  local out; out="${1}.gpg"
+  local pass; pass="${2}"
+  gpg --batch --passphrase "${pass}" --symmetric --output "${out}" \
+    --s2k-cipher-algo "${ENC_S2K_CIPHER:-AES256}" \
+    --s2k-digest-algo "${ENC_S2K_DIGEST:-SHA512}" \
+    --s2k-count "${ENC_S2K_COUNT:-65536}"
+}
+
+function _ssl() {
+  local out; out="${1}.enc"
+  local pass; pass="${2}"
+  openssl enc -aes-256-cbc -salt -pbkdf2 -out "${out}" -pass "pass:${pass}"
+}
+
+function _enc() {
+  local out; out="${1}"
+  local pass; pass="${ENC_PASS}"
+  if (( "${ENC_ON}" )); then
+    case "${ENC_APP}" in
+      'gpg') _gpg "${out}" "${pass}" ;;
+      'ssl') _ssl "${out}" "${pass}" ;;
+      *) _err 'ENC_APP does not exist!' ;;
+    esac
+  else
+    cat < '/dev/stdin' > "${out}"
+  fi
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# COMMON: CHECKSUM
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function _sum() {
+  local in; in="${1}"
+  if (( "${ENC_ON}" )); then
+    case "${ENC_APP}" in
+      'gpg') in="${1}.gpg" ;;
+      'ssl') in="${1}.enc" ;;
+      *) _err 'ENC_APP does not exist!' ;;
+    esac
+  fi
+  local out; out="${in}.txt"
+  sha256sum "${in}" | sed 's| .*/|  |g' | tee "${out}" > '/dev/null'
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# MAIN: BACKUP DATABASE
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function backup() {
   local id; id="$( _id )"
   for i in "${SQL_SRC[@]}"; do
     local ts; ts="$( _timestamp )"
@@ -59,11 +163,10 @@ backup() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# FS: SYNC
-# Sending database dumps to remote storage.
+# MAIN: SYNCHRONIZATION
 # -------------------------------------------------------------------------------------------------------------------- #
 
-sync() {
+function sync() {
   (( ! "${SYNC_ON}" )) && return 0
   local opts; opts=('--archive' '--quiet')
   (( "${SYNC_DEL}" )) && opts+=('--delete')
@@ -75,96 +178,18 @@ sync() {
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# FS: CLEAN
-# Cleaning the file system.
+# MAIN: CLEAN FILESYSTEM
 # -------------------------------------------------------------------------------------------------------------------- #
 
-clean() {
+function clean() {
   find "${SQL_DST}" -type 'f' -mtime "+${SQL_DAYS:-30}" -print0 | xargs -0 rm -f --
   find "${SQL_DST}" -mindepth 1 -type 'd' -not -name 'lost+found' -empty -delete
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# ------------------------------------------------< COMMON FUNCTIONS >------------------------------------------------ #
+# MAIN
 # -------------------------------------------------------------------------------------------------------------------- #
 
-_id() {
-  date -u '+%s'
-}
-
-_timestamp() {
-  date -u '+%Y-%m-%d.%H-%M-%S'
-}
-
-_tree() {
-  echo "$( date -u '+%Y' )/$( date -u '+%m' )/$( date -u '+%d' )"
-}
-
-_mysql() {
-  local db; db="${1}"
-  local cmd; cmd='mariadb-dump'; [[ "$( command -v 'mysqldump' )" ]] && cmd='mysqldump'
-  "${cmd}" --host="${SQL_HOST:-127.0.0.1}" --port="${SQL_PORT:-3306}" \
-    --user="${SQL_USER:-root}" --password="${SQL_PASS}" --databases="${db}" \
-    --single-transaction --skip-lock-tables
-}
-
-_pgsql() {
-  local db; db="${1}"
-  PGPASSWORD="${SQL_PASS}" pg_dump --host="${SQL_HOST:-127.0.0.1}" --port="${SQL_PORT:-5432}" \
-    --username="${SQL_USER:-postgres}" --no-password --dbname="${db}" \
-    --clean --if-exists --no-owner --no-privileges --quote-all-identifiers
-}
-
-_dump() {
-  local dbms; dbms="${1%%.*}"
-  local db; db="${1##*.}"
-  case "${dbms}" in
-    'mysql') _mysql "${db}" ;;
-    'pgsql') _pgsql "${db}" ;;
-    *) _err 'DBMS does not exist!' ;;
-  esac
-}
-
-_gpg() {
-  local out; out="${1}"
-  local pass; pass="${2}"
-  gpg --batch --passphrase "${pass}" --symmetric --output "${out}.gpg" \
-    --s2k-cipher-algo "${ENC_S2K_CIPHER:-AES256}" \
-    --s2k-digest-algo "${ENC_S2K_DIGEST:-SHA512}" \
-    --s2k-count "${ENC_S2K_COUNT:-65536}"
-}
-
-_ssl() {
-  local out; out="${1}"
-  local pass; pass="${2}"
-  openssl enc -aes-256-cbc -salt -pbkdf2 -out "${out}.enc" -pass "pass:${pass}"
-}
-
-_enc() {
-  local out; out="${1}"
-  local pass; pass="${ENC_PASS}"
-  if (( "${ENC_ON}" )); then
-    if [[ "${ENC_APP}" == 'ssl' ]]; then _ssl "${out}" "${pass}"; else _gpg "${out}" "${pass}"; fi
-  else
-    cat < '/dev/stdin' > "${out}"
-  fi
-}
-
-_sum() {
-  local in; in="${1}"
-  if (( "${ENC_ON}" )); then
-    if [[ "${ENC_APP}" == 'ssl' ]]; then in="${1}.enc"; else in="${1}.gpg"; fi
-  fi
-  local out; out="${in}.sum"
-  sha256sum "${in}" | sed 's| .*/|  |g' | tee "${out}" > '/dev/null'
-}
-
-_err() {
-  echo >&2 "[$( date +'%Y-%m-%dT%H:%M:%S%z' )]: $*"; exit 1
-}
-
-# -------------------------------------------------------------------------------------------------------------------- #
-# -------------------------------------------------< RUNNING SCRIPT >------------------------------------------------- #
-# -------------------------------------------------------------------------------------------------------------------- #
-
-run && exit 0 || exit 1
+function main() {
+  backup && sync && clean
+}; main "$@"
