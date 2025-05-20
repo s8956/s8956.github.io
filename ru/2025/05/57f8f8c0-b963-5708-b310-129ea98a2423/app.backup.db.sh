@@ -1,6 +1,6 @@
 #!/usr/bin/env -S bash -euo pipefail
 # -------------------------------------------------------------------------------------------------------------------- #
-# SQL DATABASE BACKUP
+# DATABASE BACKUP
 # Backup of PostgreSQL and MariaDB databases.
 # -------------------------------------------------------------------------------------------------------------------- #
 # @package    Bash
@@ -19,10 +19,10 @@ SRC_NAME="$( basename "$( readlink -f "${BASH_SOURCE[0]}" )" )" # Source name.
 . "${SRC_DIR}/${SRC_NAME%.*}.conf" # Loading configuration file.
 
 # Parameters.
-SQL_SRC=("${SQL_SRC[@]:?}"); readonly SQL_SRC
-SQL_DST="${SQL_DST:?}"; readonly SQL_DST
-SQL_USER="${SQL_USER:?}"; readonly SQL_USER
-SQL_PASS="${SQL_PASS:?}"; readonly SQL_PASS
+DB_SRC=("${DB_SRC[@]:?}"); readonly DB_SRC
+DB_DST="${DB_DST:?}"; readonly DB_DST
+DB_USER="${DB_USER:?}"; readonly DB_USER
+DB_PASS="${DB_PASS:?}"; readonly DB_PASS
 ENC_ON="${ENC_ON:?}"; readonly ENC_ON
 ENC_APP="${ENC_APP:?}"; readonly ENC_APP
 ENC_PASS="${ENC_PASS:?}"; readonly ENC_PASS
@@ -75,15 +75,15 @@ function _tree() {
 function _mysql() {
   local db; db="${1}"
   local cmd; cmd='mariadb-dump'; [[ "$( command -v 'mysqldump' )" ]] && cmd='mysqldump'
-  "${cmd}" --host="${SQL_HOST:-127.0.0.1}" --port="${SQL_PORT:-3306}" \
-    --user="${SQL_USER:-root}" --password="${SQL_PASS}" --databases="${db}" \
+  "${cmd}" --host="${DB_HOST:-127.0.0.1}" --port="${DB_PORT:-3306}" \
+    --user="${DB_USER:-root}" --password="${DB_PASS}" --databases="${db}" \
     --single-transaction --skip-lock-tables
 }
 
 function _pgsql() {
   local db; db="${1}"
-  PGPASSWORD="${SQL_PASS}" pg_dump --host="${SQL_HOST:-127.0.0.1}" --port="${SQL_PORT:-5432}" \
-    --username="${SQL_USER:-postgres}" --no-password --dbname="${db}" \
+  PGPASSWORD="${DB_PASS}" pg_dump --host="${DB_HOST:-127.0.0.1}" --port="${DB_PORT:-5432}" \
+    --username="${DB_USER:-postgres}" --no-password --dbname="${db}" \
     --clean --if-exists --no-owner --no-privileges --quote-all-identifiers
 }
 
@@ -147,9 +147,9 @@ function _sum() {
 
 function backup() {
   local id; id="$( _id )"
-  for i in "${SQL_SRC[@]}"; do
+  for i in "${DB_SRC[@]}"; do
     local ts; ts="$( _timestamp )"
-    local tree; tree="${SQL_DST}/$( _tree )"
+    local tree; tree="${DB_DST}/$( _tree )"
     local file; file="${i}.${id}.${ts}.sql.xz"
     [[ ! -d "${tree}" ]] && mkdir -p "${tree}"; cd "${tree}" || _err "Directory '${tree}' not found!"
     _dump "${i}" | xz | _enc "${file}" && _sum "${file}"
@@ -168,7 +168,7 @@ function sync() {
   (( "${SYNC_PED}" )) && opts+=('--prune-empty-dirs')
   (( "${SYNC_CVS}" )) && opts+=('--cvs-exclude')
   rsync "${opts[@]}" -e "sshpass -p '${SYNC_PASS}' ssh -p ${SYNC_PORT:-22}" \
-    "${SQL_DST}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/"
+    "${DB_DST}/" "${SYNC_USER:-root}@${SYNC_HOST}:${SYNC_DST}/"
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -176,8 +176,8 @@ function sync() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function clean() {
-  find "${SQL_DST}" -type 'f' -mtime "+${SQL_DAYS:-30}" -print0 | xargs -0 rm -f --
-  find "${SQL_DST}" -mindepth 1 -type 'd' -not -name 'lost+found' -empty -delete
+  find "${DB_DST}" -type 'f' -mtime "+${FS_DAYS:-30}" -print0 | xargs -0 rm -f --
+  find "${DB_DST}" -mindepth 1 -type 'd' -not -name 'lost+found' -empty -delete
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
