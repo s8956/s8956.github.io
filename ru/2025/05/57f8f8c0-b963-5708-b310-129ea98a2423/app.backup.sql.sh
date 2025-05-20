@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -eu
+#!/usr/bin/env -S bash -euo pipefail
 # -------------------------------------------------------------------------------------------------------------------- #
 # SQL DATABASE BACKUP.
 # Backup of PostgreSQL and MariaDB databases.
@@ -105,15 +105,16 @@ function _gpg() {
   local out; out="${1}.gpg"
   local pass; pass="${2}"
   gpg --batch --passphrase "${pass}" --symmetric --output "${out}" \
-    --s2k-cipher-algo "${ENC_S2K_CIPHER:-AES256}" \
-    --s2k-digest-algo "${ENC_S2K_DIGEST:-SHA512}" \
-    --s2k-count "${ENC_S2K_COUNT:-65536}"
+    --s2k-cipher-algo "${ENC_GPG_CIPHER:-AES256}" \
+    --s2k-digest-algo "${ENC_GPG_DIGEST:-SHA512}" \
+    --s2k-count "${ENC_GPG_COUNT:-65536}"
 }
 
 function _ssl() {
-  local out; out="${1}.enc"
+  local out; out="${1}.ssl"
   local pass; pass="${2}"
-  openssl enc -aes-256-cbc -salt -pbkdf2 -out "${out}" -pass "pass:${pass}"
+  openssl enc "-${ENC_SSL_CIPHER:-aes-256-cfb}" -out "${out}" -pass "pass:${pass}" \
+    -salt -md "${ENC_SSL_DIGEST:-sha512}" -iter "${ENC_SSL_COUNT:-65536}" -pbkdf2
 }
 
 function _enc() {
@@ -135,14 +136,7 @@ function _enc() {
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function _sum() {
-  local in; in="${1}"
-  if (( "${ENC_ON}" )); then
-    case "${ENC_APP}" in
-      'gpg') in="${1}.gpg" ;;
-      'ssl') in="${1}.enc" ;;
-      *) _err 'ENC_APP does not exist!' ;;
-    esac
-  fi
+  local in; in="${1}"; (( "${ENC_ON}" )) && in="${1}.${ENC_APP}"
   local out; out="${in}.txt"
   sha256sum "${in}" | sed 's| .*/|  |g' | tee "${out}" > '/dev/null'
 }

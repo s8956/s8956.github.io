@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -eu
+#!/usr/bin/env -S bash -euo pipefail
 # -------------------------------------------------------------------------------------------------------------------- #
 # ASTERISK: CLOSING ROOM
 # If there is only 1 user left in the room, the room is closed.
