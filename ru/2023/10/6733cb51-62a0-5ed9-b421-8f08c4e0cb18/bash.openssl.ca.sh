@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -e
+#!/usr/bin/env -S bash -euo pipefail
 #
 # OpenSSL certificate generator with CA.
 #
@@ -15,21 +15,6 @@
 # -------------------------------------------------------------------------------------------------------------------- #
 # CONFIGURATION.
 # -------------------------------------------------------------------------------------------------------------------- #
-
-# Get 'cat' command.
-cat="$( command -v cat )"
-
-# Get 'date' command.
-date="$( command -v date )"
-
-# Get 'mkdir' command.
-mkdir="$( command -v mkdir )"
-
-# Get 'openssl' command.
-openssl="$( command -v openssl )"
-
-# Get 'shuf' command.
-shuf="$( command -v shuf )"
 
 # CA file names.
 ca='_CA'
@@ -51,93 +36,62 @@ city='Moscow'
 org='YourCompany'
 
 # Timestamp.
-ts="$( ${date} -u '+%s' )"
+ts="$( date -u '+%s' )"
 
 # Suffix.
-sfx=$( ${shuf} -i '1000-9999' -n 1 --random-source='/dev/random' )
+sfx="$( shuf -i '1000-9999' -n 1 --random-source='/dev/random' )"
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
+# ERROR
 # -------------------------------------------------------------------------------------------------------------------- #
 
-# -------------------------------------------------------------------------------------------------------------------- #
-# CERTIFICATE AUTHORITY.
-# -------------------------------------------------------------------------------------------------------------------- #
-
-ca() {
-  [[ ! -x "${openssl}" ]] && { echo >&2 "'openssl' is not installed!"; exit 1; }
-
-  local name="${1:-example.com}"
-  local email="${2:-mail@example.com}"
-  local v3ext_ca='_CA.v3ext'
-
-  cat > "${v3ext_ca}" <<EOF
-authorityKeyIdentifier = keyid:always,issuer
-basicConstraints = critical, CA:TRUE
-keyUsage = critical, digitalSignature, cRLSign, keyCertSign
-EOF
-
-  echo '' && echo "--- [SSL-CA] CREATING A CA CERTIFICATE" && echo ''
-  ${openssl} ecparam -genkey -name 'secp384r1' | ${openssl} ec -aes256 -out "${ca}.key" \
-    && ${openssl} req -new -sha384 -key "${ca}.key" -out "${ca}.csr" \
-    -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/emailAddress=${email}/CN=${name}" \
-    && ${openssl} x509 -req -extfile "${v3ext_ca}" -sha384 -days ${days} -key "${ca}.key" -in "${ca}.csr" -out "${ca}.crt"
-
-    _info "${ca}.crt"
+function _err() {
+  echo >&2 "[$( date +'%Y-%m-%dT%H:%M:%S%z' )]: $*"; exit 1
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# CLIENT CERTIFICATE.
+# TITLE
 # -------------------------------------------------------------------------------------------------------------------- #
 
-cert() {
-  for i in "${mkdir}" "${openssl}" "${shuf}"; do
-    [[ ! -x "${i}" ]] && { echo >&2 "'${i}' is not installed!"; exit 1; }
-  done
-
-  local name; name="${1:-example.com}"
-  local email; email="${2:-mail@example.com}"
-  local type; type="${3:-server}"; [[ "${name}" = *' '* ]] && type='client'
-  local dir; dir="${type}/${name// /_}"; ${mkdir} -p "${dir}"
-  local file; file="${dir}/${email}.${ts}.${sfx}"
-
-  local v3ext
-  if [[ "${type}" = 'client' ]]; then
-    v3ext=$( _v3ext_client "${file}.v3ext" )
-  else
-    v3ext=$( _v3ext_server "${file}.v3ext" "${name}" )
-  fi
-
-  echo '' && echo "--- [SSL] CREATING A ${type^^} CERTIFICATE" && echo ''
-  ${openssl} ecparam -genkey -name 'prime256v1' | ${openssl} ec -out "${file}.key" \
-    && ${openssl} req -new -key "${file}.key" -out "${file}.csr" \
-    -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/emailAddress=${email}/CN=${name}" \
-    && ${openssl} x509 -req -extfile "${v3ext}" -days ${days} -in "${file}.csr" \
-    -CA "${ca}.crt" -CAkey "${ca}.key" -CAcreateserial -CAserial "${file}.srl" -out "${file}.crt" \
-    && ${cat} "${file}.key" "${file}.crt" "${ca}.crt" > "${file}.crt.chain"
-
-  _verify "${ca}.crt" "${file}.crt" && _info "${file}.crt" && _export "${file}.key" "${file}.crt" "${file}.p12"
+function _title() {
+  echo '' && echo "${1}" && echo ''
 }
 
-_verify() {
-  echo '' && echo "--- [SSL] CERTIFICATE VERIFICATION" && echo ''
-  for i in "${1}" "${2}"; do [[ ! -f "${i}" ]] && { echo >&2 "'${i}' not found!"; exit 1; }; done
-  ${openssl} verify -CAfile "${1}" "${2}"
+# -------------------------------------------------------------------------------------------------------------------- #
+# CERTIFICATE: VERIFY
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function _verify() {
+  _title '--- [SSL] CERTIFICATE VERIFICATION'
+  for i in "${1}" "${2}"; do [[ ! -f "${i}" ]] && { _err "'${i}' not found!"; }; done
+  openssl verify -CAfile "${1}" "${2}"
 }
 
-_info() {
-  echo '' && echo "--- [SSL] CERTIFICATE DETAILS" && echo ''
-  [[ ! -f "${1}" ]] && { echo >&2 "'${i}' not found!"; exit 1; }
-  ${openssl} x509 -in "${1}" -text -noout
+# -------------------------------------------------------------------------------------------------------------------- #
+# CERTIFICATE: INFO
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function _info() {
+  _title '--- [SSL] CERTIFICATE DETAILS'
+  [[ ! -f "${1}" ]] && { _err "'${i}' not found!"; }
+  openssl x509 -in "${1}" -text -noout
 }
 
-_export() {
-  echo '' && echo "--- [SSL] EXPORTING A CERTIFICATE" && echo ''
-  for i in "${1}" "${2}"; do [[ ! -f "${i}" ]] && { echo >&2 "'${i}' not found!"; exit 1; }; done
-  ${openssl} pkcs12 -export -inkey "${1}" -in "${2}" -out "${3}"
+# -------------------------------------------------------------------------------------------------------------------- #
+# CERTIFICATE: EXPORT
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function _export() {
+  _title '--- [SSL] EXPORTING A CERTIFICATE'
+  for i in "${1}" "${2}"; do [[ ! -f "${i}" ]] && { _err "'${i}' not found!"; }; done
+  openssl pkcs12 -export -inkey "${1}" -in "${2}" -out "${3}"
 }
 
-_v3ext_client() {
+# -------------------------------------------------------------------------------------------------------------------- #
+# CERTIFICATE: V3EXT CLIENT
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function _v3ext_client() {
   cat > "${1}" <<EOF
 authorityKeyIdentifier = keyid,issuer
 basicConstraints = CA:FALSE
@@ -149,7 +103,11 @@ EOF
   echo -n "${1}"
 }
 
-_v3ext_server() {
+# -------------------------------------------------------------------------------------------------------------------- #
+# CERTIFICATE: V3EXT SERVER
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function _v3ext_server() {
   cat > "${1}" <<EOF
 authorityKeyIdentifier = keyid,issuer:always
 basicConstraints = CA:FALSE
@@ -168,7 +126,59 @@ EOF
 }
 
 # -------------------------------------------------------------------------------------------------------------------- #
-# -------------------------------------------------< RUNNING SCRIPT >------------------------------------------------- #
+# CERTIFICATE AUTHORITY GENERATOR
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function ca() {
+  local name="${1:-example.com}"
+  local email="${2:-mail@example.com}"
+  local v3ext_ca='_CA.v3ext'
+
+  cat > "${v3ext_ca}" <<EOF
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints = critical, CA:TRUE
+keyUsage = critical, digitalSignature, cRLSign, keyCertSign
+EOF
+
+  _title '--- [SSL-CA] CREATING A CA CERTIFICATE'
+  openssl ecparam -genkey -name 'secp384r1' | openssl ec -aes256 -out "${ca}.key" \
+    && openssl req -new -sha384 -key "${ca}.key" -out "${ca}.csr" \
+    -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/emailAddress=${email}/CN=${name}" \
+    && openssl x509 -req -extfile "${v3ext_ca}" -sha384 -days "${days}" \
+    -key "${ca}.key" -in "${ca}.csr" -out "${ca}.crt" && _info "${ca}.crt"
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# CERTIFICATE GENERATOR
+# -------------------------------------------------------------------------------------------------------------------- #
+
+function cert() {
+  local name; name="${1:-example.com}"
+  local email; email="${2:-mail@example.com}"
+  local type; type="${3:-server}"; [[ "${name}" == *' '* ]] && type='client'
+  local dir; dir="${type}/${name// /_}"; mkdir -p "${dir}"
+  local file; file="${dir}/${email}.${ts}.${sfx}"
+
+  local v3ext
+  if [[ "${type}" == 'client' ]]; then
+    v3ext="$( _v3ext_client "${file}.v3ext" )"
+  else
+    v3ext="$( _v3ext_server "${file}.v3ext" "${name}" )"
+  fi
+
+  _title "--- [SSL] CREATING A ${type^^} CERTIFICATE"
+  openssl ecparam -genkey -name 'prime256v1' | openssl ec -out "${file}.key" \
+    && openssl req -new -key "${file}.key" -out "${file}.csr" \
+    -subj "/C=${country}/ST=${state}/L=${city}/O=${org}/emailAddress=${email}/CN=${name}" \
+    && openssl x509 -req -extfile "${v3ext}" -days "${days}" -in "${file}.csr" \
+    -CA "${ca}.crt" -CAkey "${ca}.key" -CAcreateserial -CAserial "${file}.srl" -out "${file}.crt" \
+    && cat "${file}.key" "${file}.crt" "${ca}.crt" > "${file}.crt.chain" \
+    && _verify "${ca}.crt" "${file}.crt" && _info "${file}.crt" \
+    && _export "${file}.key" "${file}.crt" "${file}.p12"
+}
+
+# -------------------------------------------------------------------------------------------------------------------- #
+# RUN
 # -------------------------------------------------------------------------------------------------------------------- #
 
 "$@"
