@@ -3,4 +3,4 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOME=/root
 CF_DNS_API_TOKEN_FILE="${HOME}/apps/acme/CF_TOKEN_EXAMPLE_COM"
 
-35 3 * * * root "${HOME}/apps/acme/lego" --path="${HOME}/apps/acme" --email='mail@example.com' --domains='example.com' --domains='*.example.com' --pem --pfx --dns='cloudflare' --dns.resolvers='1.1.1.1:53' --dns.resolvers='8.8.8.8:53' --dns.resolvers='77.88.8.8:53' --renew-hook="${HOME}/apps/acme/app.hook.sh" renew > /dev/null 2>&1
+35 3 * * * root "${HOME}/apps/acme/lego" --path="${HOME}/apps/acme" --email='mail@example.org' --domains='example.org' --domains='*.example.org' --pem --pfx --dns='cloudflare' --dns.resolvers='1.1.1.1:53' --dns.resolvers='8.8.8.8:53' --dns.resolvers='77.88.8.8:53' --renew-hook="${HOME}/apps/acme/app.hook.sh" renew > /dev/null 2>&1

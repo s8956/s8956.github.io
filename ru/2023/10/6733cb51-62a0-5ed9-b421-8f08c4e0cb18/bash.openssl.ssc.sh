@@ -35,7 +35,7 @@ ORG='LocalHost'
 # Your company's organizational unit.
 OU='IT Department'
 
-# Common name (CN). The fully-qualified domain name (FQDN) (e.g., www.example.com).
+# Common name (CN). The fully-qualified domain name (FQDN) (e.g., www.example.org).
 CN="${1:?}"
 
 # Your email address.

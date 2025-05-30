@@ -130,8 +130,8 @@ EOF
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function ca() {
-  local name="${1:-example.com}"
-  local email="${2:-mail@example.com}"
+  local name="${1:-example.org}"
+  local email="${2:-mail@example.org}"
   local v3ext_ca='_CA.v3ext'
 
   cat > "${v3ext_ca}" <<EOF
@@ -153,8 +153,8 @@ EOF
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function cert() {
-  local name; name="${1:-example.com}"
-  local email; email="${2:-mail@example.com}"
+  local name; name="${1:-example.org}"
+  local email; email="${2:-mail@example.org}"
   local type; type="${3:-server}"; [[ "${name}" == *' '* ]] && type='client'
   local dir; dir="${type}/${name// /_}"; mkdir -p "${dir}"
   local file; file="${dir}/${email}.${ts}.${sfx}"

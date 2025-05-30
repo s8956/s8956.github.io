@@ -13,7 +13,7 @@
 :local rosWanInterface "ether1"
 :local rosCheckCrt "no"
 :local cfToken ""
-:local cfDomain "sub.example.com"
+:local cfDomain "sub.example.org"
 :local cfZoneID ""
 :local cfDnsID ""
 :local cfRecordType "A"
