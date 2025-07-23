@@ -1,8 +1,8 @@
-# CLOUDFLARE DNS
+# -------------------------------------------------------------------------------------------------------------------- #
+# MIKROTIK: CLOUDFLARE DNS
 # -------------------------------------------------------------------------------------------------------------------- #
 # @package    RouterOS
 # @author     Kai Kimera <mail@kai.kim>
-# @copyright  2023 Library Online
 # @license    MIT
 # @version    0.1.0
 # @policy     read, write, test

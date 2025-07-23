@@ -1,8 +1,8 @@
-# LET'S ENCRYPT
+# -------------------------------------------------------------------------------------------------------------------- #
+# MIKROTIK: LET'S ENCRYPT
 # -------------------------------------------------------------------------------------------------------------------- #
 # @package    RouterOS
 # @author     Kai Kimera <mail@kai.kim>
-# @copyright  2024 Library Online
 # @license    MIT
 # @version    0.1.0
 # @policy     read, write, test
